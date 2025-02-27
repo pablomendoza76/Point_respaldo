@@ -1,0 +1,273 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background: rgba(214, 212, 212, 0.968);
+    margin: 0;
+    padding: 0;
+}
+
+/* Barra de navegación */
+nav {
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem; /* Padding más pequeño */
+    height: 60px; /* Altura reducida */
+}
+
+nav .flex.items-center {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre elementos */
+}
+
+nav img {
+    height: 30px; /* Logo más pequeño */
+    margin-right: 0.5rem;
+}
+
+nav h1, nav h2 {
+    font-size: 1.2rem; /* Tamaño de fuente más pequeño */
+    font-weight: bold;
+    color: #D32F2F;
+}
+
+nav .flex.items-center span {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #D32F2F;
+}
+
+/* Sección de bienvenida y barra de búsqueda */
+.welcome-section {
+    background: f9f9f9;
+    padding: 0.5rem 1rem; /* Padding más pequeño */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem; /* Menos separación */
+
+}
+.welcome-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #D32F2F;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    background: none;
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+}
+
+.search-icon {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-size: 1rem; /* Tamaño de ícono más pequeño */
+}
+
+/* Contenedor principal */
+.billing-admin-container {
+    background: f0f0f0;
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    height: calc(100vh - 140px); /* Altura ajustada */
+}
+
+/* Menú lateral */
+.side-menu {
+    background: white;
+    padding: 1rem;
+    width: 20%; /* Menú menos ancho */
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-y: auto; /* Scroll vertical */
+    scrollbar-width: none; /* Ocultar scrollbar en Firefox */
+    -ms-overflow-style: none; /* Ocultar scrollbar en IE/Edge */
+}
+
+.side-menu::-webkit-scrollbar {
+    display: none; /* Ocultar scrollbar en Chrome/Safari */
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.side-menu li {
+    padding: 0.8rem;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem; /* Tamaño de fuente más grande */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espacio entre ícono y texto */
+}
+
+.side-menu li:hover {
+    background: #D32F2F;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Contenido principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Menos separación entre módulos */
+    height: 100%; /* Ajuste de altura */
+}
+
+.business-stats, .bar-chart, .more-data, .notifications {
+    background: white;
+    padding: 1rem; /* Padding más pequeño */
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estadísticas del Negocio */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 1rem;
+    text-align: center;
+}
+
+.stat-item {
+    background: #f9f9f9;
+    padding: 1rem; /* Padding más pequeño */
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-item .stat-value {
+    font-size: 1.8rem; /* Tamaño de fuente más grande */
+    font-weight: bold;
+    color: #D32F2F;
+}
+
+.stat-item .stat-label {
+    font-size: 1rem;
+    color: #777;
+}
+
+/* Gráfico de barras */
+.bar-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 350px; /* Altura fija para el gráfico */
+    width: 100%; /* Ancho completo */
+}
+
+.bar-chart h3 {
+    font-size: 1.5rem;
+    color: #D32F2F;
+    margin-bottom: 1rem;
+}
+
+/* Más Datos */
+.more-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Menos separación */
+}
+
+.more-data h3 {
+    font-size: 1.5rem;
+    color: #D32F2F;
+    margin-bottom: 1rem;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.data-item {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.data-item h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Notificaciones */
+.notifications {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Menos separación */
+}
+
+.notifications h3 {
+    font-size: 1rem;
+    color: #D32F2F;
+    margin-bottom: 1rem;
+}
+
+.notification {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.notification strong {
+    font-size: 1.1rem;
+    color: #D32F2F;
+}
+
+.notification p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+}
+
+.notification span {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+/* Tabla de productos más vendidos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+table th, table td {
+    padding: 0.8rem;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+table th {
+    background: #f0f0f0;
+    font-weight: bold;
+}

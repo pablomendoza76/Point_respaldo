@@ -1,3 +1,36 @@
 import { Routes } from '@angular/router';
+import { BillingSofAdminComponent } from './billing-sof-admin/billing-sof-admin.component';
+import { AdministracionComponent } from './Productos/vista_general/administracion.component';
+import { ImportarComponent } from './importar/importar.component';
+import { ProveedoresComponent } from './proveedores_general/proveedores/proveedores.component';
+import { TiposPVPComponent } from './tipos-pvp/tipos-pvp.component';
+import { ClientesComponent } from './clientes_general/clientes/clientes.component';
+import { CuentasContablesComponent } from './cuentas/cuentas-contables/cuentas-contables.component';
+import { EmpresaComponent } from './empresa/empresa.component';
+import { ConfiguracionComponent } from './configuracion/configuracion.component';
+import { MarcasComponent } from './Productos/marcas/marcas.component';
+import { TiposProductosComponent } from './Productos/tipos-productos/tipos-productos.component';
+import { TarifasPorGrupoComponent } from './Productos/tarifas-por-grupo/tarifas-por-grupo.component';
+import { TiposProveedoresComponent } from './proveedores_general/tipos-proveedores/tipos-proveedores.component';
+import { TiposClientesComponent } from './clientes_general/tipos-clientes/tipos-clientes.component';
+import { PlanCuentasComponent } from './cuentas/plan-cuentas/plan-cuentas.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    { path: 'administrador', component: BillingSofAdminComponent },
+    { path: 'administracion', component: AdministracionComponent },
+    { path: 'importar', component: ImportarComponent },
+    { path: 'proveedores', component: ProveedoresComponent },
+    { path: 'tipos-pvp', component: TiposPVPComponent },
+    { path: 'clientes', component: ClientesComponent },
+    { path: 'cuentas-contables', component: CuentasContablesComponent },
+    { path: 'empresa', component: EmpresaComponent },
+    { path: 'configuracion', component: ConfiguracionComponent },
+    { path: 'productos', component: AdministracionComponent },
+    { path: 'vista-general', component: AdministracionComponent },
+    { path: 'marcas', component: MarcasComponent },
+    { path: 'tipos-productos', component: TiposProductosComponent },
+    { path: 'tarifas-por-grupo', component: TarifasPorGrupoComponent },
+    { path: 'tipo-proveedor', component: TiposProveedoresComponent },
+    { path: 'tipo-cliente', component: TiposClientesComponent },
+    { path: 'Plan-Cuentas', component: PlanCuentasComponent },
+];

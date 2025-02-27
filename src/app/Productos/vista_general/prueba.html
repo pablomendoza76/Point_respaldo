@@ -1,0 +1,46 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lista de Palabras</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                padding: 20px;
+            }
+            ul {
+                list-style-type: square;
+                display: flex;
+                flex-direction: column;
+                height: 200px;
+                overflow: hidden;
+                animation: cascade 5s infinite alternate ease-in-out;
+            }
+            @keyframes cascade {
+                0% {
+                    transform: translateY(0);
+                }
+                100% {
+                    transform: translateY(-50%);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Lista de Palabras</h2>
+        <ul>
+            <li>Sol</li>
+            <li>Luna</li>
+            <li>Estrella</li>
+            <li>Mar</li>
+            <li>Montaña</li>
+            <li>Río</li>
+            <li>Viento</li>
+            <li>Fuego</li>
+            <li>Tierra</li>
+            <li>Trueno</li>
+        </ul>
+    </body>
+    </html>

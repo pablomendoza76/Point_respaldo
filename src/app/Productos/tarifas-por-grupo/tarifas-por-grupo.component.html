@@ -1,0 +1,316 @@
+<!-- Navegación superior -->
+<nav class="bg-white shadow flex justify-between items-center p-4">
+  <div class="flex items-center">
+    <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
+    <h1 class="text-xl font-bold text-red-500">Productos</h1>
+  </div>
+  <h2 class="text-xl font-bold text-red-500">Tarifas por Grupo</h2>
+  <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+  <div class="flex items-center space-x-4">
+    <span class="text-red-500 cursor-pointer">🔔</span>
+    <span id="menu-toggle" class="text-red-500 cursor-pointer">🔳</span>
+    <span class="text-red-500 cursor-pointer">🏠</span>
+    <span class="text-red-500 cursor-pointer">ℹ️</span>
+    <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
+  </div>
+</nav>
+
+<!-- Contenedor principal con ambos menús y contenido -->
+<div class="billing-admin-container">
+  <!-- Menú de Administración (Colapsable) -->
+  <aside class="admin-menu" [class.collapsed]="isAdminMenuCollapsed">
+    <ul class="menu">
+      <li class="menu-item admin" (click)="navigateTo('administracion')">⚙️ <span>Administración</span></li>
+      <li class="menu-item" (click)="navigateTo('Productos')" 
+      [ngClass]="{ active: isActive('Productos') }">📦 <span>Productos</span></li>
+      <li class="menu-item" (click)="navigateTo('Proveedores')">🚚 <span>Proveedores</span></li>
+      <li class="menu-item" (click)="navigateTo('Tipos PVP')">💰 <span>Tipos PVP</span></li>
+      <li class="menu-item" (click)="navigateTo('Clientes')">👥 <span>Clientes</span></li>
+      <li class="menu-item" (click)="navigateTo('Cuentas Contables')">📑 <span>Cuentas Contables</span></li>
+      <li class="menu-item" (click)="navigateTo('Empresa')">🏢 <span>Empresa</span></li>
+      <li class="menu-item" (click)="navigateTo('Configuración')">🔧 <span>Configuración</span></li>
+    </ul>
+    <div class="footer">
+      <span>© 2024 Punto Pymes CIA</span>
+      <button class="toggle-admin-menu" (click)="toggleAdminMenu()">⏪</button>
+    </div>
+  </aside>
+
+  <!-- Menú Principal (Izquierda) -->
+  <aside class="side-menu">
+    <ul class="menu">
+        <li class="menu-item" (click)="navigateTo('Productos')">📈 <span>Vista General</span></li>
+        <li class="menu-item" (click)="navigateTo('Marcas')">🏷️ <span>Marcas</span></li>
+        <li class="menu-item" (click)="navigateTo('Tipos de Productos')">📦 <span>Tipos de Productos</span></li>
+        <li class="menu-item" (click)="navigateTo('Tarifas por Grupo')" 
+        [ngClass]="{ active: isActive('Tarifas por Grupo') }">💲 <span>Tarifas por Grupo</span></li>
+    </ul>
+</aside>
+
+  <!-- Contenido Principal -->
+  <main class="main-content">
+    <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
+    <div class="breadcrumb-container">
+      <a (click)="navigateTo('Productos')" class="breadcrumb-link">Productos</a>
+      /
+      <span class="breadcrumb-current">Tarifas por Grupo</span>
+    </div>
+
+    <div class="search-container">
+      <div class="search-input-container">
+        <input 
+          type="text" 
+          id="search-input" 
+          [(ngModel)]="searchValue" 
+          (input)="onSearchChange()" 
+          placeholder="Buscar grupo"
+        >
+        <button class="search-btn" (click)="cargarDatos()">🔎 Buscar</button>
+      </div>  
+      <button class="btn-config-precios" (click)="navigateTo('Tipos PVP')"> ⚙️ Config. de Precios</button>
+      <button class="btn-new-product" (click)="agregarGrupo()">➕ Nuevo Grupo</button>
+    </div>
+
+    <!-- Contenedor de Grupos y Detalles -->
+    <div class="grupos-container">
+      <!-- Panel Izquierdo - Lista de Grupos -->
+      <div class="grupos-list">
+        <h2>Lista de Grupos</h2>
+        <ul>
+          <li
+            *ngFor="let grupo of grupos"
+            (click)="seleccionarGrupo(grupo)"
+            [class.selected]="grupoSeleccionado?.codigo === grupo.codigo"
+          >
+            <span>{{ grupo.nombre }}</span>
+            <span>Cod: {{ grupo.codigo }}</span>
+            <button
+              class="btn-delete"
+              (click)="abrirModalEliminar(grupo.codigo)"
+            >
+              🗑️
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Panel Derecho - Detalles del Grupo Seleccionado -->
+      <div class="grupo-detalles">
+        <div class="grupo-header">
+          <h2 *ngIf="grupoSeleccionado">
+            Cod: {{ grupoSeleccionado.codigo }} {{ grupoSeleccionado.nombre }}
+          </h2>
+          <div class="grupo-actions">
+            <button class="btn-estado" (click)="cambiarEstado()">
+              {{
+                grupoSeleccionado?.estado === "Activo"
+                  ? "🔴 Activo"
+                  : "⚪ Inactivo"
+              }}
+            </button>
+            <button class="btn-edit" (click)="editarGrupo(grupoSeleccionado)">
+              ✏️ Editar
+            </button>
+          </div>
+        </div>
+        <div *ngIf="grupoSeleccionado">
+          <p class="descripcion">{{ grupoSeleccionado.descripcion }}</p>
+          <div class="grupo-info">
+            <span
+              ><strong>Garantía (meses):</strong>
+              {{ grupoSeleccionado.garantia }}</span
+            >
+            <span><strong>Orden:</strong> {{ grupoSeleccionado.orden }}</span>
+            <span
+              ><strong>Vista Web:</strong>
+              {{ grupoSeleccionado.vistaWeb ? "✅" : "❌" }}</span
+            >
+            <span
+              ><strong>Vista Sistema:</strong>
+              {{ grupoSeleccionado.vistaSistema ? "✅" : "❌" }}</span
+            >
+            <span
+              ><strong>Parent:</strong>
+              {{ grupoSeleccionado.parent ? "✅" : "❌" }}</span
+            >
+          </div>
+          <div class="tarifas-container">
+            <h3>Tarifas de Precios (P.V.P.)</h3>
+            <div class="tarifas-grid">
+              <div
+                class="tarjeta-tarifa"
+                *ngFor="let tarifa of grupoSeleccionado.tarifas"
+              >
+                <div class="tarjeta-header">
+                  <h4>{{ tarifa.tipo }}</h4>
+                </div>
+                <div class="tarjeta-body">
+                  <p><strong>Utilidad:</strong> ${{ tarifa.utilidad }}</p>
+                  <p><strong>Descuento:</strong> %{{ tarifa.descuento }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!grupoSeleccionado">
+          <p>Seleccione un grupo para ver los detalles.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Edición COMPLETO -->
+    <div class="modal-overlay" *ngIf="mostrarFormularioEdicion">
+      <div class="modal-formulario">
+        <span class="close" (click)="cancelarEdicion()">&times;</span>
+        <form (ngSubmit)="guardarGrupo()">
+          <fieldset>
+            <legend>Información General</legend>
+            <div class="form-group">
+              <label>Nombre del Grupo</label>
+              <input
+                type="text"
+                [(ngModel)]="grupoSeleccionado.nombre"
+                name="nombre"
+                placeholder="Nombre del Grupo"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Garantía (meses)</label>
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.garantia"
+                name="garantia"
+                placeholder="Garantía (meses)"
+              />
+            </div>
+            <div class="form-group">
+              <label>Orden</label>
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.orden"
+                name="orden"
+                placeholder="Orden"
+              />
+            </div>
+            <div class="form-group">
+              <label>Descripción</label>
+              <textarea
+                [(ngModel)]="grupoSeleccionado.descripcion"
+                name="descripcion"
+                placeholder="Ingrese una descripción"
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label>Vista Web</label>
+              <select [(ngModel)]="grupoSeleccionado.vistaWeb" name="vistaWeb">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Vista Sistema</label>
+              <select
+                [(ngModel)]="grupoSeleccionado.vistaSistema"
+                name="vistaSistema"
+              >
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Parent</label>
+              <select [(ngModel)]="grupoSeleccionado.parent" name="parent">
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Estado</label>
+              <select [(ngModel)]="grupoSeleccionado.estado" name="estado">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Configuración de Precios</legend>
+            <div class="form-group">
+              <label>P.V.P. A</label>
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.tarifas[0].utilidad"
+                name="utilidadA"
+                placeholder="Utilidad"
+              />
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.tarifas[0].descuento"
+                name="descuentoA"
+                placeholder="Descuento"
+              />
+            </div>
+            <div class="form-group">
+              <label>P.V.P. B</label>
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.tarifas[1].utilidad"
+                name="utilidadB"
+                placeholder="Utilidad"
+              />
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.tarifas[1].descuento"
+                name="descuentoB"
+                placeholder="Descuento"
+              />
+            </div>
+            <div class="form-group">
+              <label>P.V.P. C</label>
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.tarifas[2].utilidad"
+                name="utilidadC"
+                placeholder="Utilidad"
+              />
+              <input
+                type="number"
+                [(ngModel)]="grupoSeleccionado.tarifas[2].descuento"
+                name="descuentoC"
+                placeholder="Descuento"
+              />
+            </div>
+          </fieldset>
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn-cancel"
+              (click)="cancelarEdicion()"
+            >
+              ❌ Cancelar
+            </button>
+            <button type="submit" class="btn-save">
+              {{ esEdicion ? "💾 Guardar Cambios" : "✅ Agregar Grupo" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal de Eliminación -->
+    <div class="modal-overlay" *ngIf="mostrarModalEliminar">
+      <div class="modal-eliminar">
+        <h2>Eliminar Grupo</h2>
+        <p>¿Estás seguro de que deseas eliminar este grupo?</p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" (click)="cerrarModalEliminar()">
+            Cancelar
+          </button>
+          <button class="btn-delete-confirm" (click)="eliminarGrupo()">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,454 @@
+<!-- Navegación superior -->
+<nav class="bg-white shadow flex justify-between items-center p-4">
+    <div class="flex items-center">
+      <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
+      <h1 class="text-xl font-bold text-red-500">Clientes</h1>
+    </div>
+    <h2 class="text-xl font-bold text-red-500">Vista General</h2>
+    <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+    <div class="flex items-center space-x-4">
+      <span class="text-red-500 cursor-pointer">🔔</span>
+      <span id="menu-toggle" class="text-red-500 cursor-pointer">☶</span>
+      <span class="text-red-500 cursor-pointer">🏠</span>
+      <span class="text-red-500 cursor-pointer">ℹ️</span>
+      <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
+    </div>
+  </nav>
+  
+  <!-- Contenedor principal con ambos menús y contenido -->
+  <div class="billing-admin-container">
+    <!-- Menú de Administración (Colapsable) -->
+    <aside class="admin-menu" [class.collapsed]="isAdminMenuCollapsed">
+      <ul class="menu">
+        <li class="menu-item admin" (click)="navigateTo('administracion')">
+          ⚙️ <span>Administración</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Productos')">
+          📦 <span>Productos</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Proveedores')">
+          🚚 <span>Proveedores</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Tipos PVP')">
+          💰 <span>Tipos PVP</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Clientes')">
+          👥 <span>Clientes</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Cuentas Contables')">
+          📑 <span>Cuentas Contables</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Empresa')">
+          🏢 <span>Empresa</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Configuración')">
+          🔧 <span>Configuración</span>
+        </li>
+      </ul>
+      <div class="footer">
+        <span>© 2024 Punto Pymes CIA</span>
+        <button class="toggle-admin-menu" (click)="toggleAdminMenu()">⏪</button>
+      </div>
+    </aside>
+  
+    <!-- Menú Principal (Izquierda) -->
+    <aside class="side-menu">
+      <ul class="menu">
+        <li class="menu-item" (click)="navigateTo('Clientes')"   
+        [ngClass]="{ active: isActive('Clientes') }">
+          📈 <span>Vista General</span>
+        </li>
+        <li class="menu-item" (click)="navigateTo('Tipos de clientes')">
+          🚛 <span>Tipos Clientes</span>
+        </li>
+      </ul>
+    </aside>
+  
+    <!-- Contenido Principal -->
+    <main class="main-content">
+      <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
+      <div class="breadcrumb-container">
+        <a (click)="navigateTo('Clientes')" class="breadcrumb-link">Clientes</a>
+        /
+        <span class="breadcrumb-current">Vista General</span>
+      </div>
+  
+      <!-- Barra de búsqueda con selector de filtro y botones adicionales -->
+      <div class="search-container">
+        <select
+          id="search-type"
+          [(ngModel)]="searchType"
+          (change)="cambiarTipoBusqueda()"
+        >
+          <option value="cedula">C.I / RUC</option>
+          <option value="nombre">Nombre</option>
+          <option value="codigo">Código</option>
+        </select>
+  
+        <input
+          type="search"
+          id="search-input"
+          [(ngModel)]="searchValue"
+          (input)="actualizarListaClientes()"
+          placeholder="Buscar cliente..."
+        />
+        <button class="search-btn" (click)="actualizarListaClientes()">🔎</button>
+  
+        <div style="position: relative">
+          <button class="column-toggle" (click)="toggleColumnas()">📊</button>
+          <div class="column-selector" [class.hidden]="!mostrarColumnas">
+            <div class="column-list">
+              <label *ngFor="let columna of columnasDisponibles">
+                <input
+                  type="checkbox"
+                  [(ngModel)]="columna.selected"
+                  (change)="actualizarColumnas()"
+                />
+                {{ columna.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+  
+        <button class="btn-export" (click)="exportarExcel()">📥 Excel</button>
+        <button class="btn-import" (click)="navigateTo('Importar')">
+          📂 Importar
+        </button>
+        <button class="btn-new-product" (click)="agregarCliente()">
+          ➕ Agregar Cliente
+        </button>
+      </div>
+  
+      <!-- Tabla de Clientes -->
+      <table class="product-table" *ngIf="!mostrarFormularioEdicion">
+        <thead>
+          <tr>
+            <th *ngFor="let columna of columnasVisibles">{{ columna.name }}</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cliente of clientesFiltrados">
+            <td *ngFor="let columna of columnasVisibles">
+              {{ cliente[columna.key] }}
+            </td>
+            <td>
+              <button class="btn-edit" (click)="editarCliente(cliente)">
+                ✏️
+              </button>
+              <button class="btn-delete" (click)="abrirModalEliminar(cliente)">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Paginación -->
+      <div class="pagination">
+        <button
+          (click)="cambiarPagina(paginaActual - 1)"
+          [disabled]="paginaActual === 1"
+        >
+          Previa
+        </button>
+        <span
+          >Mostrando del {{ (paginaActual - 1) * itemsPorPagina + 1 }} al
+          {{ Math.min(paginaActual * itemsPorPagina, totalRegistros) }} registros
+          de {{ totalRegistros }}</span
+        >
+        <button
+          (click)="cambiarPagina(paginaActual + 1)"
+          [disabled]="paginaActual * itemsPorPagina >= totalRegistros"
+        >
+          Siguiente
+        </button>
+      </div>
+  
+      <!-- Modal para eliminar cliente -->
+      <div class="modal-overlay" *ngIf="mostrarModalEliminar">
+        <div class="modal-eliminar">
+          <h2>Eliminar Cliente</h2>
+          <p>¿Estás seguro de que deseas eliminar este cliente?</p>
+          <strong>{{ clienteAEliminar?.nombres }}</strong>
+          <p>
+            Esta acción hará que el cliente ya no esté disponible ni visible en el
+            sistema.
+          </p>
+          <div class="modal-buttons">
+            <button class="btn-cancel" (click)="cerrarModalEliminar()">
+              Cancelar
+            </button>
+            <button class="btn-delete-confirm" (click)="eliminarCliente()">
+              Eliminar Cliente
+            </button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Modal para el formulario de edición/creación -->
+      <div class="modal-overlay" *ngIf="mostrarFormularioEdicion">
+        <div class="modal-formulario">
+          <span class="close" (click)="cancelarEdicion()">&times;</span>
+          <div class="formulario-edicion">
+            <h2>{{ esEdicion ? "Editar Cliente" : "Agregar Cliente" }}</h2>
+            <form (ngSubmit)="guardarCliente()">
+              <!-- 1. Información Básica -->
+              <fieldset>
+                <legend>Información Básica</legend>
+                <div class="form-group">
+                  <label>Tipo de Documento</label>
+                  <select
+                    [(ngModel)]="clienteSeleccionado.tipoDocumento"
+                    name="tipoDocumento"
+                    required
+                  >
+                    <option value="CI/RUC">CI/RUC</option>
+                    <option value="Pasaporte">Pasaporte</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Sujeto</label>
+                  <select
+                    [(ngModel)]="clienteSeleccionado.sujeto"
+                    name="sujeto"
+                    required
+                  >
+                    <option value="Natural">Natural</option>
+                    <option value="Jurídica">Jurídica</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Identificación</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.identificacion"
+                    name="identificacion"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Nombres</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.nombres"
+                    name="nombres"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Apellidos</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.apellidos"
+                    name="apellidos"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Dirección</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.direccion"
+                    name="direccion"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Tipo de Cliente</label>
+                  <select
+                    [(ngModel)]="clienteSeleccionado.tipoCliente"
+                    name="tipoCliente"
+                    required
+                  >
+                    <option *ngFor="let tipo of tiposCliente" [value]="tipo">
+                      {{ tipo }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Teléfono</label>
+                  <input
+                    type="tel"
+                    [(ngModel)]="clienteSeleccionado.telefono"
+                    name="telefono"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Correo Electrónico</label>
+                  <input
+                    type="email"
+                    [(ngModel)]="clienteSeleccionado.correo"
+                    name="correo"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Correo Electrónico 2</label>
+                  <input
+                    type="email"
+                    [(ngModel)]="clienteSeleccionado.correo2"
+                    name="correo2"
+                  />
+                </div>
+              </fieldset>
+  
+              <!-- 2. Datos de Facturación -->
+              <fieldset>
+                <legend>Datos de Facturación</legend>
+                <div class="form-group">
+                  <label>Razón Social</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.razonSocial"
+                    name="razonSocial"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Establecimiento</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.establecimiento"
+                    name="establecimiento"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Documento</label>
+                  <select
+                    [(ngModel)]="clienteSeleccionado.documento"
+                    name="documento"
+                  >
+                    <option value="Factura">Factura</option>
+                    <option value="Nota de Venta">Nota de Venta</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Autorización del SRI</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.autorizacionSRI"
+                    name="autorizacionSRI"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Punto de Emisión</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="clienteSeleccionado.puntoEmision"
+                    name="puntoEmision"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Fecha de Caducidad</label>
+                  <input
+                    type="date"
+                    [(ngModel)]="clienteSeleccionado.fechaCaducidad"
+                    name="fechaCaducidad"
+                  />
+                </div>
+              </fieldset>
+  
+              <!-- 3. Datos Extras -->
+              <fieldset>
+                <legend>Datos Extras</legend>
+                <div class="form-group">
+                  <label>Ingresos Mensuales</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="clienteSeleccionado.ingresosMensuales"
+                    name="ingresosMensuales"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Ciudad</label>
+                  <select [(ngModel)]="clienteSeleccionado.ciudad" name="ciudad">
+                    <option *ngFor="let ciudad of ciudades" [value]="ciudad">
+                      {{ ciudad }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Cantón</label>
+                  <select [(ngModel)]="clienteSeleccionado.canton" name="canton">
+                    <option *ngFor="let canton of cantones" [value]="canton">
+                      {{ canton }}
+                    </option>
+                  </select>
+                </div>
+              </fieldset>
+  
+              <!-- 4. Retenciones -->
+              <fieldset>
+                <legend>Retenciones</legend>
+  
+                <!-- Barra de búsqueda de retenciones -->
+                <div class="retenciones-search">
+                  <input
+                    type="text"
+                    placeholder="Buscar retención..."
+                    [(ngModel)]="busquedaRetencion"
+                    name="busquedaRetencion"
+                    (input)="buscarRetencion()"
+                  />
+                  <button type="button" (click)="buscarRetencion()">
+                    🔍 Buscar
+                  </button>
+                </div>
+  
+                <!-- Lista de retenciones disponibles -->
+                <div class="retenciones-list">
+                  <label>Lista de Retenciones Disponibles</label>
+                  <ul>
+                    <li *ngFor="let retencion of retencionesFiltradas">
+                      {{ retencion.codigo }} - {{ retencion.descripcion }}
+                      <button type="button" (click)="agregarRetencion(retencion)">
+                        ➕ Agregar
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+  
+                <!-- Lista de retenciones agregadas -->
+                <div class="retenciones-list">
+                  <label>Retenciones Agregadas</label>
+                  <ul>
+                    <li *ngFor="let retencion of clienteSeleccionado.retenciones">
+                      {{ retencion.codigo }} - {{ retencion.descripcion }}
+                      <button type="button" (click)="quitarRetencion(retencion)">
+                        ➖ Quitar
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+  
+                <!-- Botones de acción -->
+                <div class="retenciones-actions">
+                  <button type="button" (click)="pasarTodos()">
+                    Pasar Todos
+                  </button>
+                  <button type="button" (click)="quitarTodos()">
+                    Quitar Todos
+                  </button>
+                </div>
+              </fieldset>
+  
+              <!-- Botones de Acción -->
+              <div class="form-actions">
+                <button
+                  type="button"
+                  class="btn-cancel"
+                  (click)="cancelarEdicion()"
+                >
+                  ❌ Cancelar
+                </button>
+                <button type="submit" class="btn-save">
+                  {{ esEdicion ? "💾 Guardar Cambios" : "✅ Crear Cliente" }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>

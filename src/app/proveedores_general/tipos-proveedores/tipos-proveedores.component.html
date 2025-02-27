@@ -1,0 +1,216 @@
+<!-- Navegación superior -->
+<nav class="bg-white shadow flex justify-between items-center p-4">
+  <div class="flex items-center">
+    <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
+    <h1>Proveedores</h1>
+  </div>
+  <h2>Tipos de Proveedores</h2>
+  <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+  <div class="flex items-center space-x-4">
+    <span class="text-red-500 cursor-pointer">🔔</span>
+    <span id="menu-toggle" class="text-red-500 cursor-pointer">🔳</span>
+    <span class="text-red-500 cursor-pointer">🏠</span>
+    <span class="text-red-500 cursor-pointer">ℹ️</span>
+    <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
+  </div>
+</nav>
+
+<!-- Contenedor principal con ambos menús y contenido -->
+<div class="billing-admin-container">
+  <!-- Menú de Administración (Colapsable) -->
+  <aside class="admin-menu" [class.collapsed]="isAdminMenuCollapsed">
+    <ul class="menu">
+      <li class="menu-item admin" (click)="navigateTo('administracion')">
+        ⚙️ <span>Administración</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Productos')">
+        📦 <span>Productos</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Proveedores')"   
+      [ngClass]="{ active: isActive('Tipos de proveedores') }">
+        🚚 <span>Proveedores</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Tipos PVP')">
+        💰 <span>Tipos PVP</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Clientes')">
+        👥 <span>Clientes</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Cuentas Contables')">
+        📑 <span>Cuentas Contables</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Empresa')">
+        🏢 <span>Empresa</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Configuración')">
+        🔧 <span>Configuración</span>
+      </li>
+    </ul>
+    <div class="footer">
+      <span>© 2024 Punto Pymes CIA</span>
+      <button class="toggle-admin-menu" (click)="toggleAdminMenu()">⏪</button>
+    </div>
+  </aside>
+
+  <!-- Menú Principal (Izquierda) -->
+  <aside class="side-menu">
+    <ul class="menu">
+      <li class="menu-item" (click)="navigateTo('Proveedores')">
+        📈 <span>Vista General</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Tipos de proveedores')"   
+      [ngClass]="{ active: isActive('Tipos de proveedores') }">
+        🚛<span>Tipos Proveedores</span>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Contenido Principal -->
+  <main class="main-content">
+    <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
+    <div class="breadcrumb-container">
+      <a (click)="navigateTo('Proveedores')" class="breadcrumb-link"
+        >Proveedores</a
+      >
+      /
+      <span class="breadcrumb-current">Tipos de Proveedores</span>
+    </div>
+
+    <!-- Barra de búsqueda con selector de filtro y botones adicionales -->
+    <div class="search-container">
+      <input
+        type="search"
+        id="search-input"
+        [(ngModel)]="searchValue"
+        (input)="actualizarListaTiposProveedores()"
+        placeholder="Buscar tipo de proveedor..."
+      />
+      <button class="search-btn" (click)="actualizarListaTiposProveedores()">
+        🔎
+      </button>
+      <button class="btn-new-product" (click)="agregarTipoProveedor()">
+        ➕ Agregar Tipo de Proveedor
+      </button>
+    </div>
+
+    <!-- Tabla de Tipos de Proveedores -->
+    <table class="product-table" *ngIf="!mostrarFormularioEdicion">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipo of tiposProveedoresFiltrados">
+          <td>{{ tipo.tipo }}</td>
+          <td>{{ tipo.descripcion }}</td>
+          <td>
+            <button class="btn-edit" (click)="editarTipoProveedor(tipo)">
+              ✏️
+            </button>
+            <button class="btn-delete" (click)="abrirModalEliminar(tipo)">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <button
+        (click)="cambiarPagina(paginaActual - 1)"
+        [disabled]="paginaActual === 1"
+      >
+        Previa
+      </button>
+      <span
+        >Mostrando del {{ (paginaActual - 1) * itemsPorPagina + 1 }} al
+        {{ Math.min(paginaActual * itemsPorPagina, totalRegistros) }} registros
+        de {{ totalRegistros }}</span
+      >
+      <button
+        (click)="cambiarPagina(paginaActual + 1)"
+        [disabled]="paginaActual * itemsPorPagina >= totalRegistros"
+      >
+        Siguiente
+      </button>
+    </div>
+
+    <!-- Modal para eliminar tipo de producto -->
+    <div class="modal-overlay" *ngIf="mostrarModalEliminar">
+      <div class="modal-eliminar">
+        <h2>Eliminar Tipo de Proveedor</h2>
+        <p>¿Estás seguro de que deseas eliminar este tipo de proveedor?</p>
+        <strong>{{ tipoProveedorAEliminar?.tipo }}</strong>
+        <p>
+          Esta acción hará que el tipo de proveedor ya no esté disponible ni
+          visible en el sistema.
+        </p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" (click)="cerrarModalEliminar()">
+            Cancelar
+          </button>
+          <button class="btn-delete-confirm" (click)="eliminarTipoProveedor()">
+            Eliminar Tipo de Proveedor
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para el formulario de edición/creación -->
+    <div class="modal-overlay" *ngIf="mostrarFormularioEdicion">
+      <div class="modal-formulario">
+        <span class="close" (click)="cancelarEdicion()">&times;</span>
+        <div class="formulario-edicion">
+          <h2>
+            {{
+              esEdicion
+                ? "Editar Tipo de Proveedor"
+                : "Agregar Tipo de Proveedor"
+            }}
+          </h2>
+          <form (ngSubmit)="guardarTipoProveedor()">
+            <div class="form-group">
+              <label>Tipo</label>
+              <input
+                type="text"
+                [(ngModel)]="tipoProveedorSeleccionado.tipo"
+                name="tipo"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label>Descripción</label>
+              <input
+                type="text"
+                [(ngModel)]="tipoProveedorSeleccionado.descripcion"
+                name="descripcion"
+              />
+            </div>
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn-cancel"
+                (click)="cancelarEdicion()"
+              >
+                ❌ Cancelar
+              </button>
+              <button type="submit" class="btn-save">
+                {{
+                  esEdicion
+                    ? "💾 Guardar Cambios"
+                    : "✅ Agregar Tipo de Proveedor"
+                }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <router-outlet></router-outlet>
+</div>

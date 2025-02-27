@@ -1,0 +1,370 @@
+<!-- Navegación superior -->
+<nav class="bg-white shadow flex justify-between items-center p-4">
+  <div class="flex items-center">
+    <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
+    <h1>Clientes</h1>
+  </div>
+  <h2>Tipos de Clientes</h2>
+  <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+  <div class="flex items-center space-x-4">
+    <span class="text-red-500 cursor-pointer">🔔</span>
+    <span id="menu-toggle" class="text-red-500 cursor-pointer">🔳</span>
+    <span class="text-red-500 cursor-pointer">🏠</span>
+    <span class="text-red-500 cursor-pointer">ℹ️</span>
+    <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
+  </div>
+</nav>
+
+<!-- Contenedor principal con ambos menús y contenido -->
+<div class="billing-admin-container">
+  <!-- Menú de Administración (Colapsable) -->
+  <aside class="admin-menu" [class.collapsed]="isAdminMenuCollapsed">
+    <ul class="menu">
+      <li class="menu-item admin" (click)="navigateTo('Administración')">
+        ⚙️ <span>Administración</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Productos')">
+        📦 <span>Productos</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Proveedores')">
+        🚚 <span>Proveedores</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Tipos PVP')">
+        💰 <span>Tipos PVP</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Clientes')">
+        👥 <span>Clientes</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Cuentas Contables')">
+        📑 <span>Cuentas Contables</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Empresa')">
+        🏢 <span>Empresa</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Configuración')">
+        🔧 <span>Configuración</span>
+      </li>
+    </ul>
+    <div class="footer">
+      <span>© 2024 Punto Pymes CIA</span>
+      <button class="toggle-admin-menu" (click)="toggleAdminMenu()">⏪</button>
+    </div>
+  </aside>
+
+  <!-- Menú Principal (Izquierda) -->
+  <aside class="side-menu">
+    <ul class="menu">
+      <li class="menu-item" (click)="navigateTo('Clientes')" >
+        📈 <span>Vista General</span>
+      </li>
+      <li class="menu-item" (click)="navigateTo('Tipos de clientes')"  
+      [ngClass]="{ active: isActive('Tipos de clientes') }">
+        👥 <span>Tipos Clientes</span>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Contenido Principal -->
+  <main class="main-content">
+    <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
+    <div class="breadcrumb-container">
+      <a (click)="navigateTo('Clientes')" class="breadcrumb-link">Clientes</a> /
+      <span class="breadcrumb-current">Tipos de Clientes</span>
+    </div>
+
+    <!-- Barra de búsqueda con selector de filtro y botones adicionales -->
+    <div class="search-container">
+      <input
+        type="search"
+        id="search-input"
+        [(ngModel)]="searchValue"
+        (input)="actualizarListaTiposClientes()"
+        placeholder="Buscar tipo de cliente..."
+      />
+      <button class="search-btn" (click)="actualizarListaTiposClientes()">
+        🔎
+      </button>
+      <button class="btn-new-product" (click)="agregarTipoCliente()">
+        ➕ Agregar Tipo de Cliente
+      </button>
+    </div>
+
+    <!-- Tabla de Tipos de Clientes -->
+    <table class="product-table" *ngIf="!mostrarFormularioEdicion">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Descuento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipo of tiposClientesFiltrados">
+          <td>{{ tipo.tipo }}</td>
+          <td>{{ tipo.descripcion }}</td>
+          <td>{{ tipo.descuento }}%</td>
+          <td>
+            <button class="btn-edit" (click)="editarTipoCliente(tipo)">
+              ✏️
+            </button>
+            <button class="btn-delete" (click)="abrirModalEliminar(tipo)">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <button
+        (click)="cambiarPagina(paginaActual - 1)"
+        [disabled]="paginaActual === 1"
+      >
+        Previa
+      </button>
+      <span
+        >Mostrando del {{ (paginaActual - 1) * itemsPorPagina + 1 }} al
+        {{ Math.min(paginaActual * itemsPorPagina, totalRegistros) }} registros
+        de {{ totalRegistros }}</span
+      >
+      <button
+        (click)="cambiarPagina(paginaActual + 1)"
+        [disabled]="paginaActual * itemsPorPagina >= totalRegistros"
+      >
+        Siguiente
+      </button>
+    </div>
+
+    <!-- Modal para eliminar tipo de cliente -->
+    <div class="modal-overlay" *ngIf="mostrarModalEliminar">
+      <div class="modal-eliminar">
+        <h2>Eliminar Tipo de Cliente</h2>
+        <p>¿Estás seguro de que deseas eliminar este tipo de cliente?</p>
+        <strong>{{ tipoClienteAEliminar?.tipo }}</strong>
+        <p>
+          Esta acción hará que el tipo de cliente ya no esté disponible ni
+          visible en el sistema.
+        </p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" (click)="cerrarModalEliminar()">
+            Cancelar
+          </button>
+          <button class="btn-delete-confirm" (click)="eliminarTipoCliente()">
+            Eliminar Tipo de Cliente
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para el formulario de edición/creación -->
+    <div class="modal-overlay" *ngIf="mostrarFormularioEdicion">
+      <div class="modal-formulario">
+        <span class="close" (click)="cancelarEdicion()">&times;</span>
+        <div class="formulario-edicion">
+          <h2>
+            {{ esEdicion ? "Editar Tipo de Cliente" : "Nuevo Tipo de Cliente" }}
+          </h2>
+          <form (ngSubmit)="guardarTipoCliente()">
+            <!-- Nombre del Tipo -->
+            <div class="form-group">
+              <label>Nombre del Tipo</label>
+              <input
+                type="text"
+                [(ngModel)]="tipoClienteSeleccionado.tipo"
+                name="tipo"
+                required
+              />
+            </div>
+
+            <!-- Número Personal con Código de País -->
+            <div class="form-group">
+              <label>Número Personal</label>
+              <div class="phone-input">
+                <select
+                  [(ngModel)]="tipoClienteSeleccionado.codigoPais"
+                  name="codigoPais"
+                >
+                  <option value="+593">+593</option>
+                  <!-- Agrega más opciones si es necesario -->
+                </select>
+                <input
+                  type="text"
+                  [(ngModel)]="tipoClienteSeleccionado.numeroPersonal"
+                  name="numeroPersonal"
+                  placeholder="Número"
+                />
+              </div>
+            </div>
+
+            <!-- Tipos de Garantía -->
+            <div class="form-group">
+              <label>Tipos de Garantía</label>
+              <select
+                [(ngModel)]="tipoClienteSeleccionado.tipoGarantia"
+                name="tipoGarantia"
+              >
+                <option
+                  *ngFor="let garantia of tiposGarantia"
+                  [value]="garantia"
+                >
+                  {{ garantia }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Cuenta Contable -->
+            <div class="form-group">
+              <label>Cuenta Contable</label>
+              <select
+                [(ngModel)]="tipoClienteSeleccionado.cuentaContable"
+                name="cuentaContable"
+              >
+                <option
+                  *ngFor="let cuenta of cuentasContables"
+                  [value]="cuenta"
+                >
+                  {{ cuenta }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group descripcion">
+              <label>Descripción</label>
+              <textarea
+                [(ngModel)]="tipoClienteSeleccionado.descripcion"
+                name="descripcion"
+              ></textarea>
+            </div>
+
+            <!-- Descuento -->
+            <div class="form-group">
+              <label>Descuento</label>
+              <input
+                type="number"
+                [(ngModel)]="tipoClienteSeleccionado.descuento"
+                name="descuento"
+                min="0"
+                step="0.01"
+                value="0.00"
+              />
+            </div>
+
+            <!-- Precio -->
+            <div class="form-group">
+              <label>Precio</label>
+              <input
+                type="number"
+                [(ngModel)]="tipoClienteSeleccionado.precio"
+                name="precio"
+                min="0"
+                step="0.01"
+                value="0.00"
+              />
+            </div>
+
+            <!-- P.V.P por Defecto -->
+            <div class="form-group">
+              <label>P.V.P por Defecto</label>
+              <input
+                type="text"
+                [(ngModel)]="tipoClienteSeleccionado.pvpDefecto"
+                name="pvpDefecto"
+                value="p.A"
+                readonly
+              />
+            </div>
+
+            <!-- P.V.P -->
+            <div class="form-group">
+              <label>P.V.P</label>
+              <select [(ngModel)]="tipoClienteSeleccionado.pvp" name="pvp">
+                <option *ngFor="let pvp of tiposPvp" [value]="pvp">
+                  {{ pvp }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Producto por Defecto -->
+            <div class="form-group">
+              <label>Producto por Defecto</label>
+              <input
+                type="text"
+                [(ngModel)]="tipoClienteSeleccionado.productoDefecto"
+                name="productoDefecto"
+              />
+            </div>
+
+            <!-- Fact Lotes -->
+            <div class="form-group">
+              <label>Fact Lotes</label>
+              <div class="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="tipoClienteSeleccionado.factLotes"
+                    name="factLotes"
+                    value="Activo"
+                  />
+                  Activo
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="tipoClienteSeleccionado.factLotes"
+                    name="factLotes"
+                    value="Inactivo"
+                  />
+                  Inactivo
+                </label>
+              </div>
+            </div>
+
+            <!-- Permitir eliminación del cliente -->
+            <div class="form-group">
+              <label>Permitir eliminación del cliente</label>
+              <div class="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="tipoClienteSeleccionado.permiteEliminacion"
+                    name="permiteEliminacion"
+                    value="Activo"
+                  />
+                  Activo
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="tipoClienteSeleccionado.permiteEliminacion"
+                    name="permiteEliminacion"
+                    value="Inactivo"
+                  />
+                  Inactivo
+                </label>
+              </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn-cancel"
+                (click)="cancelarEdicion()"
+              >
+                ❌ Cancelar
+              </button>
+              <button type="submit" class="btn-save">
+                {{ esEdicion ? "💾 Guardar Cambios" : "✅ Crear Tipo" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <router-outlet></router-outlet>
+</div>

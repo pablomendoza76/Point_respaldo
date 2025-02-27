@@ -1,0 +1,111 @@
+<div class="app-container flex flex-col min-h-screen bg-gray-100">
+  <!-- Navegación superior -->
+  <nav class="bg-white shadow flex justify-between items-center p-4">
+    <div class="flex items-center">
+      <img src="/img/icon.png" alt="logo" class="h-8 mr-2">
+    </div>
+    <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+    <div class="flex items-center space-x-4">
+      <span class="text-red-500 cursor-pointer">🔔</span>
+      <span id="menu-toggle" class="text-red-500 cursor-pointer">🔳</span>
+      <span class="text-red-500 cursor-pointer">🏠</span>
+      <span class="text-red-500 cursor-pointer">ℹ️</span>
+      <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full">
+    </div>
+  </nav>
+
+  <!-- Sección de bienvenida y barra de búsqueda -->
+  <div class="welcome-section bg-white shadow-md p-4 text-center">
+    <h1 class="welcome-text">Hola, {{ welcomeData.userName }}</h1>
+    <div class="search-bar mt-2">
+      <label for="search-input">{{ welcomeData.searchLabel }}</label>
+      <div class="input-container flex items-center">
+        <input
+          id="search-input"
+          type="text"
+          [placeholder]="welcomeData.searchPlaceholder"
+          class="search-input border p-2 rounded-md"
+        />
+        <span class="search-icon ml-2">🔍</span> <!-- Ícono de búsqueda -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenedor principal con tres secciones -->
+  <div class="billing-admin-container flex flex-1 p-4">
+    <!-- Sección 1: Menú lateral con scroll -->
+    <aside class="side-menu w-1/5 bg-white shadow-md p-4 rounded-lg">
+      <ul>
+        <li *ngFor="let option of menuOptions" (click)="navigateTo(option)" class="cursor-pointer hover:bg-gray-200 p-2 rounded-md">{{ option }}</li>
+      </ul>
+    </aside>
+
+    <!-- Sección 2: Contenido principal -->
+    <main class="main-content flex-1 p-4">
+      <section class="business-stats bg-white shadow p-4 rounded-lg">
+        <h2 class="text-xl font-semibold text-center">Estadísticas del Negocio</h2>
+        <div class="stats-container grid grid-cols-3 gap-4 mt-4">
+          <div class="stat-item text-center p-4 bg-gray-50 rounded-md shadow-md" *ngFor="let stat of businessStats | keyvalue">
+            <span class="stat-icon text-2xl">{{ stat.value.icon }}</span> <!-- Icono -->
+            <span class="stat-value text-lg font-bold block">{{ stat.value.value }}</span> <!-- Cantidad -->
+            <span class="stat-label text-sm text-gray-500">{{ stat.value.label }}</span> <!-- Nombre -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Gráfico de barras de Nuevos Clientes -->
+      <section class="bar-chart bg-white shadow p-4 rounded-lg mt-4">
+        <h3 class="text-lg font-semibold">Nuevos Clientes</h3>
+        <canvas id="salesChart"></canvas>
+        <p class="text-sm text-gray-500">Crecimiento respecto al mes anterior</p>
+      </section>
+    </main>
+
+    <!-- Sección 3: Más datos y notificaciones -->
+    <aside class="additional-data w-1/3 p-4">
+      <section class="more-data bg-white shadow p-4 rounded-lg">
+        <h3 class="text-lg font-semibold">Más Datos</h3>
+        <div class="data-grid grid grid-cols-2 gap-4 mt-4">
+          <!-- Gráfico de radar -->
+          <div class="data-item text-center">
+            <h4 class="font-semibold">Marcas más Vendidas</h4>
+            <canvas id="radarChart"></canvas>
+          </div>
+
+          <!-- Tabla de productos más vendidos -->
+          <div class="data-item">
+            <h4 class="font-semibold">Productos más Vendidos</h4>
+            <table class="w-full border-collapse mt-2">
+              <thead>
+                <tr class="bg-gray-200">
+                  <th class="p-2 text-left">Producto</th>
+                  <th class="p-2 text-left">Unidades</th>
+                  <th class="p-2 text-left">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of topProducts" class="border-b">
+                  <td class="p-2">{{ product.name }}</td>
+                  <td class="p-2">{{ product.units }}</td>
+                  <td class="p-2">${{ product.total }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="notifications bg-white shadow p-4 rounded-lg mt-4">
+        <h3 class="text-lg font-semibold">Notificaciones</h3>
+        <div *ngFor="let notification of notifications" class="notification bg-gray-100 p-2 rounded-md mt-2">
+          <strong class="block text-md">{{ notification.title }}</strong>
+          <p class="text-sm text-gray-600">{{ notification.description }}</p>
+          <span class="text-xs text-gray-500">{{ notification.date }}</span>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Enrutamiento de Angular -->
+  <router-outlet></router-outlet>
+</div>
