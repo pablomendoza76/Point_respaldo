@@ -7,6 +7,22 @@ export class MarcasService {
   private marcas: any[] = [
     { nombre: 'Marca1', descripcion: 'Descripción de Marca1' },
     { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
+    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
   ];
 
   constructor() {}

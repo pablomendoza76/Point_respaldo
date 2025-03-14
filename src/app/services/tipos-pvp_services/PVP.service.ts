@@ -26,6 +26,91 @@ export class PVPService {
         descripcion: 'Precio especial para promociones.',
         alias: 'Promocional',
         estado: 'Inactivo',
+      },{
+        tipoPrecio: 'Precio Minorista',
+        descripcion: 'Precio para ventas al público en general.',
+        alias: 'Minorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Mayorista',
+        descripcion: 'Precio para ventas al por mayor.',
+        alias: 'Mayorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Promocional',
+        descripcion: 'Precio especial para promociones.',
+        alias: 'Promocional',
+        estado: 'Inactivo',
+      },{
+        tipoPrecio: 'Precio Minorista',
+        descripcion: 'Precio para ventas al público en general.',
+        alias: 'Minorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Mayorista',
+        descripcion: 'Precio para ventas al por mayor.',
+        alias: 'Mayorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Promocional',
+        descripcion: 'Precio especial para promociones.',
+        alias: 'Promocional',
+        estado: 'Inactivo',
+      },{
+        tipoPrecio: 'Precio Minorista',
+        descripcion: 'Precio para ventas al público en general.',
+        alias: 'Minorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Mayorista',
+        descripcion: 'Precio para ventas al por mayor.',
+        alias: 'Mayorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Promocional',
+        descripcion: 'Precio especial para promociones.',
+        alias: 'Promocional',
+        estado: 'Inactivo',
+      },{
+        tipoPrecio: 'Precio Minorista',
+        descripcion: 'Precio para ventas al público en general.',
+        alias: 'Minorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Mayorista',
+        descripcion: 'Precio para ventas al por mayor.',
+        alias: 'Mayorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Promocional',
+        descripcion: 'Precio especial para promociones.',
+        alias: 'Promocional',
+        estado: 'Inactivo',
+      },{
+        tipoPrecio: 'Precio Minorista',
+        descripcion: 'Precio para ventas al público en general.',
+        alias: 'Minorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Mayorista',
+        descripcion: 'Precio para ventas al por mayor.',
+        alias: 'Mayorista',
+        estado: 'Activo',
+      },
+      {
+        tipoPrecio: 'Precio Promocional',
+        descripcion: 'Precio especial para promociones.',
+        alias: 'Promocional',
+        estado: 'Inactivo',
       },
     ];
   }

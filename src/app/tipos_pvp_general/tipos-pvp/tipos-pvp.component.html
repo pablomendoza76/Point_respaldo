@@ -1,0 +1,119 @@
+<!-- Contenedor principal con ambos menús y contenido -->
+<div class="billing-admin-container">
+  <!-- Contenido Principal -->
+  <main class="main-content">
+    <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
+    <div class="breadcrumb-container">
+      <button>⌂</button>
+      <a (click)="navigateTo('Productos')" class="breadcrumb-link">Productos</a> /
+      <span class="breadcrumb-current">Tipos de PVP</span>
+    </div>
+
+    <!-- Barra de búsqueda con selector de filtro y botones adicionales -->
+    <div class="search-container">
+      <input
+        type="search"
+        id="search-input"
+        [(ngModel)]="searchValue"
+        (input)="actualizarListaTiposPVP()"
+        placeholder="Buscar tipo de PVP..."
+      />
+      <button class="search-btn" (click)="actualizarListaTiposPVP()">🔎</button>
+      <button class="btn-new-product" (click)="agregarTipoPVP()">➕ Agregar Tipo de PVP</button>
+    </div>
+
+    <!-- Tabla de Tipos de PVP -->
+    <div class="table-container">
+      <table class="product-table" *ngIf="!mostrarFormularioEdicion">
+        <thead>
+          <tr>
+            <th>Tipo de Precio</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tipo of tiposPVPPaginados">
+            <td>{{ tipo.tipoPrecio }}</td>
+            <td>{{ tipo.descripcion }}</td>
+            <td>{{ tipo.estado }}</td>
+            <td>
+              <button class="btn-edit" (click)="editarTipoPVP(tipo)">✏️</button>
+              <button class="btn-delete" (click)="abrirModalEliminar(tipo)">🗑️</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <!-- Botón para seleccionar cantidad de ítems por página -->
+      <div class="items-per-page">
+        <label>Mostrar:</label>
+        <select [(ngModel)]="itemsPorPagina" (change)="cambiarItemsPorPagina(itemsPorPagina)">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
+      <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Previa</button>
+      <span>Mostrando del {{ (paginaActual - 1) * itemsPorPagina + 1 }} al {{ Math.min(paginaActual * itemsPorPagina, totalRegistros) }} registros de {{ totalRegistros }}</span>
+      <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual * itemsPorPagina >= totalRegistros">Siguiente</button>
+    </div>
+
+    <!-- Modal para eliminar tipo de PVP -->
+    <div class="modal-overlay" *ngIf="mostrarModalEliminar">
+      <div class="modal-eliminar">
+        <h2>Eliminar Tipo de PVP</h2>
+        <p>¿Estás seguro de que deseas eliminar este tipo de PVP?</p>
+        <strong>{{ tipoPVPAEliminar?.tipoPrecio }}</strong>
+        <p>Esta acción hará que el tipo de PVP ya no esté disponible ni visible en el sistema.</p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" (click)="cerrarModalEliminar()">Cancelar</button>
+          <button class="btn-delete-confirm" (click)="eliminarTipoPVP()">Eliminar Tipo de PVP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal para el formulario de edición/creación -->
+    <div class="modal-overlay" *ngIf="mostrarFormularioEdicion">
+      <div class="modal-formulario">
+        <span class="close" (click)="cancelarEdicion()">&times;</span>
+        <div class="formulario-edicion">
+          <h2>{{ esEdicion ? 'Editar Tipo de PVP' : 'Agregar Tipo de PVP' }}</h2>
+          <form (ngSubmit)="guardarTipoPVP()">
+            <div class="form-group">
+              <label>Tipo de Precio</label>
+              <input type="text" [(ngModel)]="tipoPVPSeleccionado.tipoPrecio" name="tipoPrecio" required>
+            </div>
+            <div class="form-group">
+              <label>Descripción</label>
+              <input type="text" [(ngModel)]="tipoPVPSeleccionado.descripcion" name="descripcion">
+            </div>
+            <div class="form-group">
+              <label>Alias</label>
+              <input type="text" [(ngModel)]="tipoPVPSeleccionado.alias" name="alias">
+            </div>
+            <div class="form-group">
+              <label>Estado</label>
+              <select [(ngModel)]="tipoPVPSeleccionado.estado" name="estado">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" (click)="cancelarEdicion()">❌ Cancelar</button>
+              <button type="submit" class="btn-save">{{ esEdicion ? '💾 Guardar Cambios' : '✅ Agregar Tipo de PVP' }}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Enrutamiento de Angular -->
+  <router-outlet></router-outlet>
+</div>

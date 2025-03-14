@@ -50,10 +50,31 @@ export class DashboardService {
   }
 
   getNotifications() {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const twoDaysAgo = new Date(today);
+    twoDaysAgo.setDate(today.getDate() - 2);
+  
     return [
-      { title: 'Stock crítico en inventario', description: '120 productos en niveles críticos.', date: '19, dic 10:30 AM', type: 'warning' },
-      { title: 'Producto sin stock', description: 'El producto "Camiseta blanca" está agotado.', date: '19, dic 10:30 AM', type: 'error' },
-      { title: 'Promoción Navideña', description: 'Descuento en la compra de comprobantes.', date: '19, dic 10:30 AM', type: 'info' }
+      { 
+        title: 'Stock crítico en inventario', 
+        description: '120 productos en niveles críticos.', 
+        date: today.toISOString(), // Fecha en formato ISO
+        type: 'warning' 
+      },
+      { 
+        title: 'Producto sin stock', 
+        description: 'El producto "Camiseta blanca" está agotado.', 
+        date: yesterday.toISOString(), // Fecha en formato ISO
+        type: 'error' 
+      },
+      { 
+        title: 'Notificación antigua', 
+        description: 'Esta es una notificación de hace más de dos días.', 
+        date: '2023-12-15T10:30:00', // Fecha en formato ISO
+        type: 'info' 
+      }
     ];
   }
 }

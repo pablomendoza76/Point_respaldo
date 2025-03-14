@@ -1,93 +1,124 @@
-<div class="app-container flex flex-col min-h-screen bg-gray-100">
+<!-- Enlace al CDN de Font Awesome -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<div class="app-container">
   <!-- Navegación superior -->
   <nav class="bg-white shadow flex justify-between items-center p-4">
     <div class="flex items-center">
-      <img src="/img/icon.png" alt="logo" class="h-8 mr-2">
+      <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
     </div>
-    <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+    <h2 class="text-xl font-bold text-red-500">
+      Supermercado "LABRYC" CIA LTDA
+    </h2>
     <div class="flex items-center space-x-4">
-      <span class="text-red-500 cursor-pointer">🔔</span>
-      <span id="menu-toggle" class="text-red-500 cursor-pointer">🔳</span>
-      <span class="text-red-500 cursor-pointer">🏠</span>
-      <span class="text-red-500 cursor-pointer">ℹ️</span>
-      <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full">
+      <span #notificationsToggle id="notifications-toggle" class="text-red-500 cursor-pointer"
+        ><i class="fa-regular fa-bell"></i
+      ></span>
+      <span #menuToggle id="menu-toggle" class="text-red-500 cursor-pointer"
+        ><i class="fa-solid fa-bars"></i
+      ></span>
+      <span #supportToggle id="support-toggle" class="text-red-500 cursor-pointer"
+        ><i class="fa-solid fa-headset"></i
+      ></span>
+      <span class="text-red-500 cursor-pointer"
+        ><i class="fa-solid fa-circle-info"></i
+      ></span>
+
+      <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
     </div>
   </nav>
 
   <!-- Sección de bienvenida y barra de búsqueda -->
-  <div class="welcome-section bg-white shadow-md p-4 text-center">
+  <div class="welcome-section">
     <h1 class="welcome-text">Hola, {{ welcomeData.userName }}</h1>
-    <div class="search-bar mt-2">
-      <label for="search-input">{{ welcomeData.searchLabel }}</label>
-      <div class="input-container flex items-center">
-        <input
-          id="search-input"
-          type="text"
-          [placeholder]="welcomeData.searchPlaceholder"
-          class="search-input border p-2 rounded-md"
-        />
-        <span class="search-icon ml-2">🔍</span> <!-- Ícono de búsqueda -->
-      </div>
+    <div class="search-bar">
+      <input
+        id="search-input"
+        type="text"
+        [placeholder]="welcomeData.searchPlaceholder"
+        class="search-input"
+        (input)="filterModules($event)"
+      />
+      <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
     </div>
+<!-- Lista de resultados debajo de la barra de búsqueda -->
+<div *ngIf="searchQuery" class="search-results">
+  <ul>
+    <li *ngFor="let module of filteredModules" (click)="navigateTo(module.name)">
+      <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
+      <span>{{ module.name }}</span>
+    </li>
+    <li *ngIf="filteredModules.length === 0" class="no-results">
+      No se encontraron módulos.
+    </li>
+  </ul>
+</div>
+
   </div>
 
-  <!-- Contenedor principal con tres secciones -->
-  <div class="billing-admin-container flex flex-1 p-4">
-    <!-- Sección 1: Menú lateral con scroll -->
-    <aside class="side-menu w-1/5 bg-white shadow-md p-4 rounded-lg">
+  <!-- Contenedor principal -->
+  <div class="main-container">
+    <!-- Menú lateral -->
+    <aside #sideMenu class="side-menu" id="side-menu">
+      <i #toggleMenu class="fa-solid fa-indent" id="toggle-menu"></i>
       <ul>
-        <li *ngFor="let option of menuOptions" (click)="navigateTo(option)" class="cursor-pointer hover:bg-gray-200 p-2 rounded-md">{{ option }}</li>
+        <li *ngFor="let module of allModules" (click)="navigateTo(module.name)">
+          <i class="module-icon" [class]="getModuleIcon(module.name)"></i> 
+          <div class="menu-item-container">{{ module.name }}</div>
+        </li>
       </ul>
     </aside>
 
-    <!-- Sección 2: Contenido principal -->
-    <main class="main-content flex-1 p-4">
-      <section class="business-stats bg-white shadow p-4 rounded-lg">
-        <h2 class="text-xl font-semibold text-center">Estadísticas del Negocio</h2>
-        <div class="stats-container grid grid-cols-3 gap-4 mt-4">
-          <div class="stat-item text-center p-4 bg-gray-50 rounded-md shadow-md" *ngFor="let stat of businessStats | keyvalue">
-            <span class="stat-icon text-2xl">{{ stat.value.icon }}</span> <!-- Icono -->
-            <span class="stat-value text-lg font-bold block">{{ stat.value.value }}</span> <!-- Cantidad -->
-            <span class="stat-label text-sm text-gray-500">{{ stat.value.label }}</span> <!-- Nombre -->
+    <!-- Contenido principal -->
+    <main #content class="content">
+      <!-- Estadísticas del Negocio -->
+      <section class="business-stats">
+        <h2>Estadísticas del Negocio</h2>
+        <div class="stats-grid">
+          <div *ngFor="let stat of businessStats | keyvalue" class="stat-item">
+            <span class="stat-icon">{{ stat.value.icon }}</span>
+            <span class="stat-value">{{ stat.value.value }}</span>
+            <span class="stat-label">{{ stat.value.label }}</span>
           </div>
         </div>
       </section>
 
-      <!-- Gráfico de barras de Nuevos Clientes -->
-      <section class="bar-chart bg-white shadow p-4 rounded-lg mt-4">
-        <h3 class="text-lg font-semibold">Nuevos Clientes</h3>
+      <!-- Gráfico de Nuevos Clientes -->
+      <section class="bar-chart">
+        <h2>Nuevos Clientes</h2>
         <canvas id="salesChart"></canvas>
-        <p class="text-sm text-gray-500">Crecimiento respecto al mes anterior</p>
+        <p>Crecimiento respecto al mes anterior</p>
       </section>
     </main>
 
-    <!-- Sección 3: Más datos y notificaciones -->
-    <aside class="additional-data w-1/3 p-4">
-      <section class="more-data bg-white shadow p-4 rounded-lg">
-        <h3 class="text-lg font-semibold">Más Datos</h3>
-        <div class="data-grid grid grid-cols-2 gap-4 mt-4">
-          <!-- Gráfico de radar -->
-          <div class="data-item text-center">
-            <h4 class="font-semibold">Marcas más Vendidas</h4>
+    <!-- Sección de más datos y notificaciones -->
+    <aside class="additional-data">
+      <!-- Más Datos -->
+      <section class="more-data">
+        <h2>Más Datos</h2>
+        <div class="data-grid">
+          <div class="data-item">
+            <h4>Marcas más Vendidas</h4>
             <canvas id="radarChart"></canvas>
           </div>
-
-          <!-- Tabla de productos más vendidos -->
           <div class="data-item">
-            <h4 class="font-semibold">Productos más Vendidos</h4>
-            <table class="w-full border-collapse mt-2">
+            <h4>Productos más Vendidos</h4>
+            <table>
               <thead>
-                <tr class="bg-gray-200">
-                  <th class="p-2 text-left">Producto</th>
-                  <th class="p-2 text-left">Unidades</th>
-                  <th class="p-2 text-left">Total</th>
+                <tr>
+                  <th>Producto</th>
+                  <th>Unidades</th>
+                  <th>Total</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let product of topProducts" class="border-b">
-                  <td class="p-2">{{ product.name }}</td>
-                  <td class="p-2">{{ product.units }}</td>
-                  <td class="p-2">${{ product.total }}</td>
+                <tr *ngFor="let product of topProducts">
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.units }}</td>
+                  <td>${{ product.total }}</td>
                 </tr>
               </tbody>
             </table>
@@ -95,17 +126,107 @@
         </div>
       </section>
 
-      <section class="notifications bg-white shadow p-4 rounded-lg mt-4">
-        <h3 class="text-lg font-semibold">Notificaciones</h3>
-        <div *ngFor="let notification of notifications" class="notification bg-gray-100 p-2 rounded-md mt-2">
-          <strong class="block text-md">{{ notification.title }}</strong>
-          <p class="text-sm text-gray-600">{{ notification.description }}</p>
-          <span class="text-xs text-gray-500">{{ notification.date }}</span>
+      <!-- Notificaciones -->
+      <section class="notifications">
+        <h3>Notificaciones</h3>
+        <div *ngFor="let notification of notifications" class="notification">
+          <i [class]="getNotificationIcon(notification.type)"></i>
+          <strong>{{ notification.title }}</strong>
+          <p>{{ notification.description }}</p>
+          <span>{{ notification.date }}</span>
         </div>
       </section>
     </aside>
-  </div>
 
-  <!-- Enrutamiento de Angular -->
-  <router-outlet></router-outlet>
+    <!-- Popup con los módulos -->
+    <div #floatingMenu id="floating-menu" class="floating-menu hidden">
+      <div class="popup-content">
+        <h3>Módulos</h3>
+        <div class="module-grid">
+          <div *ngFor="let group of groupedModules" class="module-group">
+            <h4>{{ group.category }}</h4>
+            <div class="module-items">
+              <div
+                *ngFor="let module of group.modules"
+                class="module-item"
+                (click)="navigateTo(module.name)"
+                (mouseenter)="highlightModule(module)"
+                (mouseleave)="unhighlightModule(module)"
+              >
+                <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
+                <span [class.selected]="module.selected">{{
+                  module.name
+                }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup de Notificaciones -->
+    <div #notificationsPopup id="notifications-popup" class="floating-menu hidden">
+      <div class="popup-content">
+        <h3>Notificaciones</h3>
+        <div class="notification-groups">
+          <div
+            *ngFor="let group of notificationGroups"
+            class="notification-group"
+          >
+            <h4>{{ group.category }}</h4>
+            <div class="notification-items">
+              <div
+                *ngFor="let notification of group.notifications"
+                class="notification-item"
+              >
+                <i [class]="getNotificationIcon(notification.type)"></i>
+                <div class="notification-item-content">
+                  <strong>{{ notification.title }}</strong>
+                  <p>{{ notification.description }}</p>
+                  <span>{{
+                    notification.date | date : "dd/MM/yyyy, hh:mm a"
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup de Soporte -->
+    <div #supportPopup id="support-popup" class="floating-menu hidden">
+      <div class="popup-content">
+        <h3>Soporte</h3>
+        <div class="support-items">
+          <div class="support-item">
+            <i class="fa-solid fa-phone"></i>
+            <div class="contact-info">
+              <span>096 331 9244</span>
+              <span>098 724 3834</span>
+              <span>072 576 031</span>
+              <span>Ext: 402 (Contabilidad)</span>
+              <span>Ext: 501 - 502 - 503 (Soporte)</span>
+            </div>
+          </div>
+          <div class="support-item">
+            <i class="fa-solid fa-clock"></i>
+            <span>Atendemos de lunes a viernes de 9:00 a 19:00</span>
+          </div>
+          <div class="support-item clickable" (click)="openMessenger()">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            <span>Enviar mensaje por Messenger</span>
+          </div>
+          <div class="support-item clickable" (click)="openTelegram()">
+            <i class="fa-brands fa-telegram"></i>
+            <span>Enviar mensaje por Telegram</span>
+          </div>
+          <div class="support-item clickable" (click)="openSMS()">
+            <i class="fa-solid fa-comment-sms"></i>
+            <span>Enviar mensaje de texto (SMS)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

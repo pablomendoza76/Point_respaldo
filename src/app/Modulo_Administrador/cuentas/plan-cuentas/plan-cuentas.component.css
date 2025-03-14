@@ -1,0 +1,638 @@
+/* Estilos del contenedor principal */
+.main-content {
+  width: 100%;
+  margin: 0rem;
+  padding: 16px;
+  flex: 1;
+}
+
+/* Estilos para la barra de ubicación */
+.breadcrumb-container {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500; /* medium */
+  color: #666;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+}
+
+.breadcrumb-link {
+  color: #0d0d0d;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+  color: #d32f2f;
+}
+
+.breadcrumb-current {
+  font-weight: bold;
+  color: #d32f2f;
+}
+
+/* Estilos de la barra de búsqueda */
+.search-container {
+  display: flex;
+  margin-bottom: 16px;
+  gap: 6px; /* Reducir el gap entre elementos */
+  align-items: center;
+  padding: 0 16px;
+}
+
+.search-container select,
+.search-container input,
+.search-container button {
+  padding: 5px 8px; /* Reducir el padding */
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px; /* Mantener el tamaño de la letra */
+  outline: none;
+  cursor: pointer;
+  height: 32px; /* Reducir la altura */
+  transition: all 0.3s ease;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.search-container button {
+  background-color: white;
+  color: #333;
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.search-container button:hover {
+  background-color: #dcdcdc;
+  border-color: #0a0a0a;
+  color: #1d1c1c;
+}
+
+.search-container .search-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.search-container .search-btn:hover {
+  background-color: #0056b3;
+}
+
+.search-container .btn-export {
+  background-color: #26a65b;
+  color: white;
+  border: none;
+  margin-left: auto; /* Alinea el botón a la derecha */
+}
+
+.search-container .btn-export:hover {
+  background-color: #a9dbbe;
+}
+
+.search-container .btn-new-product {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+}
+
+.search-container .btn-new-product:hover {
+  background-color: #d27777;
+  color: #000;
+}
+
+.search-container input[type="text"] {
+  flex-grow: 1;
+  background-color: white;
+  color: #333;
+}
+
+.search-container input[type="text"]:focus {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+/* Estilos del selector de columnas */
+.column-selector {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 180px;
+  overflow-y: auto;
+  display: none;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+}
+
+.column-selector.hidden {
+  display: none;
+}
+
+.column-selector:not(.hidden) {
+  display: block;
+}
+
+.column-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.column-list label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.column-list label:hover {
+  color: #26a65b;
+}
+
+.column-list input[type="checkbox"] {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.column-list input[type="checkbox"]:checked {
+  background-color: #26a65b;
+  border-color: #26a65b;
+}
+
+.column-list input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: white;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos de la sección de filtros */
+.filter-section {
+  display: flex;
+  margin-bottom: 16px;
+  gap: 8px; 
+  padding: 8px;
+  border-radius: 8px;
+  align-items: center;
+  border-color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-section select {
+  background-color: #ffffff;
+  border-color: white;
+  color: rgb(0, 0, 0);
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+}
+
+.filter-section select:hover,
+.filter-section select:focus {
+  border-color: #fcbdbd;
+  color: rgb(5, 5, 5);
+}
+
+/* conjunto de filtros*/
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  color: red;
+  background-color: #ffffffff;
+  padding: 6px;
+  border-radius: 16px;
+}
+
+.filter-buttons .filter-btn {
+  background-color: transparent;
+  border-color: rgb(185, 30, 30);
+  color: #000;
+  border: 1px solid #ffffffff;
+  border-radius: 16px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-buttons .filter-btn:hover {
+  background-color: #d2d2d2;
+  color: #fff;
+}
+
+.filter-buttons .filter-btn.active {
+  background-color: #f9c9c9;
+  border-color: #f9c9c9;
+  color: #df0000;
+}
+
+/* Estilos del contenedor de la tabla */
+.table-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: auto; /* Permitir scroll vertical */
+  max-height: 440px; /* Altura máxima antes de activar el scroll vertical */
+  border-radius: 8px;
+  position: relative;
+}
+
+/* Estilos de la tabla */
+.product-table {
+  width: 100%;
+  border-collapse: collapse; /* Eliminar espacios entre celdas */
+  font-size: 14px;
+  background-color: white;
+  table-layout: fixed; /* Fijar el ancho de las columnas */
+}
+
+/* Estilos de las celdas */
+.product-table th,
+.product-table td {
+  border: 1px solid #e0e0e0;
+  padding: 7px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle; /* Alineación vertical */
+}
+
+/* Encabezado fijo */
+.product-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f8f8;
+  z-index: 10;
+}
+
+/* Alternar colores de filas */
+.product-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.product-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Botones de acciones */
+.btn-edit, .btn-delete {
+  padding: 4px 8px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 14px;
+  vertical-align: middle; /* Alineación vertical */
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  background-color: #e9ecef;
+}
+
+.btn-delete {
+  color: #dc3545;
+}
+
+/* Paginación */
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.pagination button {
+  padding: 4px 8px; /* Reducir el padding */
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #f8f8f8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pagination button:disabled {
+  background-color: #f8f8f8;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination span {
+  margin: 0 8px;
+}
+
+/* Modal de eliminación */
+.modal-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-eliminar {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-eliminar h2 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.modal-eliminar p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.modal-eliminar strong {
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.modal-eliminar .modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.modal-eliminar .btn-cancel,
+.modal-eliminar .btn-delete-confirm {
+  padding: 8px 16px; /* Reducir el padding */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+}
+
+.modal-eliminar .btn-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-eliminar .btn-cancel:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-eliminar .btn-delete-confirm {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.modal-eliminar .btn-delete-confirm:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal del formulario */
+.modal-formulario {
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 750px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.modal-formulario::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+.modal-formulario {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.modal-formulario .close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #aaa;
+  transition: color 0.3s ease;
+}
+
+.modal-formulario .close:hover {
+  color: #000;
+}
+
+.modal-formulario .formulario-edicion {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-formulario fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.modal-formulario legend {
+  background-color: #d32f2f;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.modal-formulario .form-group {
+  display: inline-block;
+  width: 48%;
+  margin: 1%;
+}
+
+.modal-formulario .form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+  font-size: 14px;
+}
+
+.modal-formulario .form-group input,
+.modal-formulario .form-group select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-formulario .form-group input:focus,
+.modal-formulario .form-group select:focus {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+/* Estilos para los botones del formulario */
+.modal-formulario .form-actions {
+  text-align: right;
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.modal-formulario .btn-cancel,
+.modal-formulario .btn-save {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-formulario .btn-cancel {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.modal-formulario .btn-cancel:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-formulario .btn-save {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.modal-formulario .btn-save:hover {
+  background-color: #b71c1c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para el botón de alternar filtros */
+.filter-toggle {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Animación al hacer clic */
+.filter-toggle:active {
+  transform: scale(0.9);
+}
+
+/* Oculta la sección de filtros */
+.hidden {
+  display: none;
+}
+
+/* Estilos para el selector de cantidad de productos por página */
+.items-per-page {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.items-per-page label {
+  font-size: 14px;
+  color: #333;
+}
+
+.items-per-page select {
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  background-color: white;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.items-per-page select:hover,
+.items-per-page select:focus {
+  border-color: #d32f2f;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+}
+
+/* Estilos para el scroll */
+.table-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

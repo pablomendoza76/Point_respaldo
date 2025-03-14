@@ -3,6 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TipoProveedoresService } from '../../services/proveedores_services/tipo-proveedores.service';
+import { MenuRoutesService } from '../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
 
 @Component({
   selector: 'app-tipos-proveedores',
@@ -15,6 +16,7 @@ export class TiposProveedoresComponent implements OnInit {
   // Variables de la aplicación
   tiposProveedores: any[] = []; // Lista de tipos de proveedores
   tiposProveedoresFiltrados: any[] = []; // Lista filtrada para búsquedas
+  tiposProveedoresPaginados: any[] = []; // Lista paginada
   searchValue: string = ''; // Valor de búsqueda
   Math = Math; // Para usar Math en la plantilla
 
@@ -30,33 +32,18 @@ export class TiposProveedoresComponent implements OnInit {
   itemsPorPagina: number = 10; // Ítems por página
   totalRegistros: number = 0; // Total de registros
 
-  // Variables para el menú de administración
-  isAdminMenuCollapsed: boolean = false; // Menú colapsable
-
   // Diccionario de opciones con sus respectivas rutas
-  menuRoutes: { [key: string]: string } = {
-    'Administración': 'administrador',
-    'Proveedores': 'proveedores',
-    'Tipos PVP': 'tipos-pvp',
-    'Clientes': 'clientes',
-    'Cuentas Contables': 'cuentas-contables',
-    'Empresa': 'empresa',
-    'Configuración': 'configuracion',
-    'Productos': 'productos',
-    'Vista General': 'vista-general',
-    'Marcas': 'marcas',
-    'Tipos de Productos': 'tipos-productos',
-    'Tipos de proveedores': 'tipo-proveedor',
-    'Tarifas por Grupo': 'tarifas-por-grupo'
-  };
-
+  menuRoutes: { [key: string]: string } = {}; // Ahora se obtiene del servicio
 
   constructor(
     private router: Router,
-    private tipoProveedoresService: TipoProveedoresService
+    private tipoProveedoresService: TipoProveedoresService,
+    private menuRoutesService: MenuRoutesService // Inyectar el servicio
   ) {}
 
   ngOnInit(): void {
+    // Obtener las rutas del menú desde el servicio
+    this.menuRoutes = this.menuRoutesService.getMenuRoutes();
     this.cargarTiposProveedores(); // Cargar datos al iniciar
   }
 
@@ -74,6 +61,29 @@ export class TiposProveedoresComponent implements OnInit {
         tipo.descripcion.toLowerCase().includes(this.searchValue.toLowerCase())
     );
     this.totalRegistros = this.tiposProveedoresFiltrados.length;
+    this.actualizarPaginacion();
+  }
+
+  // Método para actualizar la paginación
+  actualizarPaginacion(): void {
+    const inicio = (this.paginaActual - 1) * this.itemsPorPagina;
+    const fin = inicio + this.itemsPorPagina;
+    this.tiposProveedoresPaginados = this.tiposProveedoresFiltrados.slice(inicio, fin);
+  }
+
+  // Método para cambiar de página
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= Math.ceil(this.totalRegistros / this.itemsPorPagina)) {
+      this.paginaActual = pagina;
+      this.actualizarPaginacion();
+    }
+  }
+
+  // Método para cambiar la cantidad de ítems por página
+  cambiarItemsPorPagina(cantidad: number): void {
+    this.itemsPorPagina = cantidad;
+    this.paginaActual = 1; // Reiniciar a la primera página
+    this.actualizarPaginacion();
   }
 
   // Método para abrir el formulario de agregar
@@ -138,16 +148,6 @@ export class TiposProveedoresComponent implements OnInit {
     }
   }
 
-  // Método para cambiar de página
-  cambiarPagina(pagina: number): void {
-    if (
-      pagina >= 1 &&
-      pagina <= Math.ceil(this.totalRegistros / this.itemsPorPagina)
-    ) {
-      this.paginaActual = pagina;
-    }
-  }
-
   // Método para redireccionar según la opción seleccionada
   navigateTo(option: string): void {
     const ruta = this.menuRoutes[option];
@@ -158,12 +158,6 @@ export class TiposProveedoresComponent implements OnInit {
     }
   }
 
-  // Método para alternar el menú de administración
-  toggleAdminMenu(): void {
-    this.isAdminMenuCollapsed = !this.isAdminMenuCollapsed;
-  }
-
-  //metodo para saber donde estamos en el segundo menú
   // Método para verificar si la opción está activa
   isActive(option: string): boolean {
     return this.router.url.includes(this.menuRoutes[option]);

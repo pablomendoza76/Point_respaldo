@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TipoClientesService } from '../../services/clientes_services/tipo-clientes.service';
+import { MenuRoutesService } from '../../services/servicios_compartidos/menu-routes.service';
 
 @Component({
   selector: 'app-tipos-clientes',
   standalone: true,
   templateUrl: './tipos-clientes.component.html',
   styleUrls: ['./tipos-clientes.component.css'],
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
 })
 export class TiposClientesComponent implements OnInit {
   // Variables de la aplicación
   tiposClientes: any[] = []; // Lista de tipos de clientes
   tiposClientesFiltrados: any[] = []; // Lista filtrada para búsquedas
   searchValue: string = ''; // Valor de búsqueda
+  searchType: string = 'tipo'; // Tipo de búsqueda (tipo, descripción, descuento)
   Math = Math; // Para usar Math en la plantilla
 
   // Variables para la edición y eliminación
@@ -34,35 +36,21 @@ export class TiposClientesComponent implements OnInit {
   tiposGarantia: string[] = [];
   cuentasContables: string[] = [];
   tiposPvp: string[] = [];
-  opcionesFactLotes: string[] = [];
-  opcionesPermitirEliminacion: string[] = [];
+  opcionesFactLotes: string[] = ['Activo', 'Inactivo'];
+  opcionesPermitirEliminacion: string[] = ['Activo', 'Inactivo'];
 
   // Diccionario de opciones con sus respectivas rutas
-  menuRoutes: { [key: string]: string } = {
-    'Administración': 'administrador',
-    'Proveedores': 'proveedores',
-    'Tipos PVP': 'tipos-pvp',
-    'Clientes': 'clientes',
-    'Cuentas Contables': 'cuentas-contables',
-    'Empresa': 'empresa',
-    'Configuración': 'configuracion',
-    'Productos': 'productos',
-    'Vista General': 'vista-general',
-    'Marcas': 'marcas',
-    'Tipos de Productos': 'tipos-productos',
-    'Tipos de clientes': 'tipo-cliente',
-    'Tarifas por Grupo': 'tarifas-por-grupo',
-  };
-
-  // Variables para el menú de administración
-  isAdminMenuCollapsed: boolean = false; // Menú colapsable
+  menuRoutes: { [key: string]: string } = {}; // Ahora se obtiene del servicio
 
   constructor(
     private router: Router,
-    private tipoClientesService: TipoClientesService
+    private tipoClientesService: TipoClientesService,
+    private menuRoutesService: MenuRoutesService // Inyectar el servicio
   ) {}
 
   ngOnInit(): void {
+    // Obtener las rutas del menú desde el servicio
+    this.menuRoutes = this.menuRoutesService.getMenuRoutes();
     this.cargarTiposClientes(); // Cargar datos al iniciar
     this.cargarOpcionesDinamicas(); // Cargar opciones dinámicas
   }
@@ -78,18 +66,25 @@ export class TiposClientesComponent implements OnInit {
     this.tiposGarantia = this.tipoClientesService.getTiposGarantia();
     this.cuentasContables = this.tipoClientesService.getCuentasContables();
     this.tiposPvp = this.tipoClientesService.getTiposPvp();
-    this.opcionesFactLotes = this.tipoClientesService.getOpcionesFactLotes();
-    this.opcionesPermitirEliminacion = this.tipoClientesService.getOpcionesPermitirEliminacion();
   }
 
   // Método para filtrar la lista de tipos de clientes
   actualizarListaTiposClientes(): void {
-    this.tiposClientesFiltrados = this.tiposClientes.filter(
-      (tipo) =>
-        tipo.tipo.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-        tipo.descripcion.toLowerCase().includes(this.searchValue.toLowerCase())
-    );
+    this.tiposClientesFiltrados = this.tiposClientes.filter((tipo) => {
+      const searchField = tipo[this.searchType];
+      return (
+        searchField &&
+        searchField.toString().toLowerCase().includes(this.searchValue.toLowerCase())
+      );
+    });
     this.totalRegistros = this.tiposClientesFiltrados.length;
+    this.actualizarPaginacion();
+  }
+
+  // Método para cambiar el tipo de búsqueda
+  cambiarTipoBusqueda(): void {
+    this.searchValue = ''; // Limpiar el valor de búsqueda al cambiar el tipo
+    this.actualizarListaTiposClientes(); // Actualizar la lista de tipos de clientes
   }
 
   // Método para abrir el formulario de agregar
@@ -172,7 +167,22 @@ export class TiposClientesComponent implements OnInit {
       pagina <= Math.ceil(this.totalRegistros / this.itemsPorPagina)
     ) {
       this.paginaActual = pagina;
+      this.actualizarPaginacion();
     }
+  }
+
+  // Método para actualizar la paginación
+  actualizarPaginacion(): void {
+    const inicio = (this.paginaActual - 1) * this.itemsPorPagina;
+    const fin = inicio + this.itemsPorPagina;
+    this.tiposClientesFiltrados = this.tiposClientes.slice(inicio, fin);
+  }
+
+  // Método para cambiar la cantidad de ítems por página
+  cambiarItemsPorPagina(cantidad: number): void {
+    this.itemsPorPagina = cantidad;
+    this.paginaActual = 1; // Reiniciar a la primera página
+    this.actualizarPaginacion();
   }
 
   // Método para redireccionar según la opción seleccionada
@@ -180,17 +190,9 @@ export class TiposClientesComponent implements OnInit {
     const ruta = this.menuRoutes[option];
     if (ruta) {
       this.router.navigate([`/${ruta}`]);
-    } else if (option === 'Importar') {
-      this.router.navigate(['/importar']);
     }
   }
 
-  // Método para alternar el menú de administración
-  toggleAdminMenu(): void {
-    this.isAdminMenuCollapsed = !this.isAdminMenuCollapsed;
-  }
-
-  //metodo para saber donde estamos en el segundo menú
   // Método para verificar si la opción está activa
   isActive(option: string): boolean {
     return this.router.url.includes(this.menuRoutes[option]);

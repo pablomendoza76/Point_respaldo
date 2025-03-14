@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // Importar RouterModule
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TipoProductoService } from '../../services/productos_services/tipo-producto.service';
+import { MenuRoutesService } from '../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
 
 @Component({
   selector: 'app-tipos-productos',
   standalone: true,
   templateUrl: './tipos-productos.component.html',
   styleUrls: ['./tipos-productos.component.css'],
-  imports: [CommonModule, FormsModule, RouterModule], // Agregar RouterModule aquí
+  imports: [CommonModule, FormsModule, RouterModule],
 })
 export class TiposProductosComponent implements OnInit {
   // Variables de la aplicación
   tiposProductos: any[] = [];
   tiposProductosFiltrados: any[] = [];
+  tiposProductosPaginados: any[] = []; // Nueva propiedad para la lista paginada
   searchValue: string = '';
   Math = Math;
 
@@ -27,32 +29,24 @@ export class TiposProductosComponent implements OnInit {
 
   // Variables para la paginación
   paginaActual: number = 1;
-  itemsPorPagina: number = 10;
+  itemsPorPagina: number = 10; // Valor por defecto: 10
   totalRegistros: number = 0;
 
   // Variables para el menú de administración
-  isAdminMenuCollapsed: boolean = false; // Propiedad para el menú colapsable
+  isAdminMenuCollapsed: boolean = false;
 
-  // Diccionario de opciones con sus respectivas rutas
-  menuRoutes: { [key: string]: string } = {
-    'Administración': 'administrador',
-    'Proveedores': 'proveedores',
-    'Tipos PVP': 'tipos-pvp',
-    'Clientes': 'clientes',
-    'Cuentas Contables': 'cuentas-contables',
-    'Empresa': 'empresa',
-    'Configuración': 'configuracion',
-    'Productos': 'productos',
-    'Vista General': 'vista-general',
-    'Marcas': 'marcas',
-    'Tipos de Productos': 'tipos-productos',
-    'Tarifas por Grupo': 'tarifas-por-grupo'
-  };
+  // Rutas del menú
+  menuRoutes: { [key: string]: string } = {};
 
-  constructor(private router: Router, private tipoProductoService: TipoProductoService) {}
+  constructor(
+    private router: Router,
+    private tipoProductoService: TipoProductoService,
+    private menuRoutesService: MenuRoutesService // Inyectar el servicio
+  ) {}
 
   ngOnInit(): void {
     this.cargarTiposProductos();
+    this.menuRoutes = this.menuRoutesService.getMenuRoutes(); // Obtener rutas del menú
   }
 
   // Método para cargar los tipos de productos desde el servicio
@@ -61,21 +55,47 @@ export class TiposProductosComponent implements OnInit {
     this.actualizarListaTiposProductos();
   }
 
+  // Método para actualizar la lista de tipos de productos
   actualizarListaTiposProductos(): void {
-    this.tiposProductosFiltrados = this.tiposProductos.filter(tipo =>
-      tipo.nombre.toLowerCase().includes(this.searchValue.toLowerCase()) ||
-      tipo.descripcion.toLowerCase().includes(this.searchValue.toLowerCase())
+    this.tiposProductosFiltrados = this.tiposProductos.filter(
+      (tipo) =>
+        tipo.nombre.toLowerCase().includes(this.searchValue.toLowerCase()) ||
+        tipo.descripcion.toLowerCase().includes(this.searchValue.toLowerCase())
     );
     this.totalRegistros = this.tiposProductosFiltrados.length;
+    this.actualizarPaginacion();
   }
 
+  // Método para actualizar la lista paginada
+  actualizarPaginacion(): void {
+    const inicio = (this.paginaActual - 1) * this.itemsPorPagina;
+    const fin = inicio + this.itemsPorPagina;
+    this.tiposProductosPaginados = this.tiposProductosFiltrados.slice(inicio, fin);
+  }
+
+  // Método para cambiar de página
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= Math.ceil(this.totalRegistros / this.itemsPorPagina)) {
+      this.paginaActual = pagina;
+      this.actualizarPaginacion();
+    }
+  }
+
+  // Método para cambiar la cantidad de elementos por página
+  cambiarItemsPorPagina(cantidad: number): void {
+    this.itemsPorPagina = cantidad;
+    this.paginaActual = 1; // Reiniciar a la primera página
+    this.actualizarPaginacion();
+  }
+
+  // Métodos para agregar, editar y eliminar tipos de productos
   agregarTipoProducto(): void {
     this.tipoProductoSeleccionado = {
       nombre: '',
       descripcion: '',
       codigoSustento: '',
       visible: 'Activado',
-      estado: 'Activado'
+      estado: 'Activado',
     };
     this.esEdicion = false;
     this.mostrarFormularioEdicion = true;
@@ -120,27 +140,22 @@ export class TiposProductosComponent implements OnInit {
     }
   }
 
-  cambiarPagina(pagina: number): void {
-    if (pagina >= 1 && pagina <= Math.ceil(this.totalRegistros / this.itemsPorPagina)) {
-      this.paginaActual = pagina;
-    }
-  }
-
   // Método para navegar a diferentes rutas
   navigateTo(option: string): void {
     const ruta = this.menuRoutes[option];
     if (ruta) {
-      this.router.navigate([`/${ruta}`]);
+      this.router.navigate([ruta]);
     }
   }
+
   // Método para alternar el menú de administración
   toggleAdminMenu(): void {
     this.isAdminMenuCollapsed = !this.isAdminMenuCollapsed;
   }
 
-  //metodo para saber donde estamos en el segundo menú
   // Método para verificar si la opción está activa
   isActive(option: string): boolean {
-    return this.router.url.includes(this.menuRoutes[option]);
+    const ruta = this.menuRoutes[option];
+    return ruta ? this.router.url.includes(ruta) : false;
   }
 }

@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class AdministracionServicios {
   constructor() {}
 
-  // Obtener opciones de menú
   getMenuOptions() {
     return [
       'Administración',
@@ -41,196 +40,77 @@ export class AdministracionServicios {
       { name: 'Bodega', key: 'bodega', default: false, selected: false }
     ];
   }
-getProductos() {
+
+  getProductos() {
     return [
-      {
-        codigo: 84618,
+      ...Array.from({ length: 14 }, (_, i) => ({
+        codigo: 84618 + i,
         estado: 'activo',
-        nombre: 'TRAIDEN SS FRESA X18',
-        descripcion: 'Traiden 5s Fresa x18',
-        stock: 1000,
+        nombre: `Producto ${i + 1}`,
+        descripcion: `Descripción del producto ${i + 1}`,
+        stock: Math.floor(Math.random() * 1000),
         stockMinimo: 10,
         stockMaximo: 1000,
-        tipo: 'Inventario',
-        grupo: 'Nestle',
-        subGrupo: 'Confitería',
-        marca: 'Magi',
-        codigoBarras1: '1234567890123',
+        tipo: ['Inventario', 'Servicio', 'Activo'][i % 3],
+        grupo: ['Nestle', 'Lácteos', 'Pepsico', 'Carnes'][i % 4],
+        subGrupo: ['Confitería', 'Bebidas', 'Quesos', 'Cárnicos'][i % 4],
+        marca: ['Magi', 'Rancherito', 'Lactalis', 'Otra'][i % 4],
+        codigoBarras1: `12345678901${i}`,
         codigoBarras2: '',
         codigoBarras3: '',
         codigoBarras4: '',
         codigoBarras5: '',
-        unidadMedida: 'kg',
-        origen: 'Nacional',
-        fechaCaducidad: '2025-12-31',
-        regimen: 'General',
-        impuesto: 'IVA - TARIFA 15%',
+        unidadMedida: ['kg', 'L', 'unidad'][i % 3],
+        origen: ['Nacional', 'Importado'][i % 2],
+        fechaCaducidad: `202${6 - (i % 5)}-0${(i % 9) + 1}-15`,
+        regimen: ['General', 'Simplificado'][i % 2],
+        impuesto: ['IVA - TARIFA 15%', 'IVA - TARIFA 0%'][i % 2],
         precio: {
-          pvpA: 5.00,
-          pvpB: 4.80,
-          pvpC: 4.50,
-          pvpD: 4.00,
-          pvpE: 3.80
+          pvpA: (5 + i).toFixed(2),
+          pvpB: (4.8 + i).toFixed(2),
+          pvpC: (4.5 + i).toFixed(2),
+          pvpD: (4.0 + i).toFixed(2),
+          pvpE: (3.8 + i).toFixed(2)
         },
         cuentas: {
-          ctaContCosto: '610101',
-          ctaContComprasDebe: '110201',
-          ctaContVentasHaber: '410101'
+          ctaContCosto: `61010${i % 5}`,
+          ctaContComprasDebe: `11020${i % 5}`,
+          ctaContVentasHaber: `41010${i % 5}`
         },
-        descuento: true,
-        especificaciones: true
-      },
-      {
-        codigo: 85618,
-        estado: 'activo',
-        nombre: 'TRAIDEN SS MENTA X18',
-        descripcion: 'Traiden 5s MENTA x18',
-        stock: 50,
-        stockMinimo: 10,
-        stockMaximo: 1000,
-        tipo: 'Inventario',
-        grupo: 'Nestle',
-        subGrupo: 'Confitería',
-        marca: 'CONDIMENZA',
-        codigoBarras1: '1234567890124',
-        codigoBarras2: '',
-        codigoBarras3: '',
-        codigoBarras4: '',
-        codigoBarras5: '',
-        unidadMedida: 'kg',
-        origen: 'Importado',
-        fechaCaducidad: '2026-06-15',
-        regimen: 'General',
-        impuesto: 'IVA - TARIFA CERO 0%',
-        precio: {
-          pvpA: 5.00,
-          pvpB: 4.80,
-          pvpC: 4.50,
-          pvpD: 4.00,
-          pvpE: 3.80
-        },
-        cuentas: {
-          ctaContCosto: '610102',
-          ctaContComprasDebe: '110202',
-          ctaContVentasHaber: '410102'
-        },
-        descuento: false,
-        especificaciones: true
-      },
-      {
-        codigo: 84625,
-        estado: 'activo',
-        nombre: 'SOMETHING ESPECIAL',
-        descripcion: 'Something special',
-        stock: 4000,
-        stockMinimo: 10,
-        stockMaximo: 1000,
-        tipo: 'Inventario',
-        grupo: 'Nestle',
-        subGrupo: 'Bebidas',
-        marca: 'Rancherito',
-        codigoBarras1: '1234567890125',
-        codigoBarras2: '',
-        codigoBarras3: '',
-        codigoBarras4: '',
-        codigoBarras5: '',
-        unidadMedida: 'L',
-        origen: 'Nacional',
-        fechaCaducidad: '2026-01-01',
-        regimen: 'Simplificado',
-        impuesto: 'IVA - TARIFA QUINCE 15%',
-        precio: {
-          pvpA: 10.00,
-          pvpB: 9.50,
-          pvpC: 9.00,
-          pvpD: 8.50,
-          pvpE: 8.00
-        },
-        cuentas: {
-          ctaContCosto: '610103',
-          ctaContComprasDebe: '110203',
-          ctaContVentasHaber: '410103'
-        },
-        descuento: false,
-        especificaciones: false
-      },
-      {
-        codigo: 84626,
-        estado: 'activo',
-        nombre: 'QUESO MOZARELLA',
-        descripcion: 'Queso Mozarella 300G',
-        stock: 0,
-        stockMinimo: 10,
-        stockMaximo: 1000,
-        tipo: 'Inventario',
-        grupo: 'Lácteos',
-        subGrupo: 'Quesos',
-        marca: 'Lactalis',
-        codigoBarras1: '1234567890126',
-        codigoBarras2: '',
-        codigoBarras3: '',
-        codigoBarras4: '',
-        codigoBarras5: '',
-        unidadMedida: 'kg',
-        origen: 'Nacional',
-        fechaCaducidad: '2025-08-10',
-        regimen: 'General',
-        impuesto: 'IVA - NO OBJETO DE IMPUESTOS 0%',
-        precio: {
-          pvpA: 8.00,
-          pvpB: 7.50,
-          pvpC: 7.00,
-          pvpD: 6.50,
-          pvpE: 6.00
-        },
-        cuentas: {
-          ctaContCosto: '610104',
-          ctaContComprasDebe: '110204',
-          ctaContVentasHaber: '410104'
-        },
-        descuento: false,
-        especificaciones: true
-      }
+        descuento: i % 2 === 0,
+        especificaciones: i % 2 !== 0
+      }))
     ];
   }
-  
-  
-  // Obtener grupos de productos
+
   getGrupos() {
-    return ['Nestle', 'Lácteos', 'Pepsico' ];
+    return ['Nestle', 'Lácteos', 'Pepsico', 'Carnes'];
   }
 
-  // Obtener subgrupos de productos
   getSubGrupos() {
-    return ['Confitería', 'Bebidas', 'Lácteos', 'Carnes'];
+    return ['Confitería', 'Bebidas', 'Quesos', 'Cárnicos'];
   }
 
-  // Obtener marcas de productos
   getMarcas() {
-    return ['Magi', 'Rancherito', 'Lactalis'];
+    return ['Magi', 'Rancherito', 'Lactalis', 'Otra'];
   }
 
-  // Obtener tipos de producto
   getTiposProducto() {
     return ['Inventario', 'Servicio', 'Activo'];
   }
 
-  // Obtener origen de los productos
   getOrigenes() {
     return ['Nacional', 'Importado'];
   }
 
-  // Obtener los diferentes regímenes fiscales
   getRegimenes() {
     return ['General', 'Simplificado'];
   }
 
-  // Obtener ICEs disponibles
   getICES() {
     return ['0%', '10%', '20%'];
   }
 
-  // Obtener cuentas contables disponibles
   getCuentas() {
     return [
       '610101 - Costo de Venta',

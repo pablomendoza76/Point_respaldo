@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TarifasService } from '../../services/productos_services/tarifas.service';
+import { MenuRoutesService } from '../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 
@@ -28,28 +29,18 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
 
-  // Diccionario de opciones con sus respectivas rutas
-  menuRoutes: { [key: string]: string } = {
-    'Administración': 'administrador',
-    'Proveedores': 'proveedores',
-    'Tipos PVP': 'tipos-pvp',
-    'Clientes': 'clientes',
-    'Cuentas Contables': 'cuentas-contables',
-    'Empresa': 'empresa',
-    'Configuración': 'configuracion',
-    'Productos': 'productos',
-    'Vista General': 'vista-general',
-    'Marcas': 'marcas',
-    'Tipos de Productos': 'tipos-productos',
-    'Tipos de clientes': 'tipo-cliente',
-    'Tarifas por Grupo': 'tarifas-por-grupo',
-    'Plan-Cuentas': 'Plan-Cuentas',
-  };
+  // Rutas del menú
+  menuRoutes: { [key: string]: string } = {};
 
-  constructor(private tarifasService: TarifasService, private router: Router) {}
+  constructor(
+    private tarifasService: TarifasService,
+    private router: Router,
+    private menuRoutesService: MenuRoutesService // Inyectar el servicio
+  ) {}
 
   ngOnInit(): void {
     this.cargarDatos();
+    this.menuRoutes = this.menuRoutesService.getMenuRoutes(); // Obtener rutas del menú
 
     // Configurar el debounce para la búsqueda
     this.searchSubject
@@ -70,10 +61,10 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
 
   cargarDatos(): void {
     const grupos = this.tarifasService.getGrupos();
-    
+
     if (this.searchValue) {
       // Filtra los grupos que coincidan con el valor de búsqueda
-      this.grupos = grupos.filter(grupo =>
+      this.grupos = grupos.filter((grupo) =>
         grupo.nombre.toLowerCase().includes(this.searchValue.toLowerCase())
       );
     } else {
@@ -94,11 +85,22 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
   }
 
   agregarGrupo(): void {
-    this.grupoSeleccionado = { codigo: null, nombre: '', descripcion: '', garantia: 0, orden: 0, vistaWeb: false, vistaSistema: false, parent: false, estado: 'Activo', tarifas: [
-      { tipo: 'P.V.P A', utilidad: 1, descuento: 1 },
-      { tipo: 'P.V.P B', utilidad: 1, descuento: 1 },
-      { tipo: 'P.V.P C', utilidad: 1, descuento: 1 }
-    ] };
+    this.grupoSeleccionado = {
+      codigo: null,
+      nombre: '',
+      descripcion: '',
+      garantia: 0,
+      orden: 0,
+      vistaWeb: false,
+      vistaSistema: false,
+      parent: false,
+      estado: 'Activo',
+      tarifas: [
+        { tipo: 'P.V.P A', utilidad: 1, descuento: 1 },
+        { tipo: 'P.V.P B', utilidad: 1, descuento: 1 },
+        { tipo: 'P.V.P C', utilidad: 1, descuento: 1 },
+      ],
+    };
     this.esEdicion = false;
     this.mostrarFormularioEdicion = true;
   }
@@ -155,13 +157,13 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
   navigateTo(option: string): void {
     const ruta = this.menuRoutes[option];
     if (ruta) {
-      this.router.navigate([`/${ruta}`]);
+      this.router.navigate([ruta]);
     }
   }
 
-  //metodo para saber donde estamos en el segundo menú
   // Método para verificar si la opción está activa
   isActive(option: string): boolean {
-    return this.router.url.includes(this.menuRoutes[option]);
+    const ruta = this.menuRoutes[option];
+    return ruta ? this.router.url.includes(ruta) : false;
   }
 }

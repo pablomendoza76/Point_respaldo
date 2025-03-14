@@ -1,86 +1,11 @@
-<!-- Navegación superior -->
-<nav class="bg-white shadow flex justify-between items-center p-4">
-  <div class="flex items-center">
-    <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
-    <h1 class="text-xl font-bold text-red-500">Productos</h1>
-  </div>
-  <h2 class="text-xl font-bold text-red-500">Tipos de Productos</h2>
-  <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
-  <div class="flex items-center space-x-4">
-    <span class="text-red-500 cursor-pointer">🔔</span>
-    <span id="menu-toggle" class="text-red-500 cursor-pointer">🔳</span>
-    <span class="text-red-500 cursor-pointer">🏠</span>
-    <span class="text-red-500 cursor-pointer">ℹ️</span>
-    <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
-  </div>
-</nav>
-
 <!-- Contenedor principal con ambos menús y contenido -->
 <div class="billing-admin-container">
-  <!-- Menú de Administración (Colapsable) -->
-  <aside class="admin-menu" [class.collapsed]="isAdminMenuCollapsed">
-    <ul class="menu">
-      <li class="menu-item admin" (click)="navigateTo('administracion')">
-        ⚙️ <span>Administración</span>
-      </li>
-      <li
-        class="menu-item"
-        (click)="navigateTo('Productos')"
-        [ngClass]="{ active: isActive('Productos') }"
-      >
-        📦 <span>Productos</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Proveedores')">
-        🚚 <span>Proveedores</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Tipos PVP')">
-        💰 <span>Tipos PVP</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Clientes')">
-        👥 <span>Clientes</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Cuentas Contables')">
-        📑 <span>Cuentas Contables</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Empresa')">
-        🏢 <span>Empresa</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Configuración')">
-        🔧 <span>Configuración</span>
-      </li>
-    </ul>
-    <div class="footer">
-      <span>© 2024 Punto Pymes CIA</span>
-      <button class="toggle-admin-menu" (click)="toggleAdminMenu()">⏪</button>
-    </div>
-  </aside>
-
-  <!-- Menú Principal (Izquierda) -->
-  <aside class="side-menu">
-    <ul class="menu">
-      <li class="menu-item" (click)="navigateTo('Productos')">
-        📈 <span>Vista General</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Marcas')">
-        🏷️ <span>Marcas</span>
-      </li>
-      <li
-        class="menu-item"
-        (click)="navigateTo('Tipos de Productos')"
-        [ngClass]="{ active: isActive('Tipos de Productos') }">
-        📦 <span>Tipos de Productos</span>
-      </li>
-      <li class="menu-item" (click)="navigateTo('Tarifas por Grupo')">
-        💲 <span>Tarifas por Grupo</span>
-      </li>
-    </ul>
-  </aside>
-
   <!-- Contenido Principal -->
   <main class="main-content">
     <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
     <div class="breadcrumb-container">
-      <a (click)="navigateTo('Productos')" class="breadcrumb-link">Productos</a>
+      <button>⌂</button>
+      <a (click)="navigateTo('Vista General')" class="breadcrumb-link">Productos</a>
       /
       <span class="breadcrumb-current">Tipos de producto</span>
     </div>
@@ -95,44 +20,55 @@
         placeholder="Buscar tipo de producto..."
       />
       <button class="search-btn" (click)="actualizarListaTiposProductos()">
-        🔎 Buscar
+        <i class="fa-solid fa-magnifying-glass"></i>
       </button>
       <button class="btn-new-product" (click)="agregarTipoProducto()">
-        ➕ Agregar Tipo de Producto
+        <i class="fa-solid fa-plus"></i> &nbsp; Agregar Tipo de Producto
       </button>
     </div>
 
     <!-- Tabla de Tipos de Productos -->
-    <table class="product-table" *ngIf="!mostrarFormularioEdicion">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Descripción</th>
-          <th>Estado</th>
-          <th>Código de Sustento</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let tipo of tiposProductosFiltrados">
-          <td>{{ tipo.nombre }}</td>
-          <td>{{ tipo.descripcion }}</td>
-          <td>{{ tipo.estado }}</td>
-          <td>{{ tipo.codigoSustento }}</td>
-          <td>
-            <button class="btn-edit" (click)="editarTipoProducto(tipo)">
-              ✏️
-            </button>
-            <button class="btn-delete" (click)="abrirModalEliminar(tipo)">
-              🗑️
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table class="product-table" *ngIf="!mostrarFormularioEdicion">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Código de Sustento</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tipo of tiposProductosPaginados">
+            <td>{{ tipo.nombre }}</td>
+            <td>{{ tipo.descripcion }}</td>
+            <td>{{ tipo.estado }}</td>
+            <td>{{ tipo.codigoSustento }}</td>
+            <td>
+              <button class="btn-edit" (click)="editarTipoProducto(tipo)">
+                ✏️
+              </button>
+              <button class="btn-delete" (click)="abrirModalEliminar(tipo)">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Paginación -->
     <div class="pagination">
+      <div class="items-per-page">
+        <label>Mostrar:</label>
+        <select [(ngModel)]="itemsPorPagina" (change)="cambiarItemsPorPagina(itemsPorPagina)">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </div>
       <button
         (click)="cambiarPagina(paginaActual - 1)"
         [disabled]="paginaActual === 1"

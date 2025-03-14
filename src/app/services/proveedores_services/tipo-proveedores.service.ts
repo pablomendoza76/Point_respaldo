@@ -13,6 +13,45 @@ export class TipoProveedoresService {
     {
       tipo: 'Proveedor Internacional',
       descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
+    },{
+      tipo: 'Proveedor Internacional',
+      descripcion: 'Proveedores que operan fuera del país.',
     },
   ];
 

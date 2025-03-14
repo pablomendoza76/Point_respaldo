@@ -1,0 +1,266 @@
+<!-- Enlace al CDN de Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Contenedor principal con ambos menús y contenido -->
+<div class="billing-admin-container">
+  <!-- Contenido principal -->
+  <main class="main-content">
+    <!-- Barra de navegación superior ubicación del usuario (breadcrumb) -->
+    <div class="breadcrumb-container">
+      <i class="fa-solid fa-house"></i>
+      <a (click)="navigateTo('Clientes')" class="breadcrumb-link">Clientes</a> /
+      <span class="breadcrumb-current">Plan de cuentas</span>
+    </div>
+    <!-- Barra de búsqueda y botón de agregar -->
+    <div class="search-container">
+      <input
+        type="search"
+        [(ngModel)]="searchValue"
+        (input)="actualizarListaPlanesCuentas()"
+        placeholder="Buscar plan de cuentas..."
+      />
+      <button class="search-btn" (click)="actualizarListaPlanesCuentas()">
+        <i class="fa-solid fa-magnifying-glass"></i> <!-- Icono de lupa de FontAwesome -->
+      </button>
+      <button class="btn-export" (click)="exportarExcel()">
+        <i class="fa-solid fa-download"></i> Excel <!-- Icono de descarga de FontAwesome -->
+      </button>
+      <button class="btn-new-product" (click)="agregarPlanCuenta()">
+        <i class="fa-solid fa-plus"></i> Nuevo Plan de Cuentas <!-- Icono de agregar de FontAwesome -->
+      </button>
+    </div>
+
+    <!-- Tabla de planes de cuentas -->
+    <div class="table-container">
+      <table class="product-table" *ngIf="!mostrarFormulario">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Plan de Cuenta</th>
+            <th>Tipo</th>
+            <th>Parent</th>
+            <th>Detalle</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let plan of planesCuentasPaginados">
+            <td>{{ plan.codigo }}</td>
+            <td>{{ plan.nombre }}</td>
+            <td>{{ plan.tipo }}</td>
+            <td>{{ plan.parent }}</td>
+            <td>{{ plan.detalle ? "Sí" : "No" }}</td>
+            <td>
+              <button class="btn-edit" (click)="editarPlanCuenta(plan)">
+                <i class="fa-regular fa-pen-to-square"></i> <!-- Icono de editar de FontAwesome -->
+              </button>
+              <button class="btn-delete" (click)="abrirModalEliminar(plan.codigo)">
+                <i class="fa-solid fa-trash-can"></i> <!-- Icono de eliminar de FontAwesome -->
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal para eliminar plan de cuenta -->
+    <div class="modal-overlay" *ngIf="mostrarModalEliminar">
+      <div class="modal-eliminar">
+        <h2>Eliminar Plan de Cuenta</h2>
+        <p>¿Estás seguro de que deseas eliminar este plan de cuentas?</p>
+        <strong>{{ cuentaAEliminar?.nombre }}</strong>
+        <p>
+          Esta acción hará que el plan de cuentas ya no esté disponible ni
+          visible en el sistema.
+        </p>
+        <div class="modal-buttons">
+          <button class="btn-cancel" (click)="cerrarModalEliminar()">
+            <i class="fa-solid fa-times"></i> Cancelar <!-- Icono de cancelar de FontAwesome -->
+          </button>
+          <button class="btn-delete-confirm" (click)="eliminarPlanCuenta()">
+            <i class="fa-solid fa-trash-can"></i> Eliminar Plan de Cuenta <!-- Icono de eliminar de FontAwesome -->
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de edición/creación -->
+    <div class="modal-overlay" *ngIf="mostrarFormulario">
+      <div class="modal-formulario">
+        <span class="close" (click)="cancelarEdicion()">&times;</span>
+        <div class="formulario-edicion">
+          <h2>
+            {{ esEdicion ? "Editar Plan de Cuentas" : "Nuevo Plan de Cuentas" }}
+          </h2>
+          <form (ngSubmit)="guardarPlanCuenta()">
+            <!-- Código -->
+            <div class="form-group">
+              <label>Código</label>
+              <input
+                type="text"
+                [(ngModel)]="planCuentaSeleccionado.codigo"
+                name="codigo"
+                readonly
+              />
+            </div>
+
+            <!-- Nombre -->
+            <div class="form-group">
+              <label>Nombre</label>
+              <input
+                type="text"
+                [(ngModel)]="planCuentaSeleccionado.nombre"
+                name="nombre"
+                placeholder="Nombre del plan"
+                required
+              />
+            </div>
+
+            <!-- Sección -->
+            <div class="form-group">
+              <label>Sección</label>
+              <input
+                type="text"
+                [(ngModel)]="planCuentaSeleccionado.seccion"
+                name="seccion"
+                placeholder="Sección del plan"
+              />
+            </div>
+
+            <!-- Fórmula -->
+            <div class="form-group">
+              <label>Fórmula</label>
+              <input
+                type="text"
+                [(ngModel)]="planCuentaSeleccionado.formula"
+                name="formula"
+                placeholder="Fórmula del plan"
+              />
+            </div>
+
+            <!-- Tipo -->
+            <div class="form-group">
+              <label>Tipo</label>
+              <select [(ngModel)]="planCuentaSeleccionado.tipo" name="tipo">
+                <option *ngFor="let tipo of tiposCuenta" [value]="tipo">
+                  {{ tipo }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Parent -->
+            <div class="form-group">
+              <label>Parent</label>
+              <select [(ngModel)]="planCuentaSeleccionado.parent" name="parent">
+                <option
+                  *ngFor="let parent of cuentasPadre"
+                  [value]="parent.codigo"
+                >
+                  {{ parent.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Visible -->
+            <div class="form-group">
+              <label>Visible</label>
+              <div class="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="planCuentaSeleccionado.visible"
+                    name="visible"
+                    [value]="true"
+                  />
+                  Sí
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="planCuentaSeleccionado.visible"
+                    name="visible"
+                    [value]="false"
+                  />
+                  No
+                </label>
+              </div>
+            </div>
+
+            <!-- Detalle -->
+            <div class="form-group">
+              <label>Detalle</label>
+              <div class="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="planCuentaSeleccionado.detalle"
+                    name="detalle"
+                    [value]="true"
+                  />
+                  Sí
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    [(ngModel)]="planCuentaSeleccionado.detalle"
+                    name="detalle"
+                    [value]="false"
+                  />
+                  No
+                </label>
+              </div>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn-cancel"
+                (click)="cancelarEdicion()"
+              >
+                <i class="fa-solid fa-times"></i> Cancelar <!-- Icono de cancelar de FontAwesome -->
+              </button>
+              <button type="submit" class="btn-save">
+                <i class="fa-solid fa-save"></i> <!-- Icono de guardar de FontAwesome -->
+                {{ esEdicion ? "Guardar Cambios" : "Crear Plan" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="pagination">
+      <!-- Botón para seleccionar cantidad de registros por página -->
+      <div class="items-per-page">
+        <label>Mostrar:</label>
+        <select [(ngModel)]="itemsPorPagina" (change)="cambiarItemsPorPagina(itemsPorPagina)">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="todos">Todos</option> <!-- Opción para mostrar todos los registros -->
+        </select>
+      </div>
+
+      <!-- Botones de paginación -->
+      <button
+        (click)="cambiarPagina(paginaActual - 1)"
+        [disabled]="paginaActual === 1"
+      >
+        <i class="fa-solid fa-chevron-left"></i> Previa <!-- Icono de flecha izquierda de FontAwesome -->
+      </button>
+      <span
+        >Mostrando del {{ (paginaActual - 1) * itemsPorPagina + 1 }} al
+        {{ Math.min(paginaActual * itemsPorPagina, totalRegistros) }} registros
+        de {{ totalRegistros }}</span
+      >
+      <button
+        (click)="cambiarPagina(paginaActual + 1)"
+        [disabled]="paginaActual * itemsPorPagina >= totalRegistros"
+      >
+        Siguiente <i class="fa-solid fa-chevron-right"></i> <!-- Icono de flecha derecha de FontAwesome -->
+      </button>
+    </div>
+  </main>
+</div>

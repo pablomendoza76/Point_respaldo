@@ -1,0 +1,219 @@
+/* Estilos de la barra de navegación */
+nav,
+.top-bar {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+  
+nav {
+  height: 60px;
+}
+
+nav .flex.items-center,
+.top-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav img {
+  height: 50px;
+  margin-right: 0.75rem;
+}
+
+nav h1,
+nav h2,
+.top-bar .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+.top-bar .title {
+  font-size: 24px;
+}
+
+nav .flex.items-center span,
+.top-icons .icon {
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #d32f2f;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+nav .flex.items-center span:hover,
+.top-icons .icon:hover {
+  color: #b71c1c;
+  transform: scale(1.1);
+}
+
+.user-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-left: 1rem;
+  border: 2px solid #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+
+.user-profile:hover {
+  border-color: #d32f2f;
+}
+
+/* Estilos del contenedor principal */
+.billing-admin-container {
+  display: flex;
+  height: calc(100vh - 60px);
+  background-color: #f9f9f9;
+}
+
+.admin-menu,
+.side-menu {
+  background-color: white;
+  color: #333;
+  padding: 16px;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-menu {
+  width: 230px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.admin-menu.collapsed {
+  width: 70px;
+}
+
+.admin-menu.collapsed .menu-item {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.admin-menu.collapsed .menu-item span {
+  display: none;
+}
+
+.admin-menu.collapsed .menu-item i {
+  font-size: 1.2rem; /* Iconos más pequeños cuando el menú está colapsado */
+  color: #333; /* Color negro para los iconos */
+  transition: color 0.3s ease;
+}
+
+.admin-menu.collapsed .menu-item.active i {
+  color: #000000; /* Color rojo para el icono activo */
+}
+
+.admin-menu .menu,
+.side-menu .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-menu .menu-item,
+.side-menu .menu-item {
+  padding: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.admin-menu .menu-item:hover,
+.side-menu .menu-item:hover {
+  background-color: #f5f5f5;
+  transform: translateX(4px);
+}
+
+.admin-menu .menu-item.active,
+.side-menu .menu-item.active {
+  background-color: #FFE5E4;
+  border-radius: 8px;
+  color: #000000;
+  font-weight: 500;
+  border-left: 4px solid #ef4444; /* Borde izquierdo rojo */
+}
+
+.admin-menu .menu-item.active i,
+.side-menu .menu-item.active i {
+  color: #020202; /* Icono rojo cuando está activo */
+}
+
+.admin-menu .menu-item i,
+.side-menu .menu-item i {
+  font-size: 1.2rem;
+  color: #333; /* Color negro para los iconos */
+  transition: color 0.3s ease;
+}
+
+.admin-menu .menu-item span,
+.side-menu .menu-item span {
+  font-size: 0.95rem;
+  color: #333; /* Color negro para el texto */
+  transition: color 0.3s ease;
+}
+
+.admin-menu .menu-item.active span,
+.side-menu .menu-item.active span {
+  color: #000000; /* Texto rojo cuando está activo */
+}
+
+.admin-menu .footer {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+}
+
+.side-menu {
+  width: 200px;
+}
+
+/* Estilos del contenido principal */
+.main-content {
+  flex-grow: 1;
+  padding: 24px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.main-content:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Mejoras adicionales para los iconos */
+.admin-menu.collapsed .menu-item i {
+  font-size: 1.2rem; /* Tamaño más pequeño para los iconos colapsados */
+}
+
+.admin-menu .menu-item i,
+.side-menu .menu-item i {
+  font-size: 1.2rem; /* Tamaño consistente para los iconos */
+}
+
+/* Efecto hover en los iconos */
+.admin-menu .menu-item:hover i,
+.side-menu .menu-item:hover i {
+  color: #d32f2f; /* Icono rojo al hacer hover */
+}
+
+/* Efecto hover en el texto */
+.admin-menu .menu-item:hover span,
+.side-menu .menu-item:hover span {
+  color: #d32f2f; /* Texto rojo al hacer hover */
+}

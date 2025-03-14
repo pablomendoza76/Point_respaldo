@@ -1,0 +1,88 @@
+<!-- Enlace al CDN de Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- Navegación superior -->
+<nav class="bg-white shadow flex justify-between items-center p-4">
+  <div class="flex items-center">
+    <img src="/img/icon.png" alt="logo" class="h-8 mr-2">
+    <h2>Gestión de productos</h2>
+  </div>
+  <h2 class="text-xl font-bold text-red-500">Supermercado "LABRYC" CIA LTDA</h2>
+  <div class="flex items-center space-x-4">
+    <span class="text-red-500 cursor-pointer"><i class="fa-regular fa-bell"></i></span>
+    <span id="menu-toggle" class="text-red-500 cursor-pointer"><i class="fa-solid fa-bars"></i></span>
+    <span class="text-red-500 cursor-pointer"><i class="fa-solid fa-house"></i></span>
+    <span class="text-red-500 cursor-pointer"><i class="fa-solid fa-headset"></i></span>
+    <span class="text-red-500 cursor-pointer"><i class="fa-solid fa-circle-info"></i></span>
+    <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full">
+  </div>
+</nav>
+
+<!-- Contenedor principal con ambos menús y contenido -->
+<div class="billing-admin-container">
+  <!-- Menú de Administración (Colapsable) -->
+  <aside class="admin-menu" [class.collapsed]="isAdminMenuCollapsed">
+    <ul class="menu">
+      <!-- Administración -->
+      <li class="menu-item admin" (click)="navigateTo('Administración')">
+        <i class="fas fa-cog"></i> <span>Administración</span>
+      </li>
+  
+      <!-- Productos -->
+      <li class="menu-item" (click)="navigateTo('Vista General')" [ngClass]="{ active: isActive('Productos') }">
+        <i class="fas fa-box"></i> <span>Productos</span>
+      </li>
+  
+      <!-- Proveedores -->
+      <li class="menu-item" (click)="navigateTo('Proveedores_vista')" [ngClass]="{active: isActive('Proveedores')}">
+        <i class="fas fa-truck"></i> <span>Proveedores</span>
+      </li>
+  
+      <!-- Tipos PVP -->
+      <li class="menu-item" (click)="navigateTo('Tipos_PVP_vista')"  [ngClass]="{active: isActive('Tipos PVP')}">
+        <i class="fas fa-dollar-sign"></i> <span>Tipos PVP</span>
+      </li>
+  
+      <!-- Clientes -->
+      <li class="menu-item" (click)="navigateTo('Clientes_vista')"  [ngClass]="{active: isActive('Clientes')}">
+        <i class="fas fa-users"></i> <span>Clientes</span>
+      </li>
+  
+      <!-- Cuentas Contables -->
+      <li class="menu-item" (click)="navigateTo('Cuentas_vista')"  [ngClass]="{active: isActive('Cuentas_Contables')}">
+        <i class="fas fa-calculator"></i> <span>Cuentas Contables</span>
+      </li>
+  
+      <!-- Empresa -->
+      <li class="menu-item" (click)="navigateTo('Empresa')"  [ngClass]="{active: isActive('')}">
+        <i class="fas fa-building"></i> <span>Empresa</span>
+      </li>
+  
+      <!-- Configuración -->
+      <li class="menu-item" (click)="navigateTo('Configuración')" [ngClass]="{active: isActive('')}">
+        <i class="fas fa-gear"></i> <span>Configuración</span>
+      </li>
+    </ul>
+    <div class="footer">
+      <span>© 2024 Punto Pymes CIA</span>
+      <button class="toggle-admin-menu" (click)="toggleAdminMenu()">
+        <i [ngClass]="isAdminMenuCollapsed ? 'fas fa-angles-right' : 'fas fa-angles-left'"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Menú Principal (Izquierda) -->
+  <aside class="side-menu">
+    <ul class="menu">
+      <li class="menu-item" (click)="navigateTo('Vista General')" 
+      [ngClass]="{ active: isActive('Vista General') }"><i class="fa-brands fa-windows"></i><span>Gestión de productos</span></li>
+      <li class="menu-item" (click)="navigateTo('Marcas')" 
+      [ngClass]="{ active: isActive('Marcas') }"><i class="fa-regular fa-bookmark"></i><span>Marcas</span></li>
+      <li class="menu-item" (click)="navigateTo('Tipos de Productos')" 
+      [ngClass]="{ active: isActive('Tipos de Productos') }"> <i class="fa-solid fa-shapes"></i> <span>Tipos de Productos</span></li>
+      <li class="menu-item" (click)="navigateTo('Tarifas por Grupo')" 
+      [ngClass]="{ active: isActive('Tarifas por Grupo') }"><i class="fa-solid fa-hand-holding-dollar"></i> <span>Tarifas por Grupo</span></li>
+    </ul>
+  </aside>
+  <!-- Enrutamiento de Angular -->
+  <router-outlet></router-outlet>
+</div>
