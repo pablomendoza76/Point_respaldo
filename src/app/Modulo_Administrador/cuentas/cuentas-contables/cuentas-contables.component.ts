@@ -9,7 +9,7 @@ import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-
   selector: 'app-cuentas-contables',
   standalone: true,
   templateUrl: './cuentas-contables.component.html',
-  styleUrls: ['./cuentas-contables.component.css'],
+  styleUrls: ['./cuentas-contables.component.scss'],
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class CuentasContablesComponent implements OnInit {

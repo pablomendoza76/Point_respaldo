@@ -1,0 +1,39 @@
+
+@import "../catalogo_css/colores.scss";
+
+input {
+    width: 100%; // Ajusta dinámicamente al tamaño del contenedor
+    padding: 10px;
+    border: aqua; // Borde gris bajito
+    border-radius: 4px;
+   color: $texto-secundario;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: aquamarine; // Cambia el color del borde al enfocar
+    }
+
+    // Input con borde rojo
+    &.borde-rojo {
+      border-color: aquamarine; // Borde rojo
+    }
+
+    // Input con borde rojo más suave
+    &.borde-rojo-suave {
+      border-color: aquamarine; // Borde rojo suave
+    }
+
+    // Input con fondo gris
+    &.fondo-gris {
+      background-color:aquamarine; // Fondo gris
+    }
+
+    // Input deshabilitado
+    &:disabled {
+      background-color:aquamarine; // Fondo gris
+      color: aquamarine; // Texto deshabilitado
+      border-color:aquamarine; // Borde gris
+      cursor: not-allowed;
+    }
+  }

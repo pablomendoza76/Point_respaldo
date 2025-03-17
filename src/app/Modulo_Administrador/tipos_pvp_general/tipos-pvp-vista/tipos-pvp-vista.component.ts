@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
 
 @Component({
-  selector: 'app-cuentas-vistas',
+  selector: 'app-tipos-pvp-vista',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './cuentas-vistas.component.html',
-  styleUrl: './cuentas-vistas.component.scss',
+  templateUrl: './tipos-pvp-vista.component.html',
+  styleUrl: './tipos-pvp-vista.component.scss',
 })
-export class CuentasVistasComponent implements OnInit {
+export class TiposPvpVistaComponent implements OnInit {
   isAdminMenuCollapsed: boolean = true; // Estado del menú (colapsado o expandido)
   menuRoutes: { [key: string]: string } = {}; // Rutas del menú
 

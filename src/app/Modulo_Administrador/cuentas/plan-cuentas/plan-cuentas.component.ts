@@ -10,7 +10,7 @@ import * as XLSX from 'xlsx';
   selector: 'app-plan-cuentas',
   standalone: true,
   templateUrl: './plan-cuentas.component.html',
-  styleUrls: ['./plan-cuentas.component.css'],
+  styleUrls: ['./plan-cuentas.component.scss'],
   imports: [CommonModule, FormsModule],
 })
 export class PlanCuentasComponent implements OnInit {

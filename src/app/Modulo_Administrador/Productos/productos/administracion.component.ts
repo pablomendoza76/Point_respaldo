@@ -3,18 +3,19 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
+import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service';
 
 @Component({
-  selector: 'app-cuentas-vistas',
+  selector: 'app-administracion',
   standalone: true,
+  templateUrl: './administracion.component.html',
+  styleUrls: ['./administracion.component.scss'],
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './cuentas-vistas.component.html',
-  styleUrl: './cuentas-vistas.component.scss',
 })
-export class CuentasVistasComponent implements OnInit {
+export class AdministracionComponent implements OnInit {
   isAdminMenuCollapsed: boolean = true; // Estado del menú (colapsado o expandido)
   menuRoutes: { [key: string]: string } = {}; // Rutas del menú
+  menuIcons: { [key: string]: string } = {}; // Iconos del menú
 
   constructor(
     private router: Router,
@@ -39,9 +40,10 @@ export class CuentasVistasComponent implements OnInit {
     this.isAdminMenuCollapsed = !this.isAdminMenuCollapsed;
   }
 
-  // Método para verificar si la opción está activa
-  isActive(option: string): boolean {
-    const ruta = this.menuRoutes[option];
-    return ruta ? this.router.url.includes(ruta) : false;
-  }
+ // Método para verificar si la opción está activa
+ isActive(option: string): boolean {
+  const ruta = this.menuRoutes[option];
+  console.log(ruta)
+  return ruta ? this.router.url.includes(ruta) : false;
+}
 }

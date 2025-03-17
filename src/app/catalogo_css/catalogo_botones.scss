@@ -1,0 +1,58 @@
+// Importamos los archivos de colores y tipografía
+@import './colores.scss';
+@import './tipografia.scss';
+
+// Estilos para el label del input
+.input-label {
+  @extend .body-small-regular; // Usa la tipografía ya definida
+  color: $texto-secundario; // Color de texto secundario
+}
+
+// Estilos base para todos los inputs
+.catalogo_inputs {
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px; // Espacio entre grupos de inputs
+  }
+
+  input {
+    width: 100%; // Ajusta dinámicamente al tamaño del contenedor
+    padding: 10px;
+    border: 1px solid $gris-borde; // Borde gris bajito
+    border-radius: 4px;
+    font-family: $font-work-sans; // Fuente para los inputs
+    font-size: $font-size-body-small; // Tamaño de fuente
+    color: $texto-principal; // Color de texto principal
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $aqua-acento; // Cambia el color del borde al enfocar
+    }
+
+    // Input con borde rojo
+    &.borde-rojo {
+      border-color: $rojo-botones; // Borde rojo
+    }
+
+    // Input con borde rojo más suave
+    &.borde-rojo-suave {
+      border-color: $rojo-texto; // Borde rojo suave
+    }
+
+    // Input con fondo gris
+    &.fondo-gris {
+      background-color: $gris-fondo; // Fondo gris
+    }
+
+    // Input deshabilitado
+    &:disabled {
+      background-color: $gris-fondo; // Fondo gris
+      color: $texto-deshabilitado; // Texto deshabilitado
+      border-color: $gris-borde; // Borde gris
+      cursor: not-allowed;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -6,13 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
 
 @Component({
-  selector: 'app-cuentas-vistas',
+  selector: 'app-proveedores-vista',
   standalone: true,
   imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './cuentas-vistas.component.html',
-  styleUrl: './cuentas-vistas.component.scss',
+  templateUrl: './proveedores-vista.component.html',
+  styleUrl: './proveedores-vista.component.scss',
 })
-export class CuentasVistasComponent implements OnInit {
+export class ProveedoresVistaComponent {
   isAdminMenuCollapsed: boolean = true; // Estado del menú (colapsado o expandido)
   menuRoutes: { [key: string]: string } = {}; // Rutas del menú
 
@@ -42,6 +42,7 @@ export class CuentasVistasComponent implements OnInit {
   // Método para verificar si la opción está activa
   isActive(option: string): boolean {
     const ruta = this.menuRoutes[option];
+    console.log(ruta)
     return ruta ? this.router.url.includes(ruta) : false;
   }
 }

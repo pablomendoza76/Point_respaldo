@@ -37,7 +37,7 @@ interface NotificationGroup {
   selector: 'app-billing-sof-admin',
   standalone: true,
   templateUrl: './billing-sof-admin.component.html',
-  styleUrls: ['./billing-sof-admin.component.css'],
+  styleUrls: ['./billing-sof-admin.component.scss'],
   imports: [CommonModule, RouterModule],
 })
 export class BillingSofAdminComponent implements OnInit, AfterViewInit {
