@@ -1,58 +1,227 @@
-// Importamos los archivos de colores y tipografía
 @import './colores.scss';
 @import './tipografia.scss';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
 
-// Estilos para el label del input
-.input-label {
-  @extend .body-small-regular; // Usa la tipografía ya definida
-  color: $texto-secundario; // Color de texto secundario
+/* Mixin para estilos comunes de botones */
+@mixin button-base($font-family, $font-size, $padding, $border-radius, $gap) {
+  font-family: $font-family;
+  font-size: $font-size;
+  padding: $padding;
+  border-radius: $border-radius;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: $gap;
+  transition: background-color 0.3s ease;
+
+  &.with-icon .fa {
+    font-size: 16px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
-// Estilos base para todos los inputs
-.catalogo_inputs {
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px; // Espacio entre grupos de inputs
+/* Botones Primarios */
+.primary-btn {
+  @include button-base($font-poppins, $font-size-body-small, 12px 24px, 24px, 8px);
+  background-color: $rojo-botones;
+  color: $fondo-claro;
+  border: none;
+
+  &:hover {
+    background-color: darken($rojo-botones, 10%);
   }
 
-  input {
-    width: 100%; // Ajusta dinámicamente al tamaño del contenedor
-    padding: 10px;
-    border: 1px solid $gris-borde; // Borde gris bajito
-    border-radius: 4px;
-    font-family: $font-work-sans; // Fuente para los inputs
-    font-size: $font-size-body-small; // Tamaño de fuente
-    color: $texto-principal; // Color de texto principal
-    transition: border-color 0.3s ease;
+  &:disabled {
+    background-color: $gris-fondo;
+    color: $texto-deshabilitado;
+  }
+}
 
-    &:focus {
-      outline: none;
-      border-color: $aqua-acento; // Cambia el color del borde al enfocar
+/* Botones Secundarios */
+.secondary-btn {
+  @include button-base($font-poppins, $font-size-body-small, 12px 24px, 24px, 8px);
+  background-color: $gris-fondo;
+  color: $rojo-texto;
+  border: 1px solid $gris-borde;
+
+  &:hover {
+    background-color: darken($gris-fondo, 5%);
+  }
+
+  &:disabled {
+    background-color: $fondo-claro;
+    color: $texto-deshabilitado;
+  }
+}
+
+/* Botones de Texto */
+.text-btn {
+  @include button-base($font-poppins, $font-size-body-small, 8px, 0, 8px);
+  background-color: transparent;
+  color: $texto-principal;
+  border: none;
+
+  &:hover {
+    color: $rojo-texto;
+  }
+
+  &:disabled {
+    color: $texto-deshabilitado;
+  }
+}
+
+/* Botones View More */
+.view-more-btn {
+  @include button-base($font-poppins, $font-size-caption, 4px 8px, 0, 0);
+  background-color: transparent;
+  color: $texto-principal;
+  border: none;
+
+  &:hover {
+    color: $rojo-texto;
+  }
+
+  &:disabled {
+    color: $texto-deshabilitado;
+  }
+}
+
+/* Botones de Topbar */
+.topbar-btn {
+  @include button-base($font-work-sans, $font-size-body-small, 8px 16px, 24px, 8px);
+  background-color: $gris-fondo;
+  color: $texto-secundario;
+  border: 1px solid $gris-borde;
+  position: relative;
+
+  &:hover {
+    background-color: darken($gris-fondo, 5%);
+  }
+
+  &.dropdown {
+    &::after {
+      content: '▼';
+      font-size: 12px;
+      margin-left: 8px;
+      transition: transform 0.2s ease;
     }
 
-    // Input con borde rojo
-    &.borde-rojo {
-      border-color: $rojo-botones; // Borde rojo
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: $fondo-claro;
+      border: 1px solid $gris-borde;
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 8px 0;
+      z-index: 100;
+      min-width: 160px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+
+      .menu-item {
+        padding: 12px 16px;
+        color: $texto-principal;
+        font-family: $font-poppins;
+        font-size: $font-size-body-small;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          background-color: $gris-fondo;
+        }
+
+        &:first-child {
+          border-top-left-radius: 12px;
+          border-top-right-radius: 12px;
+        }
+
+        &:last-child {
+          border-bottom-left-radius: 12px;
+          border-bottom-right-radius: 12px;
+        }
+      }
+
+      .menu-divider {
+        height: 1px;
+        background-color: $gris-borde;
+        margin: 4px 0;
+      }
     }
 
-    // Input con borde rojo más suave
-    &.borde-rojo-suave {
-      border-color: $rojo-texto; // Borde rojo suave
-    }
-
-    // Input con fondo gris
-    &.fondo-gris {
-      background-color: $gris-fondo; // Fondo gris
-    }
-
-    // Input deshabilitado
-    &:disabled {
-      background-color: $gris-fondo; // Fondo gris
-      color: $texto-deshabilitado; // Texto deshabilitado
-      border-color: $gris-borde; // Borde gris
-      cursor: not-allowed;
+    &.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
   }
+}
+
+/* Botones de Acción (Cerrar y Filtro) */
+.action-btn {
+  @include button-base($font-work-sans, $font-size-body-small, 8px, 50%, 0);
+  background-color: $fondo-claro;
+  color: $texto-secundario;
+  border: 1px solid $gris-borde;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+
+  &:hover {
+    background-color: $gris-fondo;
+  }
+
+  &.dark {
+    background-color: $fondo-oscuro;
+    color: $fondo-claro;
+
+    &:hover {
+      background-color: lighten($fondo-oscuro, 10%);
+    }
+  }
+}
+
+/* Botones de Excel (Verde) */
+.excel-btn {
+  @include button-base($font-poppins, $font-size-body-small, 12px 24px, 24px, 8px);
+  background-color: $verde-botones;
+  color: $fondo-claro;
+  border: none;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: darken($verde-botones, 10%);
+  }
+
+  &:disabled {
+    background-color: lighten($verde-botones, 20%);
+  }
+}
+
+/* Botón de Alternar Filtros */
+.filter-toggle {
+  @include button-base($font-poppins, $font-size-body-small, 8px 16px, 24px, 8px);
+  background-color: $fondo-claro;
+  color: $texto-principal;
+  border: 1px solid $gris-borde;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($fondo-claro, 5%);
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+/* Ocultar sección de filtros */
+.hidden {
+  display: none;
 }

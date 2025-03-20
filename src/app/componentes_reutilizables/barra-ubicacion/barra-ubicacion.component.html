@@ -1,0 +1,21 @@
+<!-- Contenedor principal del breadcrumb -->
+<div class="breadcrumb-container">
+  <!-- Botón de home -->
+  <i class="fa-solid fa-house" (click)="onNavigate('/' + homeRoute)"></i>
+
+  <!-- Itera sobre la lista de breadcrumbs -->
+  <ng-container *ngFor="let crumb of breadcrumbs; let last = last">
+    <!-- Enlace si el breadcrumb tiene una ruta definida -->
+    <a *ngIf="crumb.path; else noLink" (click)="onNavigate(crumb.path)" class="breadcrumb-link">
+      {{ crumb.label }}
+    </a>
+
+    <!-- Plantilla para breadcrumbs sin enlace (ruta actual) -->
+    <ng-template #noLink>
+      <span class="breadcrumb-current">{{ crumb.label }}</span>
+    </ng-template>
+
+    <!-- Separador entre breadcrumbs (excepto el último) -->
+    <span *ngIf="!last"> / </span>
+  </ng-container>
+</div>

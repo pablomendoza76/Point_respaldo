@@ -1,195 +1,223 @@
 /* Fuentes */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Work+Sans:wght@300;400;500;600&display=swap');
 
+/* Variables de fuentes */
+$font-poppins: 'Poppins', sans-serif;
+$font-work-sans: 'Work Sans', sans-serif;
+
+/* Variables de tamaños de fuente */
+$font-size-h1: 48px;
+$font-size-h2: 40px;
+$font-size-h3: 32px;
+$font-size-headline-title-small: 28px;
+$font-size-headline-title: 24px;
+$font-size-headline-subtitle: 20px;
+$font-size-body-large: 20px;
+$font-size-body: 18px;
+$font-size-body-small: 16px;
+$font-size-caption: 12px;
+
+/* Variables de alturas de línea */
+$line-height-h1: 72px;
+$line-height-h2: 60px;
+$line-height-h3: 48px;
+$line-height-headline-title-small: 42px;
+$line-height-headline-title: 36px;
+$line-height-headline-subtitle: 30px;
+$line-height-body-large: 30px;
+$line-height-body: 28px;
+$line-height-body-small: 26px;
+$line-height-caption: 18px;
+
 /* Heading - Títulos */
 .h1-medium {
-  font-family: 'Poppins', sans-serif;
-  font-size: 48px;
-  line-height: 72px;
+  font-family: $font-poppins;
+  font-size: $font-size-h1;
+  line-height: $line-height-h1;
   font-weight: 500;
 }
 
 .h2-regular {
-  font-family: 'Poppins', sans-serif;
-  font-size: 40px;
-  line-height: 60px;
+  font-family: $font-poppins;
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
   font-weight: 400;
 }
 
 .h2-medium {
-  font-family: 'Poppins', sans-serif;
-  font-size: 40px;
-  line-height: 60px;
+  font-family: $font-poppins;
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
   font-weight: 500;
 }
 
 .h2-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 40px;
-  line-height: 60px;
+  font-family: $font-poppins;
+  font-size: $font-size-h2;
+  line-height: $line-height-h2;
   font-weight: 600;
 }
 
 .h3-regular {
-  font-family: 'Poppins', sans-serif;
-  font-size: 32px;
-  line-height: 48px;
+  font-family: $font-poppins;
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
   font-weight: 400;
 }
 
 .h3-medium {
-  font-family: 'Poppins', sans-serif;
-  font-size: 32px;
-  line-height: 48px;
+  font-family: $font-poppins;
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
   font-weight: 500;
 }
 
 .h3-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 32px;
-  line-height: 48px;
+  font-family: $font-poppins;
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
   font-weight: 600;
 }
 
 .h3-bold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 32px;
-  line-height: 48px;
+  font-family: $font-poppins;
+  font-size: $font-size-h3;
+  line-height: $line-height-h3;
   font-weight: 700;
 }
 
 /* Headline - Subtítulos y Títulos */
 .headline-title-small-medium {
-  font-family: 'Poppins', sans-serif;
-  font-size: 28px;
-  line-height: 42px;
+  font-family: $font-poppins;
+  font-size: $font-size-headline-title-small;
+  line-height: $line-height-headline-title-small;
   font-weight: 500;
 }
 
 .headline-title-regular {
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  line-height: 36px;
+  font-family: $font-poppins;
+  font-size: $font-size-headline-title;
+  line-height: $line-height-headline-title;
   font-weight: 400;
 }
 
 .headline-title-medium {
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  line-height: 36px;
+  font-family: $font-poppins;
+  font-size: $font-size-headline-title;
+  line-height: $line-height-headline-title;
   font-weight: 500;
 }
 
 .headline-title-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 24px;
-  line-height: 36px;
+  font-family: $font-poppins;
+  font-size: $font-size-headline-title;
+  line-height: $line-height-headline-title;
   font-weight: 600;
 }
 
 .headline-subtitle-regular {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 20px;
-  line-height: 30px;
+  font-family: $font-work-sans;
+  font-size: $font-size-headline-subtitle;
+  line-height: $line-height-headline-subtitle;
   font-weight: 400;
 }
 
 /* Body - Texto Principal */
 .body-large-light {
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;
-  line-height: 30px;
+  font-family: $font-poppins;
+  font-size: $font-size-body-large;
+  line-height: $line-height-body-large;
   font-weight: 300;
 }
 
 .body-large-regular {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 18px;
-  line-height: 28px;
+  font-family: $font-work-sans;
+  font-size: $font-size-body;
+  line-height: $line-height-body;
   font-weight: 400;
 }
 
 .body-large-medium {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 18px;
-  line-height: 28px;
+  font-family: $font-work-sans;
+  font-size: $font-size-body;
+  line-height: $line-height-body;
   font-weight: 500;
 }
 
 .body-large-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 18px;
-  line-height: 28px;
+  font-family: $font-poppins;
+  font-size: $font-size-body;
+  line-height: $line-height-body;
   font-weight: 600;
 }
 
 .body-regular {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 16px;
-  line-height: 26px;
+  font-family: $font-work-sans;
+  font-size: $font-size-body-small;
+  line-height: $line-height-body-small;
   font-weight: 400;
 }
 
 .body-medium {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 16px;
-  line-height: 26px;
+  font-family: $font-work-sans;
+  font-size: $font-size-body-small;
+  line-height: $line-height-body-small;
   font-weight: 500;
 }
 
 .body-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  line-height: 26px;
+  font-family: $font-poppins;
+  font-size: $font-size-body-small;
+  line-height: $line-height-body-small;
   font-weight: 600;
 }
 
 .body-small-regular {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 14px;
-  line-height: 22px;
+  font-family: $font-work-sans;
+  font-size: $font-size-body-small;
+  line-height: $line-height-body-small;
   font-weight: 400;
 }
 
 .body-small-medium {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 14px;
-  line-height: 22px;
+  font-family: $font-work-sans;
+  font-size: $font-size-body-small;
+  line-height: $line-height-body-small;
   font-weight: 500;
 }
 
 .body-small-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  line-height: 22px;
+  font-family: $font-poppins;
+  font-size: $font-size-body-small;
+  line-height: $line-height-body-small;
   font-weight: 600;
 }
 
 /* Caption - Texto Pequeño */
 .caption-light {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 12px;
-  line-height: 18px;
+  font-family: $font-work-sans;
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
   font-weight: 300;
 }
 
 .caption-regular {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 12px;
-  line-height: 18px;
+  font-family: $font-work-sans;
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
   font-weight: 400;
 }
 
 .caption-medium {
-  font-family: 'Work Sans', sans-serif;
-  font-size: 12px;
-  line-height: 18px;
+  font-family: $font-work-sans;
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
   font-weight: 500;
 }
 
 .caption-semibold {
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  line-height: 18px;
+  font-family: $font-poppins;
+  font-size: $font-size-caption;
+  line-height: $line-height-caption;
   font-weight: 600;
 }

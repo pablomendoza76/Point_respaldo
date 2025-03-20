@@ -1,0 +1,51 @@
+// Importar variables de tipografía y colores
+@import '../../catalogo_css/colores.scss';
+@import '../../catalogo_css/tipografia.scss';
+
+/**
+ * Estilos mejorados para el breadcrumb con apariencia iOS
+ */
+.breadcrumb-container {
+  font-family: $font-poppins;
+  font-size: $font-size-body-small;
+  font-weight: 500;
+  color: $texto-secundario;
+  margin: 20px 16px; // Mayor separación del borde
+  display: flex;
+  align-items: center;
+  gap: 12px; // Más espacio entre elementos
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+
+  /**
+   * Estilos para los enlaces del breadcrumb
+   */
+  .breadcrumb-link {
+    color: $texto-principal;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      text-decoration: underline;
+      color: $rojo-texto;
+      transform: scale(1.05); // Efecto ligero de aumento
+    }
+  }
+
+  /**
+   * Estilos para el breadcrumb actual (sin enlace)
+   */
+  .breadcrumb-current {
+    font-weight: bold;
+    color: $rojo-texto;
+  }
+
+  /**
+   * Separador entre los elementos del breadcrumb
+   */
+  .breadcrumb-separator {
+    color: lighten($texto-secundario, 20%);
+    font-size: 1rem;
+  }
+}

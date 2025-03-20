@@ -1,0 +1,50 @@
+<div class="search-container">
+  <select id="search-type" [(ngModel)]="searchType" (change)="cambiarTipoBusqueda()">
+    <option *ngFor="let opcion of opcionesBusqueda" [value]="opcion.value">{{ opcion.label }}</option>
+  </select>
+
+  <input type="search" id="search-input" [(ngModel)]="searchValue" (input)="actualizarBusqueda()" placeholder="Buscar...">
+  <button class="search-btn" (click)="actualizarBusqueda()"><i class="fa-solid fa-magnifying-glass"></i></button>
+
+  <!-- Botón para mostrar/ocultar filtros -->
+  <button class="filter-toggle" (click)="toggleFiltros()">
+    <i class="fa-solid" [ngClass]="mostrarFiltros ? 'fa-filter-circle-xmark' : 'fa-filter'"></i>
+  </button>
+
+  <!-- Selector de columnas -->
+  <div style="position: relative;">
+    <button class="column-toggle" (click)="toggleColumnas()"><i class="fa-solid fa-chart-column"></i></button>
+    <div class="column-selector" [class.hidden]="!mostrarColumnas">
+      <div class="column-list">
+        <label *ngFor="let columna of columnasDisponibles">
+          <input type="checkbox" [(ngModel)]="columna.selected" (change)="actualizarColumnas()"> {{ columna.name }}
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de acciones -->
+  <button class="btn-export" (click)="exportar()"> <i class="fa-solid fa-download"></i> &nbsp; Excel</button>
+  <button class="btn-import" (click)="importar()"><i class="fa-solid fa-upload"></i> &nbsp; Importar</button>
+  <button class="btn-agregar" (click)="agregar()"><i class="fa-solid fa-plus"></i> &nbsp; {{ textoBotonAgregar }}</button>
+</div>
+
+<!-- Sección de filtros -->
+<div class="filter-section" [class.hidden]="!mostrarFiltros">
+  <select [(ngModel)]="filtroGrupo" (change)="aplicarFiltros()">
+    <option value="">Grupos</option>
+    <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
+  </select>
+
+  <select [(ngModel)]="filtroMarca" (change)="aplicarFiltros()">
+    <option value="">Marcas</option>
+    <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+  </select>
+
+  <div class="filter-buttons">
+    <button class="filter-btn" (click)="aplicarFiltros('todos')" [class.active]="filtroActivo === 'todos'">Todos</button>
+    <button class="filter-btn" (click)="aplicarFiltros('stock')" [class.active]="filtroActivo === 'stock'">Stock</button>
+    <button class="filter-btn" (click)="aplicarFiltros('medio')" [class.active]="filtroActivo === 'medio'">Medio</button>
+    <button class="filter-btn" (click)="aplicarFiltros('sin_stock')" [class.active]="filtroActivo === 'sin_stock'">Sin Stock</button>
+  </div>
+</div>

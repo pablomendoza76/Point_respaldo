@@ -76,15 +76,15 @@
             <span><strong>Orden:</strong> {{ grupoSeleccionado.orden }}</span>
             <span
               ><strong>Vista Web:</strong>
-              {{ grupoSeleccionado.vistaWeb ? "✅" : "❌" }}</span
+              {{ grupoSeleccionado.vistaWeb ? "" : "❌" }}</span
             >
             <span
               ><strong>Vista Sistema:</strong>
-              {{ grupoSeleccionado.vistaSistema ? "✅" : "❌" }}</span
+              {{ grupoSeleccionado.vistaSistema ? "" : "❌" }}</span
             >
             <span
               ><strong>Parent:</strong>
-              {{ grupoSeleccionado.parent ? "✅" : "❌" }}</span
+              {{ grupoSeleccionado.parent ? "" : "❌" }}</span
             >
           </div>
           <div class="tarifas-container">
@@ -243,7 +243,7 @@
               ❌ Cancelar
             </button>
             <button type="submit" class="btn-save">
-              {{ esEdicion ? "💾 Guardar Cambios" : "✅ Agregar Grupo" }}
+              {{ esEdicion ? "💾 Guardar Cambios" : " Agregar Grupo" }}
             </button>
           </div>
         </form>

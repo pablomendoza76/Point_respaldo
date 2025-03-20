@@ -14,7 +14,7 @@
     <select id="search-type" [(ngModel)]="searchType" (change)="cambiarTipoBusqueda()">
       <option value="codigo">Cod. Común</option>
       <option value="nombre">Nombre</option>
-      <option value="codigo1">Cod. de Barras 1</option>
+      <option value="codigo1">Cod. de Barras 1</option> 
       <option value="codigo2">Cod. de Barras 2</option>
       <option value="codigo3">Cod. de Barras 3</option>
     </select>
@@ -304,7 +304,7 @@
           <!-- Botones -->
           <div class="form-actions">
             <button type="button" class="btn-cancel" (click)="cancelarEdicion()">❌ Cancelar</button>
-            <button type="submit" class="btn-save">{{ esEdicion ? '💾 Guardar Cambios' : '✅ Agregar Producto' }}</button>
+            <button type="submit" class="btn-save">{{ esEdicion ? '💾 Guardar Cambios' : ' Agregar Producto' }}</button>
           </div>
         </form>
       </div>

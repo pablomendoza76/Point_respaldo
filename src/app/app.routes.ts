@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-// ✅ Importar módulos desde Modulo_Administrador
+//  Importar módulos desde Modulo_Administrador
 import { BillingSofAdminComponent } from './billing-sof-admin/billing-sof-admin.component';
 import { AdministracionComponent } from './Modulo_Administrador/Productos/productos/administracion.component';
 import { ImportarComponent } from './Modulo_Administrador/importar/importar.component';
@@ -22,24 +22,24 @@ import { ProveedoresVistaComponent } from './Modulo_Administrador/proveedores_ge
 import { TiposPvpVistaComponent } from './Modulo_Administrador/tipos_pvp_general/tipos-pvp-vista/tipos-pvp-vista.component';
 import { CuentasVistasComponent } from './Modulo_Administrador/cuentas/cuentas-vistas/cuentas-vistas.component';
 
-
-
-// ✅ Seguridad
+//  Seguridad
 import { AuthGuard } from './auth.guard';
 import { AppComponent } from './app.component';
 import { PruebraComponent } from './pruebra/pruebra.component';
+import { BarraBusquedaComponent } from './componentes_reutilizables/barra-busqueda/barra-busqueda.component';
+import { BarraUbicacionComponent } from './componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
 
 export const routes: Routes = [
   { path: 'login', component: AppComponent },
 
-  // ✅ Ruta de administrador
+  //  Ruta de administrador
   {
     path: 'administrador',
     component: BillingSofAdminComponent,
     canActivate: [AuthGuard]
   },
 
-  // ✅ Ruta para administración de productos
+  //  Ruta para administración de productos
   {
     path: 'productos',
     component: AdministracionComponent,
@@ -52,28 +52,28 @@ export const routes: Routes = [
     ]
   },
 
-  // ✅ Ruta para importar datos
+  //  Ruta para importar datos
   {
     path: 'importar',
     component: ImportarComponent,
     canActivate: [AuthGuard]
   },
 
-  // ✅ Ruta para empresa
+  //  Ruta para empresa
   {
     path: 'empresa',
     component: EmpresaComponent,
     canActivate: [AuthGuard]
   },
 
-  // ✅ Ruta para configuración
+  //  Ruta para configuración
   {
     path: 'configuracion',
     component: ConfiguracionComponent,
     canActivate: [AuthGuard]
   },
 
-  // ✅ Ruta para proveedores
+  //  Ruta para proveedores
   {
     path: 'proveedores',
     component: ProveedoresVistaComponent,
@@ -84,7 +84,7 @@ export const routes: Routes = [
     ]
   },
 
-  // ✅ Ruta para clientes
+  //  Ruta para clientes
   {
     path: 'clientes',
     component: ClientesVistaComponent,
@@ -95,7 +95,7 @@ export const routes: Routes = [
     ]
   },
 
-  // ✅ Ruta para tipos de PVP
+  //  Ruta para tipos de PVP
   {
     path: 'tipos-pvp',
     component: TiposPvpVistaComponent,
@@ -105,20 +105,21 @@ export const routes: Routes = [
     ]
   },
 
-  // ✅ Ruta para cuentas
+  //  Ruta para cuentas
   {
     path: 'cuentas',
     component: CuentasVistasComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'cuentas-contables', component: CuentasContablesComponent },
-      { path: 'plan-cuentas', component: PlanCuentasComponent },{ path: 'prueba', component: PruebraComponent }
+      { path: 'plan-cuentas', component: PlanCuentasComponent },{ path: 'prueba', component: PruebraComponent }, 
+      { path: 'prueba2', component: BarraBusquedaComponent}, { path: 'prueba3', component: BarraUbicacionComponent}
     ]
   },
 
-  // ✅ Ruta por defecto
+  //  Ruta por defecto
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
-  // ✅ Ruta para manejar errores 404 (ruta no encontrada)
+  //  Ruta para manejar errores 404 (ruta no encontrada)
   { path: '**', redirectTo: '/login' }
 ];
