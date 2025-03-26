@@ -1,7 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
 /**
- * ✅ Establece el término de búsqueda.
+ * 🎯 Acción para establecer el término de búsqueda
+ * @param {string} searchTerm - Término de búsqueda a establecer
  */
 export const setSearchTerm = createAction(
   '[Filter] Set Search Term',
@@ -9,7 +10,8 @@ export const setSearchTerm = createAction(
 );
 
 /**
- * ✅ Establece el filtro activo (estado).
+ * 🎯 Acción para establecer el filtro activo (estado)
+ * @param {string} filtroActivo - Valor del filtro a aplicar
  */
 export const setFiltroActivo = createAction(
   '[Filter] Set Filtro Activo',
@@ -17,7 +19,8 @@ export const setFiltroActivo = createAction(
 );
 
 /**
- * ✅ Establece los filtros dinámicos.
+ * 🎯 Acción para establecer múltiples filtros dinámicos
+ * @param {Object} filtrosDinamicos - Objeto con pares clave-valor de filtros
  */
 export const setFiltrosDinamicos = createAction(
   '[Filter] Set Filtros Dinamicos',
@@ -25,29 +28,15 @@ export const setFiltrosDinamicos = createAction(
 );
 
 /**
- * ✅ Limpia los filtros dinámicos.
+ * 🧹 Acción para limpiar todos los filtros dinámicos
+ * Restablece los filtros a su estado inicial
  */
 export const limpiarFiltrosDinamicos = createAction(
   '[Filter] Clear Filtros Dinamicos'
 );
 
 /**
- * ✅ Restablece todos los filtros.
+ * 🔄 Acción para resetear completamente todos los filtros
+ * Incluye término de búsqueda, filtro activo y filtros dinámicos
  */
 export const resetFilters = createAction('[Filter] Reset Filters');
-
-/**
- * ✅ Actualiza las columnas visibles.
- */
-export const setColumnasVisibles = createAction(
-  '[Filtros] Set Columnas Visibles',
-  props<{ columnasVisibles: { name: string; key: string }[] }>()
-);
-
-/**
- * ✅ Establece los productos completos.
- */
-export const setProductos = createAction(
-  '[Filtros] Set Productos',
-  props<{ productos: any[] }>()
-);

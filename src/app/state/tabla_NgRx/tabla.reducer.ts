@@ -28,11 +28,13 @@ export const initialState: TablaState = {
 
 /**
  * 🔍 Aplica filtros por búsqueda y filtros dinámicos.
+ * @param state Estado actual de la tabla
+ * @returns Lista filtrada de productos
  */
 function filtrarProductos(state: TablaState): any[] {
   let productosFiltrados = [...state.productos];
 
-  // 🔍 Filtro por búsqueda
+  // 🔍 Filtro por término de búsqueda
   if (state.searchTerm) {
     productosFiltrados = productosFiltrados.filter((producto) =>
       Object.values(producto).some((value) =>
@@ -41,17 +43,18 @@ function filtrarProductos(state: TablaState): any[] {
     );
   }
 
-  // 🚦 Filtros dinámicos
+  // 🚦 Filtros dinámicos aplicados (Marca, Categoría, etc.)
   Object.keys(state.filtrosDinamicos).forEach((key) => {
     const valor = state.filtrosDinamicos[key];
     if (valor && valor !== 'todos') {
+      const claveReal = key.toLowerCase(); // ⚠️ clave normalizada
       productosFiltrados = productosFiltrados.filter(
-        (producto) => producto[key]?.toString() === valor
+        (producto) => producto[claveReal]?.toString() === valor
       );
     }
   });
 
-  // ⚖️ Filtro especial "medio"
+  // ⚖️ Filtro especial "medio" basado en promedio de stock
   if (state.filtrosDinamicos['estado'] === 'medio') {
     productosFiltrados = productosFiltrados.filter((producto) => {
       const promedio = (producto.stockMin + producto.stockMax) / 2;
@@ -63,12 +66,16 @@ function filtrarProductos(state: TablaState): any[] {
 }
 
 /**
- * 🎯 Muestra solo las columnas seleccionadas.
+ * 🎯 Mapea solo las columnas seleccionadas para cada producto.
+ * @param productos Lista de productos filtrados
+ * @param columnas Columnas visibles
+ * @returns Productos con solo las propiedades visibles
  */
 function mapearColumnasVisibles(productos: any[], columnas: { name: string; key: string }[]): any[] {
   if (!columnas || columnas.length === 0) {
     return productos; // Mostrar todo si no hay columnas seleccionadas
   }
+
   return productos.map((producto) => {
     const result: any = {};
     columnas.forEach((col) => {
@@ -81,7 +88,7 @@ function mapearColumnasVisibles(productos: any[], columnas: { name: string; key:
 }
 
 /**
- * 📄 Aplica paginación.
+ * 📄 Aplica la paginación a los productos.
  */
 function aplicarPaginacion(productos: any[], pagina: number, itemsPorPagina: number): any[] {
   if (itemsPorPagina === 20000) return productos; // "Todos"
@@ -90,7 +97,7 @@ function aplicarPaginacion(productos: any[], pagina: number, itemsPorPagina: num
 }
 
 /**
- * 🔄 Recalcula los productos visibles.
+ * 🔄 Recalcula los productos visibles combinando filtros, columnas y paginación.
  */
 function recalcularProductosVisibles(state: TablaState): any[] {
   const filtrados = filtrarProductos(state);

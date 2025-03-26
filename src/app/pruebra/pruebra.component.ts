@@ -36,19 +36,9 @@ import { TablaDinamicaComponent } from '../componentes_reutilizables/tabla-dinam
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PruebraComponent implements OnInit {
-  /**
-   * Observable que contiene los productos visibles (filtrados y con columnas visibles).
-   */
   productosVisibles$: Observable<any[]> = of([]);
-
-  /**
-   * Observable que contiene el total de registros visibles.
-   */
   totalRegistros$: Observable<number> = of(0);
 
-  /**
-   * Columnas disponibles con configuración de visibilidad.
-   */
   columnasDisponibles = [
     { name: 'Código', key: 'codigo', selected: true },
     { name: 'Nombre', key: 'nombre', selected: true },
@@ -58,9 +48,6 @@ export class PruebraComponent implements OnInit {
     { name: 'Marca', key: 'marca', selected: true }
   ];
 
-  /**
-   * Opciones disponibles para búsqueda específica por campo.
-   */
   opcionesBusqueda = [
     { value: 'codigo', label: 'Código' },
     { value: 'nombre', label: 'Nombre' },
@@ -68,25 +55,23 @@ export class PruebraComponent implements OnInit {
   ];
 
   /**
-   * Filtros dinámicos disponibles.
+   * Filtros dinámicos con clave real (`key`) para que puedan ser usados en filtros.
    */
   filtrosConfiguracion = [
     {
       nombre: 'Categoría',
+      key: 'categoria',
       opciones: ['Electrónica', 'Hogar', 'Juguetes']
     },
     {
       nombre: 'Marca',
+      key: 'marca',
       opciones: ['Sony', 'Samsung', 'LG']
     }
   ];
 
   constructor(private store: Store<AppState>) {}
 
-  /**
-   * Inicialización del componente.
-   * Carga los datos de productos y columnas visibles al inicio.
-   */
   ngOnInit(): void {
     this.cargarDatos();
 
@@ -95,14 +80,9 @@ export class PruebraComponent implements OnInit {
       tap((data) => console.log('Productos visibles:', data))
     );
 
-    this.totalRegistros$ = this.store.pipe(
-      select(selectTotalRegistros)
-    );
+    this.totalRegistros$ = this.store.pipe(select(selectTotalRegistros));
   }
 
-  /**
-   * Carga productos de prueba quemados y los envía al store junto con las columnas visibles.
-   */
   cargarDatos(): void {
     const categorias = ['Electrónica', 'Hogar', 'Juguetes'];
     const marcas = ['Sony', 'Samsung', 'LG'];
@@ -119,30 +99,21 @@ export class PruebraComponent implements OnInit {
       marca: marcas[i % marcas.length]
     }));
 
-    // ✅ Despacho de productos
     this.store.dispatch(setProductos({ productos: mockProductos }));
 
-    // ✅ Despacho de columnas visibles iniciales (clonadas para evitar errores de mutabilidad)
     const columnasVisibles = this.columnasDisponibles
       .filter(col => col.selected)
       .map(col => ({ ...col }));
 
     this.store.dispatch(setColumnasVisibles({ columnasVisibles }));
-
     console.log('🔥 Columnas visibles al cargar:', columnasVisibles);
   }
 
-  /**
-   * Recibe filtros aplicados desde barra-busqueda y los despacha al store.
-   */
   onFiltrosAplicados(filtros: { [key: string]: string }): void {
     console.log('✅ Filtros aplicados:', filtros);
     this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
   }
 
-  /**
-   * Recibe columnas actualizadas y despacha su estado completo al store.
-   */
   onColumnasActualizadas(columnas: { name: string; key: string; selected: boolean }[]): void {
     this.columnasDisponibles = columnas.map(col => ({ ...col }));
     console.log('✅ Columnas visibles actualizadas:', columnas);
@@ -151,32 +122,20 @@ export class PruebraComponent implements OnInit {
     this.store.dispatch(setColumnasVisibles({ columnasVisibles: visibles }));
   }
 
-  /**
-   * Acción de edición de producto desde la tabla.
-   */
   onEditarProducto(producto: any): void {
     console.log('Editar producto:', producto);
   }
 
-  /**
-   * Acción de eliminación de producto desde la tabla.
-   */
   onEliminarProducto(producto: any): void {
     console.log('Eliminar producto:', producto);
   }
 
-  /**
-   * Mostrar/Ocultar menú desplegable.
-   */
   toggleDropdown(event: Event): void {
     event.stopPropagation();
     const button = event.currentTarget as HTMLElement;
     button.classList.toggle('active');
   }
 
-  /**
-   * Mostrar/Ocultar menú de filtros.
-   */
   toggleFilter(event: Event): void {
     event.stopPropagation();
     const button = event.currentTarget as HTMLElement;

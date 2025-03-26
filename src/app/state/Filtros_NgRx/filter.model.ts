@@ -3,17 +3,30 @@
  * Define las opciones disponibles para un tipo de filtro.
  */
 export interface FiltroConfiguracion {
+  /**
+   * Etiqueta visible en la UI (ej: "Categoría")
+   */
   nombre: string;
+
+  /**
+   * Clave real usada para filtrar en el objeto producto (ej: "categoria")
+   */
+  key: string;
+
+  /**
+   * Opciones disponibles para seleccionar.
+   */
   opciones: string[];
+
+  /**
+   * Valor actualmente seleccionado (opcional).
+   */
   seleccionado?: string;
 }
 
-/**
- * Estado completo del módulo de filtros.
- * Contiene solo información de búsqueda y filtros dinámicos.
- */
 export interface FilterState {
   searchTerm: string;
   filtroActivo: string;
   filtrosDinamicos: { [key: string]: string };
 }
+

@@ -1,26 +1,24 @@
-import { 
-  Component, 
-  Input, 
-  Output, 
-  EventEmitter, 
-  ChangeDetectionStrategy, 
-  ChangeDetectorRef 
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Store, select } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
-// ✅ Importar acciones desde tabla.actions.ts
 import {
   setSearchTerm,
   setFiltroActivo,
   setFiltrosDinamicos,
-  setColumnasVisibles
-} from '../../state/tabla_NgRx/tabla.actions'; // <-- Cambiado
-
-import { FiltroConfiguracion } from '../../state/Filtros_NgRx/filter.model'; // <- Puedes seguir usando el modelo de filtros si te sirve
+  setColumnasVisibles,
+} from '../../state/tabla_NgRx/tabla.actions';
+import { FiltroConfiguracion } from '../../state/Filtros_NgRx/filter.model';
 
 @Component({
   selector: 'app-barra-busqueda',
@@ -28,101 +26,174 @@ import { FiltroConfiguracion } from '../../state/Filtros_NgRx/filter.model'; // 
   imports: [CommonModule, FormsModule],
   templateUrl: './barra-busqueda.component.html',
   styleUrls: ['./barra-busqueda.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BarraBusquedaComponent {
+  /**
+   * Lista de opciones de tipo de búsqueda.
+   */
   @Input() opcionesBusqueda: { value: string; label: string }[] = [];
+
+  /**
+   * Configuración dinámica de filtros.
+   * Define la relación entre el label del filtro y su clave interna real.
+   */
   @Input() filtrosConfiguracion: FiltroConfiguracion[] = [];
-  @Input() columnasDisponibles: { name: string; key: string; selected: boolean }[] = [];
+
+  /**
+   * Columnas disponibles para mostrar u ocultar.
+   */
+  @Input() columnasDisponibles: {
+    name: string;
+    key: string;
+    selected: boolean;
+  }[] = [];
+
+  /**
+   * Texto del botón de agregar.
+   */
   @Input() textoBotonAgregar: string = 'Agregar';
 
+  /**
+   * Evento que emite los filtros aplicados.
+   */
   @Output() filtrosAplicados = new EventEmitter<{ [key: string]: string }>();
-  @Output() actualizarColumnasEvent = new EventEmitter<{ name: string; key: string; selected: boolean }[]>();
+
+  /**
+   * Evento que emite cuando se actualizan las columnas visibles.
+   */
+  @Output() actualizarColumnasEvent = new EventEmitter<
+    { name: string; key: string; selected: boolean }[]
+  >();
 
   searchType: string = '';
   searchValue: string = '';
   mostrarFiltros: boolean = false;
   mostrarColumnas: boolean = false;
 
+  /**
+   * Objeto que contiene los filtros actualmente seleccionados.
+   * Las claves son los labels visibles (que serán transformados).
+   */
   filtrosSeleccionados: { [key: string]: string } = {
-    estado: 'todos'
+    estado: 'todos',
   };
 
   private searchTermSubject = new Subject<string>();
 
-  constructor(
-    private store: Store,
-    private cdr: ChangeDetectorRef
-  ) {
+  constructor(private store: Store, private cdr: ChangeDetectorRef) {
     // Búsqueda con debounce
     this.searchTermSubject.pipe(debounceTime(500)).subscribe((searchTerm) => {
       this.store.dispatch(setSearchTerm({ searchTerm }));
     });
   }
 
+  /**
+   * Cambia el tipo de búsqueda y limpia el valor.
+   */
   cambiarTipoBusqueda(): void {
     this.searchValue = '';
     this.actualizarBusqueda();
   }
 
+  /**
+   * Despacha el término de búsqueda al store.
+   */
   actualizarBusqueda(): void {
     this.searchTermSubject.next(this.searchValue);
   }
 
+  /**
+   * Aplica los filtros actuales transformando las claves visibles
+   * a las claves internas reales usando filtrosConfiguracion.
+   */
   aplicarFiltros(estado?: string): void {
     if (estado) {
       this.filtrosSeleccionados['estado'] = estado;
       this.store.dispatch(setFiltroActivo({ filtroActivo: estado }));
     }
 
-    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: { ...this.filtrosSeleccionados } }));
-    this.filtrosAplicados.emit({ ...this.filtrosSeleccionados });
+    // Transformar las claves visibles a claves reales
+    const filtrosTransformados: { [key: string]: string } = {};
+    Object.entries(this.filtrosSeleccionados).forEach(([claveUI, valor]) => {
+      const config = this.filtrosConfiguracion.find(
+        (f) => f.nombre === claveUI
+      );
+
+      const claveReal = config?.key || claveUI.toLowerCase();
+      filtrosTransformados[claveReal] = valor;
+    });
+
+    this.store.dispatch(
+      setFiltrosDinamicos({ filtrosDinamicos: filtrosTransformados })
+    );
+    this.filtrosAplicados.emit({ ...filtrosTransformados });
 
     this.cdr.markForCheck();
   }
 
+  /**
+   * Muestra u oculta la sección de filtros.
+   */
   toggleFiltros(): void {
     this.mostrarFiltros = !this.mostrarFiltros;
   }
 
+  /**
+   * Muestra u oculta el panel de columnas visibles.
+   */
   toggleColumnas(): void {
     this.mostrarColumnas = !this.mostrarColumnas;
   }
 
+  /**
+   * Despacha las columnas seleccionadas como visibles.
+   */
   actualizarColumnas(): void {
-    console.log('🔥 Columnas disponibles actualizadas:', this.columnasDisponibles);
-  
-    // Emitir al componente padre si lo necesitas
+    console.log(
+      '🔥 Columnas disponibles actualizadas:',
+      this.columnasDisponibles
+    );
+
     this.actualizarColumnasEvent.emit(this.columnasDisponibles);
-  
-    // Solo las columnas seleccionadas (visibles)
+
     const columnasVisibles = this.columnasDisponibles
-      .filter(col => col.selected)
-      .map(col => ({
+      .filter((col) => col.selected)
+      .map((col) => ({
         name: col.name,
         key: col.key,
-        selected: col.selected // ✅ Necesario para cumplir con el tipo esperado
+        selected: col.selected,
       }));
-  
-    // Despachar al reducer de tabla
+
     this.store.dispatch(setColumnasVisibles({ columnasVisibles }));
   }
-  
 
+  /**
+   * Limpia todos los filtros dinámicos.
+   */
   limpiarFiltros(): void {
     this.filtrosSeleccionados = {};
     this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: {} }));
     this.cdr.markForCheck();
   }
 
+  /**
+   * Lógica para exportar datos.
+   */
   exportar(): void {
     console.log('📥 Exportando datos...');
   }
 
+  /**
+   * Lógica para importar datos.
+   */
   importar(): void {
     console.log('📤 Importando datos...');
   }
 
+  /**
+   * Lógica para agregar un nuevo elemento.
+   */
   agregar(): void {
     console.log('➕ Agregando nuevo elemento...');
   }
