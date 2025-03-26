@@ -1,50 +1,111 @@
 <div class="search-container">
+  <!-- Selector de tipo de búsqueda -->
   <select id="search-type" [(ngModel)]="searchType" (change)="cambiarTipoBusqueda()">
-    <option *ngFor="let opcion of opcionesBusqueda" [value]="opcion.value">{{ opcion.label }}</option>
+    <option *ngFor="let opcion of opcionesBusqueda" [value]="opcion.value">
+      {{ opcion.label }}
+    </option>
   </select>
 
-  <input type="search" id="search-input" [(ngModel)]="searchValue" (input)="actualizarBusqueda()" placeholder="Buscar...">
-  <button class="search-btn" (click)="actualizarBusqueda()"><i class="fa-solid fa-magnifying-glass"></i></button>
+  <!-- Campo de búsqueda -->
+  <input
+    type="search"
+    id="search-input"
+    [(ngModel)]="searchValue"
+    (input)="actualizarBusqueda()"
+    placeholder="Buscar..."
+  />
 
-  <!-- Botón para mostrar/ocultar filtros -->
+  <!-- ✅ Botón de búsqueda con icono -->
+  <button class="search-btn" (click)="actualizarBusqueda()">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+
+  <!-- ✅ Botón para mostrar/ocultar filtros con icono -->
   <button class="filter-toggle" (click)="toggleFiltros()">
     <i class="fa-solid" [ngClass]="mostrarFiltros ? 'fa-filter-circle-xmark' : 'fa-filter'"></i>
   </button>
 
-  <!-- Selector de columnas -->
+  <!-- ✅ Selector de columnas -->
   <div style="position: relative;">
-    <button class="column-toggle" (click)="toggleColumnas()"><i class="fa-solid fa-chart-column"></i></button>
+    <button class="column-toggle" (click)="toggleColumnas()">
+      <i class="fa-solid fa-chart-column"></i>
+    </button>
+
     <div class="column-selector" [class.hidden]="!mostrarColumnas">
       <div class="column-list">
         <label *ngFor="let columna of columnasDisponibles">
-          <input type="checkbox" [(ngModel)]="columna.selected" (change)="actualizarColumnas()"> {{ columna.name }}
+          <input
+            type="checkbox"
+            [(ngModel)]="columna.selected"
+            (change)="actualizarColumnas()"
+          />
+          {{ columna.name }}
         </label>
       </div>
     </div>
   </div>
 
-  <!-- Botones de acciones -->
-  <button class="btn-export" (click)="exportar()"> <i class="fa-solid fa-download"></i> &nbsp; Excel</button>
-  <button class="btn-import" (click)="importar()"><i class="fa-solid fa-upload"></i> &nbsp; Importar</button>
-  <button class="btn-agregar" (click)="agregar()"><i class="fa-solid fa-plus"></i> &nbsp; {{ textoBotonAgregar }}</button>
+  <!-- ✅ Botón para exportar datos -->
+  <button class="btn-export" (click)="exportar()">
+    <i class="fa-solid fa-download"></i> &nbsp; Exportar
+  </button>
+
+  <!-- ✅ Botón para importar datos -->
+  <button class="btn-import" (click)="importar()">
+    <i class="fa-solid fa-upload"></i> &nbsp; Importar
+  </button>
+
+  <!-- ✅ Botón para agregar nuevo elemento -->
+  <button class="btn-agregar" (click)="agregar()">
+    <i class="fa-solid fa-plus"></i> &nbsp; {{ textoBotonAgregar }}
+  </button>
 </div>
 
-<!-- Sección de filtros -->
+<!-- ✅ Filtros dinámicos -->
 <div class="filter-section" [class.hidden]="!mostrarFiltros">
-  <select [(ngModel)]="filtroGrupo" (change)="aplicarFiltros()">
-    <option value="">Grupos</option>
-    <option *ngFor="let grupo of grupos" [value]="grupo">{{ grupo }}</option>
-  </select>
-
-  <select [(ngModel)]="filtroMarca" (change)="aplicarFiltros()">
-    <option value="">Marcas</option>
-    <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
-  </select>
-
-  <div class="filter-buttons">
-    <button class="filter-btn" (click)="aplicarFiltros('todos')" [class.active]="filtroActivo === 'todos'">Todos</button>
-    <button class="filter-btn" (click)="aplicarFiltros('stock')" [class.active]="filtroActivo === 'stock'">Stock</button>
-    <button class="filter-btn" (click)="aplicarFiltros('medio')" [class.active]="filtroActivo === 'medio'">Medio</button>
-    <button class="filter-btn" (click)="aplicarFiltros('sin_stock')" [class.active]="filtroActivo === 'sin_stock'">Sin Stock</button>
+  <div *ngFor="let filtro of filtrosConfiguracion">
+    <label>{{ filtro.nombre }}</label>
+    <select
+      [(ngModel)]="filtrosSeleccionados[filtro.nombre]"
+      (change)="aplicarFiltros()"
+    >
+      <option value="">Seleccionar...</option>
+      <option *ngFor="let opcion of filtro.opciones" [value]="opcion">
+        {{ opcion }}
+      </option>
+    </select>
   </div>
+
+  <!-- ✅ Botones de filtro rápido -->
+<div class="filter-buttons">
+  <button
+    class="filter-btn"
+    (click)="aplicarFiltros('todos')"
+    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'todos')}"
+  >
+    Todos
+  </button>
+  <button
+    class="filter-btn"
+    (click)="aplicarFiltros('stock')"
+    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'stock')}"
+  >
+    Stock
+  </button>
+  <button
+    class="filter-btn"
+    (click)="aplicarFiltros('medio')"
+    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'medio')}"
+  >
+    Medio
+  </button>
+  <button
+    class="filter-btn"
+    (click)="aplicarFiltros('sin_stock')"
+    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'sin_stock')}"
+  >
+    Sin Stock
+  </button>
+</div>
+
 </div>

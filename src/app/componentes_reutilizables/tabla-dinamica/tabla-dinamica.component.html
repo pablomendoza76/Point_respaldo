@@ -1,1 +1,57 @@
-<p>tabla-dinamica works!</p>
+<!-- Tabla de productos -->
+<div class="table-container">
+  <ng-container *ngIf="columnasVisibles$ | async as columnas">
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th *ngFor="let columna of columnas">{{ columna.name }}</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productosVisibles$ | async">
+          <td *ngFor="let columna of columnas">
+            {{ producto[columna.key] }}
+          </td>
+          <td>
+            <button class="btn-edit" (click)="onEditarProducto(producto)">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+            <button class="btn-delete" (click)="onEliminarProducto(producto)">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>
+
+<!-- Paginación -->
+<div class="pagination">
+  <div class="items-per-page">
+    <label>Mostrar:</label>
+    <select [value]="itemsPorPagina" (change)="cambiarItemsPorPagina($event)">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="todos">Todos</option>
+    </select>
+  </div>
+
+  <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
+    Previa
+  </button>
+
+  <span>
+    Mostrando del {{ (paginaActual - 1) * itemsPorPagina + 1 }} al
+    {{ math.min(paginaActual * itemsPorPagina, totalRegistros) }}
+    registros de {{ totalRegistros }}
+  </span>
+
+  <button (click)="cambiarPagina(paginaActual + 1)" 
+          [disabled]="paginaActual * itemsPorPagina >= totalRegistros">
+    Siguiente
+  </button>
+</div>

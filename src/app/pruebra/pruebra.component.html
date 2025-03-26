@@ -2,16 +2,17 @@
 <app-barra-ubicacion></app-barra-ubicacion>
 <app-barra-busqueda
   [opcionesBusqueda]="opcionesBusqueda"
-  [grupos]="grupos"
-  [marcas]="marcas"
+  [filtrosConfiguracion]="filtrosConfiguracion"
   [columnasDisponibles]="columnasDisponibles"
-  [textoBotonAgregar]="textoBotonAgregar"
-  (buscarEvent)="onBuscar($event)"
-  (filtrarEvent)="onFiltrar($event)"
-  (exportarEvent)="onExportar()"
-  (importarEvent)="onImportar()"
-  (agregarEvent)="onAgregar()"
-></app-barra-busqueda>
+  (filtrosAplicados)="onFiltrosAplicados($event)">
+</app-barra-busqueda>
+
+<app-tabla-dinamica
+  [productos]="productosVisibles$ | async"
+  [columnasVisibles]="columnasDisponibles"
+  (editarProducto)="onEditarProducto($event)"
+  (eliminarProducto)="onEliminarProducto($event)">
+</app-tabla-dinamica>
 
 <div class="catalogo_buttons">
     <!-- 1. Botones Primarios -->

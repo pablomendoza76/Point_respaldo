@@ -1,0 +1,127 @@
+/* Estilos de la tabla */
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: calc(100vh - 250px);
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background-color: white;
+    table-layout: fixed;
+  }
+  
+  .product-table th,
+  .product-table td {
+    border: 1px solid #e0e0e0;
+    padding: 7px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+  
+  .product-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8f8f8;
+    z-index: 10;
+  }
+  
+  .product-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .product-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Botones de acciones */
+  .btn-edit,
+  .btn-delete {
+    padding: 4px 8px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+  
+  .btn-edit:hover,
+  .btn-delete:hover {
+    background-color: #e9ecef;
+  }
+  
+  .btn-delete {
+    color: #dc3545;
+  }
+  
+  /* Paginación */
+  .pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+  
+  .pagination button {
+    padding: 4px 8px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  }
+  
+  .pagination button:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pagination button:disabled {
+    background-color: #f8f8f8;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .pagination span {
+    margin: 0 8px;
+  }
+  
+  /* Selector de cantidad de productos por página */
+  .items-per-page {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .items-per-page label {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .items-per-page select {
+    padding: 6px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .items-per-page select:hover,
+  .items-per-page select:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+  }

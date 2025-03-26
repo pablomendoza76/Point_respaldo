@@ -1,6 +1,26 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { 
+  Component, 
+  Input, 
+  Output, 
+  EventEmitter, 
+  ChangeDetectionStrategy, 
+  ChangeDetectorRef 
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Store, select } from '@ngrx/store';
+import { Observable, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+
+// ✅ Importar acciones desde tabla.actions.ts
+import {
+  setSearchTerm,
+  setFiltroActivo,
+  setFiltrosDinamicos,
+  setColumnasVisibles
+} from '../../state/tabla_NgRx/tabla.actions'; // <-- Cambiado
+
+import { FiltroConfiguracion } from '../../state/Filtros_NgRx/filter.model'; // <- Puedes seguir usando el modelo de filtros si te sirve
 
 @Component({
   selector: 'app-barra-busqueda',
@@ -8,39 +28,57 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, FormsModule],
   templateUrl: './barra-busqueda.component.html',
   styleUrls: ['./barra-busqueda.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BarraBusquedaComponent {
-  // Propiedades de entrada
-  @Input() opcionesBusqueda: { value: string; label: string }[] = []; // Opciones de búsqueda
-  @Input() grupos: string[] = []; // Grupos para filtros
-  @Input() marcas: string[] = []; // Marcas para filtros
-  @Input() columnasDisponibles: { name: string; selected: boolean }[] = []; // Columnas disponibles
-  @Input() textoBotonAgregar: string = 'Agregar'; // Texto del botón de agregar
+  @Input() opcionesBusqueda: { value: string; label: string }[] = [];
+  @Input() filtrosConfiguracion: FiltroConfiguracion[] = [];
+  @Input() columnasDisponibles: { name: string; key: string; selected: boolean }[] = [];
+  @Input() textoBotonAgregar: string = 'Agregar';
 
-  // Propiedades de salida
-  @Output() buscarEvent = new EventEmitter<{ tipo: string; valor: string }>();
-  @Output() filtrarEvent = new EventEmitter<{ grupo: string; marca: string; filtro: string }>();
-  @Output() exportarEvent = new EventEmitter<void>();
-  @Output() importarEvent = new EventEmitter<void>();
-  @Output() agregarEvent = new EventEmitter<void>();
+  @Output() filtrosAplicados = new EventEmitter<{ [key: string]: string }>();
+  @Output() actualizarColumnasEvent = new EventEmitter<{ name: string; key: string; selected: boolean }[]>();
 
-  // Variables internas
   searchType: string = '';
   searchValue: string = '';
   mostrarFiltros: boolean = false;
   mostrarColumnas: boolean = false;
-  filtroGrupo: string = '';
-  filtroMarca: string = '';
-  filtroActivo: string = 'todos';
 
-  // Métodos
+  filtrosSeleccionados: { [key: string]: string } = {
+    estado: 'todos'
+  };
+
+  private searchTermSubject = new Subject<string>();
+
+  constructor(
+    private store: Store,
+    private cdr: ChangeDetectorRef
+  ) {
+    // Búsqueda con debounce
+    this.searchTermSubject.pipe(debounceTime(500)).subscribe((searchTerm) => {
+      this.store.dispatch(setSearchTerm({ searchTerm }));
+    });
+  }
+
   cambiarTipoBusqueda(): void {
     this.searchValue = '';
     this.actualizarBusqueda();
   }
 
   actualizarBusqueda(): void {
-    this.buscarEvent.emit({ tipo: this.searchType, valor: this.searchValue });
+    this.searchTermSubject.next(this.searchValue);
+  }
+
+  aplicarFiltros(estado?: string): void {
+    if (estado) {
+      this.filtrosSeleccionados['estado'] = estado;
+      this.store.dispatch(setFiltroActivo({ filtroActivo: estado }));
+    }
+
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: { ...this.filtrosSeleccionados } }));
+    this.filtrosAplicados.emit({ ...this.filtrosSeleccionados });
+
+    this.cdr.markForCheck();
   }
 
   toggleFiltros(): void {
@@ -52,27 +90,40 @@ export class BarraBusquedaComponent {
   }
 
   actualizarColumnas(): void {
-    // Lógica para actualizar columnas visibles
+    console.log('🔥 Columnas disponibles actualizadas:', this.columnasDisponibles);
+  
+    // Emitir al componente padre si lo necesitas
+    this.actualizarColumnasEvent.emit(this.columnasDisponibles);
+  
+    // Solo las columnas seleccionadas (visibles)
+    const columnasVisibles = this.columnasDisponibles
+      .filter(col => col.selected)
+      .map(col => ({
+        name: col.name,
+        key: col.key,
+        selected: col.selected // ✅ Necesario para cumplir con el tipo esperado
+      }));
+  
+    // Despachar al reducer de tabla
+    this.store.dispatch(setColumnasVisibles({ columnasVisibles }));
   }
+  
 
-  aplicarFiltros(filtro?: string): void {
-    this.filtroActivo = filtro || 'todos';
-    this.filtrarEvent.emit({
-      grupo: this.filtroGrupo,
-      marca: this.filtroMarca,
-      filtro: this.filtroActivo,
-    });
+  limpiarFiltros(): void {
+    this.filtrosSeleccionados = {};
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: {} }));
+    this.cdr.markForCheck();
   }
 
   exportar(): void {
-    this.exportarEvent.emit();
+    console.log('📥 Exportando datos...');
   }
 
   importar(): void {
-    this.importarEvent.emit();
+    console.log('📤 Importando datos...');
   }
 
   agregar(): void {
-    this.agregarEvent.emit();
+    console.log('➕ Agregando nuevo elemento...');
   }
 }
