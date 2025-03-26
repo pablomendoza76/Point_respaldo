@@ -9,7 +9,6 @@ import {
   setSearchTerm,
   setFiltroActivo
 } from './tabla.actions';
-
 import { TablaState } from './tabla.model';
 
 /**
@@ -27,14 +26,14 @@ export const initialState: TablaState = {
 };
 
 /**
- * 🔍 Aplica filtros por búsqueda y filtros dinámicos.
+ * Aplica filtros de búsqueda, dinámicos y filtros especiales (stock, medio, sin stock).
  * @param state Estado actual de la tabla
- * @returns Lista filtrada de productos
+ * @returns Lista de productos filtrados
  */
 function filtrarProductos(state: TablaState): any[] {
   let productosFiltrados = [...state.productos];
 
-  // 🔍 Filtro por término de búsqueda
+  // Filtro por término de búsqueda
   if (state.searchTerm) {
     productosFiltrados = productosFiltrados.filter((producto) =>
       Object.values(producto).some((value) =>
@@ -43,37 +42,39 @@ function filtrarProductos(state: TablaState): any[] {
     );
   }
 
-  // 🚦 Filtros dinámicos aplicados (Marca, Categoría, etc.)
+  // Filtros dinámicos incluyendo filtro por estado
   Object.keys(state.filtrosDinamicos).forEach((key) => {
     const valor = state.filtrosDinamicos[key];
-    if (valor && valor !== 'todos') {
-      const claveReal = key.toLowerCase(); // ⚠️ clave normalizada
+    if (!valor || valor === 'todos') return;
+
+    if (key === 'estado') {
+      if (valor === 'stock') {
+        productosFiltrados = productosFiltrados.filter((p) => p.stock > 0);
+      } else if (valor === 'medio') {
+        productosFiltrados = productosFiltrados.filter((p) => {
+          const promedio = (p.stockMin + p.stockMax) / 2;
+          return p.stock <= promedio;
+        });
+      } else if (valor === 'sin_stock') {
+        productosFiltrados = productosFiltrados.filter((p) => p.stock === 0);
+      }
+    } else {
+      const claveReal = key.toLowerCase();
       productosFiltrados = productosFiltrados.filter(
         (producto) => producto[claveReal]?.toString() === valor
       );
     }
   });
 
-  // ⚖️ Filtro especial "medio" basado en promedio de stock
-  if (state.filtrosDinamicos['estado'] === 'medio') {
-    productosFiltrados = productosFiltrados.filter((producto) => {
-      const promedio = (producto.stockMin + producto.stockMax) / 2;
-      return producto.stock <= promedio;
-    });
-  }
-
   return productosFiltrados;
 }
 
 /**
- * 🎯 Mapea solo las columnas seleccionadas para cada producto.
- * @param productos Lista de productos filtrados
- * @param columnas Columnas visibles
- * @returns Productos con solo las propiedades visibles
+ * Filtra las columnas visibles para cada producto.
  */
 function mapearColumnasVisibles(productos: any[], columnas: { name: string; key: string }[]): any[] {
   if (!columnas || columnas.length === 0) {
-    return productos; // Mostrar todo si no hay columnas seleccionadas
+    return productos;
   }
 
   return productos.map((producto) => {
@@ -88,16 +89,16 @@ function mapearColumnasVisibles(productos: any[], columnas: { name: string; key:
 }
 
 /**
- * 📄 Aplica la paginación a los productos.
+ * Aplica la paginación sobre la lista de productos.
  */
 function aplicarPaginacion(productos: any[], pagina: number, itemsPorPagina: number): any[] {
-  if (itemsPorPagina === 20000) return productos; // "Todos"
+  if (itemsPorPagina === 20000) return productos;
   const start = (pagina - 1) * itemsPorPagina;
   return productos.slice(start, start + itemsPorPagina);
 }
 
 /**
- * 🔄 Recalcula los productos visibles combinando filtros, columnas y paginación.
+ * Recalcula los productos visibles combinando filtros, columnas y paginación.
  */
 function recalcularProductosVisibles(state: TablaState): any[] {
   const filtrados = filtrarProductos(state);
@@ -106,7 +107,7 @@ function recalcularProductosVisibles(state: TablaState): any[] {
 }
 
 /**
- * Reducer principal de la tabla.
+ * Reducer principal del estado de la tabla.
  */
 export const tablaReducer = createReducer(
   initialState,

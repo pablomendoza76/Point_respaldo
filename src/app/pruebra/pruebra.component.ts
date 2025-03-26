@@ -44,7 +44,7 @@ export class PruebraComponent implements OnInit {
     { name: 'Nombre', key: 'nombre', selected: true },
     { name: 'Precio', key: 'precio', selected: true },
     { name: 'Stock', key: 'stock', selected: true },
-    { name: 'Categoría', key: 'categoria', selected: true },
+    { name: 'Categoría', key: 'categoria', selected: false },
     { name: 'Marca', key: 'marca', selected: true }
   ];
 

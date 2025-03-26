@@ -116,6 +116,9 @@ export class BarraBusquedaComponent {
     // Transformar las claves visibles a claves reales
     const filtrosTransformados: { [key: string]: string } = {};
     Object.entries(this.filtrosSeleccionados).forEach(([claveUI, valor]) => {
+      // Omitir el estado 'todos' de los filtros dinámicos
+      if (claveUI === 'estado' && valor === 'todos') return;
+
       const config = this.filtrosConfiguracion.find(
         (f) => f.nombre === claveUI
       );
