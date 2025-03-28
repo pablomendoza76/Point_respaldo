@@ -1,0 +1,120 @@
+<!-- Enlace al CDN de Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<!-- Navegación superior -->
+<nav class="bg-white shadow flex justify-between items-center p-4">
+  <div class="flex items-center">
+    <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
+  </div>
+  <div class="text-xs text-gray-500 italic pl-2">
+    {{ moduloActual }} <span *ngIf="submoduloActual">› {{ submoduloActual }}</span>
+  </div>  
+  <h2 class="text-xl font-bold text-red-500">
+    Supermercado "LABRYC" CIA LTDA
+  </h2>
+  <div class="flex items-center space-x-4">
+    <span #notificationsToggle id="notifications-toggle" class="text-red-500 cursor-pointer"
+      ><i class="fa-regular fa-bell"></i
+    ></span>
+    <span #menuToggle id="menu-toggle" class="text-red-500 cursor-pointer"
+      ><i class="fa-solid fa-bars"></i
+    ></span>
+    <span #supportToggle id="support-toggle" class="text-red-500 cursor-pointer"
+      ><i class="fa-solid fa-headset"></i
+    ></span>
+    <span class="text-red-500 cursor-pointer"
+      ><i class="fa-solid fa-circle-info"></i
+    ></span>
+
+    <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
+  </div>
+</nav>
+
+<!-- Popup con los módulos -->
+<div #floatingMenu id="floating-menu" class="floating-menu hidden">
+  <div class="popup-content">
+    <h3>Módulos</h3>
+    <div class="module-grid">
+      <div *ngFor="let group of groupedModules" class="module-group">
+        <h4>{{ group.category }}</h4>
+        <div class="module-items">
+          <div
+            *ngFor="let module of group.modules"
+            class="module-item"
+            (click)="navigateTo(module.name)"
+            (mouseenter)="highlightModule(module)"
+            (mouseleave)="unhighlightModule(module)"
+          >
+            <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
+            <span [class.selected]="module.selected">{{ module.name }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup de Notificaciones -->
+<div #notificationsPopup id="notifications-popup" class="floating-menu hidden">
+  <div class="popup-content">
+    <h3>Notificaciones</h3>
+    <div class="notification-groups">
+      <div
+        *ngFor="let group of notificationGroups"
+        class="notification-group"
+      >
+        <h4>{{ group.category }}</h4>
+        <div class="notification-items">
+          <div
+            *ngFor="let notification of group.notifications"
+            class="notification-item"
+          >
+            <i [class]="getNotificationIcon(notification.type)"></i>
+            <div class="notification-item-content">
+              <strong>{{ notification.title }}</strong>
+              <p>{{ notification.description }}</p>
+              <span>{{
+                notification.date | date : "dd/MM/yyyy, hh:mm a"
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Popup de Soporte -->
+<div #supportPopup id="support-popup" class="floating-menu hidden">
+  <div class="popup-content">
+    <h3>Soporte</h3>
+    <div class="support-items">
+      <div class="support-item">
+        <i class="fa-solid fa-phone"></i>
+        <div class="contact-info">
+          <span>096 331 9244</span>
+          <span>098 724 3834</span>
+          <span>072 576 031</span>
+          <span>Ext: 402 (Contabilidad)</span>
+          <span>Ext: 501 - 502 - 503 (Soporte)</span>
+        </div>
+      </div>
+      <div class="support-item">
+        <i class="fa-solid fa-clock"></i>
+        <span>Atendemos de lunes a viernes de 9:00 a 19:00</span>
+      </div>
+      <div class="support-item clickable" (click)="openMessenger()">
+        <i class="fa-brands fa-facebook-messenger"></i>
+        <span>Enviar mensaje por Messenger</span>
+      </div>
+      <div class="support-item clickable" (click)="openTelegram()">
+        <i class="fa-brands fa-telegram"></i>
+        <span>Enviar mensaje por Telegram</span>
+      </div>
+      <div class="support-item clickable" (click)="openSMS()">
+        <i class="fa-solid fa-comment-sms"></i>
+        <span>Enviar mensaje de texto (SMS)</span>
+      </div>
+    </div>
+  </div>
+</div>

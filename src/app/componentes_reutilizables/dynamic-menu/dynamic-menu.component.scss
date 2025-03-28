@@ -1,0 +1,156 @@
+@use '../../catalogo_css/colores.scss' as color;
+@use '../../catalogo_css/tipografia.scss' as font;
+
+.menu-container {
+  display: flex;
+  height: calc(100vh - 60px);
+  font-family: font.$font-work-sans;
+  background-color: color.$fondo-claro;
+}
+
+.admin-menu,
+.side-menu {
+  background-color: color.$fondo-claro;
+  color: color.$texto-principal;
+  padding: 20px 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.admin-menu {
+  width: auto;
+  transition: width 0.3s ease;
+  position: relative;
+  border-bottom-right-radius: 20px;
+
+  &.collapsed {
+    width: 70px;
+
+    .menu-item {
+      justify-content: center;
+      padding: 16px 0;
+    }
+
+    .menu-item span {
+      display: none;
+    }
+
+    .menu-item i {
+      font-size: 1.3rem;
+      color: color.$texto-principal;
+      transition: color 0.3s ease;
+    }
+
+    .menu-item.active i {
+      color: color.$rojo-texto;
+    }
+  }
+}
+
+.admin-menu .menu,
+.side-menu .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-menu .menu-item,
+.side-menu .menu-item {
+  padding: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-radius: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: font.$font-size-body-small;
+  line-height: font.$line-height-body-small;
+  font-family: font.$font-work-sans;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.admin-menu .menu-item:hover,
+.side-menu .menu-item:hover {
+  background-color: color.$gris-fondo;
+  transform: translateX(6px);
+}
+
+.admin-menu .menu-item.active,
+.side-menu .menu-item.active {
+  background-color: color.$rojo-fondo;
+  border-radius: 14px;
+  color: color.$rojo-texto;
+  font-weight: 600;
+  border-left: 4px solid color.$rojo-botones;
+}
+
+.admin-menu .menu-item.active i,
+.side-menu .menu-item.active i {
+  color: color.$rojo-texto;
+}
+
+.admin-menu .menu-item i,
+.side-menu .menu-item i {
+  font-size: 1.25rem;
+  color: color.$texto-principal;
+  transition: color 0.3s ease;
+}
+
+.admin-menu .menu-item span,
+.side-menu .menu-item span {
+  font-size: font.$font-size-body-small;
+  color: color.$texto-principal;
+  transition: color 0.3s ease;
+}
+
+.admin-menu .menu-item.active span,
+.side-menu .menu-item.active span {
+  color: color.$rojo-texto;
+}
+
+.admin-menu .footer {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  text-align: center;
+  font-size: font.$font-size-caption;
+  color: color.$texto-secundario;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .toggle-menu {
+    background: color.$gris-fondo;
+    border: none;
+    cursor: pointer;
+    color: color.$texto-secundario;
+    font-size: 1rem;
+    padding: 6px 10px;
+    border-radius: 50px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      background-color: color.$rojo-fondo;
+      color: color.$rojo-botones;
+    }
+  }
+}
+
+.side-menu {
+  width: 180px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.admin-menu .menu-item:hover i,
+.side-menu .menu-item:hover i {
+  color: color.$rojo-botones;
+}
+
+.admin-menu .menu-item:hover span,
+.side-menu .menu-item:hover span {
+  color: color.$rojo-botones;
+}

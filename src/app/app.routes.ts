@@ -28,6 +28,8 @@ import { AppComponent } from './app.component';
 import { PruebraComponent } from './pruebra/pruebra.component';
 import { BarraBusquedaComponent } from './componentes_reutilizables/barra-busqueda/barra-busqueda.component';
 import { BarraUbicacionComponent } from './componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
+import { NavbarComponent } from './componentes_reutilizables/navbar/navbar.component';
+import { DynamicMenuComponent } from './componentes_reutilizables/dynamic-menu/dynamic-menu.component';
 
 export const routes: Routes = [
   { path: 'login', component: AppComponent },
@@ -113,7 +115,8 @@ export const routes: Routes = [
     children: [
       { path: 'cuentas-contables', component: CuentasContablesComponent },
       { path: 'plan-cuentas', component: PlanCuentasComponent },{ path: 'prueba', component: PruebraComponent }, 
-      { path: 'prueba2', component: BarraBusquedaComponent}, { path: 'prueba3', component: BarraUbicacionComponent}
+      { path: 'prueba2', component: BarraBusquedaComponent}, { path: 'prueba3', component: BarraUbicacionComponent},
+      { path: 'prueba4', component: DynamicMenuComponent}
     ]
   },
 

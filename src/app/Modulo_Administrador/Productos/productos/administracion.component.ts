@@ -1,49 +1,80 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service';
+import { Router, RouterModule } from '@angular/router';
+import { NavbarComponent } from '../../../componentes_reutilizables/navbar/navbar.component';
+import { DynamicMenuComponent } from '../../../componentes_reutilizables/dynamic-menu/dynamic-menu.component';
+import { MENU_CONFIG } from '../../../menu.config';
+import { MenuItem } from '../../../componentes_reutilizables/dynamic-menu/dynamic-menu.component';
 
 @Component({
   selector: 'app-administracion',
   standalone: true,
   templateUrl: './administracion.component.html',
   styleUrls: ['./administracion.component.scss'],
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NavbarComponent,
+    DynamicMenuComponent
+  ]
 })
-export class AdministracionComponent implements OnInit {
-  isAdminMenuCollapsed: boolean = true; // Estado del menú (colapsado o expandido)
-  menuRoutes: { [key: string]: string } = {}; // Rutas del menú
-  menuIcons: { [key: string]: string } = {}; // Iconos del menú
+export class AdministracionComponent {
+  /** Estado del menú colapsado */
+  isMenuCollapsed = false;
 
-  constructor(
-    private router: Router,
-    private menuRoutesService: MenuRoutesService // Inyectar el servicio
-  ) {}
+  /** Menú principal */
+  menuPadre: MenuItem[] = MENU_CONFIG.principales;
 
-  ngOnInit(): void {
-    // Obtener las rutas del menú desde el servicio
-    this.menuRoutes = this.menuRoutesService.getMenuRoutes();
+  /** Submenús hijos por módulo */
+  menuHijosMap: { [modulo: string]: MenuItem[] } = MENU_CONFIG.hijos;
+
+  /** Módulo activo actual */
+  moduloActivo: string = 'Productos';
+
+  /** Opción activa actual */
+  opcionActiva: string = '';
+
+  constructor(private router: Router) {}
+
+  /** Alterna el estado de colapso del menú */
+  toggleMenuCollapse(): void {
+    this.isMenuCollapsed = !this.isMenuCollapsed;
   }
 
-  // Método para redireccionar según la opción seleccionada
-  navigateTo(option: string): void {
-    const ruta = this.menuRoutes[option];
-    if (ruta) {
-      this.router.navigate([ruta]);
+  /** Maneja el click en un módulo del menú padre */
+  onModuloClick(modulo: MenuItem): void {
+    this.moduloActivo = modulo.label;
+    this.opcionActiva = ''; // Resetear opción activa al cambiar de módulo
+    
+    // Si el módulo tiene una ruta directa, navegar a ella
+    if (modulo.route) {
+      this.router.navigate([modulo.route]);
     }
   }
 
-  // Método para alternar el estado del menú (colapsado/expandido)
-  toggleAdminMenu(): void {
-    this.isAdminMenuCollapsed = !this.isAdminMenuCollapsed;
+  /** Maneja el click en una opción del menú hijo */
+  onMenuHijoClick(item: MenuItem): void {
+    this.opcionActiva = item.label;
+    
+    if (item.route) {
+      this.router.navigate([item.route]);
+    }
+    
+    console.log('Hijo clickeado:', item);
   }
 
- // Método para verificar si la opción está activa
- isActive(option: string): boolean {
-  const ruta = this.menuRoutes[option];
-  console.log(ruta)
-  return ruta ? this.router.url.includes(ruta) : false;
-}
+  /** Obtiene los hijos del módulo activo */
+  get menuHijos(): MenuItem[] {
+    return this.menuHijosMap[this.moduloActivo] || [];
+  }
+
+  /** Verifica si un módulo está activo */
+  isModuloActive(modulo: string): boolean {
+    return this.moduloActivo === modulo;
+  }
+
+  /** Verifica si una opción está activa */
+  isOpcionActive(opcion: string): boolean {
+    return this.opcionActiva === opcion;
+  }
 }

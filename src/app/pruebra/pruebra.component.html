@@ -1,5 +1,16 @@
 
-<app-barra-ubicacion></app-barra-ubicacion>
+<app-navbar></app-navbar>
+
+<!-- Menú completo con padres e hijos (manejado internamente) -->
+<app-dynamic-menu
+  [menuPadre]="menuPadre"
+  [menuHijosMap]="menuHijosMap"
+  [isCollapsed]="isMenuCollapsed"
+  (toggleCollapse)="toggleMenuCollapse()"
+  (itemClicked)="onMenuHijoClick($event)">
+</app-dynamic-menu>
+  
+
 <app-barra-busqueda
   [opcionesBusqueda]="opcionesBusqueda"
   [filtrosConfiguracion]="filtrosConfiguracion"
@@ -7,12 +18,94 @@
   (filtrosAplicados)="onFiltrosAplicados($event)">
 </app-barra-busqueda>
 
+<app-barra-ubicacion></app-barra-ubicacion>
+
 <app-tabla-dinamica
   [productos]="productosVisibles$ | async"
   [columnasVisibles]="columnasDisponibles"
   (editarProducto)="onEditarProducto($event)"
   (eliminarProducto)="onEliminarProducto($event)">
 </app-tabla-dinamica>
+
+
+
+<div class="catalogo_inputs">
+    <!-- 1. Input normal -->
+    <div class="input-group">
+        <label for="input1" class="input-label">1. Input Normal</label>
+        <input type="text" id="input1" class="input-normal" placeholder="Input normal">
+    </div>
+
+    <!-- 2. Input con fondo gris y borde gris -->
+    <div class="input-group">
+        <label for="input2" class="input-label">2. Input con Fondo Gris</label>
+        <input type="text" id="input2" class="input-fondo-gris" placeholder="Fondo gris">
+    </div>
+
+    <!-- 3. Input con texto en un costado -->
+    <div class="input-group">
+        <label for="input3" class="input-label">3. Input con Texto al Costado</label>
+        <div class="input-texto-costado">
+            <span class="texto-costado">Texto al costado</span>
+            <input type="text" id="input3" class="input-normal" placeholder="Input con texto al costado">
+        </div>
+    </div>
+
+    <!-- 4. Input con fondo rojo y sombreado suave -->
+    <div class="input-group">
+        <label for="input4" class="input-label">4. Input con Fondo Rojo</label>
+        <input type="text" id="input4" class="input-borde-rojo-suave" placeholder="Fondo rojo">
+    </div>
+
+    <!-- 5. Input deshabilitado -->
+    <div class="input-group">
+        <label for="input5" class="input-label">5. Input Deshabilitado</label>
+        <input type="text" id="input5" class="input-deshabilitado" placeholder="Deshabilitado" disabled>
+    </div>
+
+    <!-- 6. Input con estado de error -->
+    <div class="input-group">
+        <label for="input6" class="input-label">6. Input con Error</label>
+        <input type="text" id="input6" class="input-borde-rojo" placeholder="Error">
+    </div>
+
+    <!-- 7. Input con estado de éxito -->
+    <div class="input-group">
+        <label for="input7" class="input-label">7. Input con Éxito</label>
+        <input type="text" id="input7" class="input-exito" placeholder="Éxito">
+    </div>
+
+    <!-- 8. Input con estado de advertencia -->
+    <div class="input-group">
+        <label for="input8" class="input-label">8. Input con Advertencia</label>
+        <input type="text" id="input8" class="input-advertencia" placeholder="Advertencia">
+    </div>
+
+    <!-- 9. Input con estado informativo -->
+    <div class="input-group">
+        <label for="input9" class="input-label">9. Input Informativo</label>
+        <input type="text" id="input9" class="input-informativo" placeholder="Informativo">
+    </div>
+
+    <!-- 10. Input con fondo oscuro -->
+    <div class="input-group">
+        <label for="input10" class="input-label">10. Input con Fondo Oscuro</label>
+        <input type="text" id="input10" class="input-fondo-oscuro" placeholder="Fondo oscuro">
+    </div>
+
+    <!-- 11. Input con texto claro sobre fondo oscuro -->
+    <div class="input-group">
+        <label for="input11" class="input-label">11. Input con Texto Claro</label>
+        <input type="text" id="input11" class="input-texto-claro" placeholder="Texto claro">
+    </div>
+
+    <!-- 12. Input con tamaño grande -->
+    <div class="input-group">
+        <label for="input12" class="input-label">12. Input Grande</label>
+        <input type="text" id="input12" class="input-grande" placeholder="Input grande">
+    </div>
+</div>
+
 
 <div class="catalogo_buttons">
     <!-- 1. Botones Primarios -->
