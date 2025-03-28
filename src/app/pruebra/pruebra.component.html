@@ -10,6 +10,7 @@
   (itemClicked)="onMenuHijoClick($event)">
 </app-dynamic-menu>
   
+<app-barra-ubicacion></app-barra-ubicacion>
 
 <app-barra-busqueda
   [opcionesBusqueda]="opcionesBusqueda"
@@ -18,15 +19,12 @@
   (filtrosAplicados)="onFiltrosAplicados($event)">
 </app-barra-busqueda>
 
-<app-barra-ubicacion></app-barra-ubicacion>
-
 <app-tabla-dinamica
   [productos]="productosVisibles$ | async"
   [columnasVisibles]="columnasDisponibles"
   (editarProducto)="onEditarProducto($event)"
   (eliminarProducto)="onEliminarProducto($event)">
 </app-tabla-dinamica>
-
 
 
 <div class="catalogo_inputs">

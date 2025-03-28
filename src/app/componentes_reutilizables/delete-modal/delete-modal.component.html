@@ -1,0 +1,16 @@
+<div class="modal-overlay" *ngIf="isOpen">
+    <div class="modal-eliminar">
+      <h2>{{ title }}</h2>
+      <p>¿Estás seguro de que deseas eliminar <strong>{{ itemName }}</strong>?</p>
+      <p *ngIf="warningMessage">{{ warningMessage }}</p>
+      
+      <div class="modal-buttons">
+        <button class="btn-cancel" (click)="onCancel()">
+          {{ cancelButtonText }}
+        </button>
+        <button class="btn-delete-confirm" (click)="onConfirm()">
+          {{ confirmButtonText }}
+        </button>
+      </div>
+    </div>
+  </div>

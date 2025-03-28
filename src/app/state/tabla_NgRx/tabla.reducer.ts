@@ -7,7 +7,8 @@ import {
   setFiltrosDinamicos,
   setColumnasVisibles,
   setSearchTerm,
-  setFiltroActivo
+  setFiltroActivo,
+  eliminarProducto
 } from './tabla.actions';
 import { TablaState } from './tabla.model';
 
@@ -177,5 +178,15 @@ export const tablaReducer = createReducer(
   on(setTotalRegistros, (state, { totalRegistros }) => ({
     ...state,
     totalRegistros
-  }))
+  })),
+
+  on(eliminarProducto, (state, { producto }) => {
+    const productosActualizados = state.productos.filter(p => p.codigo !== producto.codigo);
+    const nuevoState = { ...state, productos: productosActualizados };
+    return {
+      ...nuevoState,
+      productosVisibles: recalcularProductosVisibles(nuevoState),
+      totalRegistros: filtrarProductos(nuevoState).length
+    };
+  })
 );

@@ -36,6 +36,18 @@
   </ng-container>
 </div>
 
+<!-- Modal de confirmación de eliminación -->
+<app-delete-modal
+  [isOpen]="mostrarModalEliminar"
+  [itemName]="productoAEliminar?.nombre"
+  [title]="'Eliminar producto'"
+  [warningMessage]="'Esta acción eliminará el producto del sistema.'"
+  (confirmed)="confirmarEliminacion()"
+  (canceled)="cancelarEliminacion()"
+></app-delete-modal>
+
+
+
 <!-- Paginación -->
 <div class="pagination">
   <div class="items-per-page">

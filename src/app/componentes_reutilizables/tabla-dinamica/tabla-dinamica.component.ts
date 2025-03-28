@@ -15,13 +15,15 @@ import {
 } from '../../state/tabla_NgRx/tabla.selectors';
 import {
   setPaginaActual,
-  setItemsPorPagina
+  setItemsPorPagina,
+  eliminarProducto
 } from '../../state/tabla_NgRx/tabla.actions';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-tabla-dinamica',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DeleteModalComponent],
   templateUrl: './tabla-dinamica.component.html',
   styleUrls: ['./tabla-dinamica.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -63,9 +65,14 @@ export class TablaDinamicaComponent implements OnInit {
   @Output() editarProducto = new EventEmitter<any>();
 
   /**
-   * Evento emitido cuando se elimina un producto.
+   * Producto seleccionado para eliminar.
    */
-  @Output() eliminarProducto = new EventEmitter<any>();
+  productoAEliminar: any = null;
+
+  /**
+   * Control de visibilidad del modal de eliminación.
+   */
+  mostrarModalEliminar: boolean = false;
 
   /**
    * Objeto Math expuesto al template para operaciones matemáticas.
@@ -77,16 +84,10 @@ export class TablaDinamicaComponent implements OnInit {
    * @param store Store global de NgRx.
    */
   constructor(private store: Store<AppState>) {
-    // Productos visibles ya procesados con filtros, columnas y paginación
     this.productosVisibles$ = this.store.pipe(select(selectProductosVisibles));
-
-    // Total de registros después de filtros
     this.totalRegistros$ = this.store.pipe(select(selectTotalRegistros));
-
-    // Columnas visibles sincronizadas directamente desde el store
     this.columnasVisibles$ = this.store.pipe(select(state => state.tabla.columnasVisibles));
 
-    // Suscripción directa al total para uso en el template
     this.totalRegistros$.subscribe(total => {
       this.totalRegistros = total || 0;
     });
@@ -106,11 +107,30 @@ export class TablaDinamicaComponent implements OnInit {
   }
 
   /**
-   * Emite evento para eliminar un producto.
+   * Abre el modal para confirmar eliminación del producto.
    * @param producto Producto seleccionado.
    */
   onEliminarProducto(producto: any): void {
-    this.eliminarProducto.emit(producto);
+    this.productoAEliminar = producto;
+    this.mostrarModalEliminar = true;
+  }
+
+  /**
+   * Cierra el modal de eliminación sin eliminar.
+   */
+  cancelarEliminacion(): void {
+    this.mostrarModalEliminar = false;
+    this.productoAEliminar = null;
+  }
+
+  /**
+   * Confirma la eliminación y despacha la acción al store.
+   */
+  confirmarEliminacion(): void {
+    if (this.productoAEliminar) {
+      this.store.dispatch(eliminarProducto({ producto: this.productoAEliminar }));
+      this.cancelarEliminacion();
+    }
   }
 
   /**
