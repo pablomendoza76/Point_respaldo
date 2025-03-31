@@ -5,6 +5,7 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { filterReducer } from './state/Filtros_NgRx/filter.reducer';
 import { tablaReducer } from './state/tabla_NgRx/tabla.reducer';
+import { provideHttpClient } from '@angular/common/http'; // ✅ Importado correctamente
 
 /**
  * ✅ Configuración principal de la aplicación.
@@ -21,6 +22,11 @@ export const appConfig: ApplicationConfig = {
      */
     provideRouter(routes),
     RouterModule,
+
+    /**
+     * ✅ Cliente HTTP para consumir servicios REST (necesario para HttpClient)
+     */
+    provideHttpClient(), // ✅ Añadido aquí
 
     /**
      * ✅ Configuración de NgRx para el estado global. (Este nombre debe coincidir con lo que usas en selectors y componentes)

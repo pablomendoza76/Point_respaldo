@@ -1,4 +1,3 @@
-// Importar variables de colores y tipografía 
 @import '../../catalogo_css/colores.scss';
 @import '../../catalogo_css/tipografia.scss';
 
@@ -318,4 +317,58 @@
  */
 .filter-section.hidden {
   display: none;
+}
+
+/**
+ * Modo compacto cuando los filtros están activos para dar más espacio a la tabla.
+ */
+.filter-section.modo-compacto {
+  padding: 0.3rem;
+  gap: 0.4rem;
+
+  .filter-buttons {
+    gap: 2px;
+    padding: 0.2rem;
+  }
+
+  .filter-btn {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+
+    i {
+      font-size: 0.65rem;
+    }
+  }
+
+  select {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+    max-width: 110px;
+  }
+}
+
+.search-container.modo-compacto {
+  gap: 0.5%;
+  padding: 0 2%;
+
+  select,
+  input,
+  button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.65rem;
+  }
+
+  .btn-export,
+  .btn-import,
+  .btn-agregar {
+    min-width: auto;
+
+    i {
+      font-size: 0.6rem;
+    }
+
+    span {
+      font-size: 0.65rem;
+    }
+  }
 }

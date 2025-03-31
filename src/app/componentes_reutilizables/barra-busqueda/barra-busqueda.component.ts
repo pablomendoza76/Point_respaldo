@@ -19,6 +19,8 @@ import {
   setColumnasVisibles,
 } from '../../state/tabla_NgRx/tabla.actions';
 import { FiltroConfiguracion } from '../../state/Filtros_NgRx/filter.model';
+import * as XLSX from 'xlsx';
+
 
 @Component({
   selector: 'app-barra-busqueda',
@@ -184,7 +186,17 @@ export class BarraBusquedaComponent {
    * Lógica para exportar datos.
    */
   exportar(): void {
-    console.log('📥 Exportando datos...');
+    const tabla = document.querySelector('table'); // Asegúrate que tu tabla visible tenga una etiqueta <table>
+    if (!tabla) {
+      console.warn('⚠️ No se encontró la tabla para exportar.');
+      return;
+    }
+  
+    const hoja: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tabla);
+    const libro: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(libro, hoja, 'Productos');
+  
+    XLSX.writeFile(libro, 'productos.xlsx');
   }
 
   /**

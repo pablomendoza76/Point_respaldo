@@ -1,0 +1,71 @@
+<div class="modal-overlay" *ngIf="isOpen">
+    <div class="modal-container">
+      <!-- Encabezado -->
+      <div class="modal-header">
+        <h2>{{ titulo }}</h2>
+        <button class="close-btn" (click)="onCerrar()">&times;</button>
+      </div>
+  
+      <!-- Contenido -->
+      <div class="modal-content">
+        <form (ngSubmit)="onSubmit()" autocomplete="off">
+          <!-- Campos agrupados de 2 en 2 -->
+          <div *ngFor="let grupo of camposAgrupados" class="form-row">
+            <div *ngFor="let campo of grupo" class="form-group">
+              <label class="input-label" [attr.for]="campo.key">{{ campo.label }}</label>
+  
+              <!-- Input tipo texto, número o fecha -->
+              <input *ngIf="!campo.tipo || ['text', 'number', 'date'].includes(campo.tipo)"
+                     [id]="campo.key"
+                     [type]="campo.tipo || 'text'"
+                     [(ngModel)]="datos[campo.key]"
+                     [name]="campo.key"
+                     [required]="campo.required"
+                     [disabled]="campo.disabled"
+                     class="input-normal" />
+  
+              <!-- Select -->
+              <select *ngIf="campo.tipo === 'select'"
+                      [id]="campo.key"
+                      [(ngModel)]="datos[campo.key]"
+                      [name]="campo.key"
+                      [required]="campo.required"
+                      [disabled]="campo.disabled"
+                      class="input-normal">
+                <option *ngFor="let opcion of getOpcionesSelect(campo.key)" [value]="opcion">
+                  {{ opcion }}
+                </option>
+              </select>
+  
+              <!-- Textarea -->
+              <textarea *ngIf="campo.tipo === 'textarea'"
+                        [id]="campo.key"
+                        [(ngModel)]="datos[campo.key]"
+                        [name]="campo.key"
+                        [rows]="campo.rows || 3"
+                        [required]="campo.required"
+                        [disabled]="campo.disabled"
+                        class="input-normal"></textarea>
+            </div>
+          </div>
+  
+          <!-- Botones de acción -->
+          <div class="button-group" *ngIf="botonesAccion.length > 0">
+            <label class="input-label">Acciones</label>
+            <div class="button-row">
+              <button *ngFor="let boton of botonesAccion"
+                      [type]="boton.tipo === 'submit' ? 'submit' : 'button'"
+                      class="text-btn"
+                      [class.with-icon]="boton.icono"
+                      [disabled]="boton.deshabilitado"
+                      (click)="boton.accion ? onAccion(boton.accion) : null">
+                <i *ngIf="boton.icono" class="fa {{ boton.icono }}"></i>
+                {{ boton.texto }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

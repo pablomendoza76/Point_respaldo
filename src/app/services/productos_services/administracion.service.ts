@@ -1,123 +1,86 @@
+/**
+ * Servicio encargado de obtener productos desde la API y generar dinámicamente las columnas,
+ * además de extraer información útil como marcas y grupos para filtros.
+ */
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AdministracionServicios {
-  constructor() {}
+  /**
+   * URL base del servicio para obtener productos desde la API externa.
+   */
+  private readonly URL_API = 'http://164.90.131.145:3000/bill-producto/obtener-todos-productos?page=1&limit=1000';
 
-  getMenuOptions() {
-    return [
-      'Administración',
-      'Proveedores',
-      'Tipos PVP',
-      'Clientes',
-      'Cuentas Contables',
-      'Empresa',
-      'Configuración'
-    ];
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Llama al endpoint para obtener todos los productos y genera:
+   * - Lista de productos procesados
+   * - Columnas visibles a partir del primer producto
+   * - Marcas únicas
+   * - Grupos únicos
+   *
+   * @returns Observable con productos, columnas, marcas y grupos
+   */
+  obtenerProductosYColumnas(): Observable<{ productos: any[]; columnas: any[]; marcas: string[]; grupos: string[] }> {
+    return this.http.get<any>(this.URL_API).pipe(
+      map((response: any) => {
+        const productosRaw = response?.respuesta?.datos?.productos || [];
+
+        if (!Array.isArray(productosRaw) || productosRaw.length === 0) {
+          return { productos: [], columnas: [], marcas: [], grupos: [] };
+        }
+
+        // Adaptar productos si es necesario (por ejemplo cambiar nombres de claves o asegurarse de que existan)
+        const productos = productosRaw.map(p => ({
+          ...p,
+          nombre: p.nombreUnico || p.nombre || '',
+          grupo: p.productogrupoCodigo,
+          marca: p.marcaId,
+          precio: p.pvpServicio || p.pvppromo || 0,
+          stock: p.stockactual || 0
+        }));
+
+        // Obtener el primer producto para generar columnas
+        const primerProducto = productos[0];
+        const columnas = Object.keys(primerProducto).map((key) => ({
+          name: this.formatearNombre(key),
+          key,
+          selected: ['codigo', 'nombre', 'precio', 'stock', 'grupo', 'marca'].includes(key)
+        }));
+
+        // Extraer marcas y grupos únicos
+        const marcas = this.extraerValoresUnicos(productos, 'marca');
+        const grupos = this.extraerValoresUnicos(productos, 'grupo');
+
+        return { productos, columnas, marcas, grupos };
+      })
+    );
   }
 
-  getColumnas() {
-    return [
-      { name: 'Código', key: 'codigo', default: true, selected: true },
-      { name: 'Nombre Único', key: 'nombre', default: true, selected: true },
-      { name: 'Descripción', key: 'descripcion', default: true, selected: true },
-      { name: 'Stock', key: 'stock', default: true, selected: true },
-      { name: 'Stock Mínimo', key: 'stockMinimo', default: true, selected: true },
-      { name: 'Stock Máximo', key: 'stockMaximo', default: true, selected: true },
-      { name: 'Tipo de Producto', key: 'tipo', default: true, selected: true },
-      { name: 'Grupo/Subgrupo', key: 'grupo', default: true, selected: true },
-      { name: 'Marca', key: 'marca', default: true, selected: true },
-      { name: 'Costo Promocional', key: 'costo_promocional', default: false, selected: false },
-      { name: 'Costo Promedio', key: 'costo_promedio', default: false, selected: false },
-      { name: 'Precios PA', key: 'precio_pa', default: false, selected: false },
-      { name: 'Precios PB', key: 'precio_pb', default: false, selected: false },
-      { name: 'Precios PC', key: 'precio_pc', default: false, selected: false },
-      { name: 'Inventario Producto', key: 'inventario', default: false, selected: false },
-      { name: 'Fecha de Caducidad', key: 'fecha_caducidad', default: false, selected: false },
-      { name: 'Rentabilidad', key: 'rentabilidad', default: false, selected: false },
-      { name: 'Bodega', key: 'bodega', default: false, selected: false }
-    ];
+  /**
+   * Convierte una clave de objeto a un nombre legible para columnas.
+   * @param key Clave cruda del objeto
+   * @returns Nombre legible
+   */
+  private formatearNombre(key: string): string {
+    return key
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, (str) => str.toUpperCase());
   }
 
-  getProductos() {
-    return [
-      ...Array.from({ length: 14 }, (_, i) => ({
-        codigo: 84618 + i,
-        estado: 'activo',
-        nombre: `Producto ${i + 1}`,
-        descripcion: `Descripción del producto ${i + 1}`,
-        stock: Math.floor(Math.random() * 1000),
-        stockMinimo: 10,
-        stockMaximo: 1000,
-        tipo: ['Inventario', 'Servicio', 'Activo'][i % 3],
-        grupo: ['Nestle', 'Lácteos', 'Pepsico', 'Carnes'][i % 4],
-        subGrupo: ['Confitería', 'Bebidas', 'Quesos', 'Cárnicos'][i % 4],
-        marca: ['Magi', 'Rancherito', 'Lactalis', 'Otra'][i % 4],
-        codigoBarras1: `12345678901${i}`,
-        codigoBarras2: '',
-        codigoBarras3: '',
-        codigoBarras4: '',
-        codigoBarras5: '',
-        unidadMedida: ['kg', 'L', 'unidad'][i % 3],
-        origen: ['Nacional', 'Importado'][i % 2],
-        fechaCaducidad: `202${6 - (i % 5)}-0${(i % 9) + 1}-15`,
-        regimen: ['General', 'Simplificado'][i % 2],
-        impuesto: ['IVA - TARIFA 15%', 'IVA - TARIFA 0%'][i % 2],
-        precio: {
-          pvpA: (5 + i).toFixed(2),
-          pvpB: (4.8 + i).toFixed(2),
-          pvpC: (4.5 + i).toFixed(2),
-          pvpD: (4.0 + i).toFixed(2),
-          pvpE: (3.8 + i).toFixed(2)
-        },
-        cuentas: {
-          ctaContCosto: `61010${i % 5}`,
-          ctaContComprasDebe: `11020${i % 5}`,
-          ctaContVentasHaber: `41010${i % 5}`
-        },
-        descuento: i % 2 === 0,
-        especificaciones: i % 2 !== 0
-      }))
-    ];
-  }
-
-  getGrupos() {
-    return ['Nestle', 'Lácteos', 'Pepsico', 'Carnes'];
-  }
-
-  getSubGrupos() {
-    return ['Confitería', 'Bebidas', 'Quesos', 'Cárnicos'];
-  }
-
-  getMarcas() {
-    return ['Magi', 'Rancherito', 'Lactalis', 'Otra'];
-  }
-
-  getTiposProducto() {
-    return ['Inventario', 'Servicio', 'Activo'];
-  }
-
-  getOrigenes() {
-    return ['Nacional', 'Importado'];
-  }
-
-  getRegimenes() {
-    return ['General', 'Simplificado'];
-  }
-
-  getICES() {
-    return ['0%', '10%', '20%'];
-  }
-
-  getCuentas() {
-    return [
-      '610101 - Costo de Venta',
-      '110201 - Compras',
-      '410101 - Ventas',
-      '110202 - Inventarios',
-      '110203 - Activos Fijos'
-    ];
+  /**
+   * Extrae valores únicos de una lista de productos para una clave específica
+   * @param productos Lista de productos
+   * @param key Clave a extraer
+   * @returns Lista de valores únicos como strings
+   */
+  private extraerValoresUnicos(productos: any[], key: string): string[] {
+    return Array.from(new Set(productos.map(p => p[key]).filter(Boolean))).map(v => String(v));
   }
 }

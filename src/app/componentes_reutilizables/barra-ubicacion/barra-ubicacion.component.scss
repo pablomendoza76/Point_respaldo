@@ -3,8 +3,9 @@
 @import '../../catalogo_css/tipografia.scss';
 
 /**
- * Estilos mejorados para el breadcrumb con apariencia iOS
+ * Estilos mejorados para el breadcrumb
  */
+
 .breadcrumb-container {
   font-family: $font-poppins;
   font-size: 0.75rem; // texto ligeramente más grande
@@ -14,7 +15,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
+  padding: 5px 6px;
   transition: all 0.3s ease;
 
   .breadcrumb-link {

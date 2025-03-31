@@ -15,7 +15,39 @@ export const selectProductos = createSelector(
 );
 
 /**
- * Selector para obtener los productos visibles (filtrados y con columnas aplicadas).
+ * Selector para obtener los filtros dinámicos activos.
+ */
+export const selectFiltrosDinamicos = createSelector(
+  selectTablaState,
+  (state) => state.filtrosDinamicos
+);
+
+/**
+ * Selector intermedio que aplica únicamente los filtros dinámicos.
+ */
+export const selectProductosFiltrados = createSelector(
+  selectProductos,
+  selectFiltrosDinamicos,
+  (productos, filtros) => {
+    if (!filtros || Object.keys(filtros).length === 0) return productos;
+
+    return productos.filter(producto =>
+      Object.entries(filtros).every(([key, valorFiltro]) => {
+        const valorProducto = producto[key];
+        if (valorProducto === null || valorProducto === undefined) return false;
+
+        if (typeof valorProducto === 'number') {
+          return valorProducto === Number(valorFiltro);
+        }
+
+        return valorProducto.toString().toLowerCase().includes(valorFiltro.toString().toLowerCase());
+      })
+    );
+  }
+);
+
+/**
+ * Selector para obtener los productos visibles (con paginación aplicada).
  */
 export const selectProductosVisibles = createSelector(
   selectTablaState,
@@ -36,14 +68,6 @@ export const selectColumnasVisibles = createSelector(
 export const selectSearchTerm = createSelector(
   selectTablaState,
   (state) => state.searchTerm
-);
-
-/**
- * Selector para obtener los filtros dinámicos activos.
- */
-export const selectFiltrosDinamicos = createSelector(
-  selectTablaState,
-  (state) => state.filtrosDinamicos
 );
 
 /**

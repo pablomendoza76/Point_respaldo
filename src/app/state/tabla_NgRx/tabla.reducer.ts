@@ -12,9 +12,6 @@ import {
 } from './tabla.actions';
 import { TablaState } from './tabla.model';
 
-/**
- * Estado inicial de la tabla.
- */
 export const initialState: TablaState = {
   productos: [],
   productosVisibles: [],
@@ -26,15 +23,9 @@ export const initialState: TablaState = {
   filtrosDinamicos: {}
 };
 
-/**
- * Aplica filtros de búsqueda, dinámicos y filtros especiales (stock, medio, sin stock).
- * @param state Estado actual de la tabla
- * @returns Lista de productos filtrados
- */
 function filtrarProductos(state: TablaState): any[] {
   let productosFiltrados = [...state.productos];
 
-  // Filtro por término de búsqueda
   if (state.searchTerm) {
     productosFiltrados = productosFiltrados.filter((producto) =>
       Object.values(producto).some((value) =>
@@ -43,36 +34,39 @@ function filtrarProductos(state: TablaState): any[] {
     );
   }
 
-  // Filtros dinámicos incluyendo filtro por estado
-  Object.keys(state.filtrosDinamicos).forEach((key) => {
-    const valor = state.filtrosDinamicos[key];
+  Object.entries(state.filtrosDinamicos).forEach(([key, valor]) => {
     if (!valor || valor === 'todos') return;
 
     if (key === 'estado') {
-      if (valor === 'stock') {
-        productosFiltrados = productosFiltrados.filter((p) => p.stock > 0);
-      } else if (valor === 'medio') {
-        productosFiltrados = productosFiltrados.filter((p) => {
-          const promedio = (p.stockMin + p.stockMax) / 2;
-          return p.stock <= promedio;
-        });
-      } else if (valor === 'sin_stock') {
-        productosFiltrados = productosFiltrados.filter((p) => p.stock === 0);
-      }
+      productosFiltrados = productosFiltrados.filter((p) => {
+        const stock = parseFloat(p.stockactual || '0');
+        const stockMin = parseFloat(p.existenciaMinima || '0');
+        const stockMax = parseFloat(p.existenciaMaxima || '0');
+        const promedio = (stockMin + stockMax) / 2;
+
+        if (valor === 'stock') return stock > 0;
+        if (valor === 'medio') return stock <= promedio;
+        if (valor === 'sin_stock') return stock === 0;
+
+        return true;
+      });
     } else {
-      const claveReal = key.toLowerCase();
-      productosFiltrados = productosFiltrados.filter(
-        (producto) => producto[claveReal]?.toString() === valor
-      );
+      productosFiltrados = productosFiltrados.filter((producto) => {
+        const valorProducto = producto[key];
+        if (valorProducto === undefined || valorProducto === null) return false;
+
+        if (!isNaN(Number(valorProducto))) {
+          return Number(valorProducto) === Number(valor);
+        }
+
+        return valorProducto.toString().toLowerCase() === valor.toString().toLowerCase();
+      });
     }
   });
 
   return productosFiltrados;
 }
 
-/**
- * Filtra las columnas visibles para cada producto.
- */
 function mapearColumnasVisibles(productos: any[], columnas: { name: string; key: string }[]): any[] {
   if (!columnas || columnas.length === 0) {
     return productos;
@@ -89,27 +83,18 @@ function mapearColumnasVisibles(productos: any[], columnas: { name: string; key:
   });
 }
 
-/**
- * Aplica la paginación sobre la lista de productos.
- */
 function aplicarPaginacion(productos: any[], pagina: number, itemsPorPagina: number): any[] {
   if (itemsPorPagina === 20000) return productos;
   const start = (pagina - 1) * itemsPorPagina;
   return productos.slice(start, start + itemsPorPagina);
 }
 
-/**
- * Recalcula los productos visibles combinando filtros, columnas y paginación.
- */
 function recalcularProductosVisibles(state: TablaState): any[] {
   const filtrados = filtrarProductos(state);
   const conColumnas = mapearColumnasVisibles(filtrados, state.columnasVisibles);
-  return aplicarPaginacion(conColumnas, state.paginaActual, state.itemsPorPagina);
+  return [...aplicarPaginacion(conColumnas, state.paginaActual, state.itemsPorPagina)];
 }
 
-/**
- * Reducer principal del estado de la tabla.
- */
 export const tablaReducer = createReducer(
   initialState,
 

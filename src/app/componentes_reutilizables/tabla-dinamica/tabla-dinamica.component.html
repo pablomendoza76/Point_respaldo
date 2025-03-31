@@ -1,8 +1,8 @@
-<!-- Tabla de productos -->
+<!-- Tabla de registros dinámicos -->
 <div class="table-container">
   <ng-container *ngIf="columnasVisibles$ | async as columnas">
-    <ng-container *ngIf="productosVisibles$ | async as productos">
-      <table class="product-table" *ngIf="productos.length > 0; else sinProductos">
+    <ng-container *ngIf="registrosVisibles$ | async as registros">
+      <table class="product-table" *ngIf="registros.length > 0; else sinRegistros">
         <thead>
           <tr>
             <th *ngFor="let columna of columnas">{{ columna.name }}</th>
@@ -10,15 +10,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let producto of productos">
+          <tr *ngFor="let registro of registros">
             <td *ngFor="let columna of columnas">
-              {{ producto[columna.key] }}
+              {{ registro[columna.key] }}
             </td>
             <td>
-              <button class="btn-edit" (click)="onEditarProducto(producto)">
+              <button class="btn-edit" (click)="onEditarRegistro(registro)">
                 <i class="fa-regular fa-pen-to-square"></i>
               </button>
-              <button class="btn-delete" (click)="onEliminarProducto(producto)">
+              <button class="btn-delete" (click)="onEliminarRegistro(registro)">
                 <i class="fa-solid fa-trash-can"></i>
               </button>
             </td>
@@ -26,27 +26,44 @@
         </tbody>
       </table>
 
-      <!-- 🔔 Mensaje si no hay productos -->
-      <ng-template #sinProductos>
+      <!-- Mensaje cuando no hay registros -->
+      <ng-template #sinRegistros>
         <div class="mensaje-vacio">
-          No hay productos que coincidan con los filtros aplicados.
+          No hay registros que coincidan con los filtros aplicados.
         </div>
       </ng-template>
     </ng-container>
   </ng-container>
 </div>
 
-<!-- Modal de confirmación de eliminación -->
-<app-delete-modal
-  [isOpen]="mostrarModalEliminar"
-  [itemName]="productoAEliminar?.nombre"
-  [title]="'Eliminar producto'"
-  [warningMessage]="'Esta acción eliminará el producto del sistema.'"
-  (confirmed)="confirmarEliminacion()"
-  (canceled)="cancelarEliminacion()"
-></app-delete-modal>
+<!-- Modales dinámicos -->
+<ng-container>
+  <!-- Modal de formulario dinámico -->
+  <app-formulario-dinamico-loader
+    [isOpen]="isFormularioAbierto"
+    [titulo]="'Editar Registro'"
+    [campos]="camposFormulario"
+    [datos]="registroEnFormulario"
+    [modoEdicion]="true"
+    [botonesAccion]="[
+      { texto: 'Guardar', tipo: 'submit', icono: 'fa-save' },
+      { texto: 'Cancelar', tipo: 'button', icono: 'fa-times', accion: 'cancelar' }
+    ]"
+    (guardar)="guardarRegistro($event)"
+    (cerrar)="cancelarFormulario()"
+    (accion)="manejarAccion($event)"
+  ></app-formulario-dinamico-loader>
 
-
+  <!-- Modal de confirmación de eliminación -->
+  <app-delete-modal
+    [isOpen]="mostrarModalEliminar"
+    [itemName]="registroAEliminar?.nombre || 'el registro'"
+    [title]="'Eliminar Registro'"
+    [warningMessage]="'Esta acción eliminará el registro del sistema.'"
+    (confirmed)="confirmarEliminacion()"
+    (canceled)="cancelarEliminacion()"
+  ></app-delete-modal>
+</ng-container>
 
 <!-- Paginación -->
 <div class="pagination">
@@ -71,8 +88,10 @@
     registros de {{ totalRegistros }}
   </span>
 
-  <button (click)="cambiarPagina(paginaActual + 1)" 
-          [disabled]="paginaActual * itemsPorPagina >= totalRegistros">
+  <button
+    (click)="cambiarPagina(paginaActual + 1)"
+    [disabled]="paginaActual * itemsPorPagina >= totalRegistros"
+  >
     Siguiente
   </button>
 </div>
