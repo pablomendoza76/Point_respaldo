@@ -2,7 +2,10 @@
 <div class="table-container">
   <ng-container *ngIf="columnasVisibles$ | async as columnas">
     <ng-container *ngIf="registrosVisibles$ | async as registros">
-      <table class="product-table" *ngIf="registros.length > 0; else sinRegistros">
+      <table
+        class="product-table"
+        *ngIf="registros.length > 0; else sinRegistros"
+      >
         <thead>
           <tr>
             <th *ngFor="let columna of columnas">{{ columna.name }}</th>
@@ -40,18 +43,24 @@
 <ng-container>
   <!-- Modal de formulario dinámico -->
   <app-formulario-dinamico-loader
-    [isOpen]="isFormularioAbierto"
+    [mostrar]="mostrarFormulario"
     [titulo]="'Editar Registro'"
     [campos]="camposFormulario"
     [datos]="registroEnFormulario"
     [modoEdicion]="true"
     [botonesAccion]="[
       { texto: 'Guardar', tipo: 'submit', icono: 'fa-save' },
-      { texto: 'Cancelar', tipo: 'button', icono: 'fa-times', accion: 'cancelar' }
+      {
+        texto: 'Cancelar',
+        tipo: 'button',
+        icono: 'fa-times',
+        accion: 'cancelar'
+      }
     ]"
     (guardar)="guardarRegistro($event)"
     (cerrar)="cancelarFormulario()"
     (accion)="manejarAccion($event)"
+    (closed)="onCerrarFormulario()"
   ></app-formulario-dinamico-loader>
 
   <!-- Modal de confirmación de eliminación -->
@@ -78,7 +87,10 @@
     </select>
   </div>
 
-  <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
+  <button
+    (click)="cambiarPagina(paginaActual - 1)"
+    [disabled]="paginaActual === 1"
+  >
     Previa
   </button>
 

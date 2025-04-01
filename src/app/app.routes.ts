@@ -30,6 +30,8 @@ import { BarraBusquedaComponent } from './componentes_reutilizables/barra-busque
 import { BarraUbicacionComponent } from './componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
 import { NavbarComponent } from './componentes_reutilizables/navbar/navbar.component';
 import { DynamicMenuComponent } from './componentes_reutilizables/dynamic-menu/dynamic-menu.component';
+import { FormularioDinamicoComponent } from './componentes_reutilizables/formulario-dinamico/formulario-dinamico.component';
+import { FormularioDinamicoLoaderComponent } from './componentes_reutilizables/formulario-dinamico-loader/formulario-dinamico-loader.component';
 
 export const routes: Routes = [
   { path: 'login', component: AppComponent },
@@ -116,7 +118,7 @@ export const routes: Routes = [
       { path: 'cuentas-contables', component: CuentasContablesComponent },
       { path: 'plan-cuentas', component: PlanCuentasComponent },{ path: 'prueba', component: PruebraComponent }, 
       { path: 'prueba2', component: BarraBusquedaComponent}, { path: 'prueba3', component: BarraUbicacionComponent},
-      { path: 'prueba4', component: DynamicMenuComponent}
+      { path: 'prueba4', component: FormularioDinamicoComponent}
     ]
   },
 

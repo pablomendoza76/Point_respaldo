@@ -1,5 +1,6 @@
 @import '../../catalogo_css/colores.scss';
 @import '../../catalogo_css/tipografia.scss';
+@import '../../catalogo_css/catalogo_inputs.scss';
 
 .modal-overlay {
   position: fixed;
@@ -14,18 +15,18 @@
   z-index: 1000;
   backdrop-filter: blur(2px);
   animation: fadeIn 0.3s ease-out;
-}
 
-.modal-container {
-  background-color: $fondo-claro;
-  padding: 24px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 800px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  animation: slideUp 0.3s ease-out;
+  .modal-container {
+    background-color: $fondo-claro;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease-out;
+  }
 }
 
 .modal-header {
@@ -36,7 +37,10 @@
   align-items: center;
 
   h2 {
-    @extend .headline-title-medium;
+    font-family: $font-poppins;
+    font-size: $font-size-headline-title;
+    line-height: $line-height-headline-title;
+    font-weight: 500;
     color: $texto-principal;
     margin: 0;
   }
@@ -71,89 +75,47 @@
   }
 }
 
-.input-label {
-  @extend .body-small-regular;
-  color: $texto-secundario;
+// Quitar línea al enfocar input
+input.input-normal:focus {
+  border-bottom: none;
 }
 
-.input-normal {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid $gris-borde;
-  background-color: $fondo-claro;
-  font-family: $font-work-sans;
-  font-size: $font-size-body-small;
-  color: $texto-principal;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+// Estilo general del contenedor de bloque
+.bloque-seccion {
+  margin-bottom: 24px;
 
-  &:focus {
-    outline: none;
-    border-color: $rojo-fondo;
-    box-shadow: 0 4px 8px rgba(198, 40, 40, 0.2);
-  }
+  .titulo-bloque {
+    background-color: $rojo-fondo;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
 
-  &:disabled {
-    background-color: $gris-fondo;
-    color: $texto-deshabilitado;
-    border-color: $gris-borde;
-    cursor: not-allowed;
-    box-shadow: none;
+    font-family: $font-work-sans;
+    font-size: $font-size-body-small;
+    line-height: $line-height-body-small;
+    font-weight: 600;
+    color: $rojo-texto;
   }
 }
 
-select.input-normal {
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  padding-right: 36px;
-}
-
-textarea.input-normal {
-  min-height: 80px;
-  resize: vertical;
-}
-
-.button-group {
-  margin-top: 24px;
-
-  .button-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-}
-
-.text-btn {
-  font-family: $font-work-sans;
-  font-size: $font-size-body-small;
-  color: $texto-principal;
-  background-color: transparent;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
+// Estructura de label-personalizable (botones con texto al costado)
+.label-personalizable {
+  display: flex;
   align-items: center;
-  justify-content: center;
   gap: 8px;
 
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+  .texto-costado {
+    font-family: $font-work-sans;
+    font-size: $font-size-body-small;
+    color: $texto-secundario;
+
+    i {
+      font-size: 16px;
+    }
   }
 
-  &:disabled {
-    color: $texto-deshabilitado;
-    cursor: not-allowed;
-    background-color: transparent;
-  }
-
-  &.with-icon i {
-    margin-right: 8px;
+  > *:last-child {
+    flex: 1;
   }
 }
 

@@ -1,12 +1,10 @@
 // tabla-dinamica.component.ts
 import {
   Component,
-  Output,
-  EventEmitter,
   OnInit,
-  ChangeDetectionStrategy,
+  OnDestroy,
   ChangeDetectorRef,
-  OnDestroy
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -35,7 +33,7 @@ import { FormularioDinamicoLoaderComponent } from '../formulario-dinamico-loader
 })
 export class TablaDinamicaComponent implements OnInit, OnDestroy {
   /**
-   * Lista de campos del formulario que se utilizarán para edición o creación.
+   * Campos disponibles en el formulario dinámico.
    */
   camposFormulario = [
     { key: 'codigo', label: 'Código', tipo: 'text', required: true },
@@ -46,53 +44,50 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
     { key: 'marca', label: 'Marca', tipo: 'text' }
   ];
 
-  /** Registro marcado para eliminación */
+  /** Registro a eliminar mediante el modal */
   registroAEliminar: any = null;
 
-  /** Registro actual cargado en el formulario para edición */
+  /** Registro actualmente cargado en el formulario de edición */
   registroEnFormulario: any = null;
 
-  /** Controla visibilidad del modal de eliminación */
+  /** Controla la visibilidad del modal de eliminación */
   mostrarModalEliminar: boolean = false;
 
-  /** Controla visibilidad del formulario de edición */
-  isFormularioAbierto: boolean = false;
+  /** Controla si el formulario dinámico está visible */
+  mostrarFormulario: boolean = false;
 
-  /** Referencia global a Math para uso en plantilla */
-  math = Math;
-
-  /** Página actual seleccionada */
+  /** Página actual para paginación */
   paginaActual = 1;
 
-  /** Cantidad de registros por página */
+  /** Registros por página */
   itemsPorPagina = 10;
 
-  /** Total de registros visibles tras filtros */
+  /** Total de registros en la tabla */
   totalRegistros = 0;
 
-  /** Copia local de los registros visibles */
+  /** Registros actuales visibles */
   registrosActuales: any[] = [];
 
-  /** Registros visibles desde el store */
+  /** Math para uso en plantilla */
+  math = Math;
+
+  /** Observables desde NgRx */
   registrosVisibles$: Observable<any[]>;
-
-  /** Total de registros desde el store */
   totalRegistros$: Observable<number>;
-
-  /** Columnas visibles desde el store */
   columnasVisibles$: Observable<{ name: string; key: string }[]>;
 
-  /** Subscripción única para limpieza y control */
+  /** Subscripciones activas */
   private subs = new Subscription();
 
   constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef) {
     this.registrosVisibles$ = this.store.pipe(select(selectProductosVisibles));
     this.totalRegistros$ = this.store.pipe(select(selectTotalRegistros));
     this.columnasVisibles$ = this.store.pipe(select(state => state.tabla.columnasVisibles));
-    
   }
 
-  /** Inicializa las suscripciones a observables */
+  /**
+   * Inicializa el componente y las suscripciones necesarias.
+   */
   ngOnInit(): void {
     this.subs.add(
       this.registrosVisibles$.subscribe(registros => {
@@ -109,31 +104,34 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
     );
   }
 
-  /** Limpia las suscripciones activas al destruir el componente */
+  /**
+   * Limpia las suscripciones al destruir el componente.
+   */
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }
 
   /**
-   * Activa el formulario dinámico con el registro seleccionado
+   * Abre el formulario de edición con el registro seleccionado.
    * @param registro Registro a editar
    */
   onEditarRegistro(registro: any): void {
-    this.registroEnFormulario = { ...registro };
-    this.isFormularioAbierto = true;
-    this.cdr.markForCheck(); // Forzar detección de cambios
+    console.log('Editando registro:', registro); // Verifica si se ejecuta
+    this.registroEnFormulario = { ...registro }; // Copia el registro
+    this.mostrarFormulario = true;              // Muestra el formulario directamente
+    this.cdr.markForCheck();                    // Marca el componente para revisión
   }
-  
-
-  /** Cierra el formulario dinámico sin guardar cambios */
+  /**
+   * Cierra el formulario dinámico sin guardar.
+   */
   cancelarFormulario(): void {
-    this.isFormularioAbierto = false;
+    this.mostrarFormulario = false;
     this.registroEnFormulario = null;
     this.cdr.markForCheck();
   }
 
   /**
-   * Guarda el registro editado y actualiza el store
+   * Guarda los cambios del formulario y actualiza el estado global.
    * @param registro Registro actualizado
    */
   guardarRegistro(registro: any): void {
@@ -145,7 +143,7 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Abre el modal de confirmación para eliminar un registro
+   * Abre el modal de eliminación para el registro dado.
    * @param registro Registro a eliminar
    */
   onEliminarRegistro(registro: any): void {
@@ -154,14 +152,18 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  /** Cierra el modal de eliminación sin eliminar */
+  /**
+   * Cancela y cierra el modal de eliminación.
+   */
   cancelarEliminacion(): void {
     this.mostrarModalEliminar = false;
     this.registroAEliminar = null;
     this.cdr.markForCheck();
   }
 
-  /** Elimina el registro seleccionado y actualiza el store */
+  /**
+   * Confirma y ejecuta la eliminación del registro.
+   */
   confirmarEliminacion(): void {
     if (this.registroAEliminar) {
       this.store.dispatch(eliminarProducto({ producto: this.registroAEliminar }));
@@ -170,8 +172,8 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Cambia la página actual mostrada en la tabla
-   * @param pagina Número de página a mostrar
+   * Cambia la página actual mostrada en la tabla.
+   * @param pagina Nueva página
    */
   cambiarPagina(pagina: number): void {
     if (pagina >= 1) {
@@ -181,7 +183,7 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Cambia la cantidad de ítems visibles por página
+   * Cambia el número de ítems visibles por página.
    * @param event Evento del selector de cantidad
    */
   cambiarItemsPorPagina(event: Event): void {
@@ -193,8 +195,8 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Ejecuta acciones personalizadas desde el formulario dinámico
-   * @param accion Acción emitida desde el formulario
+   * Ejecuta una acción personalizada desde el formulario.
+   * @param accion Nombre de la acción
    */
   manejarAccion(accion: string): void {
     if (accion === 'cancelar') {
@@ -203,18 +205,19 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
- * Maneja el cierre del formulario
- */
-onCerrarFormulario(): void {
-  this.isFormularioAbierto = false;
-  this.registroEnFormulario = null;
-  this.cdr.markForCheck();
-}
+   * Cierra el formulario dinámico desde el evento `closed`.
+   */
+  onCerrarFormulario(): void {
+    this.cancelarFormulario();
+  }
 
-/**
- * Función trackBy para optimizar rendimiento
- */
-trackByCodigo(index: number, item: any): string {
-  return item.codigo;
-}
+  /**
+   * TrackBy para *ngFor optimizado.
+   * @param index Índice del elemento
+   * @param item Registro
+   * @returns Identificador único
+   */
+  trackByCodigo(index: number, item: any): string {
+    return item.codigo;
+  }
 }

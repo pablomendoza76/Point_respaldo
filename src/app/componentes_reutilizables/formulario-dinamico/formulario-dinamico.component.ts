@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 /**
  * Componente de formulario reutilizable y dinámico.
- * Permite definir campos personalizados, botones y manejo de acciones mediante `@Input()` y `@Output()`.
+ * Recibe bloques de campos que pueden variar según el contexto (productos, clientes, etc.).
+ * Permite personalizar inputs, selects, botones y manejar eventos de acción y cierre.
  */
 @Component({
   selector: 'app-formulario-dinamico',
@@ -13,87 +14,81 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './formulario-dinamico.component.html',
   styleUrls: ['./formulario-dinamico.component.scss']
 })
-export class FormularioDinamicoComponent {
-  /**
-   * Título del formulario que aparece en el encabezado del modal.
-   */
+export class FormularioDinamicoComponent implements OnChanges {
+  /** Título principal del formulario */
   @Input() titulo: string = 'Formulario';
 
-  /**
-   * Lista de campos a mostrar en el formulario.
-   * Cada campo debe tener: `key`, `label`, `tipo`, `required`, `disabled`, etc.
-   */
+  /** Lista de campos planos (usado si no se pasan bloques) */
   @Input() campos: Array<any> = [];
 
-  /**
-   * Diccionario de opciones para los campos tipo select.
-   * Ejemplo: `{ categoria: ['A', 'B'] }`
-   */
+  /** Bloques estructurados con título y campos, ideales para formularios complejos */
+  @Input() bloques: Array<{ titulo: string; campos: any[] }> = [];
+
+  /** Diccionario de opciones para los campos tipo select (clave por key de campo) */
   @Input() opcionesSelect: Record<string, string[]> = {};
 
-  /**
-   * Objeto que contiene los datos actuales del formulario.
-   * Se actualiza en tiempo real con `ngModel`.
-   */
+  /** Datos actuales del formulario (bind con ngModel) */
   @Input() datos: Record<string, any> = {};
 
-  /**
-   * Define si el formulario se encuentra en modo edición.
-   */
+  /** Define si el formulario está en modo edición */
   @Input() modoEdicion: boolean = false;
 
-  /**
-   * Lista de botones de acción personalizados.
-   * Cada botón puede tener: `texto`, `tipo`, `icono`, `accion`, `deshabilitado`.
-   */
+  /** Configuración de botones de acción (ej: enviar, cancelar, etc.) */
   @Input() botonesAccion: Array<any> = [];
 
-  /**
-   * Controla si el modal debe mostrarse o no.
-   */
-  @Input() isOpen: boolean = false;
-
-  /**
-   * Emitido cuando se envía el formulario correctamente (submit).
-   */
+  /** Evento emitido al hacer submit del formulario */
   @Output() guardar = new EventEmitter<any>();
 
-  /**
-   * Emitido cuando el usuario cierra el formulario manualmente.
-   */
+  /** Evento emitido cuando el usuario hace clic en cerrar */
   @Output() cerrar = new EventEmitter<void>();
 
-  /**
-   * Emitido cuando se hace clic en un botón personalizado.
-   */
+  /** Evento emitido cuando se lanza una acción personalizada desde un botón */
   @Output() accion = new EventEmitter<string>();
 
-  /**
-   * Emitido cuando el formulario se cierra por cualquier causa.
-   * (guardar, cancelar, cerrar)
-   */
+  /** Evento emitido siempre al cerrar el formulario (cancelar o guardar) */
   @Output() closed = new EventEmitter<void>();
 
-  /**
-   * Emitir evento de guardar con los datos actuales del formulario.
-   */
+  /** Procesa cambios en los inputs */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.bloques?.length && this.campos?.length) {
+      this.bloques = this.generarBloquesDesdeCampos(this.campos);
+    }
+  }
+
+  /** Agrupa campos por grupo para generar bloques si solo se pasan campos planos */
+  private generarBloquesDesdeCampos(campos: any[]): { titulo: string; campos: any[] }[] {
+    const mapa = new Map<string, any[]>();
+
+    for (const campo of campos) {
+      const grupo = campo.grupo || 'otros';
+      if (!mapa.has(grupo)) mapa.set(grupo, []);
+      mapa.get(grupo)!.push(campo);
+    }
+
+    return Array.from(mapa.entries()).map(([grupo, campos]) => ({
+      titulo: this.capitalizar(grupo),
+      campos
+    }));
+  }
+
+  /** Capitaliza el texto y reemplaza guiones bajos por espacios */
+  private capitalizar(texto: string): string {
+    return texto.charAt(0).toUpperCase() + texto.slice(1).replace(/_/g, ' ');
+  }
+
+  /** Envía el formulario */
   onSubmit(): void {
     this.guardar.emit(this.datos);
     this.closed.emit();
   }
 
-  /**
-   * Emitir evento de cancelación/cierre sin guardar.
-   */
+  /** Cierre manual del formulario (botón cerrar o acción externa) */
   onCerrar(): void {
     this.cerrar.emit();
     this.closed.emit();
   }
 
-  /**
-   * Ejecuta la acción personalizada desde el botón correspondiente.
-   * @param accion Nombre de la acción definida
-   */
+  /** Ejecuta una acción personalizada desde un botón */
   onAccion(accion: string): void {
     this.accion.emit(accion);
     if (accion === 'cancelar') {
@@ -101,19 +96,12 @@ export class FormularioDinamicoComponent {
     }
   }
 
-  /**
-   * Devuelve la lista de opciones para campos tipo select.
-   * @param key Clave del campo
-   * @returns Opciones para ese campo
-   */
+  /** Obtiene las opciones para un campo tipo select */
   getOpcionesSelect(key: string): string[] {
     return this.opcionesSelect[key] || [];
   }
 
-  /**
-   * Agrupa los campos en pares para disposición en filas de 2.
-   * @returns Lista de grupos de 2 campos
-   */
+  /** Agrupa los campos en pares para renderizarlos en dos columnas */
   get camposAgrupados(): any[][] {
     const resultado = [];
     for (let i = 0; i < this.campos.length; i += 2) {

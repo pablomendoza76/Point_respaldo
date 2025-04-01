@@ -1,0 +1,55 @@
+// src/styles/layouts/_layout-expandible.scss
+
+/**
+ * Utilidad de layout vertical para páginas con componentes que deben ajustarse al espacio disponible.
+ * 
+ * Esta clase aplica un `flex layout` vertical donde:
+ *  - Todos los elementos hijos ocupan solo el espacio necesario (`flex-shrink: 0`).
+ *  - El último hijo crece automáticamente (`flex-grow: 1`) para llenar el espacio restante.
+ * 
+ * Ideal para estructuras como:
+ *  - Filtros + Tabla
+ *  - Encabezado + Contenido dinámico
+ *  - Layouts en pantallas completas (100vh)
+ * 
+ * Uso:
+ * 
+ * En el componente padre (HTML):
+ * 
+ * ```html
+ * <div class="layout-expandible">
+ *   <app-barra-filtros></app-barra-filtros>
+ *   <app-tabla-dinamica></app-tabla-dinamica>
+ * </div>
+ * ```
+ * 
+ * En el SCSS de la tabla, asegúrate que tenga:
+ * 
+ * ```scss
+ * .table-container {
+ *   height: 100%;
+ *   overflow: auto;
+ * }
+ * ```
+ */
+
+ .layout-expandible {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  
+    // Todos los hijos NO se colapsan (altura propia)
+    > * {
+      flex-shrink: 0;
+    }
+  
+    // El último hijo crece automáticamente (usualmente una tabla o contenido scrollable)
+    > *:last-child {
+      flex-grow: 1;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  

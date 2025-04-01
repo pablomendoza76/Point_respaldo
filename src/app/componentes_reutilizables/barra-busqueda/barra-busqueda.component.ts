@@ -5,6 +5,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  OnInit
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -21,7 +22,6 @@ import {
 import { FiltroConfiguracion } from '../../state/Filtros_NgRx/filter.model';
 import * as XLSX from 'xlsx';
 
-
 @Component({
   selector: 'app-barra-busqueda',
   standalone: true,
@@ -30,7 +30,7 @@ import * as XLSX from 'xlsx';
   styleUrls: ['./barra-busqueda.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BarraBusquedaComponent {
+export class BarraBusquedaComponent implements OnInit {
   /**
    * Lista de opciones de tipo de búsqueda.
    */
@@ -88,6 +88,13 @@ export class BarraBusquedaComponent {
     this.searchTermSubject.pipe(debounceTime(500)).subscribe((searchTerm) => {
       this.store.dispatch(setSearchTerm({ searchTerm }));
     });
+  }
+
+  ngOnInit(): void {
+    if (!this.searchType && this.opcionesBusqueda.length > 0) {
+      this.searchType = this.opcionesBusqueda[0].value;
+      this.actualizarBusqueda();
+    }
   }
 
   /**
@@ -191,11 +198,11 @@ export class BarraBusquedaComponent {
       console.warn('⚠️ No se encontró la tabla para exportar.');
       return;
     }
-  
+
     const hoja: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tabla);
     const libro: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(libro, hoja, 'Productos');
-  
+
     XLSX.writeFile(libro, 'productos.xlsx');
   }
 

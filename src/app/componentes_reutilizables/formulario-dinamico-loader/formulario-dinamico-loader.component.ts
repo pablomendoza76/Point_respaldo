@@ -5,109 +5,100 @@ import {
   EventEmitter,
   ViewChild,
   ViewContainerRef,
-  SimpleChanges,
   OnChanges,
-  ChangeDetectionStrategy
+  SimpleChanges,
+  ChangeDetectionStrategy,
+  HostBinding
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormularioDinamicoComponent } from '../formulario-dinamico/formulario-dinamico.component';
 
+/**
+ * Componente contenedor dinámico que carga y muestra el FormularioDinamicoComponent
+ * en tiempo de ejecución usando ViewContainerRef.
+ */
 @Component({
   selector: 'app-formulario-dinamico-loader',
   standalone: true,
-  imports: [CommonModule, FormularioDinamicoComponent],
+  imports: [CommonModule],
   template: '<ng-template #contenedor></ng-template>',
   styleUrls: ['./formulario-dinamico-loader.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormularioDinamicoLoaderComponent implements OnChanges {
-  /**
-   * Referencia al contenedor donde se inyectará dinámicamente el formulario.
-   */
-  @ViewChild('contenedor', { read: ViewContainerRef, static: true }) contenedor!: ViewContainerRef;
+  /** Contenedor donde se insertará el formulario dinámico */
+  @ViewChild('contenedor', { read: ViewContainerRef, static: true })
+  contenedor!: ViewContainerRef;
 
-  /**
-   * Controla si el formulario debe mostrarse o no.
-   */
-  @Input() isOpen: boolean = false;
+  /** Controla la visibilidad del formulario */
+  @Input() mostrar: boolean = false;
 
-  /**
-   * Título que se mostrará en el encabezado del formulario.
-   */
+  /** Título del formulario a renderizar */
   @Input() titulo: string = '';
 
-  /**
-   * Lista de campos que se renderizan dinámicamente en el formulario.
-   */
+  /** Estructura de los campos del formulario */
   @Input() campos: any[] = [];
 
-  /**
-   * Objeto de datos a editar o crear.
-   */
+  /** Datos a precargar en el formulario */
   @Input() datos: any = {};
 
-  /**
-   * Indica si el formulario está en modo edición.
-   */
+  /** Define si el formulario está en modo edición */
   @Input() modoEdicion: boolean = false;
 
-  /**
-   * Botones personalizados a mostrar en el formulario (Guardar, Cancelar, etc.).
-   */
+  /** Botones personalizados a renderizar en el formulario */
   @Input() botonesAccion: any[] = [];
 
-  /**
-   * Emitido cuando se envía el formulario con éxito.
-   */
+  /** Evento emitido al guardar el formulario */
   @Output() guardar = new EventEmitter<any>();
 
-  /**
-   * Emitido cuando el formulario es cerrado manualmente.
-   */
+  /** Evento emitido al cerrar manualmente el formulario */
   @Output() cerrar = new EventEmitter<void>();
 
-  /**
-   * Emitido cuando se hace clic en un botón con acción personalizada.
-   */
+  /** Evento emitido por acciones personalizadas */
   @Output() accion = new EventEmitter<string>();
 
-  /**
-   * Emitido cuando se cierra el formulario por cualquier medio.
-   */
+  /** Evento emitido al cerrar el formulario completamente */
   @Output() closed = new EventEmitter<void>();
 
   /**
-   * Detecta cambios en los @Input y decide si debe renderizar el formulario.
-   * @param changes Cambios detectados por Angular
+   * Asigna la clase CSS `.visible` al componente cuando mostrar es true
    */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['isOpen']) {
-      this.renderizarFormulario();
-    }
+  @HostBinding('class.visible') get isVisible(): boolean {
+    return this.mostrar;
   }
 
   /**
-   * Renderiza el componente `FormularioDinamicoComponent` dentro del contenedor dinámico.
+   * Escucha cambios en las propiedades de entrada para crear o actualizar el formulario dinámico
+   * @param changes Cambios detectados en las propiedades de entrada
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    this.renderizarFormulario();
+  }
+
+  /**
+   * Renderiza el componente FormularioDinamicoComponent dentro del contenedor si mostrar es true.
+   * En caso contrario, limpia el contenedor.
    */
   private renderizarFormulario(): void {
-    if (!this.contenedor) return;
-
     this.contenedor.clear();
 
-    if (this.isOpen) {
-      const view = this.contenedor.createComponent(FormularioDinamicoComponent);
+    if (this.mostrar) {
+      try {
+        const view = this.contenedor.createComponent(FormularioDinamicoComponent);
 
-      view.setInput('titulo', this.titulo);
-      view.setInput('campos', this.campos);
-      view.setInput('datos', this.datos);
-      view.setInput('modoEdicion', this.modoEdicion);
-      view.setInput('botonesAccion', this.botonesAccion);
-      view.setInput('isOpen', this.isOpen);
+        view.setInput('titulo', this.titulo);
+        view.setInput('campos', this.campos);
+        view.setInput('datos', { ...this.datos });
+        view.setInput('modoEdicion', this.modoEdicion);
+        view.setInput('botonesAccion', this.botonesAccion);
 
-      view.instance.guardar.subscribe((event) => this.guardar.emit(event));
-      view.instance.cerrar.subscribe(() => this.cerrar.emit());
-      view.instance.accion.subscribe((event) => this.accion.emit(event));
-      view.instance.closed.subscribe(() => this.closed.emit());
+        view.instance.guardar.subscribe((event) => this.guardar.emit(event));
+        view.instance.cerrar.subscribe(() => this.cerrar.emit());
+        view.instance.accion.subscribe((event) => this.accion.emit(event));
+        view.instance.closed.subscribe(() => this.closed.emit());
+      } catch (error) {
+        console.error('Error al crear el formulario dinámico:', error);
+      }
     }
   }
 }

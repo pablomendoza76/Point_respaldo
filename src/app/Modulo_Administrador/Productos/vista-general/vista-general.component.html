@@ -14,3 +14,18 @@
   (editarRegistro)="onEditarProducto($event)"
   (eliminarRegistro)="onEliminarProducto($event)">
 </app-tabla-dinamica>
+
+<!-- Formulario dinámico modal -->
+<app-formulario-dinamico
+  *ngIf="formularioVisible"
+  [titulo]="'Editar producto'"
+  [datos]="productoSeleccionado"
+  [bloques]="bloquesFormulario"
+  [modoEdicion]="true"
+  [botonesAccion]="[
+    { texto: 'Guardar Cambios', tipo: 'submit', icono: 'fa fa-save' },
+    { texto: 'Cancelar', tipo: 'button', icono: 'fa fa-times', accion: 'cancelar' }
+  ]"
+  (guardar)="onGuardarProducto($event)"
+  (cerrar)="formularioVisible = false">
+</app-formulario-dinamico>
