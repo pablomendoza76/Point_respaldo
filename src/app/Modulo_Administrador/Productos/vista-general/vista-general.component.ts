@@ -148,23 +148,47 @@ export class VistaGeneralComponent implements OnInit {
   }
 
   /**
-   * Genera un único bloque con todos los campos del producto.
+   * Genera bloques organizados de campos según categorías predefinidas.
+   * También agrega un bloque "Otros" con campos no clasificados.
    * @param producto Objeto del producto
-   * @returns Arreglo de bloques con campos inferidos automáticamente
+   * @returns Bloques estructurados con campos asignados
    */
   generarTodosLosCamposComoBloque(producto: any): Array<{ titulo: string; campos: any[] }> {
-    const campos = Object.keys(producto).map(key => ({
-      key,
-      label: this.capitalizar(key),
-      tipo: this.inferirTipoCampo(producto[key])
-    }));
-
-    return [{
-      titulo: 'Todos los Campos',
-      campos
-    }];
+    const definicionBloques: Record<string, string[]> = {
+      'Información Básica': [
+        'nombreUnico', 'descripcion', 'productotipoId', 'productogrupoCodigo',
+        'idSubgrupo', 'marcaId', 'codbarras1', 'codigo'
+      ],
+      'Información Adicional': [
+        'codbarras2', 'codbarras3', 'codbarras4', 'codbarras5',
+        'existenciaMinima', 'existenciaMaxima', 'proteinas', 'calorias',
+        'unidadMedida', 'valorMedida', 'origen', 'prodFechaCaducidad',
+        'tiempo', 'descuentoActivo', 'especificaciones'
+      ],
+      'Impuestos y Precios': [
+        'pvpServicio', 'pvppromo', 'precio', 'pvpa', 'pvpb', 'pvpc', 'pvpd', 'pvpe',
+        'regimenProd', 'iceporcent', 'ivaporcent'
+      ],
+      'Cuentas': [
+        'tipoCuentaCosto', 'tipoCuenta', 'tipoCuentaVentas'
+      ]
+    };
+  
+    const bloques: Array<{ titulo: string; campos: any[] }> = [];
+  
+    for (const [titulo, keys] of Object.entries(definicionBloques)) {
+      const campos = keys.map(key => ({
+        key,
+        label: this.capitalizar(key),
+        tipo: this.inferirTipoCampo(producto[key]),
+        required: false
+      }));
+      bloques.push({ titulo, campos });
+    }
+  
+    return bloques;
   }
-
+  
   /**
    * Convierte una clave en texto legible capitalizando palabras.
    * @param texto Texto original en camelCase o snake_case
@@ -206,7 +230,6 @@ export class VistaGeneralComponent implements OnInit {
   onGuardarProducto(productoActualizado: any): void {
     console.log('Producto actualizado:', productoActualizado);
     this.formularioVisible = false;
-    // Aquí puedes llamar al servicio de backend si es necesario
   }
 
   /**
@@ -215,6 +238,5 @@ export class VistaGeneralComponent implements OnInit {
    */
   onEliminarProducto(producto: any): void {
     console.log('Eliminar producto:', producto);
-    // Implementar lógica de eliminación si se requiere
   }
 }

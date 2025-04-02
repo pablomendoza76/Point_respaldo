@@ -6,11 +6,14 @@ export interface ColumnaVisible {
 
 export interface TablaState {
   productos: any[];
+  productosOriginales: any[];
   productosVisibles: any[];
-  columnasVisibles: ColumnaVisible[];
+  columnasVisibles: { name: string; key: string }[];
   paginaActual: number;
   itemsPorPagina: number;
   totalRegistros: number;
   searchTerm: string;
-  filtrosDinamicos: { [key: string]: string };
+  filtrosDinamicos: { [key: string]: any };
 }
+
+

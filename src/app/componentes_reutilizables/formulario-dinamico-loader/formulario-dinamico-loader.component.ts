@@ -36,8 +36,8 @@ export class FormularioDinamicoLoaderComponent implements OnChanges {
   /** Título del formulario a renderizar */
   @Input() titulo: string = '';
 
-  /** Estructura de los campos del formulario */
-  @Input() campos: any[] = [];
+  /** Bloques de campos estructurados del formulario */
+  @Input() bloques: Array<{ titulo: string; campos: any[] }> = [];
 
   /** Datos a precargar en el formulario */
   @Input() datos: any = {};
@@ -87,7 +87,7 @@ export class FormularioDinamicoLoaderComponent implements OnChanges {
         const view = this.contenedor.createComponent(FormularioDinamicoComponent);
 
         view.setInput('titulo', this.titulo);
-        view.setInput('campos', this.campos);
+        view.setInput('bloques', this.bloques);
         view.setInput('datos', { ...this.datos });
         view.setInput('modoEdicion', this.modoEdicion);
         view.setInput('botonesAccion', this.botonesAccion);

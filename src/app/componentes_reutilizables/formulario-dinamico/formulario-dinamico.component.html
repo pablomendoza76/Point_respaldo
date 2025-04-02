@@ -2,99 +2,55 @@
   <div class="modal-container">
     <div class="modal-header">
       <h2>{{ titulo }}</h2>
-      <button class="close-btn" (click)="onCerrar()">×</button>
+      <button class="close-btn" (click)="onCerrar()">&times;</button>
     </div>
 
     <div class="modal-content catalogo_inputs">
-      <form (ngSubmit)="onSubmit()" *ngIf="(bloques && bloques.length) || (campos && campos.length)">
+      <form (ngSubmit)="onSubmit()" *ngIf="bloques && bloques.length">
+        <!-- Iterar por bloques -->
+        <ng-container *ngFor="let bloque of bloques">
+          <div class="bloque-seccion">
+            <div class="titulo-bloque">{{ bloque.titulo }}</div>
 
-        <!-- Si vienen bloques definidos -->
-        <ng-container *ngIf="bloques && bloques.length > 0; else camposSimples">
-          <ng-container *ngFor="let bloque of bloques">
-            <div class="bloque-seccion">
-              <div class="titulo-bloque">{{ bloque.titulo }}</div>
+            <!-- Iterar por campos del bloque -->
+            <div class="form-row" *ngFor="let campo of bloque.campos">
+              <div class="form-group" [ngSwitch]="campo.tipo">
+                <!-- Input estándar -->
+                <ng-container *ngSwitchDefault>
+                  <div class="label-personalizable">
+                    <span class="texto-costado">{{ campo.label }}</span>
+                    <input
+                      class="input-normal"
+                      [type]="campo.tipo"
+                      [(ngModel)]="datos[campo.key]"
+                      [name]="campo.key"
+                      [disabled]="!modoEdicion"
+                      [required]="campo.required"
+                    />
+                  </div>
+                </ng-container>
 
-              <div class="form-row" *ngFor="let campo of bloque.campos">
-                <div class="form-group" [ngSwitch]="campo.tipo">
-
-                  <!-- Input por defecto -->
-                  <ng-container *ngSwitchDefault>
-                    <div class="label-personalizable">
-                      <span class="texto-costado">{{ campo.label }}</span>
-                      <input
-                        class="input-normal"
-                        [type]="campo.tipo"
-                        [(ngModel)]="datos[campo.key]"
-                        [name]="campo.key"
-                        [disabled]="!modoEdicion"
-                        [required]="campo.required"
-                      />
-                    </div>
-                  </ng-container>
-
-                  <!-- Select -->
-                  <ng-container *ngSwitchCase="'select'">
-                    <div class="label-personalizable">
-                      <span class="texto-costado">{{ campo.label }}</span>
-                      <select
-                        class="input-normal"
-                        [(ngModel)]="datos[campo.key]"
-                        [name]="campo.key"
-                        [disabled]="!modoEdicion"
-                        [required]="campo.required"
-                      >
-                        <option *ngFor="let opcion of campo.opciones" [value]="opcion.valor">
-                          {{ opcion.texto }}
-                        </option>
-                      </select>
-                    </div>
-                  </ng-container>
-
-                </div>
+                <!-- Select -->
+                <ng-container *ngSwitchCase="'select'">
+                  <div class="label-personalizable">
+                    <span class="texto-costado">{{ campo.label }}</span>
+                    <select
+                      class="input-normal"
+                      [(ngModel)]="datos[campo.key]"
+                      [name]="campo.key"
+                      [disabled]="!modoEdicion"
+                      [required]="campo.required"
+                    >
+                      <option *ngFor="let opcion of campo.opciones" [value]="opcion.valor">
+                        {{ opcion.texto }}
+                      </option>
+                    </select>
+                  </div>
+                </ng-container>
               </div>
             </div>
-          </ng-container>
-        </ng-container>
-
-        <!-- Si no hay bloques, se usa el arreglo plano de campos -->
-        <ng-template #camposSimples>
-          <div class="form-row" *ngFor="let campo of campos">
-            <div class="form-group" [ngSwitch]="campo.tipo">
-
-              <ng-container *ngSwitchDefault>
-                <div class="label-personalizable">
-                  <span class="texto-costado">{{ campo.label }}</span>
-                  <input
-                    class="input-normal"
-                    [type]="campo.tipo"
-                    [(ngModel)]="datos[campo.key]"
-                    [name]="campo.key"
-                    [disabled]="!modoEdicion"
-                    [required]="campo.required"
-                  />
-                </div>
-              </ng-container>
-
-              <ng-container *ngSwitchCase="'select'">
-                <div class="label-personalizable">
-                  <span class="texto-costado">{{ campo.label }}</span>
-                  <select
-                    class="input-normal"
-                    [(ngModel)]="datos[campo.key]"
-                    [name]="campo.key"
-                    [disabled]="!modoEdicion"
-                    [required]="campo.required"
-                  >
-                    <option *ngFor="let opcion of campo.opciones" [value]="opcion.valor">
-                      {{ opcion.texto }}
-                    </option>
-                  </select>
-                </div>
-              </ng-container>
-
-            </div>
           </div>
-        </ng-template>
+        </ng-container>
 
         <!-- Botones de acción -->
         <div class="button-group" *ngIf="botonesAccion && botonesAccion.length">
@@ -115,7 +71,6 @@
             </div>
           </div>
         </div>
-
       </form>
     </div>
   </div>

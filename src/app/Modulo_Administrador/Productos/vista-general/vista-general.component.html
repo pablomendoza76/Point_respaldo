@@ -9,23 +9,14 @@
 </app-barra-busqueda>
 
 <app-tabla-dinamica
-  [columnasVisibles]="columnasSeleccionadas"
-  [productosVisibles]="productosVisibles$ | async"
-  (editarRegistro)="onEditarProducto($event)"
-  (eliminarRegistro)="onEliminarProducto($event)">
-</app-tabla-dinamica>
-
-<!-- Formulario dinámico modal -->
-<app-formulario-dinamico
-  *ngIf="formularioVisible"
-  [titulo]="'Editar producto'"
-  [datos]="productoSeleccionado"
+  [productoEditar]="productoSeleccionado"
   [bloques]="bloquesFormulario"
-  [modoEdicion]="true"
-  [botonesAccion]="[
-    { texto: 'Guardar Cambios', tipo: 'submit', icono: 'fa fa-save' },
-    { texto: 'Cancelar', tipo: 'button', icono: 'fa fa-times', accion: 'cancelar' }
-  ]"
-  (guardar)="onGuardarProducto($event)"
-  (cerrar)="formularioVisible = false">
-</app-formulario-dinamico>
+  (guardarRegistro)="onGuardarProducto($event)"
+  (eliminarRegistro)="onEliminarProducto($event)"
+  (editarRegistro)="onEditarProducto($event)"
+></app-tabla-dinamica>
+
+
+
+
+

@@ -1,10 +1,14 @@
-// tabla-dinamica.component.ts
 import {
   Component,
   OnInit,
   OnDestroy,
+  OnChanges,
   ChangeDetectorRef,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -23,6 +27,9 @@ import {
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { FormularioDinamicoLoaderComponent } from '../formulario-dinamico-loader/formulario-dinamico-loader.component';
 
+/**
+ * Componente que representa una tabla dinámica con paginación, edición y eliminación de registros.
+ */
 @Component({
   selector: 'app-tabla-dinamica',
   standalone: true,
@@ -31,19 +38,7 @@ import { FormularioDinamicoLoaderComponent } from '../formulario-dinamico-loader
   styleUrls: ['./tabla-dinamica.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TablaDinamicaComponent implements OnInit, OnDestroy {
-  /**
-   * Campos disponibles en el formulario dinámico.
-   */
-  camposFormulario = [
-    { key: 'codigo', label: 'Código', tipo: 'text', required: true },
-    { key: 'nombre', label: 'Nombre', tipo: 'text', required: true },
-    { key: 'precio', label: 'Precio', tipo: 'number' },
-    { key: 'stock', label: 'Stock', tipo: 'number' },
-    { key: 'categoria', label: 'Categoría', tipo: 'text' },
-    { key: 'marca', label: 'Marca', tipo: 'text' }
-  ];
-
+export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
   /** Registro a eliminar mediante el modal */
   registroAEliminar: any = null;
 
@@ -51,10 +46,10 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   registroEnFormulario: any = null;
 
   /** Controla la visibilidad del modal de eliminación */
-  mostrarModalEliminar: boolean = false;
+  mostrarModalEliminar = false;
 
   /** Controla si el formulario dinámico está visible */
-  mostrarFormulario: boolean = false;
+  mostrarFormulario = false;
 
   /** Página actual para paginación */
   paginaActual = 1;
@@ -68,17 +63,35 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   /** Registros actuales visibles */
   registrosActuales: any[] = [];
 
-  /** Math para uso en plantilla */
+  /** Math helper para usar en plantilla */
   math = Math;
 
-  /** Observables desde NgRx */
+  /** Observable con los registros visibles desde el store */
   registrosVisibles$: Observable<any[]>;
+
+  /** Observable con el total de registros desde el store */
   totalRegistros$: Observable<number>;
+
+  /** Observable con las columnas visibles desde el store */
   columnasVisibles$: Observable<{ name: string; key: string }[]>;
 
   /** Subscripciones activas */
   private subs = new Subscription();
 
+  /** Producto a editar recibido desde el componente padre */
+  @Input() productoEditar: any = null;
+
+  /** Bloques estructurados para el formulario dinámico */
+  @Input() bloques: Array<{ titulo: string; campos: any[] }> = [];
+
+  /** Evento emitido al hacer clic en editar un registro */
+  @Output() editarRegistro = new EventEmitter<any>();
+
+  /**
+   * Constructor que inyecta el store y el detector de cambios.
+   * @param store Store global de la aplicación
+   * @param cdr Detector de cambios para forzar renderización
+   */
   constructor(private store: Store<AppState>, private cdr: ChangeDetectorRef) {
     this.registrosVisibles$ = this.store.pipe(select(selectProductosVisibles));
     this.totalRegistros$ = this.store.pipe(select(selectTotalRegistros));
@@ -86,7 +99,7 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Inicializa el componente y las suscripciones necesarias.
+   * Inicializa el componente y suscribe a los datos del store.
    */
   ngOnInit(): void {
     this.subs.add(
@@ -102,6 +115,23 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       })
     );
+
+    console.log('[TablaDinamica] productoEditar recibido:', this.productoEditar);
+    console.log('[TablaDinamica] bloques recibidos:', this.bloques);
+  }
+
+  /**
+   * Detecta cambios en los inputs como el producto a editar y los bloques del formulario.
+   * @param changes Cambios detectados en los @Input del componente
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['productoEditar'] && this.productoEditar && this.bloques?.length) {
+      this.registroEnFormulario = { ...this.productoEditar };
+      this.mostrarFormulario = true;
+      console.log('[TablaDinamica] Producto para editar:', this.registroEnFormulario);
+      console.log('[TablaDinamica] Bloques enviados al formulario:', this.bloques);
+      this.cdr.markForCheck();
+    }
   }
 
   /**
@@ -112,17 +142,15 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Abre el formulario de edición con el registro seleccionado.
-   * @param registro Registro a editar
+   * Emite el producto a editar hacia el componente padre.
+   * @param registro Registro reducido a editar
    */
   onEditarRegistro(registro: any): void {
-    console.log('Editando registro:', registro); // Verifica si se ejecuta
-    this.registroEnFormulario = { ...registro }; // Copia el registro
-    this.mostrarFormulario = true;              // Muestra el formulario directamente
-    this.cdr.markForCheck();                    // Marca el componente para revisión
+    this.editarRegistro.emit(registro);
   }
+
   /**
-   * Cierra el formulario dinámico sin guardar.
+   * Cierra el formulario dinámico sin guardar cambios.
    */
   cancelarFormulario(): void {
     this.mostrarFormulario = false;
@@ -205,17 +233,17 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Cierra el formulario dinámico desde el evento `closed`.
+   * Cierra el formulario dinámico desde el evento cerrado.
    */
   onCerrarFormulario(): void {
     this.cancelarFormulario();
   }
 
   /**
-   * TrackBy para *ngFor optimizado.
+   * Optimización para ngFor usando el código del producto como identificador.
    * @param index Índice del elemento
    * @param item Registro
-   * @returns Identificador único
+   * @returns Código del producto
    */
   trackByCodigo(index: number, item: any): string {
     return item.codigo;

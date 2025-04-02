@@ -93,3 +93,11 @@ export const selectItemsPorPagina = createSelector(
   selectTablaState,
   (state) => state.itemsPorPagina
 );
+
+/**
+ * Selector para tener los productos originales
+ */
+export const selectProductosOriginales = createSelector(
+  selectTablaState,
+  (state) => state.productosOriginales
+);

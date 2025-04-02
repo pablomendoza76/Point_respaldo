@@ -41,27 +41,26 @@
 
 <!-- Modales dinámicos -->
 <ng-container>
-  <!-- Modal de formulario dinámico -->
+  
+<!-- Modales dinámicos formulario-->
   <app-formulario-dinamico-loader
-    [mostrar]="mostrarFormulario"
-    [titulo]="'Editar Registro'"
-    [campos]="camposFormulario"
-    [datos]="registroEnFormulario"
-    [modoEdicion]="true"
-    [botonesAccion]="[
-      { texto: 'Guardar', tipo: 'submit', icono: 'fa-save' },
-      {
-        texto: 'Cancelar',
-        tipo: 'button',
-        icono: 'fa-times',
-        accion: 'cancelar'
-      }
-    ]"
-    (guardar)="guardarRegistro($event)"
-    (cerrar)="cancelarFormulario()"
-    (accion)="manejarAccion($event)"
-    (closed)="onCerrarFormulario()"
-  ></app-formulario-dinamico-loader>
+  *ngIf="mostrarFormulario"
+  [mostrar]="mostrarFormulario"
+  [titulo]="'Editar Producto'"
+  [bloques]="bloques"
+  [datos]="registroEnFormulario"
+  [modoEdicion]="true"
+  [botonesAccion]="[
+    { texto: 'Guardar Cambios', icono: 'fa-save', accion: 'guardar' },
+    { texto: 'Cancelar', icono: 'fa-times', accion: 'cancelar' }
+  ]"
+  (guardar)="guardarRegistro($event)"
+  (cerrar)="onCerrarFormulario()"
+  (accion)="manejarAccion($event)"
+  (closed)="onCerrarFormulario()"
+></app-formulario-dinamico-loader>
+
+
 
   <!-- Modal de confirmación de eliminación -->
   <app-delete-modal

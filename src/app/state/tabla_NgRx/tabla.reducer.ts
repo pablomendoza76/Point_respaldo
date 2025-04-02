@@ -12,8 +12,10 @@ import {
 } from './tabla.actions';
 import { TablaState } from './tabla.model';
 
+/** Estado inicial de la tabla */
 export const initialState: TablaState = {
   productos: [],
+  productosOriginales: [], // ✅ agregado para evitar error TS2741
   productosVisibles: [],
   columnasVisibles: [],
   paginaActual: 1,
@@ -23,12 +25,15 @@ export const initialState: TablaState = {
   filtrosDinamicos: {}
 };
 
+/**
+ * Aplica filtros globales y dinámicos sobre la lista de productos.
+ */
 function filtrarProductos(state: TablaState): any[] {
   let productosFiltrados = [...state.productos];
 
   if (state.searchTerm) {
-    productosFiltrados = productosFiltrados.filter((producto) =>
-      Object.values(producto).some((value) =>
+    productosFiltrados = productosFiltrados.filter(producto =>
+      Object.values(producto).some(value =>
         value?.toString().toLowerCase().includes(state.searchTerm.toLowerCase())
       )
     );
@@ -38,7 +43,7 @@ function filtrarProductos(state: TablaState): any[] {
     if (!valor || valor === 'todos') return;
 
     if (key === 'estado') {
-      productosFiltrados = productosFiltrados.filter((p) => {
+      productosFiltrados = productosFiltrados.filter(p => {
         const stock = parseFloat(p.stockactual || '0');
         const stockMin = parseFloat(p.existenciaMinima || '0');
         const stockMax = parseFloat(p.existenciaMaxima || '0');
@@ -47,11 +52,10 @@ function filtrarProductos(state: TablaState): any[] {
         if (valor === 'stock') return stock > 0;
         if (valor === 'medio') return stock <= promedio;
         if (valor === 'sin_stock') return stock === 0;
-
         return true;
       });
     } else {
-      productosFiltrados = productosFiltrados.filter((producto) => {
+      productosFiltrados = productosFiltrados.filter(producto => {
         const valorProducto = producto[key];
         if (valorProducto === undefined || valorProducto === null) return false;
 
@@ -67,45 +71,56 @@ function filtrarProductos(state: TablaState): any[] {
   return productosFiltrados;
 }
 
+/**
+ * Devuelve los productos con solo las columnas visibles mapeadas.
+ */
 function mapearColumnasVisibles(productos: any[], columnas: { name: string; key: string }[]): any[] {
-  if (!columnas || columnas.length === 0) {
-    return productos;
-  }
+  if (!columnas || columnas.length === 0) return productos;
 
-  return productos.map((producto) => {
-    const result: any = {};
-    columnas.forEach((col) => {
-      if (col.key in producto) {
-        result[col.key] = producto[col.key];
-      }
+  return productos.map(producto => {
+    const resultado: any = {};
+    columnas.forEach(col => {
+      if (col.key in producto) resultado[col.key] = producto[col.key];
     });
-    return result;
+    return resultado;
   });
 }
 
+/**
+ * Aplica paginación a la lista de productos.
+ */
 function aplicarPaginacion(productos: any[], pagina: number, itemsPorPagina: number): any[] {
   if (itemsPorPagina === 20000) return productos;
   const start = (pagina - 1) * itemsPorPagina;
   return productos.slice(start, start + itemsPorPagina);
 }
 
+/**
+ * Recalcula los productos visibles aplicando filtros, columnas visibles y paginación.
+ */
 function recalcularProductosVisibles(state: TablaState): any[] {
   const filtrados = filtrarProductos(state);
   const conColumnas = mapearColumnasVisibles(filtrados, state.columnasVisibles);
   return [...aplicarPaginacion(conColumnas, state.paginaActual, state.itemsPorPagina)];
 }
 
+/** Reducer principal de la tabla */
 export const tablaReducer = createReducer(
   initialState,
 
   on(setProductos, (state, { productos }) => {
-    const nuevoState = { ...state, productos };
+    const nuevoState = {
+      ...state,
+      productos,
+      productosOriginales: productos
+    };
     return {
       ...nuevoState,
       productosVisibles: recalcularProductosVisibles(nuevoState),
       totalRegistros: filtrarProductos(nuevoState).length
     };
   }),
+  
 
   on(setFiltrosDinamicos, (state, { filtrosDinamicos }) => {
     const nuevosFiltros = { ...state.filtrosDinamicos, ...filtrosDinamicos };

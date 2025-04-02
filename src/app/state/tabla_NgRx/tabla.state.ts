@@ -21,6 +21,7 @@ export const initialState: AppState = {
   tabla: {
     columnasVisibles: [],
     productos: [],
+    productosOriginales: [], // ✅ nuevo
     productosVisibles: [],
     paginaActual: 1,
     itemsPorPagina: 10,
@@ -28,4 +29,5 @@ export const initialState: AppState = {
     searchTerm: '',
     filtrosDinamicos: {}
   }
+  
 };
