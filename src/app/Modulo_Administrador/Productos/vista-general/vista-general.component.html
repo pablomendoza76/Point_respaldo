@@ -1,22 +1,40 @@
+<!-- Componente de barra de ubicación -->
 <app-barra-ubicacion></app-barra-ubicacion>
 
+<!-- Componente de barra de búsqueda con filtros y selección de columnas -->
 <app-barra-busqueda
   [opcionesBusqueda]="opcionesBusqueda"
   [filtrosConfiguracion]="filtrosConfiguracion"
   [columnasDisponibles]="columnasDisponibles"
   (filtrosAplicados)="onFiltrosAplicados($event)"
-  (actualizarColumnasEvent)="onColumnasActualizadas($event)">
+  (actualizarColumnasEvent)="onColumnasActualizadas($event)"
+  (agregar)="onAgregarNuevoProducto()">
 </app-barra-busqueda>
 
+<!-- Componente de tabla dinámica -->
 <app-tabla-dinamica
   [productoEditar]="productoSeleccionado"
   [bloques]="bloquesFormulario"
-  (guardarRegistro)="onGuardarProducto($event)"
-  (eliminarRegistro)="onEliminarProducto($event)"
+  [paginaActual]="paginaActual"
+  [itemsPorPagina]="itemsPorPagina"
+  [opcionesPaginacion]="opcionesPaginacion"
   (editarRegistro)="onEditarProducto($event)"
-></app-tabla-dinamica>
+  (cambioPagina)="onCambioPagina($event)"
+  (cambioItemsPorPagina)="onCambioItemsPorPagina($event)">
+</app-tabla-dinamica>
 
-
-
-
-
+<!-- Formulario dinámico para creación o edición -->
+<app-formulario-dinamico-loader
+  [mostrar]="formularioVisible"
+  [titulo]="modoEdicion ? 'Editar Producto' : 'Nuevo Producto'"
+  [bloques]="bloquesFormulario"
+  [datos]="productoSeleccionado"
+  [modoEdicion]="modoEdicion"
+  [botonesAccion]="[
+    { texto: modoEdicion ? 'Guardar' : 'Crear', accion: 'guardar' },
+    { texto: 'Cancelar', accion: 'cancelar' }
+  ]"
+  (guardar)="onGuardarProducto($event)"
+  (cerrar)="onCerrarFormulario()"
+  (accion)="onCerrarFormulario()">
+</app-formulario-dinamico-loader>

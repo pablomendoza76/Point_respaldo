@@ -51,7 +51,6 @@ export class TiposProductosComponent implements OnInit {
 
   // Método para cargar los tipos de productos desde el servicio
   cargarTiposProductos(): void {
-    this.tiposProductos = this.tipoProductoService.getTiposProductos();
     this.actualizarListaTiposProductos();
   }
 
@@ -109,9 +108,9 @@ export class TiposProductosComponent implements OnInit {
 
   guardarTipoProducto(): void {
     if (this.esEdicion) {
-      this.tiposProductos = this.tipoProductoService.actualizarTipoProducto(this.tipoProductoSeleccionado);
+
     } else {
-      this.tiposProductos = this.tipoProductoService.agregarTipoProducto(this.tipoProductoSeleccionado);
+
     }
     this.actualizarListaTiposProductos();
     this.mostrarFormularioEdicion = false;
@@ -134,7 +133,6 @@ export class TiposProductosComponent implements OnInit {
 
   eliminarTipoProducto(): void {
     if (this.tipoProductoAEliminar) {
-      this.tiposProductos = this.tipoProductoService.eliminarTipoProducto(this.tipoProductoAEliminar.nombre);
       this.actualizarListaTiposProductos();
       this.cerrarModalEliminar();
     }

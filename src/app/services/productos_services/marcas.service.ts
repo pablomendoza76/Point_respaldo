@@ -1,33 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { ApiUrls } from '../../enums/api-urls.enum';
+import { Enums_marcas } from '../../enums/enums_Productos/marcas.enum';
 
 @Injectable({
-  providedIn: 'root',  // Ensures it is provided at the root level
+  providedIn: 'root'
 })
 export class MarcasService {
-  private marcas: any[] = [
-    { nombre: 'Marca1', descripcion: 'Descripción de Marca1' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-    { nombre: 'Marca2', descripcion: 'Descripción de Marca2' },
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
+  /**
+   * Llama directamente al endpoint de marcas y devuelve los datos completos.
+   * @returns Observable con el arreglo de marcas { id, nombre, descripcion }
+   */
+  getMarcas(): Observable<Array<{ id: number; nombre: string; descripcion: string }>> {
+    const url = `${ApiUrls.Base_Url}${Enums_marcas.Marcas}${Enums_marcas.todas}`;
 
-  getMarcas() {
-    return this.marcas;
+    return this.http.get<any>(url).pipe(
+      map((response: any) => {
+        return response?.respuesta?.datos || [];
+      })
+    );
   }
-}
+}                       

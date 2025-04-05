@@ -15,7 +15,7 @@ import { TablaState } from './tabla.model';
 /** Estado inicial de la tabla */
 export const initialState: TablaState = {
   productos: [],
-  productosOriginales: [], // ✅ agregado para evitar error TS2741
+  productosOriginales: [],
   productosVisibles: [],
   columnasVisibles: [],
   paginaActual: 1,
@@ -108,6 +108,7 @@ function recalcularProductosVisibles(state: TablaState): any[] {
 export const tablaReducer = createReducer(
   initialState,
 
+  /** Acción para establecer productos cargados desde el servicio */
   on(setProductos, (state, { productos }) => {
     const nuevoState = {
       ...state,
@@ -116,41 +117,46 @@ export const tablaReducer = createReducer(
     };
     return {
       ...nuevoState,
-      productosVisibles: recalcularProductosVisibles(nuevoState),
-      totalRegistros: filtrarProductos(nuevoState).length
+      productosVisibles: recalcularProductosVisibles(nuevoState)
     };
   }),
-  
 
+  /** Acción para establecer el número total de registros desde el API */
+  on(setTotalRegistros, (state, { total }) => ({
+    ...state,
+    totalRegistros: total
+  })),
+  
+  /** Acción para aplicar filtros dinámicos */
   on(setFiltrosDinamicos, (state, { filtrosDinamicos }) => {
     const nuevosFiltros = { ...state.filtrosDinamicos, ...filtrosDinamicos };
     const nuevoState = { ...state, filtrosDinamicos: nuevosFiltros };
     return {
       ...nuevoState,
-      productosVisibles: recalcularProductosVisibles(nuevoState),
-      totalRegistros: filtrarProductos(nuevoState).length
+      productosVisibles: recalcularProductosVisibles(nuevoState)
     };
   }),
 
+  /** Acción para establecer un filtro de estado predefinido */
   on(setFiltroActivo, (state, { filtroActivo }) => {
     const nuevosFiltros = { ...state.filtrosDinamicos, estado: filtroActivo };
     const nuevoState = { ...state, filtrosDinamicos: nuevosFiltros };
     return {
       ...nuevoState,
-      productosVisibles: recalcularProductosVisibles(nuevoState),
-      totalRegistros: filtrarProductos(nuevoState).length
+      productosVisibles: recalcularProductosVisibles(nuevoState)
     };
   }),
 
+  /** Acción para establecer el término de búsqueda */
   on(setSearchTerm, (state, { searchTerm }) => {
     const nuevoState = { ...state, searchTerm };
     return {
       ...nuevoState,
-      productosVisibles: recalcularProductosVisibles(nuevoState),
-      totalRegistros: filtrarProductos(nuevoState).length
+      productosVisibles: recalcularProductosVisibles(nuevoState)
     };
   }),
 
+  /** Acción para establecer las columnas visibles */
   on(setColumnasVisibles, (state, { columnasVisibles }) => {
     const nuevoState = { ...state, columnasVisibles };
     return {
@@ -159,6 +165,7 @@ export const tablaReducer = createReducer(
     };
   }),
 
+  /** Acción para cambiar la página actual */
   on(setPaginaActual, (state, { paginaActual }) => {
     const nuevoState = { ...state, paginaActual };
     return {
@@ -167,6 +174,7 @@ export const tablaReducer = createReducer(
     };
   }),
 
+  /** Acción para cambiar la cantidad de ítems por página */
   on(setItemsPorPagina, (state, { itemsPorPagina }) => {
     const nuevoState = { ...state, itemsPorPagina };
     return {
@@ -175,18 +183,13 @@ export const tablaReducer = createReducer(
     };
   }),
 
-  on(setTotalRegistros, (state, { totalRegistros }) => ({
-    ...state,
-    totalRegistros
-  })),
-
+  /** Acción para eliminar un producto del estado */
   on(eliminarProducto, (state, { producto }) => {
     const productosActualizados = state.productos.filter(p => p.codigo !== producto.codigo);
     const nuevoState = { ...state, productos: productosActualizados };
     return {
       ...nuevoState,
-      productosVisibles: recalcularProductosVisibles(nuevoState),
-      totalRegistros: filtrarProductos(nuevoState).length
+      productosVisibles: recalcularProductosVisibles(nuevoState)
     };
   })
 );

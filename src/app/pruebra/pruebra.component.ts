@@ -204,4 +204,6 @@ export class PruebraComponent implements OnInit {
   toggleMenuCollapse(): void {
     this.isMenuCollapsed = !this.isMenuCollapsed;
   }
+
+  
 }

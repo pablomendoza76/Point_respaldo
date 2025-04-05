@@ -2,6 +2,9 @@
 @import '../../catalogo_css/tipografia.scss';
 @import '../../catalogo_css/catalogo_inputs.scss';
 
+/**
+ * Overlay del modal con fondo difuminado
+ */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -18,29 +21,28 @@
 
   .modal-container {
     background-color: $fondo-claro;
-    padding: 24px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 800px;
+    padding: 32px;
+    border-radius: 14px;
+    width: 95%;
+    max-width: 1200px;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     animation: slideUp 0.3s ease-out;
   }
 }
 
+/**
+ * Cabecera del modal con título y botón de cierre
+ */
 .modal-header {
-  padding-bottom: 16px;
-  border-bottom: 1px solid $gris-borde;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 16px;
 
   h2 {
-    font-family: $font-poppins;
     font-size: $font-size-headline-title;
-    line-height: $line-height-headline-title;
-    font-weight: 500;
     color: $texto-principal;
     margin: 0;
   }
@@ -58,56 +60,76 @@
   }
 }
 
+/**
+ * Contenido del modal en layout de bloques de 2 columnas con flujo libre
+ */
 .modal-content {
+  display: flex;
+  justify-content: center;
   padding-top: 24px;
+  padding-inline: 12px;
 
-  .form-row {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
+  .bloques-grid {
+    column-count: 2;
+    column-gap: 24px;
+    width: 100%;
 
-    .form-group {
-      flex: 1;
-      display: flex;
+    @media screen and (max-width: 768px) {
+      column-count: 1;
+    }
+
+    .bloque-seccion {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 24px;
+      background-color: $fondo-claro;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
       flex-direction: column;
-      gap: 4px;
+
+      .titulo-bloque {
+        background-color: $rojo-fondo;
+        color: $rojo-texto;
+        font-weight: 600;
+        padding: 10px 14px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        border-left: 4px solid $rojo-texto;
+      }
+
+      .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; // Aumentamos separación entre inputs
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .bloque-seccion {
+        width: 100%;
+      }
     }
   }
 }
 
-// Quitar línea al enfocar input
-input.input-normal:focus {
-  border-bottom: none;
-}
-
-// Estilo general del contenedor de bloque
-.bloque-seccion {
-  margin-bottom: 24px;
-
-  .titulo-bloque {
-    background-color: $rojo-fondo;
-    padding: 12px 16px;
-    border-radius: 12px;
-    margin-bottom: 16px;
-
-    font-family: $font-work-sans;
-    font-size: $font-size-body-small;
-    line-height: $line-height-body-small;
-    font-weight: 600;
-    color: $rojo-texto;
-  }
-}
-
-// Estructura de label-personalizable (botones con texto al costado)
+/**
+ * Estilo de inputs personalizados
+ */
 .label-personalizable {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 
   .texto-costado {
-    font-family: $font-work-sans;
     font-size: $font-size-body-small;
     color: $texto-secundario;
+    white-space: nowrap;
 
     i {
       font-size: 16px;
@@ -119,19 +141,50 @@ input.input-normal:focus {
   }
 }
 
-// Animaciones
+/**
+ * Contenedor de botones del formulario
+ */
+.button-group {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+
+  .button-row {
+    display: flex;
+    gap: 16px;
+
+    .input-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .text-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: $font-size-body-small;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}
+
+/**
+ * Elimina el subrayado del input al enfocar
+ */
+input.input-normal:focus {
+  border-bottom: none;
+}
+
+/**
+ * Animaciones suaves del modal
+ */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
 @keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

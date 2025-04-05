@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PlanCuentasService } from '../../../services/plan-cuentas.service';
+import { PlanCuentasService } from '../../../services/Cuentas_services/plan-cuentas.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service';

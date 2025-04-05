@@ -39,7 +39,6 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.cargarDatos();
     this.menuRoutes = this.menuRoutesService.getMenuRoutes(); // Obtener rutas del menú
 
     // Configurar el debounce para la búsqueda
@@ -49,8 +48,7 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$) // Limpia la suscripción cuando el componente se destruye
       )
       .subscribe(() => {
-        this.cargarDatos();
-      });
+      }); 
   }
 
   ngOnDestroy(): void {
@@ -59,30 +57,10 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  cargarDatos(): void {
-    const grupos = this.tarifasService.getGrupos();
 
-    if (this.searchValue) {
-      // Filtra los grupos que coincidan con el valor de búsqueda
-      this.grupos = grupos.filter((grupo) =>
-        grupo.nombre.toLowerCase().includes(this.searchValue.toLowerCase())
-      );
-    } else {
-      // Si no hay valor de búsqueda, muestra todos los grupos
-      this.grupos = grupos;
-    }
-  }
+    
 
-  onSearchChange(): void {
-    // Emite el valor de búsqueda al Subject para aplicar el debounce
-    this.searchSubject.next(this.searchValue);
-  }
-
-  seleccionarGrupo(grupo: any): void {
-    this.grupoSeleccionado = grupo;
-    this.searchValue = ''; // Resetea el valor de búsqueda
-    this.cargarDatos(); // Vuelve a cargar todos los grupos
-  }
+ 
 
   agregarGrupo(): void {
     this.grupoSeleccionado = {
@@ -111,15 +89,6 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
     this.mostrarFormularioEdicion = true;
   }
 
-  guardarGrupo(): void {
-    if (this.esEdicion) {
-      this.tarifasService.actualizarGrupo(this.grupoSeleccionado);
-    } else {
-      this.tarifasService.agregarGrupo(this.grupoSeleccionado);
-    }
-    this.cargarDatos();
-    this.mostrarFormularioEdicion = false;
-  }
 
   cancelarEdicion(): void {
     this.mostrarFormularioEdicion = false;
@@ -136,13 +105,6 @@ export class TarifasPorGrupoComponent implements OnInit, OnDestroy {
     this.codigoGrupoAEliminar = null;
   }
 
-  eliminarGrupo(): void {
-    if (this.codigoGrupoAEliminar !== null) {
-      this.tarifasService.eliminarGrupo(this.codigoGrupoAEliminar);
-      this.cargarDatos();
-      this.cerrarModalEliminar();
-    }
-  }
 
   cambiarEstado(): void {
     if (this.grupoSeleccionado) {

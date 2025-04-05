@@ -48,8 +48,8 @@ export class FormularioDinamicoLoaderComponent implements OnChanges {
   /** Botones personalizados a renderizar en el formulario */
   @Input() botonesAccion: any[] = [];
 
-  /** Evento emitido al guardar el formulario */
-  @Output() guardar = new EventEmitter<any>();
+  /** Evento emitido al guardar el formulario con datos actualizados */
+  @Output() guardar = new EventEmitter<{ codigo: number; datos: any }>();
 
   /** Evento emitido al cerrar manualmente el formulario */
   @Output() cerrar = new EventEmitter<void>();

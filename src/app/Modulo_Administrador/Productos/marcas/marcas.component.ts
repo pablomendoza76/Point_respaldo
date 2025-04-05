@@ -63,7 +63,7 @@ export class MarcasComponent implements OnInit {
   }
 
   cargarDatos(): void {
-    this.marcas = this.marcasService.getMarcas();
+
     this.actualizarListaMarcas();
   }
 

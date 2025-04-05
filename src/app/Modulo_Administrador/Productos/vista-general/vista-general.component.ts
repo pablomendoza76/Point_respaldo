@@ -2,30 +2,60 @@ import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-
+import { Observable, forkJoin } from 'rxjs';
 import { AppState } from '../../../state/tabla_NgRx/tabla.state';
 import {
   setProductos,
   setColumnasVisibles,
-  setFiltrosDinamicos
+  setFiltrosDinamicos,
+  setTotalRegistros
 } from '../../../state/tabla_NgRx/tabla.actions';
-import {
-  selectProductosVisibles,
-  selectTotalRegistros
-} from '../../../state/tabla_NgRx/tabla.selectors';
-
+import { selectProductosVisibles } from '../../../state/tabla_NgRx/tabla.selectors';
 import { BarraUbicacionComponent } from '../../../componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
 import { BarraBusquedaComponent } from '../../../componentes_reutilizables/barra-busqueda/barra-busqueda.component';
 import { TablaDinamicaComponent } from '../../../componentes_reutilizables/tabla-dinamica/tabla-dinamica.component';
-import { AdministracionServicios } from '../../../services/productos_services/administracion.service';
-import { FormularioDinamicoComponent } from '../../../componentes_reutilizables/formulario-dinamico/formulario-dinamico.component';
+import { FormularioDinamicoLoaderComponent } from '../../../componentes_reutilizables/formulario-dinamico-loader/formulario-dinamico-loader.component';
+import { AdministracionServicios } from '../../../services/productos_services/productos.service';
+import { MarcasService } from '../../../services/productos_services/marcas.service';
+import { TarifasService } from '../../../services/productos_services/tarifas.service';
+import { SubproductoService } from '../../../services/productos_services/subgrupos.service';
+import { TipoProductoService } from '../../../services/productos_services/tipo-producto.service';
+const etiquetasCampos: Record<string, string> = {
+  nombreUnico: 'Nombre',
+  descripcion: 'Descripción',
+  productotipoId: 'Tipo de Producto',
+  productogrupoCodigo: 'Grupo',
+  idSubgrupo: 'Sub Grupo',
+  marcaId: 'Marca',
+  codbarras1: 'Código de Barras 1',
+  codigo2: 'Código Común',
+  codbarras2: 'Código de Barras 2',
+  codbarras3: 'Código de Barras 3',
+  codbarras4: 'Código de Barras 4',
+  codbarras5: 'Código de Barras 5',
+  existenciaMinima: 'Stock Mínimo',
+  existenciaMaxima: 'Stock Máximo',
+  proteinas: 'Proteínas',
+  calorias: 'Calorías',
+  unidadMedida: 'Unidad de Medida',
+  pvpa: 'P.V.P. A',
+  pvpb: 'P.V.P. B',
+  pvpc: 'P.V.P. C',
+  pvpd: 'P.V.P. D',
+  pvpe: 'P.V.P. E',
+  regimenProd: 'Régimen',
+  iceporcent: 'ICE',
+  ivaporcent: 'Impuesto (IVA)',
+  origen: 'Origen',
+  prodFechaCaducidad: 'Fecha de Caducidad',
+  tiempo: 'Tiempo',
+  descuentoActivo: 'Descuento (Sí/No)',
+  especificaciones: 'Especificaciones (Sí/No)',
+  tipoCuentaCosto: 'Cta.Cont.Costo',
+  tipoCuenta: 'Cta.Cont.Compras(debe)',
+  tipoCuentaVentas: 'Cta.Cont.Ventas(haber)'
+};
 
-/**
- * Componente principal para la vista general de productos.
- * Incluye barra de búsqueda, tabla dinámica y formulario dinámico.
- */
 @Component({
   selector: 'app-vista-general',
   standalone: true,
@@ -35,35 +65,36 @@ import { FormularioDinamicoComponent } from '../../../componentes_reutilizables/
     BarraUbicacionComponent,
     BarraBusquedaComponent,
     TablaDinamicaComponent,
-    FormularioDinamicoComponent
+    FormularioDinamicoLoaderComponent
   ],
   templateUrl: './vista-general.component.html',
   styleUrls: ['./vista-general.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class VistaGeneralComponent implements OnInit {
-  /** Productos visibles filtrados desde el store */
   productosVisibles$: Observable<any[]>;
-
-  /** Columnas disponibles para la tabla */
   columnasDisponibles: any[] = [];
-
-  /** Columnas seleccionadas por el usuario */
   columnasSeleccionadas: any[] = [];
-
-  /** Configuración de filtros para la búsqueda */
   filtrosConfiguracion: any[] = [];
 
-  /** Estado de visibilidad del formulario */
   formularioVisible = false;
-
-  /** Producto actualmente seleccionado para editar */
   productoSeleccionado: any = null;
-
-  /** Bloques de campos para el formulario dinámico */
+  modoEdicion = true;
   bloquesFormulario: Array<{ titulo: string; campos: any[] }> = [];
 
-  /** Opciones para el campo de búsqueda */
+  paginaActual = 1;
+  itemsPorPagina = 10;
+  limiteCargado = 100;
+  totalRegistros = 0;
+
+  opcionesPaginacion = [
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+    { value: 50, label: '50' },
+    { value: 100, label: '100' },
+    { value: 20000, label: 'Todos' }
+  ];
+
   opcionesBusqueda = [
     { value: 'codigo', label: 'Cod. Común' },
     { value: 'nombreUnico', label: 'Nombre' },
@@ -72,128 +103,243 @@ export class VistaGeneralComponent implements OnInit {
     { value: 'codbarras3', label: 'Cod. de Barras 3' }
   ];
 
+  marcas: any[] = [];
+  grupos: any[] = [];
+  subgrupos: any[] = [];
+  tiposProducto: any[] = [];
+  subgruposFiltrados: any[] = [];
+
   constructor(
     private store: Store<AppState>,
-    private adminService: AdministracionServicios
+    private adminService: AdministracionServicios,
+    private marcasService: MarcasService,
+    private TarifasService: TarifasService,
+    private SubproductoService: SubproductoService,
+    private tipoProductoService: TipoProductoService
   ) {
-    this.productosVisibles$ = this.store.pipe(
-      select(selectProductosVisibles),
-      tap(data => console.log('Productos visibles:', data))
-    );
+    this.productosVisibles$ = this.store.pipe(select(selectProductosVisibles));
   }
 
-  /**
-   * Inicializa los datos al cargar el componente.
-   */
   ngOnInit(): void {
-    this.adminService.obtenerProductosYColumnas().subscribe(({ productos, columnas, marcas, grupos }) => {
+    this.cargarProductos(1, this.limiteCargado);
+    this.cargarOpciones();
+  }
+
+  cargarProductos(pagina: number, limite: number): void {
+    this.adminService.obtenerProductosYColumnas(pagina, limite).subscribe(({ productos, columnas, total }) => {
       this.store.dispatch(setProductos({ productos }));
+      this.store.dispatch(setTotalRegistros({ total }));
+      this.totalRegistros = total;
+      this.limiteCargado = productos.length;
 
       this.columnasDisponibles = columnas;
       this.columnasSeleccionadas = columnas.filter(col => col.selected);
       this.store.dispatch(setColumnasVisibles({ columnasVisibles: this.columnasSeleccionadas }));
-
-      this.filtrosConfiguracion = [
-        { nombre: 'Grupo', key: 'productogrupoCodigo', opciones: grupos },
-        { nombre: 'Marca', key: 'marcaId', opciones: marcas }
-      ];
     });
   }
 
-  /**
-   * Extrae valores únicos de una propiedad de una lista de productos.
-   * @param productos Lista de productos
-   * @param key Clave del campo
-   * @returns Lista de valores únicos como strings
-   */
-  extraerValoresUnicos(productos: any[], key: string): string[] {
-    return Array.from(
-      new Set(productos.map(p => p[key]).filter(v => v !== undefined && v !== null))
-    ).map(String);
-  }
+  cargarOpciones(): void {
+    forkJoin({
+      marcas: this.marcasService.getMarcas(),
+      grupos: this.TarifasService.getGruposConTarifas(),
+      subgrupos: this.SubproductoService.getSubproductos(),
+      tipos: this.tipoProductoService.getTiposProductos()
+    }).subscribe(({ marcas, grupos, subgrupos, tipos }) => {
+      this.marcas = marcas || [];
+      this.grupos = grupos || [];
+      this.subgrupos = subgrupos || [];
+      this.tiposProducto = Array.isArray(tipos) ? tipos : [];
 
-  /**
-   * Evento que se ejecuta al aplicar filtros desde la barra de búsqueda.
-   * @param filtros Objeto con los filtros aplicados
-   */
+      console.log('🟦 Marcas cargadas:', this.marcas);
+    console.log('🟨 Grupos cargados:', this.grupos);
+    console.log('🟩 Subgrupos cargados:', this.subgrupos);
+    console.log('🟪 Tipos de Producto cargados:', this.tiposProducto);
+  
+      this.filtrosConfiguracion = [
+        { nombre: 'Grupo', key: 'productogrupoCodigo', opciones: this.grupos },
+        { nombre: 'Marca', key: 'marcaId', opciones: this.marcas }
+      ];
+    });
+  }
+  
+
   onFiltrosAplicados(filtros: { [key: string]: string }): void {
     this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
   }
 
-  /**
-   * Evento que se ejecuta al actualizar las columnas visibles.
-   * @param columnas Columnas modificadas
-   */
   onColumnasActualizadas(columnas: { name: string; key: string; selected: boolean }[]): void {
-    this.columnasDisponibles.forEach(col => {
+    this.columnasDisponibles = this.columnasDisponibles.map(col => {
       const actualizada = columnas.find(c => c.key === col.key);
-      if (actualizada) {
-        col.selected = actualizada.selected;
-      }
+      return actualizada ? { ...col, selected: actualizada.selected } : col;
     });
 
     this.columnasSeleccionadas = this.columnasDisponibles.filter(col => col.selected);
     this.store.dispatch(setColumnasVisibles({ columnasVisibles: this.columnasSeleccionadas }));
   }
 
-  /**
-   * Evento que se ejecuta al hacer clic en editar un producto.
-   * @param producto Producto seleccionado
-   */
   onEditarProducto(producto: any): void {
+    this.modoEdicion = true;
     this.productoSeleccionado = { ...producto };
+    this.subgruposFiltrados = this.subgrupos.filter(s => s.idGrupo === producto.productogrupoCodigo);
     this.bloquesFormulario = this.generarTodosLosCamposComoBloque(producto);
-    console.log('Bloques enviados al formulario:', this.bloquesFormulario);
     this.formularioVisible = true;
   }
 
-  /**
-   * Genera bloques organizados de campos según categorías predefinidas.
-   * También agrega un bloque "Otros" con campos no clasificados.
-   * @param producto Objeto del producto
-   * @returns Bloques estructurados con campos asignados
-   */
+  onAgregarNuevoProducto(): void {
+    const productoVacio: any = {};
+    Object.keys(etiquetasCampos).forEach(clave => {
+      productoVacio[clave] = null;
+    });
+
+    this.modoEdicion = false;
+    this.productoSeleccionado = productoVacio;
+    this.subgruposFiltrados = [];
+    this.bloquesFormulario = this.generarTodosLosCamposComoBloque(productoVacio);
+    this.formularioVisible = true;
+  }
+
+  onCambioPagina(pagina: number): void {
+    const requeridoHasta = pagina * this.itemsPorPagina;
+    if (requeridoHasta > this.limiteCargado && requeridoHasta <= this.totalRegistros) {
+      this.cargarProductos(1, requeridoHasta);
+    }
+    this.paginaActual = pagina;
+  }
+
+  onCambioItemsPorPagina(cantidad: number): void {
+    this.itemsPorPagina = cantidad;
+    this.paginaActual = 1;
+    this.formularioVisible = false;
+    this.productoSeleccionado = null;
+    this.bloquesFormulario = [];
+
+    if (cantidad > this.limiteCargado) {
+      this.cargarProductos(1, cantidad);
+    }
+  }
+
+  onGuardarProducto(productoActualizado: any): void {
+    if (!productoActualizado) return;
+
+    if (this.modoEdicion) {
+      const { codigo, datos } = productoActualizado;
+      this.adminService.editarProducto(codigo, datos).subscribe({
+        next: () => {
+          this.cargarProductos(this.paginaActual, this.limiteCargado);
+          this.formularioVisible = false;
+        },
+        error: (err) => {
+          console.error('Error al actualizar el producto:', err);
+        }
+      });
+    } else {
+      const productoCompleto = { ...productoActualizado };
+      this.adminService.crearProducto(productoCompleto).subscribe({
+        next: () => {
+          this.cargarProductos(this.paginaActual, this.limiteCargado);
+          this.formularioVisible = false;
+        },
+        error: (err) => {
+          console.error('Error al crear el producto:', err);
+        }
+      });
+    }
+  }
+
+  onCerrarFormulario(): void {
+    this.formularioVisible = false;
+    this.productoSeleccionado = null;
+    this.bloquesFormulario = [];
+  }
+
   generarTodosLosCamposComoBloque(producto: any): Array<{ titulo: string; campos: any[] }> {
-    const definicionBloques: Record<string, string[]> = {
+    
+    const bloques: Array<{ titulo: string; campos: any[] }> = [];
+
+    const camposAgrupados: Record<string, string[]> = {
       'Información Básica': [
         'nombreUnico', 'descripcion', 'productotipoId', 'productogrupoCodigo',
-        'idSubgrupo', 'marcaId', 'codbarras1', 'codigo'
+        'idSubgrupo', 'marcaId', 'codbarras1', 'codigo2'
       ],
       'Información Adicional': [
         'codbarras2', 'codbarras3', 'codbarras4', 'codbarras5',
         'existenciaMinima', 'existenciaMaxima', 'proteinas', 'calorias',
-        'unidadMedida', 'valorMedida', 'origen', 'prodFechaCaducidad',
-        'tiempo', 'descuentoActivo', 'especificaciones'
+        'unidadMedida', 'origen', 'prodFechaCaducidad', 'tiempo',
+        'descuentoActivo', 'especificaciones'
       ],
       'Impuestos y Precios': [
-        'pvpServicio', 'pvppromo', 'precio', 'pvpa', 'pvpb', 'pvpc', 'pvpd', 'pvpe',
+        'pvpa', 'pvpb', 'pvpc', 'pvpd', 'pvpe',
         'regimenProd', 'iceporcent', 'ivaporcent'
       ],
       'Cuentas': [
         'tipoCuentaCosto', 'tipoCuenta', 'tipoCuentaVentas'
       ]
     };
-  
-    const bloques: Array<{ titulo: string; campos: any[] }> = [];
-  
-    for (const [titulo, keys] of Object.entries(definicionBloques)) {
-      const campos = keys.map(key => ({
-        key,
-        label: this.capitalizar(key),
-        tipo: this.inferirTipoCampo(producto[key]),
-        required: false
-      }));
+
+    for (const [titulo, keys] of Object.entries(camposAgrupados)) {
+      const campos = keys.map(key => {
+        let tipo = this.detectarTipo(producto[key]);
+        let opciones: any[] | undefined;
+
+        if (key === 'ivaporcent') {
+          tipo = 'radio';
+          opciones = [
+            { valor: '0', etiqueta: 'IVA - TARIFA CERO 0%' },
+            { valor: '15', etiqueta: 'IVA - TARIFA QUINCE 15%' },
+            { valor: '99', etiqueta: 'IVA - NO OBJETO DE IMPUESTOS 0%' }
+          ];
+        }
+
+        if (key === 'descuentoActivo' || key === 'especificaciones') {
+          tipo = 'radio';
+          opciones = [
+            { valor: 'true', etiqueta: 'Sí' },
+            { valor: 'false', etiqueta: 'No' }
+          ];
+        }
+
+        if (key === 'productotipoId') {
+          tipo = 'select';
+          opciones = this.tiposProducto.map(t => ({ valor: t.id, texto: t.nombre }));
+        }
+
+        if (key === 'productogrupoCodigo') {
+          tipo = 'select';
+          opciones = this.grupos.map(g => ({ valor: g.codigo, texto: g.nombre }));
+        }
+
+        if (key === 'idSubgrupo') {
+          tipo = 'select';
+          const grupoId = producto.productogrupoCodigo;
+          opciones = this.subgrupos
+            .filter(s => s.idGrupo === grupoId)
+            .map(s => ({ valor: s.idSub, texto: s.nombre }));
+        }
+
+        if (key === 'marcaId') {
+          tipo = 'select';
+          opciones = this.marcas.map(m => ({ valor: m.id, texto: m.nombre }));
+        }
+
+        return {
+          key,
+          label: this.obtenerEtiqueta(key),
+          tipo,
+          opciones,
+          required: false
+        };
+      });
+
       bloques.push({ titulo, campos });
     }
-  
+
     return bloques;
   }
-  
-  /**
-   * Convierte una clave en texto legible capitalizando palabras.
-   * @param texto Texto original en camelCase o snake_case
-   * @returns Texto capitalizado
-   */
+
+  private obtenerEtiqueta(key: string): string {
+    return etiquetasCampos[key] || this.capitalizar(key);
+  }
+
   private capitalizar(texto: string): string {
     return texto
       .replace(/([A-Z])/g, ' $1')
@@ -201,42 +347,9 @@ export class VistaGeneralComponent implements OnInit {
       .replace(/\b\w/g, l => l.toUpperCase());
   }
 
-  /**
-   * Infiero el tipo de input para el campo basado en su valor actual.
-   * @param valor Valor actual del campo
-   * @returns Tipo de input ('text', 'number', 'radio', 'date')
-   */
-  private inferirTipoCampo(valor: any): string {
+  private detectarTipo(valor: any): string {
+    if (valor instanceof Date) return 'date';
     if (typeof valor === 'number') return 'number';
-    if (typeof valor === 'boolean') return 'radio';
-    if (this.esFecha(valor)) return 'date';
     return 'text';
-  }
-
-  /**
-   * Verifica si un valor string representa una fecha válida.
-   * @param valor Valor a verificar
-   * @returns True si es fecha válida, false si no
-   */
-  private esFecha(valor: any): boolean {
-    if (!valor || typeof valor !== 'string') return false;
-    return !isNaN(Date.parse(valor));
-  }
-
-  /**
-   * Evento al guardar el producto desde el formulario.
-   * @param productoActualizado Objeto actualizado desde el formulario
-   */
-  onGuardarProducto(productoActualizado: any): void {
-    console.log('Producto actualizado:', productoActualizado);
-    this.formularioVisible = false;
-  }
-
-  /**
-   * Evento al eliminar un producto.
-   * @param producto Producto seleccionado
-   */
-  onEliminarProducto(producto: any): void {
-    console.log('Eliminar producto:', producto);
   }
 }

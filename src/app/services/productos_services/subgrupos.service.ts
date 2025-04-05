@@ -2,22 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ApiUrls } from '../../enums/api-urls.enum';
-import { Enums_tipo_producto } from '../../enums/enums_Productos/tipo_producto.enum';
+import { Enums_sub_grupo } from '../../enums/enums_Productos/sub_grupos.enum';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TipoProductoService {
+export class SubproductoService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Obtiene los tipos de productos desde el API.
+   * Obtiene los subproductos desde el API.
    * Usa los enums para construir la URL correspondiente.
    *
-   * @returns Observable con la lista de tipos de productos
+   * @returns Observable con la lista de subproductos
    */
-  getTiposProductos(): Observable<any[]> {
-    const url = `${ApiUrls.Base_Url}${Enums_tipo_producto.Tipos}${Enums_tipo_producto.todas}`;
+  getSubproductos(): Observable<any[]> {
+    const url = `${ApiUrls.Base_Url}${Enums_sub_grupo.sub_grupo}${Enums_sub_grupo.todos}`;
     return this.http.get<any>(url).pipe(
       map((response: any) => response?.respuesta?.datos || [])
     );

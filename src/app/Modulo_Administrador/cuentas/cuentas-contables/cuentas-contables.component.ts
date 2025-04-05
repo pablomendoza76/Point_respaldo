@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CuentasContablesService } from '../../../services/cuentas-contables.service';
+import { CuentasContablesService } from '../../../services/Cuentas_services/cuentas-contables.service';
 import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
 
 @Component({

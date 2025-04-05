@@ -68,15 +68,17 @@ export class BarraBusquedaComponent implements OnInit {
     { name: string; key: string; selected: boolean }[]
   >();
 
+  /**
+   * Evento que se emite cuando el usuario hace clic en "Agregar".
+   * El componente padre debe manejar la lógica para abrir el formulario en modo creación.
+   */
+  @Output() agregar = new EventEmitter<void>();
+
   searchType: string = '';
   searchValue: string = '';
   mostrarFiltros: boolean = false;
   mostrarColumnas: boolean = false;
 
-  /**
-   * Objeto que contiene los filtros actualmente seleccionados.
-   * Las claves son los labels visibles (que serán transformados).
-   */
   filtrosSeleccionados: { [key: string]: string } = {
     estado: 'todos',
   };
@@ -84,7 +86,6 @@ export class BarraBusquedaComponent implements OnInit {
   private searchTermSubject = new Subject<string>();
 
   constructor(private store: Store, private cdr: ChangeDetectorRef) {
-    // Búsqueda con debounce
     this.searchTermSubject.pipe(debounceTime(500)).subscribe((searchTerm) => {
       this.store.dispatch(setSearchTerm({ searchTerm }));
     });
@@ -97,35 +98,23 @@ export class BarraBusquedaComponent implements OnInit {
     }
   }
 
-  /**
-   * Cambia el tipo de búsqueda y limpia el valor.
-   */
   cambiarTipoBusqueda(): void {
     this.searchValue = '';
     this.actualizarBusqueda();
   }
 
-  /**
-   * Despacha el término de búsqueda al store.
-   */
   actualizarBusqueda(): void {
     this.searchTermSubject.next(this.searchValue);
   }
 
-  /**
-   * Aplica los filtros actuales transformando las claves visibles
-   * a las claves internas reales usando filtrosConfiguracion.
-   */
   aplicarFiltros(estado?: string): void {
     if (estado) {
       this.filtrosSeleccionados['estado'] = estado;
       this.store.dispatch(setFiltroActivo({ filtroActivo: estado }));
     }
 
-    // Transformar las claves visibles a claves reales
     const filtrosTransformados: { [key: string]: string } = {};
     Object.entries(this.filtrosSeleccionados).forEach(([claveUI, valor]) => {
-      // Omitir el estado 'todos' de los filtros dinámicos
       if (claveUI === 'estado' && valor === 'todos') return;
 
       const config = this.filtrosConfiguracion.find(
@@ -144,34 +133,22 @@ export class BarraBusquedaComponent implements OnInit {
     this.cdr.markForCheck();
   }
 
-  /**
-   * Muestra u oculta la sección de filtros.
-   */
   toggleFiltros(): void {
     this.mostrarFiltros = !this.mostrarFiltros;
   }
 
-  /**
-   * Muestra u oculta el panel de columnas visibles.
-   */
   toggleColumnas(): void {
     this.mostrarColumnas = !this.mostrarColumnas;
   }
 
-  /**
-   * Despacha las columnas seleccionadas como visibles.
-   */
   actualizarColumnas(): void {
-    console.log(
-      '🔥 Columnas disponibles actualizadas:',
-      this.columnasDisponibles
-    );
+    const columnasActualizadas = this.columnasDisponibles.map(col => ({ ...col }));
 
-    this.actualizarColumnasEvent.emit(this.columnasDisponibles);
+    this.actualizarColumnasEvent.emit(columnasActualizadas);
 
-    const columnasVisibles = this.columnasDisponibles
-      .filter((col) => col.selected)
-      .map((col) => ({
+    const columnasVisibles = columnasActualizadas
+      .filter(col => col.selected)
+      .map(col => ({
         name: col.name,
         key: col.key,
         selected: col.selected,
@@ -180,22 +157,16 @@ export class BarraBusquedaComponent implements OnInit {
     this.store.dispatch(setColumnasVisibles({ columnasVisibles }));
   }
 
-  /**
-   * Limpia todos los filtros dinámicos.
-   */
   limpiarFiltros(): void {
     this.filtrosSeleccionados = {};
     this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: {} }));
     this.cdr.markForCheck();
   }
 
-  /**
-   * Lógica para exportar datos.
-   */
   exportar(): void {
-    const tabla = document.querySelector('table'); // Asegúrate que tu tabla visible tenga una etiqueta <table>
+    const tabla = document.querySelector('table');
     if (!tabla) {
-      console.warn('⚠️ No se encontró la tabla para exportar.');
+      console.warn('No se encontró la tabla para exportar.');
       return;
     }
 
@@ -206,17 +177,30 @@ export class BarraBusquedaComponent implements OnInit {
     XLSX.writeFile(libro, 'productos.xlsx');
   }
 
-  /**
-   * Lógica para importar datos.
-   */
+  onSeleccionarColumna(columna: any, event: Event): void {
+    const checked = (event.target as HTMLInputElement)?.checked ?? false;
+
+    const columnasActualizadas = this.columnasDisponibles.map(col =>
+      col.key === columna.key ? { ...col, selected: checked } : { ...col }
+    );
+
+    this.actualizarColumnasEvent.emit(columnasActualizadas);
+
+    const columnasVisibles = columnasActualizadas
+      .filter(c => c.selected)
+      .map(c => ({ name: c.name, key: c.key, selected: c.selected }));
+
+    this.store.dispatch(setColumnasVisibles({ columnasVisibles }));
+  }
+
   importar(): void {
-    console.log('📤 Importando datos...');
+    console.log('Importando datos...');
   }
 
   /**
-   * Lógica para agregar un nuevo elemento.
+   * Lógica para agregar un nuevo elemento. Emite al padre para abrir el formulario en modo creación.
    */
-  agregar(): void {
-    console.log('➕ Agregando nuevo elemento...');
+  agregarRegistro(): void {
+    this.agregar.emit();
   }
 }

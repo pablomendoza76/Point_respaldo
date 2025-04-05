@@ -70,8 +70,9 @@ export const setItemsPorPagina = createAction(
  */
 export const setTotalRegistros = createAction(
   '[Tabla] Set Total Registros',
-  props<{ totalRegistros: number }>()
+  props<{ total: number }>()
 );
+
 
 /**
  * Acción para cargar los productos iniciales (mock o desde API).
@@ -85,6 +86,3 @@ export const eliminarProducto = createAction(
   '[Tabla] Eliminar producto',
   props<{ producto: any }>()
 );
-
-
-

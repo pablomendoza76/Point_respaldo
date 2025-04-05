@@ -36,11 +36,12 @@
         <label *ngFor="let columna of columnasDisponibles">
           <input
             type="checkbox"
-            [(ngModel)]="columna.selected"
-            (change)="actualizarColumnas()"
+            [checked]="columna.selected"
+            (change)="onSeleccionarColumna(columna, $event)"
           />
           {{ columna.name }}
         </label>
+        
       </div>
     </div>
   </div>
@@ -56,7 +57,7 @@
   </button>
 
   <!-- ✅ Botón para agregar nuevo elemento -->
-  <button class="btn-agregar" (click)="agregar()">
+  <button class="btn-agregar" (click)="agregarRegistro()">
     <i class="fa-solid fa-plus"></i> &nbsp; {{ textoBotonAgregar }}
   </button>
 </div>

@@ -2,10 +2,7 @@
 <div class="table-container">
   <ng-container *ngIf="columnasVisibles$ | async as columnas">
     <ng-container *ngIf="registrosVisibles$ | async as registros">
-      <table
-        class="product-table"
-        *ngIf="registros.length > 0; else sinRegistros"
-      >
+      <table class="product-table" *ngIf="registros.length > 0; else sinRegistros">
         <thead>
           <tr>
             <th *ngFor="let columna of columnas">{{ columna.name }}</th>
@@ -13,7 +10,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let registro of registros">
+          <tr *ngFor="let registro of registros; trackBy: trackByCodigo">
             <td *ngFor="let columna of columnas">
               {{ registro[columna.key] }}
             </td>
@@ -41,27 +38,6 @@
 
 <!-- Modales dinámicos -->
 <ng-container>
-  
-<!-- Modales dinámicos formulario-->
-  <app-formulario-dinamico-loader
-  *ngIf="mostrarFormulario"
-  [mostrar]="mostrarFormulario"
-  [titulo]="'Editar Producto'"
-  [bloques]="bloques"
-  [datos]="registroEnFormulario"
-  [modoEdicion]="true"
-  [botonesAccion]="[
-    { texto: 'Guardar Cambios', icono: 'fa-save', accion: 'guardar' },
-    { texto: 'Cancelar', icono: 'fa-times', accion: 'cancelar' }
-  ]"
-  (guardar)="guardarRegistro($event)"
-  (cerrar)="onCerrarFormulario()"
-  (accion)="manejarAccion($event)"
-  (closed)="onCerrarFormulario()"
-></app-formulario-dinamico-loader>
-
-
-
   <!-- Modal de confirmación de eliminación -->
   <app-delete-modal
     [isOpen]="mostrarModalEliminar"
@@ -73,23 +49,18 @@
   ></app-delete-modal>
 </ng-container>
 
-<!-- Paginación -->
+<!-- Controles de paginación -->
 <div class="pagination">
   <div class="items-per-page">
     <label>Mostrar:</label>
     <select [value]="itemsPorPagina" (change)="cambiarItemsPorPagina($event)">
-      <option value="10">10</option>
-      <option value="20">20</option>
-      <option value="50">50</option>
-      <option value="100">100</option>
-      <option value="todos">Todos</option>
+      <option *ngFor="let opcion of opcionesPaginacion" [value]="opcion.value">
+        {{ opcion.label }}
+      </option>
     </select>
   </div>
 
-  <button
-    (click)="cambiarPagina(paginaActual - 1)"
-    [disabled]="paginaActual === 1"
-  >
+  <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">
     Previa
   </button>
 

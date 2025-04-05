@@ -1,14 +1,15 @@
+/**
+ * Componente que representa una tabla dinámica con paginación y eliminación de registros.
+ */
 import {
   Component,
   OnInit,
   OnDestroy,
-  OnChanges,
   ChangeDetectorRef,
   ChangeDetectionStrategy,
   Input,
   Output,
-  EventEmitter,
-  SimpleChanges
+  EventEmitter
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -21,44 +22,36 @@ import {
 import {
   setPaginaActual,
   setItemsPorPagina,
-  eliminarProducto,
-  setProductos
+  eliminarProducto
 } from '../../state/tabla_NgRx/tabla.actions';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
-import { FormularioDinamicoLoaderComponent } from '../formulario-dinamico-loader/formulario-dinamico-loader.component';
 
-/**
- * Componente que representa una tabla dinámica con paginación, edición y eliminación de registros.
- */
 @Component({
   selector: 'app-tabla-dinamica',
   standalone: true,
-  imports: [CommonModule, DeleteModalComponent, FormularioDinamicoLoaderComponent],
+  imports: [CommonModule, DeleteModalComponent],
   templateUrl: './tabla-dinamica.component.html',
   styleUrls: ['./tabla-dinamica.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
-  /** Registro a eliminar mediante el modal */
-  registroAEliminar: any = null;
-
-  /** Registro actualmente cargado en el formulario de edición */
-  registroEnFormulario: any = null;
-
-  /** Controla la visibilidad del modal de eliminación */
-  mostrarModalEliminar = false;
-
-  /** Controla si el formulario dinámico está visible */
-  mostrarFormulario = false;
-
+export class TablaDinamicaComponent implements OnInit, OnDestroy {
   /** Página actual para paginación */
-  paginaActual = 1;
+  @Input() paginaActual = 1;
 
   /** Registros por página */
-  itemsPorPagina = 10;
+  @Input() itemsPorPagina = 10;
 
-  /** Total de registros en la tabla */
-  totalRegistros = 0;
+  /** Opciones para los valores de paginación (recibidas desde el componente padre) */
+  @Input() opcionesPaginacion: { value: string | number; label: string }[] = [];
+
+  /** Evento emitido al hacer clic en editar un registro */
+  @Output() editarRegistro = new EventEmitter<any>();
+
+  /** Evento emitido cuando cambia la página */
+  @Output() cambioPagina = new EventEmitter<number>();
+
+  /** Evento emitido cuando cambia la cantidad de ítems por página */
+  @Output() cambioItemsPorPagina = new EventEmitter<number>();
 
   /** Registros actuales visibles */
   registrosActuales: any[] = [];
@@ -75,17 +68,17 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
   /** Observable con las columnas visibles desde el store */
   columnasVisibles$: Observable<{ name: string; key: string }[]>;
 
+  /** Total de registros en la tabla */
+  totalRegistros = 0;
+
+  /** Registro a eliminar mediante el modal */
+  registroAEliminar: any = null;
+
+  /** Controla la visibilidad del modal de eliminación */
+  mostrarModalEliminar = false;
+
   /** Subscripciones activas */
   private subs = new Subscription();
-
-  /** Producto a editar recibido desde el componente padre */
-  @Input() productoEditar: any = null;
-
-  /** Bloques estructurados para el formulario dinámico */
-  @Input() bloques: Array<{ titulo: string; campos: any[] }> = [];
-
-  /** Evento emitido al hacer clic en editar un registro */
-  @Output() editarRegistro = new EventEmitter<any>();
 
   /**
    * Constructor que inyecta el store y el detector de cambios.
@@ -115,23 +108,6 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
         this.cdr.markForCheck();
       })
     );
-
-    console.log('[TablaDinamica] productoEditar recibido:', this.productoEditar);
-    console.log('[TablaDinamica] bloques recibidos:', this.bloques);
-  }
-
-  /**
-   * Detecta cambios en los inputs como el producto a editar y los bloques del formulario.
-   * @param changes Cambios detectados en los @Input del componente
-   */
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['productoEditar'] && this.productoEditar && this.bloques?.length) {
-      this.registroEnFormulario = { ...this.productoEditar };
-      this.mostrarFormulario = true;
-      console.log('[TablaDinamica] Producto para editar:', this.registroEnFormulario);
-      console.log('[TablaDinamica] Bloques enviados al formulario:', this.bloques);
-      this.cdr.markForCheck();
-    }
   }
 
   /**
@@ -147,27 +123,6 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
    */
   onEditarRegistro(registro: any): void {
     this.editarRegistro.emit(registro);
-  }
-
-  /**
-   * Cierra el formulario dinámico sin guardar cambios.
-   */
-  cancelarFormulario(): void {
-    this.mostrarFormulario = false;
-    this.registroEnFormulario = null;
-    this.cdr.markForCheck();
-  }
-
-  /**
-   * Guarda los cambios del formulario y actualiza el estado global.
-   * @param registro Registro actualizado
-   */
-  guardarRegistro(registro: any): void {
-    const nuevosRegistros = this.registrosActuales.map(r =>
-      r.codigo === registro.codigo ? registro : r
-    );
-    this.store.dispatch(setProductos({ productos: nuevosRegistros }));
-    this.cancelarFormulario();
   }
 
   /**
@@ -200,18 +155,19 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   /**
-   * Cambia la página actual mostrada en la tabla.
+   * Cambia la página actual mostrada en la tabla y emite el nuevo valor al padre.
    * @param pagina Nueva página
    */
   cambiarPagina(pagina: number): void {
     if (pagina >= 1) {
       this.paginaActual = pagina;
       this.store.dispatch(setPaginaActual({ paginaActual: pagina }));
+      this.cambioPagina.emit(pagina);
     }
   }
 
   /**
-   * Cambia el número de ítems visibles por página.
+   * Cambia el número de ítems visibles por página y emite el nuevo valor al padre.
    * @param event Evento del selector de cantidad
    */
   cambiarItemsPorPagina(event: Event): void {
@@ -220,23 +176,7 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy, OnChanges {
     const valor = cantidad === 'todos' ? 20000 : Number(cantidad);
     this.itemsPorPagina = valor;
     this.store.dispatch(setItemsPorPagina({ itemsPorPagina: valor }));
-  }
-
-  /**
-   * Ejecuta una acción personalizada desde el formulario.
-   * @param accion Nombre de la acción
-   */
-  manejarAccion(accion: string): void {
-    if (accion === 'cancelar') {
-      this.cancelarFormulario();
-    }
-  }
-
-  /**
-   * Cierra el formulario dinámico desde el evento cerrado.
-   */
-  onCerrarFormulario(): void {
-    this.cancelarFormulario();
+    this.cambioItemsPorPagina.emit(valor);
   }
 
   /**
