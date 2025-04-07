@@ -187,4 +187,18 @@ export class FormularioDinamicoComponent implements OnChanges {
       datos: { ...this.datos }
     };
   }
+
+  /**
+ * Ejecuta la función `onChange` si está definida en el campo.
+ * Esto permite reacciones dinámicas como cargar subgrupos al cambiar el grupo.
+ * 
+ * @param campo Campo actual con posible onChange
+ * @param valor Valor seleccionado por el usuario
+ */
+onCampoChange(campo: any, valor: any): void {
+  if (campo.onChange && typeof campo.onChange === 'function') {
+    campo.onChange(valor);
+  }
+}
+
 }

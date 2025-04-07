@@ -38,7 +38,6 @@ export class BarraBusquedaComponent implements OnInit {
 
   /**
    * Configuración dinámica de filtros.
-   * Define la relación entre el label del filtro y su clave interna real.
    */
   @Input() filtrosConfiguracion: FiltroConfiguracion[] = [];
 
@@ -57,20 +56,19 @@ export class BarraBusquedaComponent implements OnInit {
   @Input() textoBotonAgregar: string = 'Agregar';
 
   /**
-   * Evento que emite los filtros aplicados.
+   * Emite los filtros transformados.
    */
   @Output() filtrosAplicados = new EventEmitter<{ [key: string]: string }>();
 
   /**
-   * Evento que emite cuando se actualizan las columnas visibles.
+   * Emite la lista de columnas visibles actualizadas.
    */
   @Output() actualizarColumnasEvent = new EventEmitter<
     { name: string; key: string; selected: boolean }[]
   >();
 
   /**
-   * Evento que se emite cuando el usuario hace clic en "Agregar".
-   * El componente padre debe manejar la lógica para abrir el formulario en modo creación.
+   * Emite evento para indicar que se desea agregar un nuevo registro.
    */
   @Output() agregar = new EventEmitter<void>();
 
@@ -79,7 +77,7 @@ export class BarraBusquedaComponent implements OnInit {
   mostrarFiltros: boolean = false;
   mostrarColumnas: boolean = false;
 
-  filtrosSeleccionados: { [key: string]: string } = {
+  filtrosSeleccionados: { [key: string]: any } = {
     estado: 'todos',
   };
 
@@ -107,6 +105,10 @@ export class BarraBusquedaComponent implements OnInit {
     this.searchTermSubject.next(this.searchValue);
   }
 
+  /**
+   * Aplica los filtros seleccionados transformando sus valores correctamente.
+   * Si la opción es un objeto, extrae el `id` o `valor`.
+   */
   aplicarFiltros(estado?: string): void {
     if (estado) {
       this.filtrosSeleccionados['estado'] = estado;
@@ -117,19 +119,17 @@ export class BarraBusquedaComponent implements OnInit {
     Object.entries(this.filtrosSeleccionados).forEach(([claveUI, valor]) => {
       if (claveUI === 'estado' && valor === 'todos') return;
 
-      const config = this.filtrosConfiguracion.find(
-        (f) => f.nombre === claveUI
-      );
-
+      const config = this.filtrosConfiguracion.find(f => f.nombre === claveUI);
       const claveReal = config?.key || claveUI.toLowerCase();
-      filtrosTransformados[claveReal] = valor;
+
+      // Extraer solo el id si el valor es un objeto
+      const valorTransformado = valor && typeof valor === 'object' ? valor.id ?? valor.valor : valor;
+
+      filtrosTransformados[claveReal] = valorTransformado;
     });
 
-    this.store.dispatch(
-      setFiltrosDinamicos({ filtrosDinamicos: filtrosTransformados })
-    );
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtrosTransformados }));
     this.filtrosAplicados.emit({ ...filtrosTransformados });
-
     this.cdr.markForCheck();
   }
 
@@ -143,7 +143,6 @@ export class BarraBusquedaComponent implements OnInit {
 
   actualizarColumnas(): void {
     const columnasActualizadas = this.columnasDisponibles.map(col => ({ ...col }));
-
     this.actualizarColumnasEvent.emit(columnasActualizadas);
 
     const columnasVisibles = columnasActualizadas
@@ -173,7 +172,6 @@ export class BarraBusquedaComponent implements OnInit {
     const hoja: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tabla);
     const libro: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(libro, hoja, 'Productos');
-
     XLSX.writeFile(libro, 'productos.xlsx');
   }
 
@@ -197,9 +195,6 @@ export class BarraBusquedaComponent implements OnInit {
     console.log('Importando datos...');
   }
 
-  /**
-   * Lógica para agregar un nuevo elemento. Emite al padre para abrir el formulario en modo creación.
-   */
   agregarRegistro(): void {
     this.agregar.emit();
   }

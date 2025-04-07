@@ -71,42 +71,42 @@
       (change)="aplicarFiltros()"
     >
       <option value="">Seleccionar...</option>
-      <option *ngFor="let opcion of filtro.opciones" [value]="opcion">
-        {{ opcion }}
+      <option *ngFor="let opcion of filtro.opciones" [value]="opcion.id">
+        {{ opcion.nombre }}
       </option>
     </select>
   </div>
 
   <!-- ✅ Botones de filtro rápido -->
-<div class="filter-buttons">
-  <button
-    class="filter-btn"
-    (click)="aplicarFiltros('todos')"
-    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'todos')}"
-  >
-    Todos
-  </button>
-  <button
-    class="filter-btn"
-    (click)="aplicarFiltros('stock')"
-    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'stock')}"
-  >
-    Stock
-  </button>
-  <button
-    class="filter-btn"
-    (click)="aplicarFiltros('medio')"
-    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'medio')}"
-  >
-    Medio
-  </button>
-  <button
-    class="filter-btn"
-    (click)="aplicarFiltros('sin_stock')"
-    [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'sin_stock')}"
-  >
-    Sin Stock
-  </button>
+  <div class="filter-buttons">
+    <button
+      class="filter-btn"
+      (click)="aplicarFiltros('todos')"
+      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'todos')}"
+    >
+      Todos
+    </button>
+    <button
+      class="filter-btn"
+      (click)="aplicarFiltros('stock')"
+      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'stock')}"
+    >
+      Stock
+    </button>
+    <button
+      class="filter-btn"
+      (click)="aplicarFiltros('medio')"
+      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'medio')}"
+    >
+      Medio
+    </button>
+    <button
+      class="filter-btn"
+      (click)="aplicarFiltros('sin_stock')"
+      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'sin_stock')}"
+    >
+      Sin Stock
+    </button>
+  </div>
 </div>
 
-</div>

@@ -3,26 +3,11 @@
  * Define las opciones disponibles para un tipo de filtro.
  */
 export interface FiltroConfiguracion {
-  /**
-   * Etiqueta visible en la UI (ej: "Categoría")
-   */
   nombre: string;
-
-  /**
-   * Clave real usada para filtrar en el objeto producto (ej: "categoria")
-   */
   key: string;
-
-  /**
-   * Opciones disponibles para seleccionar.
-   */
-  opciones: string[];
-
-  /**
-   * Valor actualmente seleccionado (opcional).
-   */
-  seleccionado?: string;
+  opciones: Array<{ id: string | number; nombre: string }>;
 }
+
 
 export interface FilterState {
   searchTerm: string;

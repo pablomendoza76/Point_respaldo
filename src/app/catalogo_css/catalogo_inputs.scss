@@ -1,309 +1,356 @@
-@import './colores.scss';
-@import './tipografia.scss';
+/**
+ * Archivo de estilos SCSS base para inputs del formulario dinámico.
+ * Aplica estilos reutilizables con diseño elegante tipo iOS.
+ * Se usa en los formularios dinámicos de productos.
+ */
 
-// Estilo base de los inputs
-.input-label {
-  @extend .body-small-regular;
-  color: $texto-secundario;
-  margin-bottom: 4px;
-}
-
-// Contenedor de inputs
-.catalogo_inputs {
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  // Input base
-  input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid $gris-borde;
-    background-color: $fondo-claro;
-    font-family: $font-work-sans;
-    font-size: $font-size-body-small;
-    color: $texto-principal;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-
-    &:focus {
-      outline: none;
-      border-color: $rojo-fondo; //  Hover rojo suave en lugar de aqua
-      box-shadow: 0 4px 8px rgba(198, 40, 40, 0.2);
-    }
-
-    &:disabled {
-      background-color: $gris-fondo;
-      color: $texto-deshabilitado;
-      border-color: $gris-borde;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-  }
-
-  // 1. Input Normal
-  .input-normal {
-    border: 1px solid $gris-borde;
-    background-color: $fondo-claro;
-  }
-
-  // 2. Input con borde oscuro
-  .input-borde-oscuro {
-    border: 1px solid $gris-texto;
-    background-color: $fondo-claro;
-  }
-
-  // 3. Input con borde rojo suave
-  .input-borde-rojo-suave {
-    border: 1px solid $rojo-fondo;
-    background-color: $rojo-fondo;
-    color: $rojo-texto;
-
-    &:focus {
-      border-color: $rojo-texto;
-      box-shadow: 0 4px 8px rgba(183, 28, 28, 0.2);
-    }
-  }
-
-  // 4. Input con borde rojo fuerte
-  .input-borde-rojo {
-    border: 1px solid $rojo-botones;
-    background-color: $fondo-claro;
-    color: $rojo-texto; 
-
-    &:focus {
-      border-color: $rojo-texto;
-      box-shadow: 0 4px 8px rgba(198, 40, 40, 0.2);
-    }
-  }
-
-  // 5. Input deshabilitado
-  .input-deshabilitado {
-    background-color: $gris-fondo;
-    color: $texto-deshabilitado;
-    border-color: $gris-borde;
-    cursor: not-allowed;
-  }
-
-  // 6. Input con texto al costado
-  .input-texto-costado {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    span {
-      font-family: $font-work-sans;
-      font-size: $font-size-body-small;
-      color: $texto-secundario;
-    }
-
-    input {
-      flex: 1;
-    }
-  }
-
-  // 7. Input con fondo gris
-  .input-fondo-gris {
-    background-color: $gris-fondo;
-    color: $texto-secundario;
-    border: 1px solid $gris-borde;
-
-    &:focus {
-      border-color: $gris-texto;
-      box-shadow: 0 4px 8px rgba(97, 97, 97, 0.2);
-    }
-  }
-
-  // 8. Input grande
-  .input-grande {
-    font-size: $font-size-body-large;
-    padding: 16px;
-    border-radius: 16px;
-  }
-
-  // 9. Input con sombra más pronunciada
-  .input-sombreado {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-
-    &:focus {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-  }
-
-  // 10. Label rojo (para mensajes de error)
-  .label-error {
-    background-color: $rojo-fondo;
-    color: $rojo-texto;
-  }
-}
-
-.radio-toggle-group,
-.radio-list-group {
-  margin: 24px 0;
-
-  label {
-    font-size: $font-size-body-small;
-    color: $texto-principal;
-    font-family: $font-work-sans;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  .obligatorio {
-    color: $rojo-texto;
-    font-weight: 500;
-    margin-left: 4px;
-  }
-}
-
-/* Estilo de grupo Sí/No */
-.radio-toggle-options {
-  display: flex;
-  gap: 20px;
-
-  .radio-toggle-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: $font-size-body-small;
-    font-family: $font-work-sans;
-    color: $texto-secundario;
-    cursor: pointer;
-    position: relative;
-
-    input[type="radio"] {
-      display: none;
-
-      &:checked + .custom-radio {
-        border-color: $rojo-botones;
-        background-color: $rojo-botones;
-
-        &::after {
-          content: "";
-          width: 8px;
-          height: 8px;
-          background-color: $fondo-claro;
-          border-radius: 50%;
-          position: absolute;
-          top: 4px;
-          left: 4px;
-        }
-      }
-    }
-
-    .custom-radio {
-      width: 18px;
-      height: 18px;
-      border: 2px solid $gris-borde;
-      border-radius: 50%;
-      position: relative;
-      display: inline-block;
-      transition: all 0.2s ease;
-    }
-  }
-}
-
-/* Estilo de lista con múltiples radios */
-.radio-list-options {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-  .radio-list-option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: $font-size-body-small;
-    font-family: $font-work-sans;
-    color: $texto-secundario;
-    cursor: pointer;
-    position: relative;
-
-    input[type="radio"] {
-      display: none;
-
-      &:checked + .custom-radio {
-        border-color: $rojo-botones;
-        background-color: $rojo-botones;
-
-        &::after {
-          content: "";
-          width: 8px;
-          height: 8px;
-          background-color: $fondo-claro;
-          border-radius: 50%;
-          position: absolute;
-          top: 4px;
-          left: 4px;
-        }
-      }
-    }
-
-    .custom-radio {
-      width: 18px;
-      height: 18px;
-      border: 2px solid $gris-borde;
-      border-radius: 50%;
-      position: relative;
-      display: inline-block;
-      transition: all 0.2s ease;
-    }
-  }
-}
-
-/* Subopciones dinámicas */
-.radio-list-option.has-submenu {
-  flex-direction: column;
-  align-items: flex-start;
-
-  .sub-options {
-    margin-left: 28px;
-    margin-top: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-
-    .radio-sub-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: $font-size-body-small;
-      font-family: $font-work-sans;
-      color: $texto-terciario;
-      cursor: pointer;
-
-      input[type="radio"] {
-        display: none;
-
-        &:checked + .custom-radio {
-          border-color: $azul-botones;
-          background-color: $azul-botones;
-
-          &::after {
-            content: "";
-            width: 8px;
-            height: 8px;
-            background-color: $fondo-claro;
-            border-radius: 50%;
-            position: absolute;
-            top: 4px;
-            left: 4px;
-          }
-        }
-      }
-
-      .custom-radio {
-        width: 16px;
-        height: 16px;
-        border: 2px solid $gris-borde;
-        border-radius: 50%;
-        position: relative;
-        display: inline-block;
-      }
-    }
-  }
-}
+ @import './colores.scss';
+ @import './tipografia.scss';
+ 
+ /**
+  * Estilo base para etiquetas de los inputs.
+  */
+ .input-label {
+   @extend .body-small-regular;
+   color: $texto-secundario;
+   margin-bottom: 4px;
+ }
+ 
+ /**
+  * Contenedor principal que agrupa todos los estilos de los inputs del formulario.
+  */
+ .catalogo_inputs {
+   /**
+    * Agrupación de inputs en columnas.
+    */
+   .input-group {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+     margin-bottom: 16px;
+   }
+ 
+   /**
+    * Estilo base para los inputs y selects del formulario.
+    */
+   input,
+   select {
+     width: 100%;
+     padding: 12px;
+     border-radius: 12px;
+     border: 1px solid $gris-borde;
+     background-color: $fondo-claro;
+     font-family: $font-work-sans;
+     font-size: $font-size-body-small;
+     color: $texto-principal;
+     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+     appearance: none;
+     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+ 
+     &:focus {
+       outline: none;
+       border-color: $rojo-fondo;
+       box-shadow: 0 4px 8px rgba(198, 40, 40, 0.2);
+     }
+ 
+     &:disabled {
+       background-color: $gris-fondo;
+       color: $texto-deshabilitado;
+       border-color: $gris-borde;
+       cursor: not-allowed;
+       box-shadow: none;
+     }
+   }
+ 
+   /**
+    * Input de tipo normal.
+    */
+   .input-normal {
+     border: 1px solid $gris-borde;
+     background-color: $fondo-claro;
+   }
+ 
+   /**
+    * Input con borde oscuro.
+    */
+   .input-borde-oscuro {
+     border: 1px solid $gris-texto;
+     background-color: $fondo-claro;
+   }
+ 
+   /**
+    * Input con borde rojo suave.
+    */
+   .input-borde-rojo-suave {
+     border: 1px solid $rojo-fondo;
+     background-color: $rojo-fondo;
+     color: $rojo-texto;
+ 
+     &:focus {
+       border-color: $rojo-texto;
+       box-shadow: 0 4px 8px rgba(183, 28, 28, 0.2);
+     }
+   }
+ 
+   /**
+    * Input con borde rojo fuerte.
+    */
+   .input-borde-rojo {
+     border: 1px solid $rojo-botones;
+     background-color: $fondo-claro;
+     color: $rojo-texto;
+ 
+     &:focus {
+       border-color: $rojo-texto;
+       box-shadow: 0 4px 8px rgba(198, 40, 40, 0.2);
+     }
+   }
+ 
+   /**
+    * Estilo para inputs deshabilitados.
+    */
+   .input-deshabilitado {
+     background-color: $gris-fondo;
+     color: $texto-deshabilitado;
+     border-color: $gris-borde;
+     cursor: not-allowed;
+   }
+ 
+   /**
+    * Input con texto al costado.
+    */
+   .input-texto-costado {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+ 
+     span {
+       font-family: $font-work-sans;
+       font-size: $font-size-body-small;
+       color: $texto-secundario;
+     }
+ 
+     input {
+       flex: 1;
+     }
+   }
+ 
+   /**
+    * Input con fondo gris claro.
+    */
+   .input-fondo-gris {
+     background-color: $gris-fondo;
+     color: $texto-secundario;
+     border: 1px solid $gris-borde;
+ 
+     &:focus {
+       border-color: $gris-texto;
+       box-shadow: 0 4px 8px rgba(97, 97, 97, 0.2);
+     }
+   }
+ 
+   /**
+    * Input grande con mayor padding y bordes redondeados.
+    */
+   .input-grande {
+     font-size: $font-size-body-large;
+     padding: 16px;
+     border-radius: 16px;
+   }
+ 
+   /**
+    * Input con sombra más pronunciada.
+    */
+   .input-sombreado {
+     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+ 
+     &:focus {
+       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+     }
+   }
+ 
+   /**
+    * Estilo para etiquetas de error.
+    */
+   .label-error {
+     background-color: $rojo-fondo;
+     color: $rojo-texto;
+   }
+ }
+ 
+ /**
+  * Contenedor general para grupos de radios (sí/no o listas).
+  */
+ .radio-toggle-group,
+ .radio-list-group {
+   margin: 24px 0;
+ 
+   label {
+     font-size: $font-size-body-small;
+     color: $texto-principal;
+     font-family: $font-work-sans;
+     display: block;
+     margin-bottom: 8px;
+   }
+ 
+   .obligatorio {
+     color: $rojo-texto;
+     font-weight: 500;
+     margin-left: 4px;
+   }
+ }
+ 
+ /**
+  * Estilo para opciones tipo toggle (radio Sí/No).
+  */
+ .radio-toggle-options {
+   display: flex;
+   gap: 20px;
+ 
+   .radio-toggle-option {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     font-size: $font-size-body-small;
+     font-family: $font-work-sans;
+     color: $texto-secundario;
+     cursor: pointer;
+     position: relative;
+ 
+     input[type='radio'] {
+       display: none;
+ 
+       &:checked + .custom-radio {
+         border-color: $rojo-botones;
+         background-color: $rojo-botones;
+ 
+         &::after {
+           content: '';
+           width: 8px;
+           height: 8px;
+           background-color: $fondo-claro;
+           border-radius: 50%;
+           position: absolute;
+           top: 4px;
+           left: 4px;
+         }
+       }
+     }
+ 
+     .custom-radio {
+       width: 18px;
+       height: 18px;
+       border: 2px solid $gris-borde;
+       border-radius: 50%;
+       position: relative;
+       display: inline-block;
+       transition: all 0.2s ease;
+     }
+   }
+ }
+ 
+ /**
+  * Estilo para listas de radios con múltiples opciones.
+  */
+ .radio-list-options {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+ 
+   .radio-list-option {
+     display: flex;
+     align-items: center;
+     gap: 10px;
+     font-size: $font-size-body-small;
+     font-family: $font-work-sans;
+     color: $texto-secundario;
+     cursor: pointer;
+     position: relative;
+ 
+     input[type='radio'] {
+       display: none;
+ 
+       &:checked + .custom-radio {
+         border-color: $rojo-botones;
+         background-color: $rojo-botones;
+ 
+         &::after {
+           content: '';
+           width: 8px;
+           height: 8px;
+           background-color: $fondo-claro;
+           border-radius: 50%;
+           position: absolute;
+           top: 4px;
+           left: 4px;
+         }
+       }
+     }
+ 
+     .custom-radio {
+       width: 18px;
+       height: 18px;
+       border: 2px solid $gris-borde;
+       border-radius: 50%;
+       position: relative;
+       display: inline-block;
+       transition: all 0.2s ease;
+     }
+   }
+ }
+ 
+ /**
+  * Estilo para radios que contienen subopciones desplegables.
+  */
+ .radio-list-option.has-submenu {
+   flex-direction: column;
+   align-items: flex-start;
+ 
+   .sub-options {
+     margin-left: 28px;
+     margin-top: 6px;
+     display: flex;
+     flex-direction: column;
+     gap: 6px;
+ 
+     .radio-sub-option {
+       display: flex;
+       align-items: center;
+       gap: 8px;
+       font-size: $font-size-body-small;
+       font-family: $font-work-sans;
+       color: $texto-terciario;
+       cursor: pointer;
+ 
+       input[type='radio'] {
+         display: none;
+ 
+         &:checked + .custom-radio {
+           border-color: $azul-botones;
+           background-color: $azul-botones;
+ 
+           &::after {
+             content: '';
+             width: 8px;
+             height: 8px;
+             background-color: $fondo-claro;
+             border-radius: 50%;
+             position: absolute;
+             top: 4px;
+             left: 4px;
+           }
+         }
+       }
+ 
+       .custom-radio {
+         width: 16px;
+         height: 16px;
+         border: 2px solid $gris-borde;
+         border-radius: 50%;
+         position: relative;
+         display: inline-block;
+       }
+     }
+   }
+ }
+ 

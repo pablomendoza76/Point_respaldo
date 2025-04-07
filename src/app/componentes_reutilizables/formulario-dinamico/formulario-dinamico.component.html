@@ -17,7 +17,6 @@
               <div class="form-row">
                 <ng-container *ngFor="let campo of bloque.campos">
                   <div class="form-group" [ngSwitch]="campo.tipo">
-
                     <!-- Input estándar y otros tipos -->
                     <ng-container *ngSwitchDefault>
                       <div class="label-personalizable">
@@ -43,8 +42,12 @@
                           [name]="campo.key"
                           [disabled]="campo.key === 'codigo'"
                           [required]="campo.required"
+                          (change)="onCampoChange(campo, datos[campo.key])"
                         >
-                          <option *ngFor="let opcion of campo.opciones" [value]="opcion.valor">
+                          <option
+                            *ngFor="let opcion of campo.opciones"
+                            [value]="opcion.valor"
+                          >
                             {{ opcion.texto }}
                           </option>
                         </select>
@@ -97,7 +100,6 @@
                         </div>
                       </div>
                     </ng-container>
-
                   </div>
                 </ng-container>
               </div>
@@ -112,7 +114,9 @@
               <button
                 [type]="boton.accion === 'guardar' ? 'submit' : 'button'"
                 class="text-btn"
-                (click)="boton.accion !== 'guardar' ? onAccion(boton.accion) : null"
+                (click)="
+                  boton.accion !== 'guardar' ? onAccion(boton.accion) : null
+                "
                 [disabled]="boton.deshabilitado"
               >
                 {{ boton.texto }}
