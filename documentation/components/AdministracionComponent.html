@@ -1,0 +1,1115 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-biling-3 documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-biling-3 documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AdministracionComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/Modulo_Administrador/Productos/productos/administracion.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-administracion</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                                <code><a href="../components/NavbarComponent.html" target="_self" >NavbarComponent</a></code>
+                                <code><a href="../components/DynamicMenuComponent.html" target="_self" >DynamicMenuComponent</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./administracion.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./administracion.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isMenuCollapsed" >isMenuCollapsed</a>
+                            </li>
+                            <li>
+                                <a href="#menuHijosMap" >menuHijosMap</a>
+                            </li>
+                            <li>
+                                <a href="#menuPadre" >menuPadre</a>
+                            </li>
+                            <li>
+                                <a href="#moduloActivo" >moduloActivo</a>
+                            </li>
+                            <li>
+                                <a href="#opcionActiva" >opcionActiva</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isModuloActive" >isModuloActive</a>
+                            </li>
+                            <li>
+                                <a href="#isOpcionActive" >isOpcionActive</a>
+                            </li>
+                            <li>
+                                <a href="#onMenuHijoClick" >onMenuHijoClick</a>
+                            </li>
+                            <li>
+                                <a href="#onModuloClick" >onModuloClick</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMenuCollapse" >toggleMenuCollapse</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#menuHijos" >menuHijos</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:35</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isModuloActive"></a>
+                    <span class="name">
+                        <span ><b>isModuloActive</b></span>
+                        <a href="#isModuloActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isModuloActive(modulo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si un módulo está activo</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>modulo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOpcionActive"></a>
+                    <span class="name">
+                        <span ><b>isOpcionActive</b></span>
+                        <a href="#isOpcionActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isOpcionActive(opcion: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifica si una opción está activa</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>opcion</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMenuHijoClick"></a>
+                    <span class="name">
+                        <span ><b>onMenuHijoClick</b></span>
+                        <a href="#onMenuHijoClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMenuHijoClick(item: <a href="../interfaces/MenuItem.html" target="_self">MenuItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el click en una opción del menú hijo</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onModuloClick"></a>
+                    <span class="name">
+                        <span ><b>onModuloClick</b></span>
+                        <a href="#onModuloClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onModuloClick(modulo: <a href="../interfaces/MenuItem.html" target="_self">MenuItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el click en un módulo del menú padre</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>modulo</td>
+                                            <td>
+                                                            <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenuCollapse"></a>
+                    <span class="name">
+                        <span ><b>toggleMenuCollapse</b></span>
+                        <a href="#toggleMenuCollapse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenuCollapse()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado de colapso del menú</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMenuCollapsed"></a>
+                    <span class="name">
+                        <span ><b>isMenuCollapsed</b></span>
+                        <a href="#isMenuCollapsed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estado del menú colapsado</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuHijosMap"></a>
+                    <span class="name">
+                        <span ><b>menuHijosMap</b></span>
+                        <a href="#menuHijosMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>MENU_CONFIG.hijos</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Submenús hijos por módulo</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuPadre"></a>
+                    <span class="name">
+                        <span ><b>menuPadre</b></span>
+                        <a href="#menuPadre"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>MENU_CONFIG.principales</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Menú principal</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="moduloActivo"></a>
+                    <span class="name">
+                        <span ><b>moduloActivo</b></span>
+                        <a href="#moduloActivo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Productos&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Módulo activo actual</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="opcionActiva"></a>
+                    <span class="name">
+                        <span ><b>opcionActiva</b></span>
+                        <a href="#opcionActiva"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Opción activa actual</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="menuHijos"></a>
+                        <span class="name"><b>menuHijos</b><a href="#menuHijos"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>menuHijos()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/Modulo_Administrador/Productos/productos/administracion.component.ts:67</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Obtiene los hijos del módulo activo</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Router, RouterModule } from &#x27;@angular/router&#x27;;
+import { NavbarComponent } from &#x27;../../../componentes_reutilizables/navbar/navbar.component&#x27;;
+import { DynamicMenuComponent } from &#x27;../../../componentes_reutilizables/dynamic-menu/dynamic-menu.component&#x27;;
+import { MENU_CONFIG } from &#x27;../../../menu.config&#x27;;
+import { MenuItem } from &#x27;../../../componentes_reutilizables/dynamic-menu/dynamic-menu.component&#x27;;
+
+@Component({
+  selector: &#x27;app-administracion&#x27;,
+  standalone: true,
+  templateUrl: &#x27;./administracion.component.html&#x27;,
+  styleUrls: [&#x27;./administracion.component.scss&#x27;],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NavbarComponent,
+    DynamicMenuComponent
+  ]
+})
+export class AdministracionComponent {
+  /** Estado del menú colapsado */
+  isMenuCollapsed &#x3D; false;
+
+  /** Menú principal */
+  menuPadre: MenuItem[] &#x3D; MENU_CONFIG.principales;
+
+  /** Submenús hijos por módulo */
+  menuHijosMap: { [modulo: string]: MenuItem[] } &#x3D; MENU_CONFIG.hijos;
+
+  /** Módulo activo actual */
+  moduloActivo: string &#x3D; &#x27;Productos&#x27;;
+
+  /** Opción activa actual */
+  opcionActiva: string &#x3D; &#x27;&#x27;;
+
+  constructor(private router: Router) {}
+
+  /** Alterna el estado de colapso del menú */
+  toggleMenuCollapse(): void {
+    this.isMenuCollapsed &#x3D; !this.isMenuCollapsed;
+  }
+
+  /** Maneja el click en un módulo del menú padre */
+  onModuloClick(modulo: MenuItem): void {
+    this.moduloActivo &#x3D; modulo.label;
+    this.opcionActiva &#x3D; &#x27;&#x27;; // Resetear opción activa al cambiar de módulo
+    
+    // Si el módulo tiene una ruta directa, navegar a ella
+    if (modulo.route) {
+      this.router.navigate([modulo.route]);
+    }
+  }
+
+  /** Maneja el click en una opción del menú hijo */
+  onMenuHijoClick(item: MenuItem): void {
+    this.opcionActiva &#x3D; item.label;
+    
+    if (item.route) {
+      this.router.navigate([item.route]);
+    }
+    
+    console.log(&#x27;Hijo clickeado:&#x27;, item);
+  }
+
+  /** Obtiene los hijos del módulo activo */
+  get menuHijos(): MenuItem[] {
+    return this.menuHijosMap[this.moduloActivo] || [];
+  }
+
+  /** Verifica si un módulo está activo */
+  isModuloActive(modulo: string): boolean {
+    return this.moduloActivo &#x3D;&#x3D;&#x3D; modulo;
+  }
+
+  /** Verifica si una opción está activa */
+  isOpcionActive(opcion: string): boolean {
+    return this.opcionActiva &#x3D;&#x3D;&#x3D; opcion;
+  }
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;app-navbar&gt;&lt;/app-navbar&gt;
+
+&lt;!-- Contenedor principal para menú y contenido --&gt;
+&lt;div class&#x3D;&quot;admin-layout&quot;&gt;
+  &lt;!-- Menú dinámico con hijos --&gt;
+  &lt;app-dynamic-menu
+    [menuPadre]&#x3D;&quot;menuPadre&quot;
+    [menuHijosMap]&#x3D;&quot;menuHijosMap&quot;
+    [moduloActivo]&#x3D;&quot;moduloActivo&quot;
+    (toggleCollapse)&#x3D;&quot;toggleMenuCollapse()&quot;
+    (itemClicked)&#x3D;&quot;onMenuHijoClick($event)&quot;&gt;
+  &lt;/app-dynamic-menu&gt;
+
+  &lt;!-- Contenido de los hijos se carga aquí --&gt;
+  &lt;div class&#x3D;&quot;admin-content&quot;&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./administracion.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/**
+* scss necesario para la lineacion vertical de los componetes
+*/
+
+.admin-layout {
+  display: flex;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><app-navbar></app-navbar><!-- Contenedor principal para menú y contenido --><div class="admin-layout">  <!-- Menú dinámico con hijos -->  <app-dynamic-menu    [menuPadre]="menuPadre"    [menuHijosMap]="menuHijosMap"    [moduloActivo]="moduloActivo"    (toggleCollapse)="toggleMenuCollapse()"    (itemClicked)="onMenuHijoClick($event)">  </app-dynamic-menu>  <!-- Contenido de los hijos se carga aquí -->  <div class="admin-content">    <router-outlet></router-outlet>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdministracionComponent', 'selector': 'app-administracion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarraBusquedaComponent', 'selector': 'app-barra-busqueda'},{'name': 'BarraUbicacionComponent', 'selector': 'app-barra-ubicacion'},{'name': 'BillingSofAdminComponent', 'selector': 'app-billing-sof-admin'},{'name': 'ClientesComponent', 'selector': 'app-clientes'},{'name': 'ClientesVistaComponent', 'selector': 'app-clientes-vista'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'CuentasContablesComponent', 'selector': 'app-cuentas-contables'},{'name': 'CuentasVistasComponent', 'selector': 'app-cuentas-vistas'},{'name': 'DeleteModalComponent', 'selector': 'app-delete-modal'},{'name': 'DynamicMenuComponent', 'selector': 'app-dynamic-menu'},{'name': 'EmpresaComponent', 'selector': 'app-empresa'},{'name': 'FormularioDinamicoComponent', 'selector': 'app-formulario-dinamico'},{'name': 'FormularioDinamicoLoaderComponent', 'selector': 'app-formulario-dinamico-loader'},{'name': 'ImportarComponent', 'selector': 'app-importar'},{'name': 'MarcasComponent', 'selector': 'app-marcas'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PlanCuentasComponent', 'selector': 'app-plan-cuentas'},{'name': 'ProveedoresComponent', 'selector': 'app-proveedores'},{'name': 'ProveedoresVistaComponent', 'selector': 'app-proveedores-vista'},{'name': 'PruebraComponent', 'selector': 'app-pruebra'},{'name': 'TablaDinamicaComponent', 'selector': 'app-tabla-dinamica'},{'name': 'TarifasPorGrupoComponent', 'selector': 'app-tarifas-por-grupo'},{'name': 'TiposClientesComponent', 'selector': 'app-tipos-clientes'},{'name': 'TiposProductosComponent', 'selector': 'app-tipos-productos'},{'name': 'TiposProveedoresComponent', 'selector': 'app-tipos-proveedores'},{'name': 'TiposPVPComponent', 'selector': 'app-tipos-pvp'},{'name': 'TiposPvpVistaComponent', 'selector': 'app-tipos-pvp-vista'},{'name': 'VistaGeneralComponent', 'selector': 'app-vista-general'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AdministracionComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdministracionComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

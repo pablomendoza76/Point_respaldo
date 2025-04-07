@@ -1,0 +1,2639 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-biling-3 documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-biling-3 documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  VistaGeneralComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-vista-general</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                                <code><a href="../components/BarraUbicacionComponent.html" target="_self" >BarraUbicacionComponent</a></code>
+                                <code><a href="../components/BarraBusquedaComponent.html" target="_self" >BarraBusquedaComponent</a></code>
+                                <code><a href="../components/TablaDinamicaComponent.html" target="_self" >TablaDinamicaComponent</a></code>
+                                <code><a href="../components/FormularioDinamicoLoaderComponent.html" target="_self" >FormularioDinamicoLoaderComponent</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./vista-general.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./vista-general.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#bloquesFormulario" >bloquesFormulario</a>
+                            </li>
+                            <li>
+                                <a href="#columnasDisponibles" >columnasDisponibles</a>
+                            </li>
+                            <li>
+                                <a href="#columnasSeleccionadas" >columnasSeleccionadas</a>
+                            </li>
+                            <li>
+                                <a href="#filtrosConfiguracion" >filtrosConfiguracion</a>
+                            </li>
+                            <li>
+                                <a href="#formularioVisible" >formularioVisible</a>
+                            </li>
+                            <li>
+                                <a href="#grupos" >grupos</a>
+                            </li>
+                            <li>
+                                <a href="#itemsPorPagina" >itemsPorPagina</a>
+                            </li>
+                            <li>
+                                <a href="#limiteCargado" >limiteCargado</a>
+                            </li>
+                            <li>
+                                <a href="#marcas" >marcas</a>
+                            </li>
+                            <li>
+                                <a href="#modoEdicion" >modoEdicion</a>
+                            </li>
+                            <li>
+                                <a href="#opcionesBusqueda" >opcionesBusqueda</a>
+                            </li>
+                            <li>
+                                <a href="#opcionesPaginacion" >opcionesPaginacion</a>
+                            </li>
+                            <li>
+                                <a href="#paginaActual" >paginaActual</a>
+                            </li>
+                            <li>
+                                <a href="#productoSeleccionado" >productoSeleccionado</a>
+                            </li>
+                            <li>
+                                <a href="#productosVisibles$" >productosVisibles$</a>
+                            </li>
+                            <li>
+                                <a href="#subgrupos" >subgrupos</a>
+                            </li>
+                            <li>
+                                <a href="#tiposProducto" >tiposProducto</a>
+                            </li>
+                            <li>
+                                <a href="#totalRegistros" >totalRegistros</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#capitalizar" >capitalizar</a>
+                            </li>
+                            <li>
+                                <a href="#cargarOpciones" >cargarOpciones</a>
+                            </li>
+                            <li>
+                                <a href="#cargarProductos" >cargarProductos</a>
+                            </li>
+                            <li>
+                                <a href="#cargarSubgruposPorGrupo" >cargarSubgruposPorGrupo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#detectarTipo" >detectarTipo</a>
+                            </li>
+                            <li>
+                                <a href="#generarTodosLosCamposComoBloque" >generarTodosLosCamposComoBloque</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#obtenerEtiqueta" >obtenerEtiqueta</a>
+                            </li>
+                            <li>
+                                <a href="#onAgregarNuevoProducto" >onAgregarNuevoProducto</a>
+                            </li>
+                            <li>
+                                <a href="#onCambioItemsPorPagina" >onCambioItemsPorPagina</a>
+                            </li>
+                            <li>
+                                <a href="#onCambioPagina" >onCambioPagina</a>
+                            </li>
+                            <li>
+                                <a href="#onCerrarFormulario" >onCerrarFormulario</a>
+                            </li>
+                            <li>
+                                <a href="#onColumnasActualizadas" >onColumnasActualizadas</a>
+                            </li>
+                            <li>
+                                <a href="#onEditarProducto" >onEditarProducto</a>
+                            </li>
+                            <li>
+                                <a href="#onFiltrosAplicados" >onFiltrosAplicados</a>
+                            </li>
+                            <li>
+                                <a href="#onGuardarProducto" >onGuardarProducto</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>, adminService: <a href="../injectables/AdministracionServicios.html" target="_self">AdministracionServicios</a>, marcasService: <a href="../injectables/MarcasService.html" target="_self">MarcasService</a>, TarifasService: <a href="../injectables/TarifasService.html" target="_self">TarifasService</a>, SubproductoService: <a href="../injectables/SubproductoService.html" target="_self">SubproductoService</a>, tipoProductoService: <a href="../injectables/TipoProductoService.html" target="_self">TipoProductoService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:110</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>adminService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AdministracionServicios.html" target="_self" >AdministracionServicios</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>marcasService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/MarcasService.html" target="_self" >MarcasService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>TarifasService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TarifasService.html" target="_self" >TarifasService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>SubproductoService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SubproductoService.html" target="_self" >SubproductoService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>tipoProductoService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TipoProductoService.html" target="_self" >TipoProductoService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="capitalizar"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>capitalizar</b></span>
+                        <a href="#capitalizar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>capitalizar(texto: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="397"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:397</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Capitaliza un texto separando camelCase y guiones bajos.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>texto</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarOpciones"></a>
+                    <span class="name">
+                        <span ><b>cargarOpciones</b></span>
+                        <a href="#cargarOpciones"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarOpciones()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga marcas, grupos, tipos y configura los filtros dinámicos.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarProductos"></a>
+                    <span class="name">
+                        <span ><b>cargarProductos</b></span>
+                        <a href="#cargarProductos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarProductos(pagina: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, limite: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga productos y columnas desde el backend.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>pagina</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>limite</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarSubgruposPorGrupo"></a>
+                    <span class="name">
+                        <span ><b>cargarSubgruposPorGrupo</b></span>
+                        <a href="#cargarSubgruposPorGrupo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarSubgruposPorGrupo(codigo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="235"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:235</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga los subgrupos desde el backend según el código del grupo.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>codigo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="detectarTipo"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>detectarTipo</b></span>
+                        <a href="#detectarTipo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>detectarTipo(valor: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="407"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:407</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Detecta el tipo de input según el valor recibido.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generarTodosLosCamposComoBloque"></a>
+                    <span class="name">
+                        <span ><b>generarTodosLosCamposComoBloque</b></span>
+                        <a href="#generarTodosLosCamposComoBloque"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generarTodosLosCamposComoBloque(producto: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="291"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:291</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Crea bloques de formulario con inputs dinámicos y opciones.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Array&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inicializa la vista cargando productos y catálogos base.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerEtiqueta"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>obtenerEtiqueta</b></span>
+                        <a href="#obtenerEtiqueta"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>obtenerEtiqueta(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="390"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:390</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Devuelve la etiqueta personalizada para el campo o la capitaliza.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onAgregarNuevoProducto"></a>
+                    <span class="name">
+                        <span ><b>onAgregarNuevoProducto</b></span>
+                        <a href="#onAgregarNuevoProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onAgregarNuevoProducto()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="220"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:220</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre el formulario en modo creación con un producto vacío.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCambioItemsPorPagina"></a>
+                    <span class="name">
+                        <span ><b>onCambioItemsPorPagina</b></span>
+                        <a href="#onCambioItemsPorPagina"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCambioItemsPorPagina(cantidad: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="429"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:429</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el cambio de ítems por página en la paginación.
+Recarga los datos si se requiere más de lo ya cargado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cantidad</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCambioPagina"></a>
+                    <span class="name">
+                        <span ><b>onCambioPagina</b></span>
+                        <a href="#onCambioPagina"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCambioPagina(pagina: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="417"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:417</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el cambio de página en la tabla.
+Si se requiere más productos que los cargados, solicita nuevos desde el backend.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>pagina</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCerrarFormulario"></a>
+                    <span class="name">
+                        <span ><b>onCerrarFormulario</b></span>
+                        <a href="#onCerrarFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCerrarFormulario()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="282"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:282</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cierra el formulario de creación/edición.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onColumnasActualizadas"></a>
+                    <span class="name">
+                        <span ><b>onColumnasActualizadas</b></span>
+                        <a href="#onColumnasActualizadas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onColumnasActualizadas(columnas: literal type[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza columnas visibles seleccionadas por el usuario.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columnas</td>
+                                            <td>
+                                                        <code>literal type[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEditarProducto"></a>
+                    <span class="name">
+                        <span ><b>onEditarProducto</b></span>
+                        <a href="#onEditarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEditarProducto(productoParcial: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre el formulario en modo edición para el producto seleccionado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productoParcial</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFiltrosAplicados"></a>
+                    <span class="name">
+                        <span ><b>onFiltrosAplicados</b></span>
+                        <a href="#onFiltrosAplicados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFiltrosAplicados(filtros: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="178"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Aplica filtros desde la barra de búsqueda.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filtros</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onGuardarProducto"></a>
+                    <span class="name">
+                        <span ><b>onGuardarProducto</b></span>
+                        <a href="#onGuardarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onGuardarProducto(productoActualizado: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Guarda un producto en modo creación o edición.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productoActualizado</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bloquesFormulario"></a>
+                    <span class="name">
+                        <span ><b>bloquesFormulario</b></span>
+                        <a href="#bloquesFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Array&lt;literal type&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columnasDisponibles"></a>
+                    <span class="name">
+                        <span ><b>columnasDisponibles</b></span>
+                        <a href="#columnasDisponibles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columnasSeleccionadas"></a>
+                    <span class="name">
+                        <span ><b>columnasSeleccionadas</b></span>
+                        <a href="#columnasSeleccionadas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtrosConfiguracion"></a>
+                    <span class="name">
+                        <span ><b>filtrosConfiguracion</b></span>
+                        <a href="#filtrosConfiguracion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formularioVisible"></a>
+                    <span class="name">
+                        <span ><b>formularioVisible</b></span>
+                        <a href="#formularioVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="grupos"></a>
+                    <span class="name">
+                        <span ><b>grupos</b></span>
+                        <a href="#grupos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="itemsPorPagina"></a>
+                    <span class="name">
+                        <span ><b>itemsPorPagina</b></span>
+                        <a href="#itemsPorPagina"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>10</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="limiteCargado"></a>
+                    <span class="name">
+                        <span ><b>limiteCargado</b></span>
+                        <a href="#limiteCargado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>100</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="marcas"></a>
+                    <span class="name">
+                        <span ><b>marcas</b></span>
+                        <a href="#marcas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="modoEdicion"></a>
+                    <span class="name">
+                        <span ><b>modoEdicion</b></span>
+                        <a href="#modoEdicion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="opcionesBusqueda"></a>
+                    <span class="name">
+                        <span ><b>opcionesBusqueda</b></span>
+                        <a href="#opcionesBusqueda"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { value: &#x27;codigo&#x27;, label: &#x27;Cod. Común&#x27; },
+    { value: &#x27;nombreUnico&#x27;, label: &#x27;Nombre&#x27; },
+    { value: &#x27;codbarras1&#x27;, label: &#x27;Cod. de Barras 1&#x27; },
+    { value: &#x27;codbarras2&#x27;, label: &#x27;Cod. de Barras 2&#x27; },
+    { value: &#x27;codbarras3&#x27;, label: &#x27;Cod. de Barras 3&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="opcionesPaginacion"></a>
+                    <span class="name">
+                        <span ><b>opcionesPaginacion</b></span>
+                        <a href="#opcionesPaginacion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { value: 10, label: &#x27;10&#x27; },
+    { value: 20, label: &#x27;20&#x27; },
+    { value: 50, label: &#x27;50&#x27; },
+    { value: 100, label: &#x27;100&#x27; },
+    { value: 20000, label: &#x27;Todos&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="paginaActual"></a>
+                    <span class="name">
+                        <span ><b>paginaActual</b></span>
+                        <a href="#paginaActual"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productoSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>productoSeleccionado</b></span>
+                        <a href="#productoSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productosVisibles$"></a>
+                    <span class="name">
+                        <span ><b>productosVisibles$</b></span>
+                        <a href="#productosVisibles$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;any[]&gt;</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="subgrupos"></a>
+                    <span class="name">
+                        <span ><b>subgrupos</b></span>
+                        <a href="#subgrupos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tiposProducto"></a>
+                    <span class="name">
+                        <span ><b>tiposProducto</b></span>
+                        <a href="#tiposProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalRegistros"></a>
+                    <span class="name">
+                        <span ><b>totalRegistros</b></span>
+                        <a href="#totalRegistros"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/Modulo_Administrador/Productos/vista-general/vista-general.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Store, select } from &#x27;@ngrx/store&#x27;;
+import { Observable, forkJoin } from &#x27;rxjs&#x27;;
+import { AppState } from &#x27;../../../state/tabla_NgRx/tabla.state&#x27;;
+import {
+  setProductos,
+  setColumnasVisibles,
+  setFiltrosDinamicos,
+  setTotalRegistros
+} from &#x27;../../../state/tabla_NgRx/tabla.actions&#x27;;
+import { selectProductos  } from &#x27;../../../state/tabla_NgRx/tabla.selectors&#x27;;
+import { BarraUbicacionComponent } from &#x27;../../../componentes_reutilizables/barra-ubicacion/barra-ubicacion.component&#x27;;
+import { BarraBusquedaComponent } from &#x27;../../../componentes_reutilizables/barra-busqueda/barra-busqueda.component&#x27;;
+import { TablaDinamicaComponent } from &#x27;../../../componentes_reutilizables/tabla-dinamica/tabla-dinamica.component&#x27;;
+import { FormularioDinamicoLoaderComponent } from &#x27;../../../componentes_reutilizables/formulario-dinamico-loader/formulario-dinamico-loader.component&#x27;;
+import { AdministracionServicios } from &#x27;../../../services/productos_services/productos.service&#x27;;
+import { MarcasService } from &#x27;../../../services/productos_services/marcas.service&#x27;;
+import { TarifasService } from &#x27;../../../services/productos_services/tarifas.service&#x27;;
+import { SubproductoService } from &#x27;../../../services/productos_services/subgrupos.service&#x27;;
+import { TipoProductoService } from &#x27;../../../services/productos_services/tipo-producto.service&#x27;;
+
+const etiquetasCampos: Record&lt;string, string&gt; &#x3D; {
+  nombreUnico: &#x27;Nombre&#x27;,
+  descripcion: &#x27;Descripción&#x27;,
+  productotipoId: &#x27;Tipo de Producto&#x27;,
+  productogrupoCodigo: &#x27;Grupo&#x27;,
+  idSubgrupo: &#x27;Sub Grupo&#x27;,
+  marcaId: &#x27;Marca&#x27;,
+  codbarras1: &#x27;Código de Barras 1&#x27;,
+  codigo2: &#x27;Código Común&#x27;,
+  codbarras2: &#x27;Código de Barras 2&#x27;,
+  codbarras3: &#x27;Código de Barras 3&#x27;,
+  codbarras4: &#x27;Código de Barras 4&#x27;,
+  codbarras5: &#x27;Código de Barras 5&#x27;,
+  existenciaMinima: &#x27;Stock Mínimo&#x27;,
+  existenciaMaxima: &#x27;Stock Máximo&#x27;,
+  proteinas: &#x27;Proteínas&#x27;,
+  calorias: &#x27;Calorías&#x27;,
+  unidadMedida: &#x27;Unidad de Medida&#x27;,
+  pvpa: &#x27;P.V.P. A&#x27;,
+  pvpb: &#x27;P.V.P. B&#x27;,
+  pvpc: &#x27;P.V.P. C&#x27;,
+  pvpd: &#x27;P.V.P. D&#x27;,
+  pvpe: &#x27;P.V.P. E&#x27;,
+  regimenProd: &#x27;Régimen&#x27;,
+  iceporcent: &#x27;ICE&#x27;,
+  ivaporcent: &#x27;Impuesto (IVA)&#x27;,
+  origen: &#x27;Origen&#x27;,
+  prodFechaCaducidad: &#x27;Fecha de Caducidad&#x27;,
+  tiempo: &#x27;Tiempo&#x27;,
+  descuentoActivo: &#x27;Descuento (Sí/No)&#x27;,
+  especificaciones: &#x27;Especificaciones (Sí/No)&#x27;,
+  tipoCuentaCosto: &#x27;Cta.Cont.Costo&#x27;,
+  tipoCuenta: &#x27;Cta.Cont.Compras(debe)&#x27;,
+  tipoCuentaVentas: &#x27;Cta.Cont.Ventas(haber)&#x27;
+};
+
+@Component({
+  selector: &#x27;app-vista-general&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    BarraUbicacionComponent,
+    BarraBusquedaComponent,
+    TablaDinamicaComponent,
+    FormularioDinamicoLoaderComponent
+  ],
+  templateUrl: &#x27;./vista-general.component.html&#x27;,
+  styleUrls: [&#x27;./vista-general.component.scss&#x27;],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class VistaGeneralComponent implements OnInit {
+  productosVisibles$: Observable&lt;any[]&gt;;
+  columnasDisponibles: any[] &#x3D; [];
+  columnasSeleccionadas: any[] &#x3D; [];
+  filtrosConfiguracion: any[] &#x3D; [];
+
+  formularioVisible &#x3D; false;
+  productoSeleccionado: any &#x3D; null;
+  modoEdicion &#x3D; true;
+  bloquesFormulario: Array&lt;{ titulo: string; campos: any[] }&gt; &#x3D; [];
+
+  paginaActual &#x3D; 1;
+  itemsPorPagina &#x3D; 10;
+  limiteCargado &#x3D; 100;
+  totalRegistros &#x3D; 0;
+
+  opcionesPaginacion &#x3D; [
+    { value: 10, label: &#x27;10&#x27; },
+    { value: 20, label: &#x27;20&#x27; },
+    { value: 50, label: &#x27;50&#x27; },
+    { value: 100, label: &#x27;100&#x27; },
+    { value: 20000, label: &#x27;Todos&#x27; }
+  ];
+
+  opcionesBusqueda &#x3D; [
+    { value: &#x27;codigo&#x27;, label: &#x27;Cod. Común&#x27; },
+    { value: &#x27;nombreUnico&#x27;, label: &#x27;Nombre&#x27; },
+    { value: &#x27;codbarras1&#x27;, label: &#x27;Cod. de Barras 1&#x27; },
+    { value: &#x27;codbarras2&#x27;, label: &#x27;Cod. de Barras 2&#x27; },
+    { value: &#x27;codbarras3&#x27;, label: &#x27;Cod. de Barras 3&#x27; }
+  ];
+
+  marcas: any[] &#x3D; [];
+  grupos: any[] &#x3D; [];
+  subgrupos: any[] &#x3D; [];
+  tiposProducto: any[] &#x3D; [];
+
+  constructor(
+    private store: Store&lt;AppState&gt;,
+    private adminService: AdministracionServicios,
+    private marcasService: MarcasService,
+    private TarifasService: TarifasService,
+    private SubproductoService: SubproductoService,
+    private tipoProductoService: TipoProductoService
+  ) {
+    this.productosVisibles$ &#x3D; this.store.pipe(select(selectProductos ));
+  }
+
+  /**
+   * Inicializa la vista cargando productos y catálogos base.
+   */
+  ngOnInit(): void {
+    this.cargarProductos(1, this.limiteCargado);
+    this.cargarOpciones();
+  }
+
+  /**
+   * Carga productos y columnas desde el backend.
+   */
+  cargarProductos(pagina: number, limite: number): void {
+    this.adminService.obtenerProductosYColumnas(pagina, limite).subscribe(({ productos, columnas, total }) &#x3D;&gt; {
+      this.store.dispatch(setProductos({ productos }));
+      this.store.dispatch(setTotalRegistros({ total }));
+      this.totalRegistros &#x3D; total;
+      this.limiteCargado &#x3D; productos.length;
+
+      this.columnasDisponibles &#x3D; columnas;
+      this.columnasSeleccionadas &#x3D; columnas.filter(col &#x3D;&gt; col.selected);
+      this.store.dispatch(setColumnasVisibles({ columnasVisibles: this.columnasSeleccionadas }));
+    });
+  }
+
+  /**
+   * Carga marcas, grupos, tipos y configura los filtros dinámicos.
+   */
+  cargarOpciones(): void {
+    forkJoin({
+      marcas: this.marcasService.getMarcas(),
+      grupos: this.TarifasService.getGruposConTarifas(),
+      tipos: this.tipoProductoService.getTiposProductos()
+    }).subscribe(({ marcas, grupos, tipos }) &#x3D;&gt; {
+      this.marcas &#x3D; marcas || [];
+      this.grupos &#x3D; grupos || [];
+      this.tiposProducto &#x3D; Array.isArray(tipos) ? tipos : [];
+
+      this.filtrosConfiguracion &#x3D; [
+        {
+          nombre: &#x27;Grupo&#x27;,
+          key: &#x27;productogrupoCodigo&#x27;,
+          opciones: this.grupos.map(g &#x3D;&gt; ({ id: g.codigo, nombre: g.nombre }))
+        },
+        {
+          nombre: &#x27;Marca&#x27;,
+          key: &#x27;marcaId&#x27;,
+          opciones: this.marcas.map(m &#x3D;&gt; ({ id: m.id, nombre: m.nombre }))
+        }
+      ];
+    });
+  }
+
+  /**
+   * Aplica filtros desde la barra de búsqueda.
+   */
+  onFiltrosAplicados(filtros: { [key: string]: string }): void {
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
+  }
+
+  /**
+   * Actualiza columnas visibles seleccionadas por el usuario.
+   */
+  onColumnasActualizadas(columnas: { name: string; key: string; selected: boolean }[]): void {
+    this.columnasDisponibles &#x3D; this.columnasDisponibles.map(col &#x3D;&gt; {
+      const actualizada &#x3D; columnas.find(c &#x3D;&gt; c.key &#x3D;&#x3D;&#x3D; col.key);
+      return actualizada ? { ...col, selected: actualizada.selected } : col;
+    });
+
+    this.columnasSeleccionadas &#x3D; this.columnasDisponibles.filter(col &#x3D;&gt; col.selected);
+    this.store.dispatch(setColumnasVisibles({ columnasVisibles: this.columnasSeleccionadas }));
+  }
+
+  /**
+   * Abre el formulario en modo edición para el producto seleccionado.
+   */
+  onEditarProducto(productoParcial: any): void {
+    this.modoEdicion &#x3D; true;
+  
+    // Buscamos el producto completo usando el código
+    this.store.pipe(select(selectProductos)).subscribe(productos &#x3D;&gt; {
+      const productoCompleto &#x3D; productos.find(p &#x3D;&gt; p.codigo &#x3D;&#x3D;&#x3D; productoParcial.codigo);
+  
+      if (productoCompleto) {
+        this.productoSeleccionado &#x3D; { ...productoCompleto };
+        this.cargarSubgruposPorGrupo(this.productoSeleccionado.productogrupoCodigo);
+        this.bloquesFormulario &#x3D; this.generarTodosLosCamposComoBloque(this.productoSeleccionado);
+        this.formularioVisible &#x3D; true;
+      } else {
+        console.warn(&#x27;Producto completo no encontrado en el store.&#x27;);
+      }
+    }).unsubscribe(); // Nos desuscribimos de inmediato para evitar memoria extra
+  }
+  
+
+  /**
+   * Abre el formulario en modo creación con un producto vacío.
+   */
+  onAgregarNuevoProducto(): void {
+    const productoVacio: any &#x3D; {};
+    Object.keys(etiquetasCampos).forEach(clave &#x3D;&gt; {
+      productoVacio[clave] &#x3D; null;
+    });
+
+    this.modoEdicion &#x3D; false;
+    this.productoSeleccionado &#x3D; productoVacio;
+    this.bloquesFormulario &#x3D; this.generarTodosLosCamposComoBloque(productoVacio);
+    this.formularioVisible &#x3D; true;
+  }
+
+  /**
+ * Carga los subgrupos desde el backend según el código del grupo.
+ */
+  cargarSubgruposPorGrupo(codigo: number): void {
+    if (!codigo) return;
+    this.SubproductoService.getSubproductosPorGrupo(codigo).subscribe(subs &#x3D;&gt; {
+      this.subgrupos &#x3D; subs;
+  
+      // Actualiza solo las opciones del campo idSubgrupo sin regenerar todo el formulario
+      const bloque &#x3D; this.bloquesFormulario.find(b &#x3D;&gt; b.titulo &#x3D;&#x3D;&#x3D; &#x27;Información Básica&#x27;);
+      if (bloque) {
+        const campoSubgrupo &#x3D; bloque.campos.find(c &#x3D;&gt; c.key &#x3D;&#x3D;&#x3D; &#x27;idSubgrupo&#x27;);
+        if (campoSubgrupo) {
+          campoSubgrupo.opciones &#x3D; this.subgrupos.map(s &#x3D;&gt; ({ valor: s.idSub, texto: s.nombre }));
+        }
+      }
+    });
+  }
+  
+
+
+  /**
+   * Guarda un producto en modo creación o edición.
+   */
+  onGuardarProducto(productoActualizado: any): void {
+    if (!productoActualizado) return;
+
+    if (this.modoEdicion) {
+      const { codigo, datos } &#x3D; productoActualizado;
+      this.adminService.editarProducto(codigo, datos).subscribe({
+        next: () &#x3D;&gt; {
+          this.cargarProductos(this.paginaActual, this.limiteCargado);
+          this.formularioVisible &#x3D; false;
+        },
+        error: (err) &#x3D;&gt; console.error(&#x27;Error al actualizar el producto:&#x27;, err)
+      });
+    } else {
+      this.adminService.crearProducto(productoActualizado).subscribe({
+        next: () &#x3D;&gt; {
+          this.cargarProductos(this.paginaActual, this.limiteCargado);
+          this.formularioVisible &#x3D; false;
+        },
+        error: (err) &#x3D;&gt; console.error(&#x27;Error al crear el producto:&#x27;, err)
+      });
+    }
+  }
+
+  /**
+   * Cierra el formulario de creación/edición.
+   */
+  onCerrarFormulario(): void {
+    this.formularioVisible &#x3D; false;
+    this.productoSeleccionado &#x3D; null;
+    this.bloquesFormulario &#x3D; [];
+  }
+
+  /**
+ * Crea bloques de formulario con inputs dinámicos y opciones.
+ */
+generarTodosLosCamposComoBloque(producto: any): Array&lt;{ titulo: string; campos: any[] }&gt; {
+  const bloques: Array&lt;{ titulo: string; campos: any[] }&gt; &#x3D; [];
+
+  const camposAgrupados: Record&lt;string, string[]&gt; &#x3D; {
+    &#x27;Información Básica&#x27;: [
+      &#x27;nombreUnico&#x27;, &#x27;descripcion&#x27;, &#x27;productotipoId&#x27;, &#x27;productogrupoCodigo&#x27;,
+      &#x27;idSubgrupo&#x27;, &#x27;marcaId&#x27;, &#x27;codbarras1&#x27;, &#x27;codigo2&#x27;
+    ],
+    &#x27;Impuestos y Precios&#x27;: [
+      &#x27;pvpa&#x27;, &#x27;pvpb&#x27;, &#x27;pvpc&#x27;, &#x27;pvpd&#x27;, &#x27;pvpe&#x27;,
+      &#x27;regimenProd&#x27;, &#x27;iceporcent&#x27;, &#x27;ivaporcent&#x27;
+    ],
+    &#x27;Información Adicional&#x27;: [
+      &#x27;codbarras2&#x27;, &#x27;codbarras3&#x27;, &#x27;codbarras4&#x27;, &#x27;codbarras5&#x27;,
+      &#x27;existenciaMinima&#x27;, &#x27;existenciaMaxima&#x27;, &#x27;proteinas&#x27;, &#x27;calorias&#x27;,
+      &#x27;unidadMedida&#x27;, &#x27;origen&#x27;, &#x27;prodFechaCaducidad&#x27;, &#x27;tiempo&#x27;,
+      &#x27;descuentoActivo&#x27;, &#x27;especificaciones&#x27;
+    ],
+    &#x27;Cuentas&#x27;: [
+      &#x27;tipoCuentaCosto&#x27;, &#x27;tipoCuenta&#x27;, &#x27;tipoCuentaVentas&#x27;
+    ]
+  };
+
+  for (const [titulo, keys] of Object.entries(camposAgrupados)) {
+    const campos &#x3D; keys.map(key &#x3D;&gt; {
+      let tipo &#x3D; this.detectarTipo(producto[key]);
+      let opciones: any[] | undefined;
+
+      if (key &#x3D;&#x3D;&#x3D; &#x27;ivaporcent&#x27;) {
+        tipo &#x3D; &#x27;radio&#x27;;
+        opciones &#x3D; [
+          { valor: &#x27;0&#x27;, etiqueta: &#x27;IVA - TARIFA CERO 0%&#x27; },
+          { valor: &#x27;15&#x27;, etiqueta: &#x27;IVA - TARIFA QUINCE 15%&#x27; },
+          { valor: &#x27;99&#x27;, etiqueta: &#x27;IVA - NO OBJETO DE IMPUESTOS 0%&#x27; }
+        ];
+      }
+
+      if (key &#x3D;&#x3D;&#x3D; &#x27;descuentoActivo&#x27; || key &#x3D;&#x3D;&#x3D; &#x27;especificaciones&#x27;) {
+        tipo &#x3D; &#x27;radio&#x27;;
+        opciones &#x3D; [
+          { valor: &#x27;true&#x27;, etiqueta: &#x27;Sí&#x27; },
+          { valor: &#x27;false&#x27;, etiqueta: &#x27;No&#x27; }
+        ];
+      }
+
+      if (key &#x3D;&#x3D;&#x3D; &#x27;productotipoId&#x27;) {
+        tipo &#x3D; &#x27;select&#x27;;
+        opciones &#x3D; this.tiposProducto.map(t &#x3D;&gt; ({ valor: t.id, texto: t.nombre }));
+      }
+
+      if (key &#x3D;&#x3D;&#x3D; &#x27;productogrupoCodigo&#x27;) {
+        tipo &#x3D; &#x27;select&#x27;;
+        opciones &#x3D; this.grupos.map(g &#x3D;&gt; ({ valor: g.codigo, texto: g.nombre }));
+
+        return {
+          key,
+          label: this.obtenerEtiqueta(key),
+          tipo,
+          opciones,
+          required: false,
+          onChange: (nuevoCodigo: any) &#x3D;&gt; {
+            const codigoNumerico &#x3D; Number(nuevoCodigo);
+            if (!isNaN(codigoNumerico)) {
+              this.productoSeleccionado.productogrupoCodigo &#x3D; codigoNumerico;
+              this.cargarSubgruposPorGrupo(codigoNumerico);
+            }
+          }
+        };
+      }
+
+      if (key &#x3D;&#x3D;&#x3D; &#x27;idSubgrupo&#x27;) {
+        tipo &#x3D; &#x27;select&#x27;;
+        opciones &#x3D; this.subgrupos.map(s &#x3D;&gt; ({ valor: s.idSub, texto: s.nombre }));
+      }
+
+      if (key &#x3D;&#x3D;&#x3D; &#x27;marcaId&#x27;) {
+        tipo &#x3D; &#x27;select&#x27;;
+        opciones &#x3D; this.marcas.map(m &#x3D;&gt; ({ valor: m.id, texto: m.nombre }));
+      }
+
+      return {
+        key,
+        label: this.obtenerEtiqueta(key),
+        tipo,
+        opciones,
+        required: false
+      };
+    });
+
+    bloques.push({ titulo, campos });
+  }
+
+  return bloques;
+}
+
+
+  /**
+   * Devuelve la etiqueta personalizada para el campo o la capitaliza.
+   */
+  private obtenerEtiqueta(key: string): string {
+    return etiquetasCampos[key] || this.capitalizar(key);
+  }
+
+  /**
+   * Capitaliza un texto separando camelCase y guiones bajos.
+   */
+  private capitalizar(texto: string): string {
+    return texto
+      .replace(/([A-Z])/g, &#x27; $1&#x27;)
+      .replace(/_/g, &#x27; &#x27;)
+      .replace(/\b\w/g, l &#x3D;&gt; l.toUpperCase());
+  }
+
+  /**
+   * Detecta el tipo de input según el valor recibido.
+   */
+  private detectarTipo(valor: any): string {
+    if (valor instanceof Date) return &#x27;date&#x27;;
+    if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) return &#x27;number&#x27;;
+    return &#x27;text&#x27;;
+  }
+
+  /**
+ * Maneja el cambio de página en la tabla.
+ * Si se requiere más productos que los cargados, solicita nuevos desde el backend.
+ */
+onCambioPagina(pagina: number): void {
+  const requeridoHasta &#x3D; pagina * this.itemsPorPagina;
+  if (requeridoHasta &gt; this.limiteCargado &amp;&amp; requeridoHasta &lt;&#x3D; this.totalRegistros) {
+    this.cargarProductos(1, requeridoHasta);
+  }
+  this.paginaActual &#x3D; pagina;
+}
+
+/**
+ * Maneja el cambio de ítems por página en la paginación.
+ * Recarga los datos si se requiere más de lo ya cargado.
+ */
+onCambioItemsPorPagina(cantidad: number): void {
+  this.itemsPorPagina &#x3D; cantidad;
+  this.paginaActual &#x3D; 1;
+  this.formularioVisible &#x3D; false;
+  this.productoSeleccionado &#x3D; null;
+  this.bloquesFormulario &#x3D; [];
+
+  if (cantidad &gt; this.limiteCargado) {
+    this.cargarProductos(1, cantidad);
+  }
+}
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Componente de barra de ubicación --&gt;
+&lt;app-barra-ubicacion&gt;&lt;/app-barra-ubicacion&gt;
+
+&lt;!-- Componente de barra de búsqueda con filtros y selección de columnas --&gt;
+&lt;app-barra-busqueda
+  [opcionesBusqueda]&#x3D;&quot;opcionesBusqueda&quot;
+  [filtrosConfiguracion]&#x3D;&quot;filtrosConfiguracion&quot;
+  [columnasDisponibles]&#x3D;&quot;columnasDisponibles&quot;
+  (filtrosAplicados)&#x3D;&quot;onFiltrosAplicados($event)&quot;
+  (actualizarColumnasEvent)&#x3D;&quot;onColumnasActualizadas($event)&quot;
+  (agregar)&#x3D;&quot;onAgregarNuevoProducto()&quot;&gt;
+&lt;/app-barra-busqueda&gt;
+
+&lt;!-- Componente de tabla dinámica --&gt;
+&lt;app-tabla-dinamica
+  [productoEditar]&#x3D;&quot;productoSeleccionado&quot;
+  [bloques]&#x3D;&quot;bloquesFormulario&quot;
+  [paginaActual]&#x3D;&quot;paginaActual&quot;
+  [itemsPorPagina]&#x3D;&quot;itemsPorPagina&quot;
+  [opcionesPaginacion]&#x3D;&quot;opcionesPaginacion&quot;
+  (editarRegistro)&#x3D;&quot;onEditarProducto($event)&quot;
+  (cambioPagina)&#x3D;&quot;onCambioPagina($event)&quot;
+  (cambioItemsPorPagina)&#x3D;&quot;onCambioItemsPorPagina($event)&quot;&gt;
+&lt;/app-tabla-dinamica&gt;
+
+&lt;!-- Formulario dinámico para creación o edición --&gt;
+&lt;app-formulario-dinamico-loader
+  [mostrar]&#x3D;&quot;formularioVisible&quot;
+  [titulo]&#x3D;&quot;modoEdicion ? &#x27;Editar Producto&#x27; : &#x27;Nuevo Producto&#x27;&quot;
+  [bloques]&#x3D;&quot;bloquesFormulario&quot;
+  [datos]&#x3D;&quot;productoSeleccionado&quot;
+  [modoEdicion]&#x3D;&quot;modoEdicion&quot;
+  [botonesAccion]&#x3D;&quot;[
+    { texto: modoEdicion ? &#x27;Guardar&#x27; : &#x27;Crear&#x27;, accion: &#x27;guardar&#x27; },
+    { texto: &#x27;Cancelar&#x27;, accion: &#x27;cancelar&#x27; }
+  ]&quot;
+  (guardar)&#x3D;&quot;onGuardarProducto($event)&quot;
+  (cerrar)&#x3D;&quot;onCerrarFormulario()&quot;
+  (accion)&#x3D;&quot;onCerrarFormulario()&quot;&gt;
+&lt;/app-formulario-dinamico-loader&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./vista-general.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Componente de barra de ubicación --><app-barra-ubicacion></app-barra-ubicacion><!-- Componente de barra de búsqueda con filtros y selección de columnas --><app-barra-busqueda  [opcionesBusqueda]="opcionesBusqueda"  [filtrosConfiguracion]="filtrosConfiguracion"  [columnasDisponibles]="columnasDisponibles"  (filtrosAplicados)="onFiltrosAplicados($event)"  (actualizarColumnasEvent)="onColumnasActualizadas($event)"  (agregar)="onAgregarNuevoProducto()"></app-barra-busqueda><!-- Componente de tabla dinámica --><app-tabla-dinamica  [productoEditar]="productoSeleccionado"  [bloques]="bloquesFormulario"  [paginaActual]="paginaActual"  [itemsPorPagina]="itemsPorPagina"  [opcionesPaginacion]="opcionesPaginacion"  (editarRegistro)="onEditarProducto($event)"  (cambioPagina)="onCambioPagina($event)"  (cambioItemsPorPagina)="onCambioItemsPorPagina($event)"></app-tabla-dinamica><!-- Formulario dinámico para creación o edición --><app-formulario-dinamico-loader  [mostrar]="formularioVisible"  [titulo]="modoEdicion ? \'Editar Producto\' : \'Nuevo Producto\'"  [bloques]="bloquesFormulario"  [datos]="productoSeleccionado"  [modoEdicion]="modoEdicion"  [botonesAccion]="[    { texto: modoEdicion ? \'Guardar\' : \'Crear\', accion: \'guardar\' },    { texto: \'Cancelar\', accion: \'cancelar\' }  ]"  (guardar)="onGuardarProducto($event)"  (cerrar)="onCerrarFormulario()"  (accion)="onCerrarFormulario()"></app-formulario-dinamico-loader></div>'
+    var COMPONENTS = [{'name': 'AdministracionComponent', 'selector': 'app-administracion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarraBusquedaComponent', 'selector': 'app-barra-busqueda'},{'name': 'BarraUbicacionComponent', 'selector': 'app-barra-ubicacion'},{'name': 'BillingSofAdminComponent', 'selector': 'app-billing-sof-admin'},{'name': 'ClientesComponent', 'selector': 'app-clientes'},{'name': 'ClientesVistaComponent', 'selector': 'app-clientes-vista'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'CuentasContablesComponent', 'selector': 'app-cuentas-contables'},{'name': 'CuentasVistasComponent', 'selector': 'app-cuentas-vistas'},{'name': 'DeleteModalComponent', 'selector': 'app-delete-modal'},{'name': 'DynamicMenuComponent', 'selector': 'app-dynamic-menu'},{'name': 'EmpresaComponent', 'selector': 'app-empresa'},{'name': 'FormularioDinamicoComponent', 'selector': 'app-formulario-dinamico'},{'name': 'FormularioDinamicoLoaderComponent', 'selector': 'app-formulario-dinamico-loader'},{'name': 'ImportarComponent', 'selector': 'app-importar'},{'name': 'MarcasComponent', 'selector': 'app-marcas'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PlanCuentasComponent', 'selector': 'app-plan-cuentas'},{'name': 'ProveedoresComponent', 'selector': 'app-proveedores'},{'name': 'ProveedoresVistaComponent', 'selector': 'app-proveedores-vista'},{'name': 'PruebraComponent', 'selector': 'app-pruebra'},{'name': 'TablaDinamicaComponent', 'selector': 'app-tabla-dinamica'},{'name': 'TarifasPorGrupoComponent', 'selector': 'app-tarifas-por-grupo'},{'name': 'TiposClientesComponent', 'selector': 'app-tipos-clientes'},{'name': 'TiposProductosComponent', 'selector': 'app-tipos-productos'},{'name': 'TiposProveedoresComponent', 'selector': 'app-tipos-proveedores'},{'name': 'TiposPVPComponent', 'selector': 'app-tipos-pvp'},{'name': 'TiposPvpVistaComponent', 'selector': 'app-tipos-pvp-vista'},{'name': 'VistaGeneralComponent', 'selector': 'app-vista-general'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'VistaGeneralComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'VistaGeneralComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

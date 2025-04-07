@@ -1,0 +1,1019 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-biling-3 documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-biling-3 documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >AdministracionServicios</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/services/productos_services/productos.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Servicio encargado de obtener productos desde la API y generar dinámicamente las columnas,
+además de extraer información útil como marcas y grupos para filtros.</p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#crearProducto" >crearProducto</a>
+                            </li>
+                            <li>
+                                <a href="#editarProducto" >editarProducto</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#extraerValoresUnicos" >extraerValoresUnicos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#formatearNombre" >formatearNombre</a>
+                            </li>
+                            <li>
+                                <a href="#obtenerProductosYColumnas" >obtenerProductosYColumnas</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#transformarProducto" >transformarProducto</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(http: HttpClient)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/services/productos_services/productos.service.ts:16</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="crearProducto"></a>
+                    <span class="name">
+                        <span ><b>crearProducto</b></span>
+                        <a href="#crearProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>crearProducto(producto: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/services/productos_services/productos.service.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Envía una solicitud para crear un nuevo producto.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Datos del nuevo producto</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable con la respuesta del servidor</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editarProducto"></a>
+                    <span class="name">
+                        <span ><b>editarProducto</b></span>
+                        <a href="#editarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editarProducto(codigo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/services/productos_services/productos.service.ts:160</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Edita un producto enviando un JSON actualizado al endpoint correspondiente.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>codigo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Código del producto a editar.</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Datos actualizados del producto en formato JSON.</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable con la respuesta del servidor.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="extraerValoresUnicos"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>extraerValoresUnicos</b></span>
+                        <a href="#extraerValoresUnicos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>extraerValoresUnicos(productos: any[], key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/services/productos_services/productos.service.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Extrae valores únicos de una lista de productos para una clave específica.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>productos</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Lista de productos</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Clave a extraer</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>string[]</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Lista de valores únicos como strings</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatearNombre"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>formatearNombre</b></span>
+                        <a href="#formatearNombre"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>formatearNombre(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/services/productos_services/productos.service.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Convierte una clave de objeto a un nombre legible para columnas.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>key</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Clave cruda del objeto</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Nombre legible</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerProductosYColumnas"></a>
+                    <span class="name">
+                        <span ><b>obtenerProductosYColumnas</b></span>
+                        <a href="#obtenerProductosYColumnas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>obtenerProductosYColumnas(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, limit: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">src/app/services/productos_services/productos.service.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Llama al endpoint para obtener productos paginados y genera:</p>
+<ul>
+<li>Lista de productos procesados</li>
+<li>Columnas visibles a partir del primer producto</li>
+<li>Marcas únicas</li>
+<li>Grupos únicos</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Default value</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>page</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>1</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Página actual</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>limit</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+                                            <td>
+                                                    <code>0</code>
+                                            </td>
+
+                                            <td>
+                                                    <p>Número de productos por página</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable con productos, columnas, marcas, grupos y total</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="transformarProducto"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>transformarProducto</b></span>
+                        <a href="#transformarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>transformarProducto(producto: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/services/productos_services/productos.service.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Transforma un producto recibido al formato correcto para la API.
+Asegura tipos válidos según la interfaz Producto.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Producto transformado</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
+import { map } from &#x27;rxjs/operators&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { ApiUrls } from &#x27;../../enums/api-urls.enum&#x27;;
+import { Enums_productos } from &#x27;../../enums/enums_Productos/productos.enum&#x27;;
+import { Producto } from &#x27;../../Interfaces/Productos/producto.model&#x27;;
+
+/**
+ * Servicio encargado de obtener productos desde la API y generar dinámicamente las columnas,
+ * además de extraer información útil como marcas y grupos para filtros.
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;
+})
+export class AdministracionServicios {
+  constructor(private http: HttpClient) {}
+
+  /**
+   * Llama al endpoint para obtener productos paginados y genera:
+   * - Lista de productos procesados
+   * - Columnas visibles a partir del primer producto
+   * - Marcas únicas
+   * - Grupos únicos
+   *
+   * @param page Página actual
+   * @param limit Número de productos por página
+   * @returns Observable con productos, columnas, marcas, grupos y total
+   */
+  obtenerProductosYColumnas(
+    page: number &#x3D; 1,
+    limit: number &#x3D; 0
+  ): Observable&lt;{
+    productos: Producto[];
+    columnas: any[];
+    marcas: string[];
+    grupos: string[];
+    total: number;
+  }&gt; {
+    const url &#x3D; &#x60;${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.todos}?page&#x3D;${page}&amp;limit&#x3D;${limit}&#x60;;
+
+    return this.http.get&lt;any&gt;(url).pipe(
+      map((response: any) &#x3D;&gt; {
+        const productosRaw &#x3D; response?.respuesta?.datos?.productos || [];
+        const total &#x3D; response?.respuesta?.datos?.total || productosRaw.length;
+
+        if (!Array.isArray(productosRaw) || productosRaw.length &#x3D;&#x3D;&#x3D; 0) {
+          return { productos: [], columnas: [], marcas: [], grupos: [], total };
+        }
+
+        const productos: Producto[] &#x3D; productosRaw.map(p &#x3D;&gt; this.transformarProducto(p));
+
+        const primerProducto &#x3D; productos[0];
+        const columnas &#x3D; Object.keys(primerProducto).map(key &#x3D;&gt; ({
+          name: this.formatearNombre(key),
+          key,
+          selected: [&#x27;codigo&#x27;, &#x27;nombreUnico&#x27;, &#x27;precio&#x27;, &#x27;stockactual&#x27;, &#x27;productogrupoCodigo&#x27;, &#x27;marcaId&#x27;].includes(key)
+        }));
+
+        const marcas &#x3D; this.extraerValoresUnicos(productos, &#x27;marcaId&#x27;);
+        const grupos &#x3D; this.extraerValoresUnicos(productos, &#x27;productogrupoCodigo&#x27;);
+
+        return { productos, columnas, marcas, grupos, total };
+      })
+    );
+  }
+
+  /**
+   * Transforma un objeto recibido de la API a un objeto &#x60;Producto&#x60; con tipos correctos.
+   * @param p Producto crudo recibido desde la API
+   * @returns Producto transformado
+   */
+  /**
+ * Transforma un producto recibido al formato correcto para la API.
+ * Asegura tipos válidos según la interfaz Producto.
+ * @param producto Objeto original del producto
+ * @returns Objeto transformado con tipos correctos
+ */
+private transformarProducto(producto: any): any {
+  const fechas: string[] &#x3D; [
+    &#x27;fechacreacion&#x27;, &#x27;fechaultactualizacion&#x27;, &#x27;finpvppromo&#x27;, &#x27;fechafinpromo&#x27;,
+    &#x27;prodFechaCaducidad&#x27;, &#x27;fechaDestacado&#x27;, &#x27;fechaCompra&#x27;
+  ];
+
+  const resultado: any &#x3D; {};
+
+  for (const key in producto) {
+    const valor &#x3D; producto[key];
+
+    // Normalizar fechas
+    if (fechas.includes(key)) {
+      if (!valor || valor &#x3D;&#x3D;&#x3D; &#x27;Invalid Date&#x27;) {
+        resultado[key] &#x3D; null;
+      } else if (valor instanceof Date) {
+        resultado[key] &#x3D; valor.toISOString();
+      } else if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; !isNaN(Date.parse(valor))) {
+        resultado[key] &#x3D; new Date(valor).toISOString();
+      } else {
+        resultado[key] &#x3D; null;
+      }
+    }
+
+    // Normalizar números
+    else if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; valor.trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;) {
+      resultado[key] &#x3D; null;
+    } else if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; !isNaN(Number(valor))) {
+      resultado[key] &#x3D; Number(valor);
+    } else if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+      resultado[key] &#x3D; valor;
+    }
+
+    // Normalizar booleanos (si llegan como número)
+    else if (valor &#x3D;&#x3D;&#x3D; 0 || valor &#x3D;&#x3D;&#x3D; 1) {
+      resultado[key] &#x3D; valor;
+    }
+
+    // Normalizar strings
+    else if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+      resultado[key] &#x3D; valor;
+    }
+
+    // Default a null
+    else {
+      resultado[key] &#x3D; valor ?? null;
+    }
+  }
+
+  return resultado;
+}
+
+
+  /**
+   * Convierte una clave de objeto a un nombre legible para columnas.
+   * @param key Clave cruda del objeto
+   * @returns Nombre legible
+   */
+  private formatearNombre(key: string): string {
+    return key
+      .replace(/([A-Z])/g, &#x27; $1&#x27;)
+      .replace(/^./, str &#x3D;&gt; str.toUpperCase());
+  }
+
+  /**
+   * Extrae valores únicos de una lista de productos para una clave específica.
+   * @param productos Lista de productos
+   * @param key Clave a extraer
+   * @returns Lista de valores únicos como strings
+   */
+  private extraerValoresUnicos(productos: any[], key: string): string[] {
+    return Array.from(new Set(productos.map(p &#x3D;&gt; p[key]).filter(Boolean))).map(v &#x3D;&gt; String(v));
+  }
+
+  /**
+   * Edita un producto enviando un JSON actualizado al endpoint correspondiente.
+   * 
+   * @param codigo Código del producto a editar.
+   * @param data Datos actualizados del producto en formato JSON.
+   * @returns Observable con la respuesta del servidor.
+   */
+  editarProducto(codigo: number, data: any): Observable&lt;any&gt; {
+    const url &#x3D; &#x60;${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Editar}/${codigo}&#x60;;
+
+    return this.http.put&lt;any&gt;(url, data).pipe(
+      map(response &#x3D;&gt; {
+        return response;
+      })
+    );
+  }
+
+  /**
+ * Envía una solicitud para crear un nuevo producto.
+ * @param producto Datos del nuevo producto
+ * @returns Observable con la respuesta del servidor
+ */
+  crearProducto(producto: any): Observable&lt;any&gt; {
+    const url &#x3D; &#x60;${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}&#x60;;
+    return this.http.post(url, producto);
+  }
+
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdministracionServicios.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

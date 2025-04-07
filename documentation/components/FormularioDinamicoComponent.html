@@ -1,0 +1,2046 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-biling-3 documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-biling-3 documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  FormularioDinamicoComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente de formulario reutilizable y dinámico.
+Recibe bloques de campos que pueden variar según el contexto.
+Permite personalizar inputs, selects, botones y manejar eventos.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnChanges</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-formulario-dinamico</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./formulario-dinamico.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./formulario-dinamico.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#capitalizar" >capitalizar</a>
+                            </li>
+                            <li>
+                                <a href="#emitirDatosActualizados" >emitirDatosActualizados</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#esFecha" >esFecha</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generarBloquesDesdeDatos" >generarBloquesDesdeDatos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#inferirTipoCampo" >inferirTipoCampo</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#onAccion" >onAccion</a>
+                            </li>
+                            <li>
+                                <a href="#onCampoChange" >onCampoChange</a>
+                            </li>
+                            <li>
+                                <a href="#onCerrar" >onCerrar</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#bloques" >bloques</a>
+                            </li>
+                            <li>
+                                <a href="#botonesAccion" >botonesAccion</a>
+                            </li>
+                            <li>
+                                <a href="#datos" >datos</a>
+                            </li>
+                            <li>
+                                <a href="#modoEdicion" >modoEdicion</a>
+                            </li>
+                            <li>
+                                <a href="#opcionesSelect" >opcionesSelect</a>
+                            </li>
+                            <li>
+                                <a href="#titulo" >titulo</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#accion" >accion</a>
+                            </li>
+                            <li>
+                                <a href="#cerrar" >cerrar</a>
+                            </li>
+                            <li>
+                                <a href="#closed" >closed</a>
+                            </li>
+                            <li>
+                                <a href="#guardar" >guardar</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#hayBloques" >hayBloques</a>
+                                </li>
+                                <li>
+                                    <a href="#hayBotones" >hayBotones</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="bloques"></a>
+                        <b>bloques</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Array&lt;literal type&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:29</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Bloques estructurados que agrupan los campos del formulario</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="botonesAccion"></a>
+                        <b>botonesAccion</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Array&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:41</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Lista de botones que se mostrarán al pie del formulario</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="datos"></a>
+                        <b>datos</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string | any&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:35</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Datos precargados del formulario</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="modoEdicion"></a>
+                        <b>modoEdicion</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:38</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Determina si el formulario está en modo edición</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="opcionesSelect"></a>
+                        <b>opcionesSelect</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string | string[]&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:32</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Opciones disponibles para campos tipo select</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="titulo"></a>
+                        <b>titulo</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Formulario&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:26</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Título del formulario</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="accion"></a>
+                        <b>accion</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:50</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Evento emitido al ejecutar una acción personalizada</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="cerrar"></a>
+                        <b>cerrar</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:47</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Evento emitido al hacer clic en cerrar</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="closed"></a>
+                        <b>closed</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:53</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Evento emitido cuando se cierra completamente el formulario</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="guardar"></a>
+                        <b>guardar</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:44</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Evento emitido al guardar los datos del formulario</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="capitalizar"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>capitalizar</b></span>
+                        <a href="#capitalizar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>capitalizar(texto: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Convierte claves en texto legible capitalizado</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>texto</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Texto a capitalizar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Texto capitalizado</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emitirDatosActualizados"></a>
+                    <span class="name">
+                        <span ><b>emitirDatosActualizados</b></span>
+                        <a href="#emitirDatosActualizados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>emitirDatosActualizados()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retorna el código y los datos modificados del formulario
+solo si el formulario está en modo edición.
+Se puede invocar manualmente desde el componente padre.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type | null</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Objeto con el código y los datos actualizados</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="esFecha"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>esFecha</b></span>
+                        <a href="#esFecha"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>esFecha(valor: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Valida si un valor representa una fecha válida con guiones o slashes</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Valor a evaluar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>True si el valor tiene formato y es parseable como fecha</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generarBloquesDesdeDatos"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generarBloquesDesdeDatos</b></span>
+                        <a href="#generarBloquesDesdeDatos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generarBloquesDesdeDatos(datos: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Genera un bloque único con todos los campos del objeto recibido</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>datos</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto con claves y valores para el formulario</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Array&lt;literal type&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Arreglo con un solo bloque de campos</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inferirTipoCampo"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>inferirTipoCampo</b></span>
+                        <a href="#inferirTipoCampo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>inferirTipoCampo(valor: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determina el tipo de campo según el valor recibido</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Valor del campo</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Tipo de input: text, number, radio o date</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: SimpleChanges)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Detecta cambios en los inputs y genera bloques automáticamente
+si no se han definido manualmente.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>changes</td>
+                                            <td>
+                                                        <code>SimpleChanges</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onAccion"></a>
+                    <span class="name">
+                        <span ><b>onAccion</b></span>
+                        <a href="#onAccion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onAccion(accion: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ejecuta una acción personalizada y cierra si es cancelar</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>accion</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Nombre de la acción a ejecutar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCampoChange"></a>
+                    <span class="name">
+                        <span ><b>onCampoChange</b></span>
+                        <a href="#onCampoChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCampoChange(campo: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, valor: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="198"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:198</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Ejecuta la función <code>onChange</code> si está definida en el campo.
+Esto permite reacciones dinámicas como cargar subgrupos al cambiar el grupo.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>campo</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Campo actual con posible onChange</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>valor</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Valor seleccionado por el usuario</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCerrar"></a>
+                    <span class="name">
+                        <span ><b>onCerrar</b></span>
+                        <a href="#onCerrar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCerrar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Emite el evento de cerrar el formulario sin guardar</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Emite el evento de guardar al enviar el formulario.
+En modo edición se emite el código por separado.
+En modo creación se emite un único objeto con todos los datos.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hayBloques"></a>
+                        <span class="name"><b>hayBloques</b><a href="#hayBloques"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>hayBloques()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:58</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Getter para verificar si hay bloques disponibles</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="hayBotones"></a>
+                        <span class="name"><b>hayBotones</b><a href="#hayBotones"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>hayBotones()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/componentes_reutilizables/formulario-dinamico/formulario-dinamico.component.ts:65</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Getter para verificar si hay botones de acción definidos</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges
+} from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+
+/**
+ * Componente de formulario reutilizable y dinámico.
+ * Recibe bloques de campos que pueden variar según el contexto.
+ * Permite personalizar inputs, selects, botones y manejar eventos.
+ */
+@Component({
+  selector: &#x27;app-formulario-dinamico&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: &#x27;./formulario-dinamico.component.html&#x27;,
+  styleUrls: [&#x27;./formulario-dinamico.component.scss&#x27;]
+})
+export class FormularioDinamicoComponent implements OnChanges {
+  /** Título del formulario */
+  @Input() titulo: string &#x3D; &#x27;Formulario&#x27;;
+
+  /** Bloques estructurados que agrupan los campos del formulario */
+  @Input() bloques: Array&lt;{ titulo: string; campos: any[] }&gt; &#x3D; [];
+
+  /** Opciones disponibles para campos tipo select */
+  @Input() opcionesSelect: Record&lt;string, string[]&gt; &#x3D; {};
+
+  /** Datos precargados del formulario */
+  @Input() datos: Record&lt;string, any&gt; &#x3D; {};
+
+  /** Determina si el formulario está en modo edición */
+  @Input() modoEdicion: boolean &#x3D; false;
+
+  /** Lista de botones que se mostrarán al pie del formulario */
+  @Input() botonesAccion: Array&lt;any&gt; &#x3D; [];
+
+  /** Evento emitido al guardar los datos del formulario */
+  @Output() guardar &#x3D; new EventEmitter&lt;any&gt;();
+
+  /** Evento emitido al hacer clic en cerrar */
+  @Output() cerrar &#x3D; new EventEmitter&lt;void&gt;();
+
+  /** Evento emitido al ejecutar una acción personalizada */
+  @Output() accion &#x3D; new EventEmitter&lt;string&gt;();
+
+  /** Evento emitido cuando se cierra completamente el formulario */
+  @Output() closed &#x3D; new EventEmitter&lt;void&gt;();
+
+  /**
+   * Getter para verificar si hay bloques disponibles
+   */
+  get hayBloques(): boolean {
+    return Array.isArray(this.bloques) &amp;&amp; this.bloques.length &gt; 0;
+  }
+
+  /**
+   * Getter para verificar si hay botones de acción definidos
+   */
+  get hayBotones(): boolean {
+    return Array.isArray(this.botonesAccion) &amp;&amp; this.botonesAccion.length &gt; 0;
+  }
+
+  /**
+   * Detecta cambios en los inputs y genera bloques automáticamente
+   * si no se han definido manualmente.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if ((!this.bloques || this.bloques.length &#x3D;&#x3D;&#x3D; 0) &amp;&amp; this.datos) {
+      this.bloques &#x3D; this.generarBloquesDesdeDatos(this.datos);
+    }
+  }
+
+  /**
+   * Genera un bloque único con todos los campos del objeto recibido
+   * @param datos Objeto con claves y valores para el formulario
+   * @returns Arreglo con un solo bloque de campos
+   */
+  private generarBloquesDesdeDatos(datos: any): Array&lt;{ titulo: string; campos: any[] }&gt; {
+    const campos &#x3D; Object.keys(datos).map(key &#x3D;&gt; ({
+      key,
+      label: this.capitalizar(key),
+      tipo: this.inferirTipoCampo(datos[key]),
+      required: false
+    }));
+
+    return [{
+      titulo: &#x27;Todos los Campos&#x27;,
+      campos
+    }];
+  }
+
+  /**
+   * Convierte claves en texto legible capitalizado
+   * @param texto Texto a capitalizar
+   * @returns Texto capitalizado
+   */
+  private capitalizar(texto: string): string {
+    return texto
+      .replace(/([A-Z])/g, &#x27; $1&#x27;)
+      .replace(/_/g, &#x27; &#x27;)
+      .replace(/\b\w/g, l &#x3D;&gt; l.toUpperCase());
+  }
+
+  /**
+   * Determina el tipo de campo según el valor recibido
+   * @param valor Valor del campo
+   * @returns Tipo de input: text, number, radio o date
+   */
+  private inferirTipoCampo(valor: any): string {
+    if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) return &#x27;number&#x27;;
+    if (typeof valor &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) return &#x27;radio&#x27;;
+    if (this.esFecha(valor)) return &#x27;date&#x27;;
+    return &#x27;text&#x27;;
+  }
+
+  /**
+   * Valida si un valor representa una fecha válida con guiones o slashes
+   * @param valor Valor a evaluar
+   * @returns True si el valor tiene formato y es parseable como fecha
+   */
+  private esFecha(valor: any): boolean {
+    if (!valor || typeof valor !&#x3D;&#x3D; &#x27;string&#x27;) return false;
+    const contieneFormatoFecha &#x3D; /[-/]/.test(valor);
+    return contieneFormatoFecha &amp;&amp; !isNaN(Date.parse(valor));
+  }
+
+  /**
+   * Emite el evento de guardar al enviar el formulario.
+   * En modo edición se emite el código por separado.
+   * En modo creación se emite un único objeto con todos los datos.
+   */
+  onSubmit(): void {
+    if (this.modoEdicion) {
+      if (!this.datos || typeof this.datos[&#x27;codigo&#x27;] !&#x3D;&#x3D; &#x27;number&#x27;) return;
+
+      this.guardar.emit({
+        codigo: this.datos[&#x27;codigo&#x27;],
+        datos: { ...this.datos }
+      });
+    } else {
+      const datosParaCrear &#x3D; { ...this.datos };
+    console.log(&#x27;Enviando datos para creación:&#x27;, datosParaCrear);
+    this.guardar.emit(datosParaCrear);
+    }
+
+    this.closed.emit();
+  }
+
+  /**
+   * Emite el evento de cerrar el formulario sin guardar
+   */
+  onCerrar(): void {
+    this.cerrar.emit();
+    this.closed.emit();
+  }
+
+  /**
+   * Ejecuta una acción personalizada y cierra si es cancelar
+   * @param accion Nombre de la acción a ejecutar
+   */
+  onAccion(accion: string): void {
+    this.accion.emit(accion);
+    if (accion &#x3D;&#x3D;&#x3D; &#x27;cancelar&#x27;) {
+      this.closed.emit();
+    }
+  }
+
+  /**
+   * Retorna el código y los datos modificados del formulario
+   * solo si el formulario está en modo edición.
+   * Se puede invocar manualmente desde el componente padre.
+   * @returns Objeto con el código y los datos actualizados
+   */
+  emitirDatosActualizados(): { codigo: number; datos: any } | null {
+    if (!this.modoEdicion || !this.datos || typeof this.datos[&#x27;codigo&#x27;] !&#x3D;&#x3D; &#x27;number&#x27;) {
+      return null;
+    }
+
+    return {
+      codigo: this.datos[&#x27;codigo&#x27;],
+      datos: { ...this.datos }
+    };
+  }
+
+  /**
+ * Ejecuta la función &#x60;onChange&#x60; si está definida en el campo.
+ * Esto permite reacciones dinámicas como cargar subgrupos al cambiar el grupo.
+ * 
+ * @param campo Campo actual con posible onChange
+ * @param valor Valor seleccionado por el usuario
+ */
+onCampoChange(campo: any, valor: any): void {
+  if (campo.onChange &amp;&amp; typeof campo.onChange &#x3D;&#x3D;&#x3D; &#x27;function&#x27;) {
+    campo.onChange(valor);
+  }
+}
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;modal-overlay&quot;&gt;
+  &lt;div class&#x3D;&quot;modal-container&quot;&gt;
+    &lt;div class&#x3D;&quot;modal-header&quot;&gt;
+      &lt;h2&gt;{{ titulo }}&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;close-btn&quot; (click)&#x3D;&quot;onCerrar()&quot;&gt;&amp;times;&lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;modal-content catalogo_inputs&quot;&gt;
+      &lt;form (ngSubmit)&#x3D;&quot;onSubmit()&quot; *ngIf&#x3D;&quot;bloques &amp;&amp; bloques.length&quot;&gt;
+        &lt;!-- Contenedor de bloques en 2 columnas --&gt;
+        &lt;div class&#x3D;&quot;bloques-grid&quot;&gt;
+          &lt;ng-container *ngFor&#x3D;&quot;let bloque of bloques&quot;&gt;
+            &lt;div class&#x3D;&quot;bloque-seccion&quot;&gt;
+              &lt;div class&#x3D;&quot;titulo-bloque&quot;&gt;{{ bloque.titulo }}&lt;/div&gt;
+
+              &lt;!-- Contenedor de campos --&gt;
+              &lt;div class&#x3D;&quot;form-row&quot;&gt;
+                &lt;ng-container *ngFor&#x3D;&quot;let campo of bloque.campos&quot;&gt;
+                  &lt;div class&#x3D;&quot;form-group&quot; [ngSwitch]&#x3D;&quot;campo.tipo&quot;&gt;
+                    &lt;!-- Input estándar y otros tipos --&gt;
+                    &lt;ng-container *ngSwitchDefault&gt;
+                      &lt;div class&#x3D;&quot;label-personalizable&quot;&gt;
+                        &lt;span class&#x3D;&quot;texto-costado&quot;&gt;{{ campo.label }}&lt;/span&gt;
+                        &lt;input
+                          class&#x3D;&quot;input-normal&quot;
+                          [type]&#x3D;&quot;campo.tipo&quot;
+                          [(ngModel)]&#x3D;&quot;datos[campo.key]&quot;
+                          [name]&#x3D;&quot;campo.key&quot;
+                          [disabled]&#x3D;&quot;campo.key &#x3D;&#x3D;&#x3D; &#x27;codigo&#x27;&quot;
+                          [required]&#x3D;&quot;campo.required&quot;
+                        /&gt;
+                      &lt;/div&gt;
+                    &lt;/ng-container&gt;
+
+                    &lt;!-- Select --&gt;
+                    &lt;ng-container *ngSwitchCase&#x3D;&quot;&#x27;select&#x27;&quot;&gt;
+                      &lt;div class&#x3D;&quot;label-personalizable&quot;&gt;
+                        &lt;span class&#x3D;&quot;texto-costado&quot;&gt;{{ campo.label }}&lt;/span&gt;
+                        &lt;select
+                          class&#x3D;&quot;input-normal&quot;
+                          [(ngModel)]&#x3D;&quot;datos[campo.key]&quot;
+                          [name]&#x3D;&quot;campo.key&quot;
+                          [disabled]&#x3D;&quot;campo.key &#x3D;&#x3D;&#x3D; &#x27;codigo&#x27;&quot;
+                          [required]&#x3D;&quot;campo.required&quot;
+                          (change)&#x3D;&quot;onCampoChange(campo, datos[campo.key])&quot;
+                        &gt;
+                          &lt;option
+                            *ngFor&#x3D;&quot;let opcion of campo.opciones&quot;
+                            [value]&#x3D;&quot;opcion.valor&quot;
+                          &gt;
+                            {{ opcion.texto }}
+                          &lt;/option&gt;
+                        &lt;/select&gt;
+                      &lt;/div&gt;
+                    &lt;/ng-container&gt;
+
+                    &lt;!-- Radio dinámico (Sí/No o múltiples opciones) --&gt;
+                    &lt;ng-container *ngSwitchCase&#x3D;&quot;&#x27;radio&#x27;&quot;&gt;
+                      &lt;div class&#x3D;&quot;label-personalizable&quot;&gt;
+                        &lt;span class&#x3D;&quot;texto-costado&quot;&gt;{{ campo.label }}&lt;/span&gt;
+
+                        &lt;!-- Toggle de dos opciones --&gt;
+                        &lt;div
+                          class&#x3D;&quot;radio-toggle-options&quot;
+                          *ngIf&#x3D;&quot;campo.opciones?.length &#x3D;&#x3D;&#x3D; 2&quot;
+                        &gt;
+                          &lt;label
+                            class&#x3D;&quot;radio-toggle-option&quot;
+                            *ngFor&#x3D;&quot;let opcion of campo.opciones&quot;
+                          &gt;
+                            &lt;input
+                              type&#x3D;&quot;radio&quot;
+                              [name]&#x3D;&quot;campo.key&quot;
+                              [value]&#x3D;&quot;opcion.valor&quot;
+                              [(ngModel)]&#x3D;&quot;datos[campo.key]&quot;
+                            /&gt;
+                            &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+                            {{ opcion.etiqueta }}
+                          &lt;/label&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Lista de múltiples opciones --&gt;
+                        &lt;div
+                          class&#x3D;&quot;radio-list-options&quot;
+                          *ngIf&#x3D;&quot;campo.opciones?.length &gt; 2&quot;
+                        &gt;
+                          &lt;label
+                            class&#x3D;&quot;radio-list-option&quot;
+                            *ngFor&#x3D;&quot;let opcion of campo.opciones&quot;
+                          &gt;
+                            &lt;input
+                              type&#x3D;&quot;radio&quot;
+                              [name]&#x3D;&quot;campo.key&quot;
+                              [value]&#x3D;&quot;opcion.valor&quot;
+                              [(ngModel)]&#x3D;&quot;datos[campo.key]&quot;
+                            /&gt;
+                            &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+                            {{ opcion.etiqueta }}
+                          &lt;/label&gt;
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                    &lt;/ng-container&gt;
+                  &lt;/div&gt;
+                &lt;/ng-container&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/ng-container&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Botones de acción --&gt;
+        &lt;div class&#x3D;&quot;button-group&quot; *ngIf&#x3D;&quot;botonesAccion?.length&quot;&gt;
+          &lt;div class&#x3D;&quot;button-row&quot;&gt;
+            &lt;div class&#x3D;&quot;input-group&quot; *ngFor&#x3D;&quot;let boton of botonesAccion&quot;&gt;
+              &lt;button
+                [type]&#x3D;&quot;boton.accion &#x3D;&#x3D;&#x3D; &#x27;guardar&#x27; ? &#x27;submit&#x27; : &#x27;button&#x27;&quot;
+                class&#x3D;&quot;text-btn&quot;
+                (click)&#x3D;&quot;
+                  boton.accion !&#x3D;&#x3D; &#x27;guardar&#x27; ? onAccion(boton.accion) : null
+                &quot;
+                [disabled]&#x3D;&quot;boton.deshabilitado&quot;
+              &gt;
+                {{ boton.texto }}
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./formulario-dinamico.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;../../catalogo_css/colores.scss&#x27;;
+@import &#x27;../../catalogo_css/tipografia.scss&#x27;;
+@import &#x27;../../catalogo_css/catalogo_inputs.scss&#x27;;
+
+/**
+ * Overlay del modal con fondo difuminado
+ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease-out;
+
+  .modal-container {
+    background-color: $fondo-claro;
+    padding: 32px;
+    border-radius: 14px;
+    width: 95%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+/**
+ * Cabecera del modal con título y botón de cierre
+ */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+
+  h2 {
+    font-size: $font-size-headline-title;
+    color: $texto-principal;
+    margin: 0;
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: $texto-secundario;
+
+    &amp;:hover {
+      color: $texto-principal;
+    }
+  }
+}
+
+/**
+ * Contenido del modal en layout de bloques de 2 columnas con flujo libre
+ */
+.modal-content {
+  display: flex;
+  justify-content: center;
+  padding-top: 24px;
+  padding-inline: 12px;
+
+  .bloques-grid {
+    column-count: 2;
+    column-gap: 24px;
+    width: 100%;
+
+    @media screen and (max-width: 768px) {
+      column-count: 1;
+    }
+
+    .bloque-seccion {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 24px;
+      background-color: $fondo-claro;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      flex-direction: column;
+
+      .titulo-bloque {
+        background-color: $rojo-fondo;
+        color: $rojo-texto;
+        font-weight: 600;
+        padding: 10px 14px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        border-left: 4px solid $rojo-texto;
+      }
+
+      .form-row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px; // Aumentamos separación entre inputs
+
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .bloque-seccion {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/**
+ * Estilo de inputs personalizados
+ */
+.label-personalizable {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .texto-costado {
+    font-size: $font-size-body-small;
+    color: $texto-secundario;
+    white-space: nowrap;
+
+    i {
+      font-size: 16px;
+    }
+  }
+
+  &gt; *:last-child {
+    flex: 1;
+  }
+}
+
+/**
+ * Contenedor de botones del formulario
+ */
+.button-group {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+
+  .button-row {
+    display: flex;
+    gap: 16px;
+
+    .input-group {
+      display: flex;
+      align-items: center;
+    }
+
+    .text-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: $font-size-body-small;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}
+
+/**
+ * Elimina el subrayado del input al enfocar
+ */
+input.input-normal:focus {
+  border-bottom: none;
+}
+
+/**
+ * Animaciones suaves del modal
+ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="modal-overlay">  <div class="modal-container">    <div class="modal-header">      <h2>{{ titulo }}</h2>      <button class="close-btn" (click)="onCerrar()">&times;</button>    </div>    <div class="modal-content catalogo_inputs">      <form (ngSubmit)="onSubmit()" *ngIf="bloques && bloques.length">        <!-- Contenedor de bloques en 2 columnas -->        <div class="bloques-grid">          <ng-container *ngFor="let bloque of bloques">            <div class="bloque-seccion">              <div class="titulo-bloque">{{ bloque.titulo }}</div>              <!-- Contenedor de campos -->              <div class="form-row">                <ng-container *ngFor="let campo of bloque.campos">                  <div class="form-group" [ngSwitch]="campo.tipo">                    <!-- Input estándar y otros tipos -->                    <ng-container *ngSwitchDefault>                      <div class="label-personalizable">                        <span class="texto-costado">{{ campo.label }}</span>                        <input                          class="input-normal"                          [type]="campo.tipo"                          [(ngModel)]="datos[campo.key]"                          [name]="campo.key"                          [disabled]="campo.key === \'codigo\'"                          [required]="campo.required"                        />                      </div>                    </ng-container>                    <!-- Select -->                    <ng-container *ngSwitchCase="\'select\'">                      <div class="label-personalizable">                        <span class="texto-costado">{{ campo.label }}</span>                        <select                          class="input-normal"                          [(ngModel)]="datos[campo.key]"                          [name]="campo.key"                          [disabled]="campo.key === \'codigo\'"                          [required]="campo.required"                          (change)="onCampoChange(campo, datos[campo.key])"                        >                          <option                            *ngFor="let opcion of campo.opciones"                            [value]="opcion.valor"                          >                            {{ opcion.texto }}                          </option>                        </select>                      </div>                    </ng-container>                    <!-- Radio dinámico (Sí/No o múltiples opciones) -->                    <ng-container *ngSwitchCase="\'radio\'">                      <div class="label-personalizable">                        <span class="texto-costado">{{ campo.label }}</span>                        <!-- Toggle de dos opciones -->                        <div                          class="radio-toggle-options"                          *ngIf="campo.opciones?.length === 2"                        >                          <label                            class="radio-toggle-option"                            *ngFor="let opcion of campo.opciones"                          >                            <input                              type="radio"                              [name]="campo.key"                              [value]="opcion.valor"                              [(ngModel)]="datos[campo.key]"                            />                            <span class="custom-radio"></span>                            {{ opcion.etiqueta }}                          </label>                        </div>                        <!-- Lista de múltiples opciones -->                        <div                          class="radio-list-options"                          *ngIf="campo.opciones?.length > 2"                        >                          <label                            class="radio-list-option"                            *ngFor="let opcion of campo.opciones"                          >                            <input                              type="radio"                              [name]="campo.key"                              [value]="opcion.valor"                              [(ngModel)]="datos[campo.key]"                            />                            <span class="custom-radio"></span>                            {{ opcion.etiqueta }}                          </label>                        </div>                      </div>                    </ng-container>                  </div>                </ng-container>              </div>            </div>          </ng-container>        </div>        <!-- Botones de acción -->        <div class="button-group" *ngIf="botonesAccion?.length">          <div class="button-row">            <div class="input-group" *ngFor="let boton of botonesAccion">              <button                [type]="boton.accion === \'guardar\' ? \'submit\' : \'button\'"                class="text-btn"                (click)="                  boton.accion !== \'guardar\' ? onAccion(boton.accion) : null                "                [disabled]="boton.deshabilitado"              >                {{ boton.texto }}              </button>            </div>          </div>        </div>      </form>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdministracionComponent', 'selector': 'app-administracion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarraBusquedaComponent', 'selector': 'app-barra-busqueda'},{'name': 'BarraUbicacionComponent', 'selector': 'app-barra-ubicacion'},{'name': 'BillingSofAdminComponent', 'selector': 'app-billing-sof-admin'},{'name': 'ClientesComponent', 'selector': 'app-clientes'},{'name': 'ClientesVistaComponent', 'selector': 'app-clientes-vista'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'CuentasContablesComponent', 'selector': 'app-cuentas-contables'},{'name': 'CuentasVistasComponent', 'selector': 'app-cuentas-vistas'},{'name': 'DeleteModalComponent', 'selector': 'app-delete-modal'},{'name': 'DynamicMenuComponent', 'selector': 'app-dynamic-menu'},{'name': 'EmpresaComponent', 'selector': 'app-empresa'},{'name': 'FormularioDinamicoComponent', 'selector': 'app-formulario-dinamico'},{'name': 'FormularioDinamicoLoaderComponent', 'selector': 'app-formulario-dinamico-loader'},{'name': 'ImportarComponent', 'selector': 'app-importar'},{'name': 'MarcasComponent', 'selector': 'app-marcas'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PlanCuentasComponent', 'selector': 'app-plan-cuentas'},{'name': 'ProveedoresComponent', 'selector': 'app-proveedores'},{'name': 'ProveedoresVistaComponent', 'selector': 'app-proveedores-vista'},{'name': 'PruebraComponent', 'selector': 'app-pruebra'},{'name': 'TablaDinamicaComponent', 'selector': 'app-tabla-dinamica'},{'name': 'TarifasPorGrupoComponent', 'selector': 'app-tarifas-por-grupo'},{'name': 'TiposClientesComponent', 'selector': 'app-tipos-clientes'},{'name': 'TiposProductosComponent', 'selector': 'app-tipos-productos'},{'name': 'TiposProveedoresComponent', 'selector': 'app-tipos-proveedores'},{'name': 'TiposPVPComponent', 'selector': 'app-tipos-pvp'},{'name': 'TiposPvpVistaComponent', 'selector': 'app-tipos-pvp-vista'},{'name': 'VistaGeneralComponent', 'selector': 'app-vista-general'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'FormularioDinamicoComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FormularioDinamicoComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

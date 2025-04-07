@@ -1,0 +1,3921 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-biling-3 documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-biling-3 documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  BillingSofAdminComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/billing-sof-admin/billing-sof-admin.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-billing-sof-admin</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./billing-sof-admin.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./billing-sof-admin.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allModules" >allModules</a>
+                            </li>
+                            <li>
+                                <a href="#businessStats" >businessStats</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#content" >content</a>
+                            </li>
+                            <li>
+                                <a href="#filteredModules" >filteredModules</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#floatingMenu" >floatingMenu</a>
+                            </li>
+                            <li>
+                                <a href="#groupedModules" >groupedModules</a>
+                            </li>
+                            <li>
+                                <a href="#isMenuExpanded" >isMenuExpanded</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#menuToggle" >menuToggle</a>
+                            </li>
+                            <li>
+                                <a href="#notificationGroups" >notificationGroups</a>
+                            </li>
+                            <li>
+                                <a href="#notifications" >notifications</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#notificationsPopup" >notificationsPopup</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#notificationsToggle" >notificationsToggle</a>
+                            </li>
+                            <li>
+                                <a href="#salesData" >salesData</a>
+                            </li>
+                            <li>
+                                <a href="#searchQuery" >searchQuery</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#sideMenu" >sideMenu</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#supportPopup" >supportPopup</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#supportToggle" >supportToggle</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#toggleMenu" >toggleMenu</a>
+                            </li>
+                            <li>
+                                <a href="#topProducts" >topProducts</a>
+                            </li>
+                            <li>
+                                <a href="#welcomeData" >welcomeData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createRadarChart" >createRadarChart</a>
+                            </li>
+                            <li>
+                                <a href="#createSalesChart" >createSalesChart</a>
+                            </li>
+                            <li>
+                                <a href="#filterModules" >filterModules</a>
+                            </li>
+                            <li>
+                                <a href="#getModuleIcon" >getModuleIcon</a>
+                            </li>
+                            <li>
+                                <a href="#getNotificationIcon" >getNotificationIcon</a>
+                            </li>
+                            <li>
+                                <a href="#groupNotificationsByDate" >groupNotificationsByDate</a>
+                            </li>
+                            <li>
+                                <a href="#highlightModule" >highlightModule</a>
+                            </li>
+                            <li>
+                                <a href="#loadDashboardData" >loadDashboardData</a>
+                            </li>
+                            <li>
+                                <a href="#loadWelcomeData" >loadWelcomeData</a>
+                            </li>
+                            <li>
+                                <a href="#navigateTo" >navigateTo</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openMessenger" >openMessenger</a>
+                            </li>
+                            <li>
+                                <a href="#openSMS" >openSMS</a>
+                            </li>
+                            <li>
+                                <a href="#openTelegram" >openTelegram</a>
+                            </li>
+                            <li>
+                                <a href="#setupMenuToggle" >setupMenuToggle</a>
+                            </li>
+                            <li>
+                                <a href="#setupNotificationsToggle" >setupNotificationsToggle</a>
+                            </li>
+                            <li>
+                                <a href="#setupSupportToggle" >setupSupportToggle</a>
+                            </li>
+                            <li>
+                                <a href="#setupToggleMenu" >setupToggleMenu</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMenuState" >toggleMenuState</a>
+                            </li>
+                            <li>
+                                <a href="#unhighlightModule" >unhighlightModule</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(dashboardService: <a href="../injectables/DashboardService.html" target="_self">DashboardService</a>, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:138</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>dashboardService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/DashboardService.html" target="_self" >DashboardService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createRadarChart"></a>
+                    <span class="name">
+                        <span ><b>createRadarChart</b></span>
+                        <a href="#createRadarChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createRadarChart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="202"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createSalesChart"></a>
+                    <span class="name">
+                        <span ><b>createSalesChart</b></span>
+                        <a href="#createSalesChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createSalesChart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="175"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:175</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterModules"></a>
+                    <span class="name">
+                        <span ><b>filterModules</b></span>
+                        <a href="#filterModules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>filterModules(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="449"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:449</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getModuleIcon"></a>
+                    <span class="name">
+                        <span ><b>getModuleIcon</b></span>
+                        <a href="#getModuleIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getModuleIcon(moduleName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="280"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:280</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>moduleName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNotificationIcon"></a>
+                    <span class="name">
+                        <span ><b>getNotificationIcon</b></span>
+                        <a href="#getNotificationIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNotificationIcon(type: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="421"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:421</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="groupNotificationsByDate"></a>
+                    <span class="name">
+                        <span ><b>groupNotificationsByDate</b></span>
+                        <a href="#groupNotificationsByDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>groupNotificationsByDate()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="379"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:379</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="highlightModule"></a>
+                    <span class="name">
+                        <span ><b>highlightModule</b></span>
+                        <a href="#highlightModule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>highlightModule(module: <a href="../interfaces/Module.html" target="_self">Module</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="321"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:321</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>module</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Module.html" target="_self" >Module</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadDashboardData"></a>
+                    <span class="name">
+                        <span ><b>loadDashboardData</b></span>
+                        <a href="#loadDashboardData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadDashboardData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadWelcomeData"></a>
+                    <span class="name">
+                        <span ><b>loadWelcomeData</b></span>
+                        <a href="#loadWelcomeData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadWelcomeData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="171"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateTo"></a>
+                    <span class="name">
+                        <span ><b>navigateTo</b></span>
+                        <a href="#navigateTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateTo(option: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>option</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:145</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openMessenger"></a>
+                    <span class="name">
+                        <span ><b>openMessenger</b></span>
+                        <a href="#openMessenger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openMessenger()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="432"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:432</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openSMS"></a>
+                    <span class="name">
+                        <span ><b>openSMS</b></span>
+                        <a href="#openSMS"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openSMS()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="442"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:442</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openTelegram"></a>
+                    <span class="name">
+                        <span ><b>openTelegram</b></span>
+                        <a href="#openTelegram"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openTelegram()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="437"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:437</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupMenuToggle"></a>
+                    <span class="name">
+                        <span ><b>setupMenuToggle</b></span>
+                        <a href="#setupMenuToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setupMenuToggle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="355"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:355</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupNotificationsToggle"></a>
+                    <span class="name">
+                        <span ><b>setupNotificationsToggle</b></span>
+                        <a href="#setupNotificationsToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setupNotificationsToggle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="363"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:363</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupSupportToggle"></a>
+                    <span class="name">
+                        <span ><b>setupSupportToggle</b></span>
+                        <a href="#setupSupportToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setupSupportToggle()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="371"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:371</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupToggleMenu"></a>
+                    <span class="name">
+                        <span ><b>setupToggleMenu</b></span>
+                        <a href="#setupToggleMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setupToggleMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="330"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:330</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenuState"></a>
+                    <span class="name">
+                        <span ><b>toggleMenuState</b></span>
+                        <a href="#toggleMenuState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenuState()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="339"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:339</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="unhighlightModule"></a>
+                    <span class="name">
+                        <span ><b>unhighlightModule</b></span>
+                        <a href="#unhighlightModule"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>unhighlightModule(module: <a href="../interfaces/Module.html" target="_self">Module</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="325"
+                                    class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:325</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>module</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Module.html" target="_self" >Module</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="allModules"></a>
+                    <span class="name">
+                        <span ><b>allModules</b></span>
+                        <a href="#allModules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Module[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.groupedModules.flatMap((group) &#x3D;&gt; group.modules)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="137" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="businessStats"></a>
+                    <span class="name">
+                        <span ><b>businessStats</b></span>
+                        <a href="#businessStats"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Record&lt;string | BusinessStat&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="content"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>content</b></span>
+                        <a href="#content"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;content&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredModules"></a>
+                    <span class="name">
+                        <span ><b>filteredModules</b></span>
+                        <a href="#filteredModules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Module[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="floatingMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>floatingMenu</b></span>
+                        <a href="#floatingMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;floatingMenu&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="groupedModules"></a>
+                    <span class="name">
+                        <span ><b>groupedModules</b></span>
+                        <a href="#groupedModules"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ModuleGroup[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      category: &#x27;Administración y Control&#x27;,
+      modules: [
+        { name: &#x27;Administración&#x27;, selected: false },
+        { name: &#x27;Créditos&#x27;, selected: false },
+        { name: &#x27;Contratos&#x27;, selected: false },
+        { name: &#x27;Control de…&#x27;, selected: false },
+        { name: &#x27;Reposiciones&#x27;, selected: false },
+        { name: &#x27;Caja&#x27;, selected: false },
+        { name: &#x27;C x P&#x27;, selected: false },
+        { name: &#x27;C x C&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Gestión de Ventas&#x27;,
+      modules: [
+        { name: &#x27;Facturación&#x27;, selected: false },
+        { name: &#x27;Ventas&#x27;, selected: false },
+        { name: &#x27;Cupones&#x27;, selected: false },
+        { name: &#x27;Cotizaciones&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Logística y Soporte&#x27;,
+      modules: [
+        { name: &#x27;Servicio técnico&#x27;, selected: false },
+        { name: &#x27;Autoservicio&#x27;, selected: false },
+        { name: &#x27;Verificador…&#x27;, selected: false },
+        { name: &#x27;Inventarios&#x27;, selected: false },
+        { name: &#x27;Compras (…)&#x27;, selected: false },
+        { name: &#x27;Encomiendas&#x27;, selected: true },
+      ],
+    },
+    {
+      category: &#x27;Operaciones y Producción&#x27;,
+      modules: [
+        { name: &#x27;Producción&#x27;, selected: false },
+        { name: &#x27;Notas de entrega&#x27;, selected: false },
+        { name: &#x27;Manejo de…&#x27;, selected: false },
+        { name: &#x27;Reporte ATS&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Comunicación y Gestión&#x27;,
+      modules: [
+        { name: &#x27;Agenda&#x27;, selected: false },
+        { name: &#x27;Reuniones&#x27;, selected: false },
+        { name: &#x27;Reportes&#x27;, selected: false },
+        { name: &#x27;Mensajería&#x27;, selected: true },
+      ],
+    },
+    {
+      category: &#x27;Finanzas&#x27;,
+      modules: [
+        { name: &#x27;Nómina&#x27;, selected: false },
+        { name: &#x27;Contabilidad&#x27;, selected: false },
+        { name: &#x27;Bancos&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Servicios&#x27;,
+      modules: [
+        { name: &#x27;Restaurante&#x27;, selected: false },
+        { name: &#x27;Parking&#x27;, selected: false },
+        { name: &#x27;Hoteles&#x27;, selected: false },
+        { name: &#x27;Veterinaria&#x27;, selected: false },
+        { name: &#x27;Talleres&#x27;, selected: false },
+        { name: &#x27;Tienda en Línea&#x27;, selected: true },
+      ],
+    },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMenuExpanded"></a>
+                    <span class="name">
+                        <span ><b>isMenuExpanded</b></span>
+                        <a href="#isMenuExpanded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuToggle"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>menuToggle</b></span>
+                        <a href="#menuToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;menuToggle&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notificationGroups"></a>
+                    <span class="name">
+                        <span ><b>notificationGroups</b></span>
+                        <a href="#notificationGroups"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>NotificationGroup[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notifications"></a>
+                    <span class="name">
+                        <span ><b>notifications</b></span>
+                        <a href="#notifications"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Notification[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notificationsPopup"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>notificationsPopup</b></span>
+                        <a href="#notificationsPopup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;notificationsPopup&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notificationsToggle"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>notificationsToggle</b></span>
+                        <a href="#notificationsToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;notificationsToggle&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="salesData"></a>
+                    <span class="name">
+                        <span ><b>salesData</b></span>
+                        <a href="#salesData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchQuery"></a>
+                    <span class="name">
+                        <span ><b>searchQuery</b></span>
+                        <a href="#searchQuery"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sideMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>sideMenu</b></span>
+                        <a href="#sideMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;sideMenu&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="supportPopup"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>supportPopup</b></span>
+                        <a href="#supportPopup"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;supportPopup&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="supportToggle"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>supportToggle</b></span>
+                        <a href="#supportToggle"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;supportToggle&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenu"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>toggleMenu</b></span>
+                        <a href="#toggleMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;toggleMenu&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="topProducts"></a>
+                    <span class="name">
+                        <span ><b>topProducts</b></span>
+                        <a href="#topProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="welcomeData"></a>
+                    <span class="name">
+                        <span ><b>welcomeData</b></span>
+                        <a href="#welcomeData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{}</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">src/app/billing-sof-admin/billing-sof-admin.component.ts:138</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { DashboardService } from &#x27;../services/dashboard.service&#x27;;
+import { Chart } from &#x27;chart.js/auto&#x27;;
+
+interface BusinessStat {
+  value: number;
+  icon: string;
+  label: string;
+}
+
+interface Module {
+  name: string;
+  selected: boolean;
+}
+
+interface ModuleGroup {
+  category: string;
+  modules: Module[];
+}
+
+interface Notification {
+  title: string;
+  description: string;
+  date: string;
+  type: string;
+}
+
+interface NotificationGroup {
+  category: string;
+  notifications: Notification[];
+}
+
+@Component({
+  selector: &#x27;app-billing-sof-admin&#x27;,
+  standalone: true,
+  templateUrl: &#x27;./billing-sof-admin.component.html&#x27;,
+  styleUrls: [&#x27;./billing-sof-admin.component.scss&#x27;],
+  imports: [CommonModule, RouterModule],
+})
+export class BillingSofAdminComponent implements OnInit, AfterViewInit {
+  @ViewChild(&#x27;notificationsToggle&#x27;) notificationsToggle!: ElementRef;
+  @ViewChild(&#x27;notificationsPopup&#x27;) notificationsPopup!: ElementRef;
+  @ViewChild(&#x27;supportToggle&#x27;) supportToggle!: ElementRef;
+  @ViewChild(&#x27;supportPopup&#x27;) supportPopup!: ElementRef;
+  @ViewChild(&#x27;menuToggle&#x27;) menuToggle!: ElementRef; // Referencia al ícono del menú flotante
+  @ViewChild(&#x27;floatingMenu&#x27;) floatingMenu!: ElementRef; // Referencia al popup del menú flotante
+  @ViewChild(&#x27;sideMenu&#x27;) sideMenu!: ElementRef; // Referencia al menú lateral
+  @ViewChild(&#x27;content&#x27;) content!: ElementRef; // Referencia al contenido principal
+  @ViewChild(&#x27;toggleMenu&#x27;) toggleMenu!: ElementRef; // Referencia al ícono de expansión del menú lateral
+
+  businessStats: Record&lt;string, BusinessStat&gt; &#x3D; {};
+  salesData: any[] &#x3D; [];
+  topProducts: any[] &#x3D; [];
+  notifications: Notification[] &#x3D; [];
+  notificationGroups: NotificationGroup[] &#x3D; [];
+  isMenuExpanded &#x3D; false; // Estado del menú lateral
+
+  filteredModules: Module[] &#x3D; []; // Módulos filtrados
+  searchQuery: string &#x3D; &#x27;&#x27;; //
+
+  groupedModules: ModuleGroup[] &#x3D; [
+    {
+      category: &#x27;Administración y Control&#x27;,
+      modules: [
+        { name: &#x27;Administración&#x27;, selected: false },
+        { name: &#x27;Créditos&#x27;, selected: false },
+        { name: &#x27;Contratos&#x27;, selected: false },
+        { name: &#x27;Control de…&#x27;, selected: false },
+        { name: &#x27;Reposiciones&#x27;, selected: false },
+        { name: &#x27;Caja&#x27;, selected: false },
+        { name: &#x27;C x P&#x27;, selected: false },
+        { name: &#x27;C x C&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Gestión de Ventas&#x27;,
+      modules: [
+        { name: &#x27;Facturación&#x27;, selected: false },
+        { name: &#x27;Ventas&#x27;, selected: false },
+        { name: &#x27;Cupones&#x27;, selected: false },
+        { name: &#x27;Cotizaciones&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Logística y Soporte&#x27;,
+      modules: [
+        { name: &#x27;Servicio técnico&#x27;, selected: false },
+        { name: &#x27;Autoservicio&#x27;, selected: false },
+        { name: &#x27;Verificador…&#x27;, selected: false },
+        { name: &#x27;Inventarios&#x27;, selected: false },
+        { name: &#x27;Compras (…)&#x27;, selected: false },
+        { name: &#x27;Encomiendas&#x27;, selected: true },
+      ],
+    },
+    {
+      category: &#x27;Operaciones y Producción&#x27;,
+      modules: [
+        { name: &#x27;Producción&#x27;, selected: false },
+        { name: &#x27;Notas de entrega&#x27;, selected: false },
+        { name: &#x27;Manejo de…&#x27;, selected: false },
+        { name: &#x27;Reporte ATS&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Comunicación y Gestión&#x27;,
+      modules: [
+        { name: &#x27;Agenda&#x27;, selected: false },
+        { name: &#x27;Reuniones&#x27;, selected: false },
+        { name: &#x27;Reportes&#x27;, selected: false },
+        { name: &#x27;Mensajería&#x27;, selected: true },
+      ],
+    },
+    {
+      category: &#x27;Finanzas&#x27;,
+      modules: [
+        { name: &#x27;Nómina&#x27;, selected: false },
+        { name: &#x27;Contabilidad&#x27;, selected: false },
+        { name: &#x27;Bancos&#x27;, selected: false },
+      ],
+    },
+    {
+      category: &#x27;Servicios&#x27;,
+      modules: [
+        { name: &#x27;Restaurante&#x27;, selected: false },
+        { name: &#x27;Parking&#x27;, selected: false },
+        { name: &#x27;Hoteles&#x27;, selected: false },
+        { name: &#x27;Veterinaria&#x27;, selected: false },
+        { name: &#x27;Talleres&#x27;, selected: false },
+        { name: &#x27;Tienda en Línea&#x27;, selected: true },
+      ],
+    },
+  ];
+
+  allModules: Module[] &#x3D; this.groupedModules.flatMap((group) &#x3D;&gt; group.modules);
+  welcomeData: any &#x3D; {};
+
+  constructor(
+    private dashboardService: DashboardService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadDashboardData();
+    this.loadWelcomeData();
+    this.groupNotificationsByDate();
+  }
+
+  ngAfterViewInit(): void {
+    this.setupMenuToggle(); // Configurar el evento del menú flotante
+    this.setupToggleMenu(); // Configurar el evento del botón de expansión del menú lateral
+    this.setupNotificationsToggle();
+    this.setupSupportToggle();
+    setTimeout(() &#x3D;&gt; {
+      this.createSalesChart();
+      this.createRadarChart();
+    }, 500);
+  }
+
+  
+
+  loadDashboardData(): void {
+    this.businessStats &#x3D; this.dashboardService.getBusinessStats();
+    this.salesData &#x3D; this.dashboardService.getSalesData();
+    this.topProducts &#x3D; this.dashboardService.getTopProducts();
+    this.notifications &#x3D; this.dashboardService.getNotifications();
+  }
+
+  loadWelcomeData(): void {
+    this.welcomeData &#x3D; this.dashboardService.getWelcomeData();
+  }
+
+  createSalesChart(): void {
+    const ctx &#x3D; document.getElementById(&#x27;salesChart&#x27;) as HTMLCanvasElement;
+    if (ctx) {
+      new Chart(ctx, {
+        type: &#x27;bar&#x27;,
+        data: {
+          labels: this.salesData.map((data) &#x3D;&gt; data.month),
+          datasets: [
+            {
+              label: &#x27;Clientes Nuevos&#x27;,
+              data: this.salesData.map((data) &#x3D;&gt; data.value),
+              backgroundColor: &#x27;rgba(0, 204, 153, 0.5)&#x27;,
+              borderColor: &#x27;rgba(0, 204, 153, 1)&#x27;,
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
+    }
+  }
+
+  createRadarChart(): void {
+    const ctx &#x3D; document.getElementById(&#x27;radarChart&#x27;) as HTMLCanvasElement;
+    if (ctx) {
+      new Chart(ctx, {
+        type: &#x27;radar&#x27;,
+        data: {
+          labels: [&#x27;Nike&#x27;, &#x27;Favorita&#x27;, &#x27;Pronaca&#x27;, &#x27;Electric&#x27;, &#x27;Genérica&#x27;],
+          datasets: [
+            {
+              label: &#x27;Marcas más Vendidas&#x27;,
+              data: [8, 7, 6, 9, 7],
+              backgroundColor: &#x27;rgba(54, 162, 235, 0.2)&#x27;,
+              borderColor: &#x27;rgba(54, 162, 235, 1)&#x27;,
+              borderWidth: 2,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            r: {
+              angleLines: { display: true },
+              suggestedMin: 0,
+              suggestedMax: 10,
+            },
+          },
+        },
+      });
+    }
+  }
+
+  navigateTo(option: string): void {
+    const routes: { [key: string]: string } &#x3D; {
+      Administración: &#x27;/productos/vista-general&#x27;,
+      Créditos: &#x27;/creditos&#x27;,
+      Contratos: &#x27;/contratos&#x27;,
+      &#x27;Control de…&#x27;: &#x27;/control&#x27;,
+      Reposiciones: &#x27;/reposiciones&#x27;,
+      Caja: &#x27;/caja&#x27;,
+      &#x27;C x P&#x27;: &#x27;/cxp&#x27;,
+      &#x27;C x C&#x27;: &#x27;/cxc&#x27;,
+      Facturación: &#x27;/facturacion&#x27;,
+      Ventas: &#x27;/ventas&#x27;,
+      Cupones: &#x27;/cupones&#x27;,
+      Cotizaciones: &#x27;/cotizaciones&#x27;,
+      &#x27;Servicio técnico&#x27;: &#x27;/servicio-tecnico&#x27;,
+      Autoservicio: &#x27;/autoservicio&#x27;,
+      &#x27;Verificador…&#x27;: &#x27;/verificador&#x27;,
+      Inventarios: &#x27;/inventarios&#x27;,
+      &#x27;Compras (…)&#x27;: &#x27;/compras&#x27;,
+      Encomiendas: &#x27;/encomiendas&#x27;,
+      Producción: &#x27;/produccion&#x27;,
+      &#x27;Notas de entrega&#x27;: &#x27;/notas-entrega&#x27;,
+      &#x27;Manejo de…&#x27;: &#x27;/manejo-activos&#x27;,
+      &#x27;Reporte ATS&#x27;: &#x27;/reporte-ats&#x27;,
+      Agenda: &#x27;/agenda&#x27;,
+      Reuniones: &#x27;/reuniones&#x27;,
+      Reportes: &#x27;/reportes&#x27;,
+      Mensajería: &#x27;/mensajeria&#x27;,
+      Nómina: &#x27;/nomina&#x27;,
+      Contabilidad: &#x27;/contabilidad&#x27;,
+      Bancos: &#x27;/bancos&#x27;,
+      Restaurante: &#x27;/restaurante&#x27;,
+      Parking: &#x27;/parking&#x27;,
+      Hoteles: &#x27;/hoteles&#x27;,
+      Veterinaria: &#x27;/veterinaria&#x27;,
+      Talleres: &#x27;/talleres&#x27;,
+      &#x27;Tienda en Línea&#x27;: &#x27;/tienda-en-linea&#x27;,
+    };
+
+    const route &#x3D; routes[option];
+    if (route) {
+      this.router.navigate([route]);
+    } else {
+      console.warn(&#x60;No se encontró una ruta para el módulo: ${option}&#x60;);
+    }
+  }
+
+  getModuleIcon(moduleName: string): string {
+    const icons: { [key: string]: string } &#x3D; {
+      Administración: &#x27;fa-cogs&#x27;,
+      Créditos: &#x27;fa-credit-card&#x27;,
+      Contratos: &#x27;fa-file-contract&#x27;,
+      &#x27;Control de…&#x27;: &#x27;fa-users&#x27;,
+      Reposiciones: &#x27;fa-boxes&#x27;,
+      Caja: &#x27;fa-cash-register&#x27;,
+      &#x27;C x P&#x27;: &#x27;fa-hand-holding-usd&#x27;,
+      &#x27;C x C&#x27;: &#x27;fa-handshake&#x27;,
+      Facturación: &#x27;fa-file-invoice&#x27;,
+      Ventas: &#x27;fa-shopping-cart&#x27;,
+      Cupones: &#x27;fa-tags&#x27;,
+      Cotizaciones: &#x27;fa-file-alt&#x27;,
+      &#x27;Servicio técnico&#x27;: &#x27;fa-tools&#x27;,
+      Autoservicio: &#x27;fa-user-cog&#x27;,
+      &#x27;Verificador…&#x27;: &#x27;fa-barcode&#x27;,
+      Inventarios: &#x27;fa-box-open&#x27;,
+      &#x27;Compras (…)&#x27;: &#x27;fa-shopping-basket&#x27;,
+      Encomiendas: &#x27;fa-truck&#x27;,
+      Producción: &#x27;fa-industry&#x27;,
+      &#x27;Notas de entrega&#x27;: &#x27;fa-clipboard-list&#x27;,
+      &#x27;Manejo de…&#x27;: &#x27;fa-building&#x27;,
+      &#x27;Reporte ATS&#x27;: &#x27;fa-file-excel&#x27;,
+      Agenda: &#x27;fa-calendar-alt&#x27;,
+      Reuniones: &#x27;fa-users&#x27;,
+      Reportes: &#x27;fa-chart-bar&#x27;,
+      Mensajería: &#x27;fa-envelope&#x27;,
+      Nómina: &#x27;fa-money-check-alt&#x27;,
+      Contabilidad: &#x27;fa-balance-scale&#x27;,
+      Bancos: &#x27;fa-university&#x27;,
+      Restaurante: &#x27;fa-utensils&#x27;,
+      Parking: &#x27;fa-parking&#x27;,
+      Hoteles: &#x27;fa-hotel&#x27;,
+      Veterinaria: &#x27;fa-paw&#x27;,
+      Talleres: &#x27;fa-wrench&#x27;,
+      &#x27;Tienda en Línea&#x27;: &#x27;fa-store&#x27;,
+    };
+    return &#x60;fa-solid ${icons[moduleName]}&#x60;;
+  }
+
+  highlightModule(module: Module): void {
+    module.selected &#x3D; true;
+  }
+
+  unhighlightModule(module: Module): void {
+    module.selected &#x3D; false;
+  }
+
+  // Configura el evento del botón de expansión del menú lateral
+  setupToggleMenu(): void {
+    if (this.toggleMenu &amp;&amp; this.sideMenu &amp;&amp; this.content) {
+      this.toggleMenu.nativeElement.addEventListener(&#x27;click&#x27;, () &#x3D;&gt; {
+        this.toggleMenuState();
+      });
+    }
+  }
+
+  // Expande o contrae el menú lateral
+  toggleMenuState(): void {
+    this.isMenuExpanded &#x3D; !this.isMenuExpanded;
+    
+    // Añade la clase &#x60;expanded&#x60;
+    this.sideMenu.nativeElement.classList.toggle(&#x27;expanded&#x27;, this.isMenuExpanded);
+    this.content.nativeElement.classList.toggle(&#x27;expanded&#x27;, this.isMenuExpanded);
+  
+    //se agrego para oculatar las seciones, y evitar que se sobre esciban los css 
+    const additionalData &#x3D; document.querySelector(&#x27;.additional-data&#x27;) as HTMLElement;
+    if (additionalData) {
+      additionalData.style.display &#x3D; this.isMenuExpanded ? &#x27;none&#x27; : &#x27;block&#x27;;
+    }
+  }
+  
+
+  // Configura el evento del botón del menú flotante
+  setupMenuToggle(): void {
+    if (this.menuToggle &amp;&amp; this.floatingMenu) {
+      this.menuToggle.nativeElement.addEventListener(&#x27;click&#x27;, () &#x3D;&gt; {
+        this.floatingMenu.nativeElement.classList.toggle(&#x27;hidden&#x27;);
+      });
+    }
+  }
+ 
+  setupNotificationsToggle(): void {
+    if (this.notificationsToggle &amp;&amp; this.notificationsPopup) {
+      this.notificationsToggle.nativeElement.addEventListener(&#x27;click&#x27;, () &#x3D;&gt; {
+        this.notificationsPopup.nativeElement.classList.toggle(&#x27;hidden&#x27;);
+      });
+    }
+  }
+
+  setupSupportToggle(): void {
+    if (this.supportToggle &amp;&amp; this.supportPopup) {
+      this.supportToggle.nativeElement.addEventListener(&#x27;click&#x27;, () &#x3D;&gt; {
+        this.supportPopup.nativeElement.classList.toggle(&#x27;hidden&#x27;);
+      });
+    }
+  }
+
+  groupNotificationsByDate(): void {
+    const today &#x3D; new Date();
+    const yesterday &#x3D; new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    const twoDaysAgo &#x3D; new Date(today);
+    twoDaysAgo.setDate(today.getDate() - 2);
+
+    const formatDateForComparison &#x3D; (date: Date): string &#x3D;&gt; {
+      return date.toISOString().split(&#x27;T&#x27;)[0];
+    };
+
+    const todayNotifications &#x3D; this.notifications.filter((notification) &#x3D;&gt; {
+      const notificationDate &#x3D; new Date(notification.date);
+      return (
+        formatDateForComparison(notificationDate) &#x3D;&#x3D;&#x3D;
+        formatDateForComparison(today)
+      );
+    });
+
+    const yesterdayNotifications &#x3D; this.notifications.filter((notification) &#x3D;&gt; {
+      const notificationDate &#x3D; new Date(notification.date);
+      return (
+        formatDateForComparison(notificationDate) &#x3D;&#x3D;&#x3D;
+        formatDateForComparison(yesterday)
+      );
+    });
+
+    const olderNotifications &#x3D; this.notifications.filter((notification) &#x3D;&gt; {
+      const notificationDate &#x3D; new Date(notification.date);
+      return (
+        formatDateForComparison(notificationDate) &lt;
+        formatDateForComparison(twoDaysAgo)
+      );
+    });
+
+    this.notificationGroups &#x3D; [
+      { category: &#x27;Hoy&#x27;, notifications: todayNotifications },
+      { category: &#x27;Ayer&#x27;, notifications: yesterdayNotifications },
+      { category: &#x27;Hace más de dos días&#x27;, notifications: olderNotifications },
+    ];
+  }
+
+  getNotificationIcon(type: string): string {
+    const icons: Record&lt;string, string&gt; &#x3D; {
+      info: &#x27;fas fa-info-circle text-blue-500&#x27;,
+      warning: &#x27;fas fa-exclamation-triangle text-yellow-500&#x27;,
+      error: &#x27;fas fa-times-circle text-red-500&#x27;,
+      success: &#x27;fas fa-check-circle text-green-500&#x27;,
+    };
+
+    return icons[type] || &#x27;fas fa-bell text-gray-500&#x27;;
+  }
+
+  openMessenger(): void {
+    const messengerUrl &#x3D; &#x27;https://m.me/tu_pagina_de_facebook&#x27;;
+    window.open(messengerUrl, &#x27;_blank&#x27;);
+  }
+
+  openTelegram(): void {
+    const telegramUrl &#x3D; &#x27;https://t.me/tu_usuario_de_telegram&#x27;;
+    window.open(telegramUrl, &#x27;_blank&#x27;);
+  }
+
+  openSMS(): void {
+    const phoneNumber &#x3D; &#x27;0963319244&#x27;;
+    const smsUrl &#x3D; &#x60;sms:${phoneNumber}&#x60;;
+    window.location.href &#x3D; smsUrl;
+  }
+
+  // Función para filtrar módulos
+  filterModules(event: Event): void {
+    const inputElement &#x3D; event.target as HTMLInputElement;
+    this.searchQuery &#x3D; inputElement.value.toLowerCase(); // Convierte la consulta a minúsculas
+
+    if (this.searchQuery) {
+      this.filteredModules &#x3D; this.allModules.filter((module) &#x3D;&gt;
+        module.name.toLowerCase().includes(this.searchQuery)
+      );
+    } else {
+      this.filteredModules &#x3D; this.allModules; // Si no hay consulta, muestra todos los módulos
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Enlace al CDN de Font Awesome --&gt;
+&lt;link
+  rel&#x3D;&quot;stylesheet&quot;
+  href&#x3D;&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css&quot;
+/&gt;
+
+&lt;div class&#x3D;&quot;app-container&quot;&gt;
+  &lt;!-- Navegación superior --&gt;
+  &lt;nav class&#x3D;&quot;bg-white shadow flex justify-between items-center p-4&quot;&gt;
+    &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+      &lt;img src&#x3D;&quot;/img/icon.png&quot; alt&#x3D;&quot;logo&quot; class&#x3D;&quot;h-8 mr-2&quot; /&gt;
+    &lt;/div&gt;
+    &lt;h2 class&#x3D;&quot;text-xl font-bold text-red-500&quot;&gt;
+      Supermercado &quot;LABRYC&quot; CIA LTDA
+    &lt;/h2&gt;
+    &lt;div class&#x3D;&quot;flex items-center space-x-4&quot;&gt;
+      &lt;span #notificationsToggle id&#x3D;&quot;notifications-toggle&quot; class&#x3D;&quot;text-red-500 cursor-pointer&quot;
+        &gt;&lt;i class&#x3D;&quot;fa-regular fa-bell&quot;&gt;&lt;/i
+      &gt;&lt;/span&gt;
+      &lt;span #menuToggle id&#x3D;&quot;menu-toggle&quot; class&#x3D;&quot;text-red-500 cursor-pointer&quot;
+        &gt;&lt;i class&#x3D;&quot;fa-solid fa-bars&quot;&gt;&lt;/i
+      &gt;&lt;/span&gt;
+      &lt;span #supportToggle id&#x3D;&quot;support-toggle&quot; class&#x3D;&quot;text-red-500 cursor-pointer&quot;
+        &gt;&lt;i class&#x3D;&quot;fa-solid fa-headset&quot;&gt;&lt;/i
+      &gt;&lt;/span&gt;
+      &lt;span class&#x3D;&quot;text-red-500 cursor-pointer&quot;
+        &gt;&lt;i class&#x3D;&quot;fa-solid fa-circle-info&quot;&gt;&lt;/i
+      &gt;&lt;/span&gt;
+
+      &lt;img src&#x3D;&quot;/img/user.png&quot; alt&#x3D;&quot;Usuario&quot; class&#x3D;&quot;h-8 w-8 rounded-full&quot; /&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;!-- Sección de bienvenida y barra de búsqueda --&gt;
+  &lt;div class&#x3D;&quot;welcome-section&quot;&gt;
+    &lt;h1 class&#x3D;&quot;welcome-text&quot;&gt;Hola, {{ welcomeData.userName }}&lt;/h1&gt;
+    &lt;div class&#x3D;&quot;search-bar&quot;&gt;
+      &lt;input
+        id&#x3D;&quot;search-input&quot;
+        type&#x3D;&quot;text&quot;
+        [placeholder]&#x3D;&quot;welcomeData.searchPlaceholder&quot;
+        class&#x3D;&quot;search-input&quot;
+        (input)&#x3D;&quot;filterModules($event)&quot;
+      /&gt;
+      &lt;span class&#x3D;&quot;search-icon&quot;&gt;&lt;i class&#x3D;&quot;fa-solid fa-magnifying-glass&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+    &lt;/div&gt;
+&lt;!-- Lista de resultados debajo de la barra de búsqueda --&gt;
+&lt;div *ngIf&#x3D;&quot;searchQuery&quot; class&#x3D;&quot;search-results&quot;&gt;
+  &lt;ul&gt;
+    &lt;li *ngFor&#x3D;&quot;let module of filteredModules&quot; (click)&#x3D;&quot;navigateTo(module.name)&quot;&gt;
+      &lt;i class&#x3D;&quot;module-icon&quot; [class]&#x3D;&quot;getModuleIcon(module.name)&quot;&gt;&lt;/i&gt;
+      &lt;span&gt;{{ module.name }}&lt;/span&gt;
+    &lt;/li&gt;
+    &lt;li *ngIf&#x3D;&quot;filteredModules.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;no-results&quot;&gt;
+      No se encontraron módulos.
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+  &lt;/div&gt;
+
+  &lt;!-- Contenedor principal --&gt;
+  &lt;div class&#x3D;&quot;main-container&quot;&gt;
+    &lt;!-- Menú lateral --&gt;
+    &lt;aside #sideMenu class&#x3D;&quot;side-menu&quot; id&#x3D;&quot;side-menu&quot;&gt;
+      &lt;i #toggleMenu class&#x3D;&quot;fa-solid fa-indent&quot; id&#x3D;&quot;toggle-menu&quot;&gt;&lt;/i&gt;
+      &lt;ul&gt;
+        &lt;li *ngFor&#x3D;&quot;let module of allModules&quot; (click)&#x3D;&quot;navigateTo(module.name)&quot;&gt;
+          &lt;i class&#x3D;&quot;module-icon&quot; [class]&#x3D;&quot;getModuleIcon(module.name)&quot;&gt;&lt;/i&gt; 
+          &lt;div class&#x3D;&quot;menu-item-container&quot;&gt;{{ module.name }}&lt;/div&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- Contenido principal --&gt;
+    &lt;main #content class&#x3D;&quot;content&quot;&gt;
+      &lt;!-- Estadísticas del Negocio --&gt;
+      &lt;section class&#x3D;&quot;business-stats&quot;&gt;
+        &lt;h2&gt;Estadísticas del Negocio&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;stats-grid&quot;&gt;
+          &lt;div *ngFor&#x3D;&quot;let stat of businessStats | keyvalue&quot; class&#x3D;&quot;stat-item&quot;&gt;
+            &lt;span class&#x3D;&quot;stat-icon&quot;&gt;{{ stat.value.icon }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;stat-value&quot;&gt;{{ stat.value.value }}&lt;/span&gt;
+            &lt;span class&#x3D;&quot;stat-label&quot;&gt;{{ stat.value.label }}&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Gráfico de Nuevos Clientes --&gt;
+      &lt;section class&#x3D;&quot;bar-chart&quot;&gt;
+        &lt;h2&gt;Nuevos Clientes&lt;/h2&gt;
+        &lt;canvas id&#x3D;&quot;salesChart&quot;&gt;&lt;/canvas&gt;
+        &lt;p&gt;Crecimiento respecto al mes anterior&lt;/p&gt;
+      &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;!-- Sección de más datos y notificaciones --&gt;
+    &lt;aside class&#x3D;&quot;additional-data&quot;&gt;
+      &lt;!-- Más Datos --&gt;
+      &lt;section class&#x3D;&quot;more-data&quot;&gt;
+        &lt;h2&gt;Más Datos&lt;/h2&gt;
+        &lt;div class&#x3D;&quot;data-grid&quot;&gt;
+          &lt;div class&#x3D;&quot;data-item&quot;&gt;
+            &lt;h4&gt;Marcas más Vendidas&lt;/h4&gt;
+            &lt;canvas id&#x3D;&quot;radarChart&quot;&gt;&lt;/canvas&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;data-item&quot;&gt;
+            &lt;h4&gt;Productos más Vendidos&lt;/h4&gt;
+            &lt;table&gt;
+              &lt;thead&gt;
+                &lt;tr&gt;
+                  &lt;th&gt;Producto&lt;/th&gt;
+                  &lt;th&gt;Unidades&lt;/th&gt;
+                  &lt;th&gt;Total&lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/thead&gt;
+              &lt;tbody&gt;
+                &lt;tr *ngFor&#x3D;&quot;let product of topProducts&quot;&gt;
+                  &lt;td&gt;{{ product.name }}&lt;/td&gt;
+                  &lt;td&gt;{{ product.units }}&lt;/td&gt;
+                  &lt;td&gt;${{ product.total }}&lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+
+      &lt;!-- Notificaciones --&gt;
+      &lt;section class&#x3D;&quot;notifications&quot;&gt;
+        &lt;h3&gt;Notificaciones&lt;/h3&gt;
+        &lt;div *ngFor&#x3D;&quot;let notification of notifications&quot; class&#x3D;&quot;notification&quot;&gt;
+          &lt;i [class]&#x3D;&quot;getNotificationIcon(notification.type)&quot;&gt;&lt;/i&gt;
+          &lt;strong&gt;{{ notification.title }}&lt;/strong&gt;
+          &lt;p&gt;{{ notification.description }}&lt;/p&gt;
+          &lt;span&gt;{{ notification.date }}&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/section&gt;
+    &lt;/aside&gt;
+
+    &lt;!-- Popup con los módulos --&gt;
+    &lt;div #floatingMenu id&#x3D;&quot;floating-menu&quot; class&#x3D;&quot;floating-menu hidden&quot;&gt;
+      &lt;div class&#x3D;&quot;popup-content&quot;&gt;
+        &lt;h3&gt;Módulos&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;module-grid&quot;&gt;
+          &lt;div *ngFor&#x3D;&quot;let group of groupedModules&quot; class&#x3D;&quot;module-group&quot;&gt;
+            &lt;h4&gt;{{ group.category }}&lt;/h4&gt;
+            &lt;div class&#x3D;&quot;module-items&quot;&gt;
+              &lt;div
+                *ngFor&#x3D;&quot;let module of group.modules&quot;
+                class&#x3D;&quot;module-item&quot;
+                (click)&#x3D;&quot;navigateTo(module.name)&quot;
+                (mouseenter)&#x3D;&quot;highlightModule(module)&quot;
+                (mouseleave)&#x3D;&quot;unhighlightModule(module)&quot;
+              &gt;
+                &lt;i class&#x3D;&quot;module-icon&quot; [class]&#x3D;&quot;getModuleIcon(module.name)&quot;&gt;&lt;/i&gt;
+                &lt;span [class.selected]&#x3D;&quot;module.selected&quot;&gt;{{
+                  module.name
+                }}&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Popup de Notificaciones --&gt;
+    &lt;div #notificationsPopup id&#x3D;&quot;notifications-popup&quot; class&#x3D;&quot;floating-menu hidden&quot;&gt;
+      &lt;div class&#x3D;&quot;popup-content&quot;&gt;
+        &lt;h3&gt;Notificaciones&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;notification-groups&quot;&gt;
+          &lt;div
+            *ngFor&#x3D;&quot;let group of notificationGroups&quot;
+            class&#x3D;&quot;notification-group&quot;
+          &gt;
+            &lt;h4&gt;{{ group.category }}&lt;/h4&gt;
+            &lt;div class&#x3D;&quot;notification-items&quot;&gt;
+              &lt;div
+                *ngFor&#x3D;&quot;let notification of group.notifications&quot;
+                class&#x3D;&quot;notification-item&quot;
+              &gt;
+                &lt;i [class]&#x3D;&quot;getNotificationIcon(notification.type)&quot;&gt;&lt;/i&gt;
+                &lt;div class&#x3D;&quot;notification-item-content&quot;&gt;
+                  &lt;strong&gt;{{ notification.title }}&lt;/strong&gt;
+                  &lt;p&gt;{{ notification.description }}&lt;/p&gt;
+                  &lt;span&gt;{{
+                    notification.date | date : &quot;dd/MM/yyyy, hh:mm a&quot;
+                  }}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Popup de Soporte --&gt;
+    &lt;div #supportPopup id&#x3D;&quot;support-popup&quot; class&#x3D;&quot;floating-menu hidden&quot;&gt;
+      &lt;div class&#x3D;&quot;popup-content&quot;&gt;
+        &lt;h3&gt;Soporte&lt;/h3&gt;
+        &lt;div class&#x3D;&quot;support-items&quot;&gt;
+          &lt;div class&#x3D;&quot;support-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fa-solid fa-phone&quot;&gt;&lt;/i&gt;
+            &lt;div class&#x3D;&quot;contact-info&quot;&gt;
+              &lt;span&gt;096 331 9244&lt;/span&gt;
+              &lt;span&gt;098 724 3834&lt;/span&gt;
+              &lt;span&gt;072 576 031&lt;/span&gt;
+              &lt;span&gt;Ext: 402 (Contabilidad)&lt;/span&gt;
+              &lt;span&gt;Ext: 501 - 502 - 503 (Soporte)&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;support-item&quot;&gt;
+            &lt;i class&#x3D;&quot;fa-solid fa-clock&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;Atendemos de lunes a viernes de 9:00 a 19:00&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;support-item clickable&quot; (click)&#x3D;&quot;openMessenger()&quot;&gt;
+            &lt;i class&#x3D;&quot;fa-brands fa-facebook-messenger&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;Enviar mensaje por Messenger&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;support-item clickable&quot; (click)&#x3D;&quot;openTelegram()&quot;&gt;
+            &lt;i class&#x3D;&quot;fa-brands fa-telegram&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;Enviar mensaje por Telegram&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;support-item clickable&quot; (click)&#x3D;&quot;openSMS()&quot;&gt;
+            &lt;i class&#x3D;&quot;fa-solid fa-comment-sms&quot;&gt;&lt;/i&gt;
+            &lt;span&gt;Enviar mensaje de texto (SMS)&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./billing-sof-admin.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* Estilos generales */
+body {
+  font-family: &quot;Arial&quot;, sans-serif;
+  background-color: #e0e0e0; /* Gris más oscuro */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Barra de navegación */
+nav,
+.top-bar {
+  justify-content: space-between;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+nav {
+  height: 60px;
+}
+
+nav .flex.items-center,
+.top-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav img {
+  height: 50px;
+  margin-right: 0.75rem;
+}
+
+nav h1,
+nav h2,
+.top-bar .title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+.top-bar .title {
+  font-size: 24px;
+}
+
+nav .flex.items-center span,
+.top-icons .icon {
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: #d32f2f;
+  transition: color 0.3s ease;
+}
+
+nav .flex.items-center span:hover,
+.top-icons .icon:hover {
+  color: #b71c1c;
+}
+
+.user-profile {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-left: 1rem;
+  border: 2px solid #e0e0e0;
+  transition: border-color 0.3s ease;
+}
+
+.user-profile:hover {
+  border-color: #d32f2f;
+}
+
+/* Sección de bienvenida */
+.welcome-section {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 60px;
+  z-index: 999;
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #d32f2f;
+}
+
+/* Barra de búsqueda mejorada */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); /* Sombra suave para el efecto 3D */
+  transition: box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Efecto al hacer foco */
+.search-bar:focus-within {
+  box-shadow: 0 6px 12px rgba(211, 47, 47, 0.15);
+}
+
+/* Campo de entrada de texto */
+.search-input {
+  border: none; /* Eliminando el borde */
+  outline: none;
+  padding: 0.5rem;
+  background: none;
+  font-size: 1rem;
+  flex-grow: 1;
+  color: #333;
+  font-family: &quot;Poppins&quot;, sans-serif;
+}
+
+/* Placeholder mejorado */
+.search-input::placeholder {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+/* Icono de búsqueda */
+.search-icon {
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #797979;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Efecto hover sobre el icono */
+.search-icon:hover {
+  color: #f88c8c;
+  transform: scale(1.1);
+}
+
+/* Lista habilitante para a barra de busqueda */
+/* Estilos para la lista de resultados */
+.search-results {
+  position: absolute;
+  top: 80%; /* Debajo de la barra de búsqueda */
+  left: 72%;
+  width: 26%;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  z-index: 1000; /* Para que aparezca por encima de otros elementos */
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results li {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition);
+}
+
+.search-results li:hover {
+  background-color: #ffebeb;
+  color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.search-results li .module-icon {
+  font-size: 16px;
+  color: var(--primary-color);
+  background-color: #f7f7f7;
+  padding: 6px;
+  border-radius: 6px;
+  transition: var(--transition);
+}
+
+.search-results li:hover .module-icon {
+  background-color: #ffebeb;
+  color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.no-results {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 1rem;
+}
+
+/* Contenedor principal */
+.main-container {
+  background-color: #f9f9f9;
+  display: flex;
+  flex: 1;
+  padding: 1rem;
+  gap: 1rem;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Estilos para el contenedor adicional (Más Datos y Notificaciones) */
+.additional-data {
+  margin-left: 1rem; /* Espacio entre el contenido principal y la columna lateral */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espacio entre las secciones */
+}
+
+/* Menú lateral */
+.side-menu {
+  padding: 0.8rem;
+  width: 16%; /* Menú más estrecho por defecto */
+  border-radius: 12px;
+  position: fixed;
+  top: 170px;
+  left: 2px;
+  height: calc(100vh - 170px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  z-index: 998;
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+.side-menu.expanded {
+  width: 85%; /* Expansión completa */
+  margin-right: 32px; /* MÁS MARGEN DERECHO AL EXPANDIRSE */
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.2rem; /* Menor separación */
+}
+
+.side-menu.expanded ul {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.side-menu li {
+  font-family: &quot;Work Sans&quot;, sans-serif;
+  font-size: 13px; /* Un poco más pequeño */
+  font-weight: 500;
+  padding: 0.5rem 0.7rem; /* Menos padding */
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: #ffffff;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s ease;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+/* Hover en la lista */
+.side-menu li:hover {
+  background-color: #ffebeb;
+  color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+/* Iconos (colapsado) */
+.module-icon {
+  font-size: 16px; /* Iconos más pequeños en menú colapsado */
+  color: #d32f2f;
+  background-color: #f7f7f7;
+  padding: 6px; /* Padding más reducido */
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Estado expandido (restaurar tamaño original) */
+.side-menu.expanded .module-icon {
+  font-size: 18px; /* Restaurar tamaño original */
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* Hover sobre el icono */
+.side-menu li:hover .module-icon {
+  background-color: #d32f2f;
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+/* Contenedor de texto */
+.menu-item-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+/* Estilo del texto */
+.menu-item-container span {
+  font-size: 12px;
+  line-height: 1.2;
+  color: #333;
+}
+
+/* Espaciado entre icono y texto */
+.side-menu li &gt; i {
+  margin-right: 0.4rem; /* Menor espacio en menú colapsado */
+}
+
+.side-menu.expanded li &gt; i {
+  margin-right: 0.8rem; /* Espaciado mayor en menú expandido */
+}
+
+/* Eliminar el scrollbar */
+.side-menu::-webkit-scrollbar {
+  display: none;
+}
+
+/* Contenido principal */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-left: 17%;
+  transition: margin-left 0.3s ease;
+}
+
+.content.expanded {
+  margin-left: 85%;
+}
+
+/* Estilos para contenedores de secciones */
+.business-stats,
+.data-item,
+.bar-chart,
+.more-data {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.business-stats:hover,
+.data-item:hover,
+.more-data:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+.bar-chart {
+  width: 100%; /* Ajustar el ancho del gráfico de barras al 110% */
+  height: 400px; /* Ajustar la altura del gráfico */
+}
+
+/* Estadísticas del Negocio */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.stat-item {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.stat-value {
+  font-size: 2.5rem; /* Tamaño aumentado */
+  font-weight: bold;
+  color: #080808;
+}
+
+.stat-label {
+  font-size: 1.2rem; /* Tamaño aumentado */
+  color: #777777c3;
+}
+
+/* Gráfico de barras */
+
+.bar-chart {
+  width: 100%;
+  height: 400px; /* Ajustar la altura del gráfico */
+}
+
+.bar-chart h3 {
+  font-size: 1.5rem;
+  color: #090909;
+  margin-bottom: 0rem;
+}
+
+/* Más Datos */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.data-item h4 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-top: 0rem;
+  margin-bottom: 1rem;
+}
+
+/* Ajustar el margen inferior del h2 en las secciones */
+.business-stats h2,
+.more-data h2 {
+  margin-top: 0rem;
+}
+
+/* Estilos Comunes para Notificaciones */
+/* Contenedor de grupos de notificaciones */
+.notification-groups {
+  margin-bottom: 16px;
+  max-height: 400px;
+}
+
+/* Estilos Mejorados para la Sección de Notificaciones */
+.notifications {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 2rem; /* Más espacio interno */
+  margin-top: 0.6rem;
+  margin-bottom: 3rem; /* Aumentar el margen inferior para separar más la sección de notificaciones */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.notifications:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+}
+
+.notifications h3 {
+  font-size: 1.75rem; /* Título más grande */
+  font-weight: 700; /* Más peso en la fuente */
+  color: #070707;
+  margin-top: 0rem;
+}
+
+.notifications .notification {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem; /* Más espacio entre elementos */
+  padding: 1.25rem; /* Más espacio interno */
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem; /* Más espacio entre notificaciones */
+}
+
+.notifications .notification:last-child {
+  margin-bottom: 0; /* Elimina el margen inferior del último elemento */
+}
+
+.notifications .notification:hover {
+  background-color: #f8fafc;
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.notifications .notification i {
+  font-size: 1.75rem; /* Iconos más grandes */
+  margin-top: 0.5rem; /* Más espacio arriba del icono */
+  border-radius: 50%;
+  padding: 1rem; /* Más espacio interno en el icono */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.notifications .notification i:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores de iconos */
+.notifications .notification i.fa-info-circle {
+  color: #3b82f6;
+  background-color: #dbeafe;
+}
+
+.notifications .notification i.fa-exclamation-triangle {
+  color: #f59e0b;
+  background-color: #fef3c7;
+}
+
+.notifications .notification i.fa-times-circle {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+.notifications .notification i.fa-check-circle {
+  color: #10b981;
+  background-color: #d1fae5;
+}
+
+.notifications .notification i.fa-bell {
+  color: #6b7280;
+  background-color: #f3f4f6;
+}
+
+/* Contenido de notificaciones (todo en un párrafo) */
+.notifications .notification p {
+  font-size: 1rem; /* Texto más grande */
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.6; /* Espacio entre líneas */
+}
+
+.notifications .notification p strong {
+  font-size: 1.125rem; /* Título más grande */
+  font-weight: 600;
+  color: #2d3748;
+  display: block;
+  margin-bottom: 0.5rem; /* Espacio debajo del título */
+}
+
+.notifications .notification p span {
+  font-size: 0.875rem; /* Texto más grande */
+  color: #718096;
+  display: block;
+  margin-top: 0.5rem; /* Espacio arriba de la fecha */
+}
+
+/* Títulos de grupos */
+.notification-group h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  padding-left: 12px;
+  color: #4a5568;
+  border-left: 4px solid transparent;
+}
+
+/* Colores de borde para categorías */
+.notification-group[data-category&#x3D;&quot;Hoy&quot;] h4 {
+  border-left-color: #3b82f6;
+}
+
+.notification-group[data-category&#x3D;&quot;Ayer&quot;] h4 {
+  border-left-color: #f59e0b;
+}
+
+.notification-group[data-category&#x3D;&quot;Hace más de dos días&quot;] h4 {
+  border-left-color: #6b7280;
+}
+
+/* Items de notificaciones */
+.notification-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.notification-item:hover {
+  background-color: #f8fafc;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Iconos */
+.notification-item i {
+  font-size: 24px;
+  margin-top: 4px;
+  border-radius: 50%;
+  padding: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.notification-item i:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Colores de iconos */
+.notification-item i.fa-info-circle {
+  color: #3b82f6;
+  background-color: #dbeafe;
+}
+
+.notification-item i.fa-exclamation-triangle {
+  color: #f59e0b;
+  background-color: #fef3c7;
+}
+
+.notification-item i.fa-times-circle {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+.notification-item i.fa-check-circle {
+  color: #10b981;
+  background-color: #d1fae5;
+}
+
+.notification-item i.fa-bell {
+  color: #6b7280;
+  background-color: #f3f4f6;
+}
+
+/* Contenido de notificaciones */
+.notification-item-content {
+  flex: 1;
+}
+
+.notification-item p {
+  font-size: 14px;
+  color: #4a5568;
+  margin: 0;
+  line-height: 1.6; /* Espacio entre líneas */
+}
+
+.notification-item strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+  display: block;
+  margin-bottom: 4px; /* Espacio debajo del título */
+}
+
+.notification-item span {
+  font-size: 12px;
+  color: #718096;
+  display: block;
+  margin-top: 4px; /* Espacio arriba de la fecha */
+}
+
+/* Tabla de productos más vendidos */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table th,
+table td {
+  padding: 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Ajustes específicos para el gráfico de radar */
+.radar-chart {
+  width: 20%;
+  height: auto;
+  margin: 0 auto;
+}
+
+/* CSS para el popup de módulos */
+.floating-menu {
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 400px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 16px;
+  transition: transform 0.3s ease;
+}
+
+.floating-menu:hover {
+  transform: translateY(-5px);
+}
+
+.popup-content h3 {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #4b5563;
+}
+
+.module-groups {
+  margin-bottom: 16px;
+}
+
+.module-group h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #6b7280;
+}
+
+.module-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.module-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.module-item:hover {
+  background-color: #ffebeb;
+  color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.module-item.selected {
+  background-color: #ffebeb;
+  color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.module-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+  color: #4b5563;
+  transition: color 0.3s ease;
+}
+
+.module-item span {
+  font-size: 12px;
+  text-align: center;
+  color: #4b5563;
+  transition: color 0.3s ease;
+}
+
+.module-item.selected .module-icon,
+.module-item.selected span {
+  color: #e53e3e;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Estilos para el popup de soporte */
+.support-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.support-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.support-item.clickable {
+  cursor: pointer;
+}
+
+.support-item.clickable:hover {
+  background-color: #f8fafc;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.support-item i.fa-phone {
+  color: #3b82f6;
+}
+
+.support-item i.fa-clock {
+  color: #ef4444;
+}
+
+.support-item i.fa-facebook-messenger {
+  color: #006aff;
+}
+
+.support-item i.fa-telegram {
+  color: #2aabee;
+}
+
+.support-item i.fa-comment-sms {
+  color: #10b981;
+}
+
+.support-item span {
+  font-size: 14px;
+  color: #2d3748;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contact-info span {
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.support-item.attention {
+  background-color: #fff5f5;
+  border: 1px solid #ef4444;
+}
+
+.support-item.attention i {
+  color: #ef4444;
+}
+
+.support-item.attention span {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.side-menu.expanded ul {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.side-menu.expanded {
+  width: 83%; /* Expansión completa */
+  margin-right: 32px; /* MÁS MARGEN DERECHO AL EXPANDIRSE */
+}
+
+/* Estado expandido (restaurar tamaño original) */
+.side-menu.expanded .module-icon {
+  font-size: 16px; /* Reducir el tamaño del ícono */
+  padding: 6px; /* Reducir el padding */
+  border-radius: 8px;
+}
+
+.side-menu.expanded li &gt; i {
+  margin-right: 0.8rem; /* Espaciado mayor en menú expandido */
+}
+
+/* Ajustes cuando el menú lateral está expandido */
+.side-menu.expanded ~ .content .stat-item {
+  background-color: white; /* Cambiar el color de los contenedores a blanco */
+  border: none; /* Quitar el borde */
+  box-shadow: none; /* Quitar la sombra */
+}
+
+.side-menu.expanded ~ .content .stat-item {
+  background-color: white; /* Cambiar el color de los contenedores a blanco */
+}
+
+.side-menu.expanded ~ .content .data-item,
+.side-menu.expanded ~ .content .bar-chart,
+.side-menu.expanded ~ .content .more-data {
+  display: none; /* Ocultar las demás secciones */
+}
+
+/* Mejoras adicionales */
+.side-menu.expanded ~ .content .business-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar el contenido */
+  width: 100%; /* Ocupar todo el ancho disponible */
+  padding: 1rem; /* Espaciado interno */
+  overflow: hidden; /* Eliminar el scroll */
+  background-color: transparent; /* Fondo transparente */
+}
+
+.side-menu.expanded ~ .content .business-stats h2 {
+  font-size: 1rem; /* Reducir el tamaño del título del contenedor */
+  color: #333; /* Color del título */
+  margin-bottom: 1rem; /* Espaciado debajo del título */
+  text-align: center; /* Centrar el título */
+}
+
+.side-menu.expanded ~ .content .stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Reducir el espaciado entre elementos */
+  width: 100%; /* Ocupar todo el ancho */
+  max-width: 300px; /* Limitar el ancho máximo para mejor legibilidad */
+}
+
+.side-menu.expanded ~ .content .stat-item {
+  background-color: white; /* Fondo blanco */
+  border: none; /* Sin borde */
+  box-shadow: none; /* Sin sombra */
+  color: #333; /* Color del texto */
+  padding: 0.8rem; /* Reducir el padding */
+  width: 100%; /* Ocupar todo el ancho */
+  text-align: center; /* Centrar el texto */
+  border-radius: 8px; /* Bordes redondeados */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-menu.expanded ~ .content .stat-value {
+  font-size: 1.8rem; /* Reducir el tamaño del valor */
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color del valor */
+}
+
+.side-menu.expanded ~ .content .stat-label {
+  font-size: 0.7rem; /* Reducir el tamaño de la etiqueta */
+  color: #777; /* Color de la etiqueta */
+  margin-top: 0.5rem; /* Espaciado arriba de la etiqueta */
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Enlace al CDN de Font Awesome --><link  rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/><div class="app-container">  <!-- Navegación superior -->  <nav class="bg-white shadow flex justify-between items-center p-4">    <div class="flex items-center">      <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />    </div>    <h2 class="text-xl font-bold text-red-500">      Supermercado "LABRYC" CIA LTDA    </h2>    <div class="flex items-center space-x-4">      <span #notificationsToggle id="notifications-toggle" class="text-red-500 cursor-pointer"        ><i class="fa-regular fa-bell"></i      ></span>      <span #menuToggle id="menu-toggle" class="text-red-500 cursor-pointer"        ><i class="fa-solid fa-bars"></i      ></span>      <span #supportToggle id="support-toggle" class="text-red-500 cursor-pointer"        ><i class="fa-solid fa-headset"></i      ></span>      <span class="text-red-500 cursor-pointer"        ><i class="fa-solid fa-circle-info"></i      ></span>      <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />    </div>  </nav>  <!-- Sección de bienvenida y barra de búsqueda -->  <div class="welcome-section">    <h1 class="welcome-text">Hola, {{ welcomeData.userName }}</h1>    <div class="search-bar">      <input        id="search-input"        type="text"        [placeholder]="welcomeData.searchPlaceholder"        class="search-input"        (input)="filterModules($event)"      />      <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>    </div><!-- Lista de resultados debajo de la barra de búsqueda --><div *ngIf="searchQuery" class="search-results">  <ul>    <li *ngFor="let module of filteredModules" (click)="navigateTo(module.name)">      <i class="module-icon" [class]="getModuleIcon(module.name)"></i>      <span>{{ module.name }}</span>    </li>    <li *ngIf="filteredModules.length === 0" class="no-results">      No se encontraron módulos.    </li>  </ul></div>  </div>  <!-- Contenedor principal -->  <div class="main-container">    <!-- Menú lateral -->    <aside #sideMenu class="side-menu" id="side-menu">      <i #toggleMenu class="fa-solid fa-indent" id="toggle-menu"></i>      <ul>        <li *ngFor="let module of allModules" (click)="navigateTo(module.name)">          <i class="module-icon" [class]="getModuleIcon(module.name)"></i>           <div class="menu-item-container">{{ module.name }}</div>        </li>      </ul>    </aside>    <!-- Contenido principal -->    <main #content class="content">      <!-- Estadísticas del Negocio -->      <section class="business-stats">        <h2>Estadísticas del Negocio</h2>        <div class="stats-grid">          <div *ngFor="let stat of businessStats | keyvalue" class="stat-item">            <span class="stat-icon">{{ stat.value.icon }}</span>            <span class="stat-value">{{ stat.value.value }}</span>            <span class="stat-label">{{ stat.value.label }}</span>          </div>        </div>      </section>      <!-- Gráfico de Nuevos Clientes -->      <section class="bar-chart">        <h2>Nuevos Clientes</h2>        <canvas id="salesChart"></canvas>        <p>Crecimiento respecto al mes anterior</p>      </section>    </main>    <!-- Sección de más datos y notificaciones -->    <aside class="additional-data">      <!-- Más Datos -->      <section class="more-data">        <h2>Más Datos</h2>        <div class="data-grid">          <div class="data-item">            <h4>Marcas más Vendidas</h4>            <canvas id="radarChart"></canvas>          </div>          <div class="data-item">            <h4>Productos más Vendidos</h4>            <table>              <thead>                <tr>                  <th>Producto</th>                  <th>Unidades</th>                  <th>Total</th>                </tr>              </thead>              <tbody>                <tr *ngFor="let product of topProducts">                  <td>{{ product.name }}</td>                  <td>{{ product.units }}</td>                  <td>${{ product.total }}</td>                </tr>              </tbody>            </table>          </div>        </div>      </section>      <!-- Notificaciones -->      <section class="notifications">        <h3>Notificaciones</h3>        <div *ngFor="let notification of notifications" class="notification">          <i [class]="getNotificationIcon(notification.type)"></i>          <strong>{{ notification.title }}</strong>          <p>{{ notification.description }}</p>          <span>{{ notification.date }}</span>        </div>      </section>    </aside>    <!-- Popup con los módulos -->    <div #floatingMenu id="floating-menu" class="floating-menu hidden">      <div class="popup-content">        <h3>Módulos</h3>        <div class="module-grid">          <div *ngFor="let group of groupedModules" class="module-group">            <h4>{{ group.category }}</h4>            <div class="module-items">              <div                *ngFor="let module of group.modules"                class="module-item"                (click)="navigateTo(module.name)"                (mouseenter)="highlightModule(module)"                (mouseleave)="unhighlightModule(module)"              >                <i class="module-icon" [class]="getModuleIcon(module.name)"></i>                <span [class.selected]="module.selected">{{                  module.name                }}</span>              </div>            </div>          </div>        </div>      </div>    </div>    <!-- Popup de Notificaciones -->    <div #notificationsPopup id="notifications-popup" class="floating-menu hidden">      <div class="popup-content">        <h3>Notificaciones</h3>        <div class="notification-groups">          <div            *ngFor="let group of notificationGroups"            class="notification-group"          >            <h4>{{ group.category }}</h4>            <div class="notification-items">              <div                *ngFor="let notification of group.notifications"                class="notification-item"              >                <i [class]="getNotificationIcon(notification.type)"></i>                <div class="notification-item-content">                  <strong>{{ notification.title }}</strong>                  <p>{{ notification.description }}</p>                  <span>{{                    notification.date | date : "dd/MM/yyyy, hh:mm a"                  }}</span>                </div>              </div>            </div>          </div>        </div>      </div>    </div>    <!-- Popup de Soporte -->    <div #supportPopup id="support-popup" class="floating-menu hidden">      <div class="popup-content">        <h3>Soporte</h3>        <div class="support-items">          <div class="support-item">            <i class="fa-solid fa-phone"></i>            <div class="contact-info">              <span>096 331 9244</span>              <span>098 724 3834</span>              <span>072 576 031</span>              <span>Ext: 402 (Contabilidad)</span>              <span>Ext: 501 - 502 - 503 (Soporte)</span>            </div>          </div>          <div class="support-item">            <i class="fa-solid fa-clock"></i>            <span>Atendemos de lunes a viernes de 9:00 a 19:00</span>          </div>          <div class="support-item clickable" (click)="openMessenger()">            <i class="fa-brands fa-facebook-messenger"></i>            <span>Enviar mensaje por Messenger</span>          </div>          <div class="support-item clickable" (click)="openTelegram()">            <i class="fa-brands fa-telegram"></i>            <span>Enviar mensaje por Telegram</span>          </div>          <div class="support-item clickable" (click)="openSMS()">            <i class="fa-solid fa-comment-sms"></i>            <span>Enviar mensaje de texto (SMS)</span>          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdministracionComponent', 'selector': 'app-administracion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarraBusquedaComponent', 'selector': 'app-barra-busqueda'},{'name': 'BarraUbicacionComponent', 'selector': 'app-barra-ubicacion'},{'name': 'BillingSofAdminComponent', 'selector': 'app-billing-sof-admin'},{'name': 'ClientesComponent', 'selector': 'app-clientes'},{'name': 'ClientesVistaComponent', 'selector': 'app-clientes-vista'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'CuentasContablesComponent', 'selector': 'app-cuentas-contables'},{'name': 'CuentasVistasComponent', 'selector': 'app-cuentas-vistas'},{'name': 'DeleteModalComponent', 'selector': 'app-delete-modal'},{'name': 'DynamicMenuComponent', 'selector': 'app-dynamic-menu'},{'name': 'EmpresaComponent', 'selector': 'app-empresa'},{'name': 'FormularioDinamicoComponent', 'selector': 'app-formulario-dinamico'},{'name': 'FormularioDinamicoLoaderComponent', 'selector': 'app-formulario-dinamico-loader'},{'name': 'ImportarComponent', 'selector': 'app-importar'},{'name': 'MarcasComponent', 'selector': 'app-marcas'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PlanCuentasComponent', 'selector': 'app-plan-cuentas'},{'name': 'ProveedoresComponent', 'selector': 'app-proveedores'},{'name': 'ProveedoresVistaComponent', 'selector': 'app-proveedores-vista'},{'name': 'PruebraComponent', 'selector': 'app-pruebra'},{'name': 'TablaDinamicaComponent', 'selector': 'app-tabla-dinamica'},{'name': 'TarifasPorGrupoComponent', 'selector': 'app-tarifas-por-grupo'},{'name': 'TiposClientesComponent', 'selector': 'app-tipos-clientes'},{'name': 'TiposProductosComponent', 'selector': 'app-tipos-productos'},{'name': 'TiposProveedoresComponent', 'selector': 'app-tipos-proveedores'},{'name': 'TiposPVPComponent', 'selector': 'app-tipos-pvp'},{'name': 'TiposPvpVistaComponent', 'selector': 'app-tipos-pvp-vista'},{'name': 'VistaGeneralComponent', 'selector': 'app-vista-general'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'BillingSofAdminComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'BillingSofAdminComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1794 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>app-biling-3 documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">app-biling-3 documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PruebraComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pruebra/pruebra.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-pruebra</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/NavbarComponent.html" target="_self" >NavbarComponent</a></code>
+                                <code><a href="../components/DynamicMenuComponent.html" target="_self" >DynamicMenuComponent</a></code>
+                                <code><a href="../components/BarraUbicacionComponent.html" target="_self" >BarraUbicacionComponent</a></code>
+                                <code><a href="../components/BarraBusquedaComponent.html" target="_self" >BarraBusquedaComponent</a></code>
+                                <code><a href="../components/TablaDinamicaComponent.html" target="_self" >TablaDinamicaComponent</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./pruebra.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./pruebra.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#columnasDisponibles" >columnasDisponibles</a>
+                            </li>
+                            <li>
+                                <a href="#filtrosConfiguracion" >filtrosConfiguracion</a>
+                            </li>
+                            <li>
+                                <a href="#isMenuCollapsed" >isMenuCollapsed</a>
+                            </li>
+                            <li>
+                                <a href="#menuHijosMap" >menuHijosMap</a>
+                            </li>
+                            <li>
+                                <a href="#menuPadre" >menuPadre</a>
+                            </li>
+                            <li>
+                                <a href="#opcionesBusqueda" >opcionesBusqueda</a>
+                            </li>
+                            <li>
+                                <a href="#productosVisibles$" >productosVisibles$</a>
+                            </li>
+                            <li>
+                                <a href="#totalRegistros$" >totalRegistros$</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cargarDatos" >cargarDatos</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onColumnasActualizadas" >onColumnasActualizadas</a>
+                            </li>
+                            <li>
+                                <a href="#onEditarProducto" >onEditarProducto</a>
+                            </li>
+                            <li>
+                                <a href="#onEliminarProducto" >onEliminarProducto</a>
+                            </li>
+                            <li>
+                                <a href="#onFiltrosAplicados" >onFiltrosAplicados</a>
+                            </li>
+                            <li>
+                                <a href="#onMenuHijoClick" >onMenuHijoClick</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDropdown" >toggleDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#toggleFilter" >toggleFilter</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMenuCollapse" >toggleMenuCollapse</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(store: <a href="../interfaces/AppState.html" target="_self">Store&lt;AppState&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/pruebra/pruebra.component.ts:90</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/AppState.html" target="_self" >Store&lt;AppState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarDatos"></a>
+                    <span class="name">
+                        <span ><b>cargarDatos</b></span>
+                        <a href="#cargarDatos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>cargarDatos()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Carga datos de prueba y despacha productos y columnas visibles al store</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Inicializa la carga de datos y los observables desde el store</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onColumnasActualizadas"></a>
+                    <span class="name">
+                        <span ><b>onColumnasActualizadas</b></span>
+                        <a href="#onColumnasActualizadas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onColumnasActualizadas(columnas: literal type[])</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Actualiza columnas visibles según selección del usuario</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>columnas</td>
+                                            <td>
+                                                        <code>literal type[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Array de columnas con su estado actualizado</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEditarProducto"></a>
+                    <span class="name">
+                        <span ><b>onEditarProducto</b></span>
+                        <a href="#onEditarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEditarProducto(producto: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Acciones para editar un producto desde la tabla</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto del producto a editar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onEliminarProducto"></a>
+                    <span class="name">
+                        <span ><b>onEliminarProducto</b></span>
+                        <a href="#onEliminarProducto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onEliminarProducto(producto: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Acciones para eliminar un producto desde la tabla</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>producto</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto del producto a eliminar</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFiltrosAplicados"></a>
+                    <span class="name">
+                        <span ><b>onFiltrosAplicados</b></span>
+                        <a href="#onFiltrosAplicados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFiltrosAplicados(filtros: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja los filtros aplicados desde la barra de búsqueda</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>filtros</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Objeto con los filtros seleccionados por clave-valor</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMenuHijoClick"></a>
+                    <span class="name">
+                        <span ><b>onMenuHijoClick</b></span>
+                        <a href="#onMenuHijoClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMenuHijoClick(item: <a href="../interfaces/MenuItem.html" target="_self">MenuItem</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Maneja el clic en un elemento del menú hijo</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Elemento del submenú clickeado</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDropdown"></a>
+                    <span class="name">
+                        <span ><b>toggleDropdown</b></span>
+                        <a href="#toggleDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDropdown(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="172"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre o cierra el dropdown manualmente (estilo topbar)</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Evento de clic del botón</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleFilter"></a>
+                    <span class="name">
+                        <span ><b>toggleFilter</b></span>
+                        <a href="#toggleFilter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleFilter(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:182</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Abre o cierra el panel de filtros en vista móvil o topbar</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>Evento de clic del botón</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenuCollapse"></a>
+                    <span class="name">
+                        <span ><b>toggleMenuCollapse</b></span>
+                        <a href="#toggleMenuCollapse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenuCollapse()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">src/app/pruebra/pruebra.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Alterna el estado colapsado del menú padre</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="columnasDisponibles"></a>
+                    <span class="name">
+                        <span ><b>columnasDisponibles</b></span>
+                        <a href="#columnasDisponibles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { name: &#x27;Código&#x27;, key: &#x27;codigo&#x27;, selected: true },
+    { name: &#x27;Nombre&#x27;, key: &#x27;nombre&#x27;, selected: true },
+    { name: &#x27;Precio&#x27;, key: &#x27;precio&#x27;, selected: true },
+    { name: &#x27;Stock&#x27;, key: &#x27;stock&#x27;, selected: true },
+    { name: &#x27;Categoría&#x27;, key: &#x27;categoria&#x27;, selected: false },
+    { name: &#x27;Marca&#x27;, key: &#x27;marca&#x27;, selected: true }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/pruebra/pruebra.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Configuración de columnas disponibles para la tabla</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filtrosConfiguracion"></a>
+                    <span class="name">
+                        <span ><b>filtrosConfiguracion</b></span>
+                        <a href="#filtrosConfiguracion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      nombre: &#x27;Categoría&#x27;,
+      key: &#x27;categoria&#x27;,
+      opciones: [&#x27;Electrónica&#x27;, &#x27;Hogar&#x27;, &#x27;Juguetes&#x27;]
+    },
+    {
+      nombre: &#x27;Marca&#x27;,
+      key: &#x27;marca&#x27;,
+      opciones: [&#x27;Sony&#x27;, &#x27;Samsung&#x27;, &#x27;LG&#x27;]
+    }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/pruebra/pruebra.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Filtros dinámicos configurables para el buscador</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMenuCollapsed"></a>
+                    <span class="name">
+                        <span ><b>isMenuCollapsed</b></span>
+                        <a href="#isMenuCollapsed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/pruebra/pruebra.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Control de colapso del menú padre</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuHijosMap"></a>
+                    <span class="name">
+                        <span ><b>menuHijosMap</b></span>
+                        <a href="#menuHijosMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>MENU_CONFIG.hijos</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">src/app/pruebra/pruebra.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mapa con todos los hijos por módulo</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="menuPadre"></a>
+                    <span class="name">
+                        <span ><b>menuPadre</b></span>
+                        <a href="#menuPadre"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/MenuItem.html" target="_self" >MenuItem[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>MENU_CONFIG.principales</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/pruebra/pruebra.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Elementos principales del menú</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="opcionesBusqueda"></a>
+                    <span class="name">
+                        <span ><b>opcionesBusqueda</b></span>
+                        <a href="#opcionesBusqueda"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { value: &#x27;codigo&#x27;, label: &#x27;Código&#x27; },
+    { value: &#x27;nombre&#x27;, label: &#x27;Nombre&#x27; },
+    { value: &#x27;precio&#x27;, label: &#x27;Precio&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/pruebra/pruebra.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Opciones disponibles para el buscador</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="productosVisibles$"></a>
+                    <span class="name">
+                        <span ><b>productosVisibles$</b></span>
+                        <a href="#productosVisibles$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;any[]&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>of([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pruebra/pruebra.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable con los productos visibles aplicando filtros, paginación y columnas</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalRegistros$"></a>
+                    <span class="name">
+                        <span ><b>totalRegistros$</b></span>
+                        <a href="#totalRegistros$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Observable&lt;number&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>of(0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pruebra/pruebra.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable con el total de registros filtrados</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from &#x27;@angular/core&#x27;;
+import { Store, select } from &#x27;@ngrx/store&#x27;;
+import { Observable, of } from &#x27;rxjs&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { tap } from &#x27;rxjs/operators&#x27;;
+
+import { NavbarComponent } from &#x27;../componentes_reutilizables/navbar/navbar.component&#x27;;
+import { DynamicMenuComponent } from &#x27;../componentes_reutilizables/dynamic-menu/dynamic-menu.component&#x27;;
+import { BarraUbicacionComponent } from &#x27;../componentes_reutilizables/barra-ubicacion/barra-ubicacion.component&#x27;;
+import { BarraBusquedaComponent } from &#x27;../componentes_reutilizables/barra-busqueda/barra-busqueda.component&#x27;;
+import { TablaDinamicaComponent } from &#x27;../componentes_reutilizables/tabla-dinamica/tabla-dinamica.component&#x27;;
+
+import { AppState } from &#x27;../state/tabla_NgRx/tabla.state&#x27;;
+import {
+  setProductos,
+  setPaginaActual,
+  setItemsPorPagina,
+  setColumnasVisibles,
+  setFiltrosDinamicos
+} from &#x27;../state/tabla_NgRx/tabla.actions&#x27;;
+
+import {
+  selectProductosVisibles,
+  selectTotalRegistros
+} from &#x27;../state/tabla_NgRx/tabla.selectors&#x27;;
+
+import { MENU_CONFIG } from &#x27;../menu.config&#x27;;
+import { MenuItem } from &#x27;../componentes_reutilizables/dynamic-menu/dynamic-menu.component&#x27;;
+
+@Component({
+  selector: &#x27;app-pruebra&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    NavbarComponent,
+    DynamicMenuComponent,
+    BarraUbicacionComponent,
+    BarraBusquedaComponent,
+    TablaDinamicaComponent
+  ],
+  templateUrl: &#x27;./pruebra.component.html&#x27;,
+  styleUrls: [&#x27;./pruebra.component.scss&#x27;],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class PruebraComponent implements OnInit {
+  /** Observable con los productos visibles aplicando filtros, paginación y columnas */
+  productosVisibles$: Observable&lt;any[]&gt; &#x3D; of([]);
+
+  /** Observable con el total de registros filtrados */
+  totalRegistros$: Observable&lt;number&gt; &#x3D; of(0);
+
+  /** Configuración de columnas disponibles para la tabla */
+  columnasDisponibles &#x3D; [
+    { name: &#x27;Código&#x27;, key: &#x27;codigo&#x27;, selected: true },
+    { name: &#x27;Nombre&#x27;, key: &#x27;nombre&#x27;, selected: true },
+    { name: &#x27;Precio&#x27;, key: &#x27;precio&#x27;, selected: true },
+    { name: &#x27;Stock&#x27;, key: &#x27;stock&#x27;, selected: true },
+    { name: &#x27;Categoría&#x27;, key: &#x27;categoria&#x27;, selected: false },
+    { name: &#x27;Marca&#x27;, key: &#x27;marca&#x27;, selected: true }
+  ];
+
+  /** Opciones disponibles para el buscador */
+  opcionesBusqueda &#x3D; [
+    { value: &#x27;codigo&#x27;, label: &#x27;Código&#x27; },
+    { value: &#x27;nombre&#x27;, label: &#x27;Nombre&#x27; },
+    { value: &#x27;precio&#x27;, label: &#x27;Precio&#x27; }
+  ];
+
+  /** Filtros dinámicos configurables para el buscador */
+  filtrosConfiguracion &#x3D; [
+    {
+      nombre: &#x27;Categoría&#x27;,
+      key: &#x27;categoria&#x27;,
+      opciones: [&#x27;Electrónica&#x27;, &#x27;Hogar&#x27;, &#x27;Juguetes&#x27;]
+    },
+    {
+      nombre: &#x27;Marca&#x27;,
+      key: &#x27;marca&#x27;,
+      opciones: [&#x27;Sony&#x27;, &#x27;Samsung&#x27;, &#x27;LG&#x27;]
+    }
+  ];
+
+  /** Elementos principales del menú */
+  menuPadre: MenuItem[] &#x3D; MENU_CONFIG.principales;
+
+  /** Mapa con todos los hijos por módulo */
+  menuHijosMap: { [modulo: string]: MenuItem[] } &#x3D; MENU_CONFIG.hijos;
+
+  /** Control de colapso del menú padre */
+  isMenuCollapsed &#x3D; false;
+
+  constructor(private store: Store&lt;AppState&gt;) {}
+
+  /** Inicializa la carga de datos y los observables desde el store */
+  ngOnInit(): void {
+    this.cargarDatos();
+
+    this.productosVisibles$ &#x3D; this.store.pipe(
+      select(selectProductosVisibles),
+      tap((data) &#x3D;&gt; console.log(&#x27;Productos visibles:&#x27;, data))
+    );
+
+    this.totalRegistros$ &#x3D; this.store.pipe(select(selectTotalRegistros));
+  }
+
+  /** Carga datos de prueba y despacha productos y columnas visibles al store */
+  cargarDatos(): void {
+    const categorias &#x3D; [&#x27;Electrónica&#x27;, &#x27;Hogar&#x27;, &#x27;Juguetes&#x27;];
+    const marcas &#x3D; [&#x27;Sony&#x27;, &#x27;Samsung&#x27;, &#x27;LG&#x27;];
+
+    const mockProductos &#x3D; Array.from({ length: 200 }, (_, i) &#x3D;&gt; ({
+      id: i + 1,
+      codigo: &#x60;COD-${i + 1}&#x60;,
+      nombre: &#x60;Producto ${i + 1}&#x60;,
+      precio: Math.floor(Math.random() * 1000),
+      stock: Math.floor(Math.random() * 100),
+      stockMin: Math.floor(Math.random() * 50),
+      stockMax: Math.floor(Math.random() * 150),
+      categoria: categorias[i % categorias.length],
+      marca: marcas[i % marcas.length]
+    }));
+
+    this.store.dispatch(setProductos({ productos: mockProductos }));
+
+    const columnasVisibles &#x3D; this.columnasDisponibles
+      .filter(col &#x3D;&gt; col.selected)
+      .map(col &#x3D;&gt; ({ ...col }));
+
+    this.store.dispatch(setColumnasVisibles({ columnasVisibles }));
+    console.log(&#x27;🔥 Columnas visibles al cargar:&#x27;, columnasVisibles);
+  }
+
+  /**
+   * Maneja los filtros aplicados desde la barra de búsqueda
+   * @param filtros Objeto con los filtros seleccionados por clave-valor
+   */
+  onFiltrosAplicados(filtros: { [key: string]: string }): void {
+    console.log(&#x27;✅ Filtros aplicados:&#x27;, filtros);
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
+  }
+
+  /**
+   * Actualiza columnas visibles según selección del usuario
+   * @param columnas Array de columnas con su estado actualizado
+   */
+  onColumnasActualizadas(columnas: { name: string; key: string; selected: boolean }[]): void {
+    this.columnasDisponibles &#x3D; columnas.map(col &#x3D;&gt; ({ ...col }));
+    const visibles &#x3D; this.columnasDisponibles.filter(col &#x3D;&gt; col.selected);
+    this.store.dispatch(setColumnasVisibles({ columnasVisibles: visibles }));
+  }
+
+  /**
+   * Acciones para editar un producto desde la tabla
+   * @param producto Objeto del producto a editar
+   */
+  onEditarProducto(producto: any): void {
+    console.log(&#x27;Editar producto:&#x27;, producto);
+  }
+
+  /**
+   * Acciones para eliminar un producto desde la tabla
+   * @param producto Objeto del producto a eliminar
+   */
+  onEliminarProducto(producto: any): void {
+    console.log(&#x27;Eliminar producto:&#x27;, producto);
+  }
+
+  /**
+   * Abre o cierra el dropdown manualmente (estilo topbar)
+   * @param event Evento de clic del botón
+   */
+  toggleDropdown(event: Event): void {
+    event.stopPropagation();
+    const button &#x3D; event.currentTarget as HTMLElement;
+    button.classList.toggle(&#x27;active&#x27;);
+  }
+
+  /**
+   * Abre o cierra el panel de filtros en vista móvil o topbar
+   * @param event Evento de clic del botón
+   */
+  toggleFilter(event: Event): void {
+    event.stopPropagation();
+    const button &#x3D; event.currentTarget as HTMLElement;
+    const filterContent &#x3D; button.nextElementSibling as HTMLElement;
+    if (filterContent) {
+      filterContent.classList.toggle(&#x27;hidden&#x27;);
+    }
+  }
+
+  /**
+   * Maneja el clic en un elemento del menú hijo
+   * @param item Elemento del submenú clickeado
+   */
+  onMenuHijoClick(item: MenuItem): void {
+    if (item.route) {
+      console.log(&#x27;Ruta seleccionada:&#x27;, item.route);
+    }
+  }
+
+  /**
+   * Alterna el estado colapsado del menú padre
+   */
+  toggleMenuCollapse(): void {
+    this.isMenuCollapsed &#x3D; !this.isMenuCollapsed;
+  }
+
+  
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">
+&lt;app-navbar&gt;&lt;/app-navbar&gt;
+
+&lt;!-- Menú completo con padres e hijos (manejado internamente) --&gt;
+&lt;app-dynamic-menu
+  [menuPadre]&#x3D;&quot;menuPadre&quot;
+  [menuHijosMap]&#x3D;&quot;menuHijosMap&quot;
+  [isCollapsed]&#x3D;&quot;isMenuCollapsed&quot;
+  (toggleCollapse)&#x3D;&quot;toggleMenuCollapse()&quot;
+  (itemClicked)&#x3D;&quot;onMenuHijoClick($event)&quot;&gt;
+&lt;/app-dynamic-menu&gt;
+  
+&lt;app-barra-ubicacion&gt;&lt;/app-barra-ubicacion&gt;
+
+&lt;app-barra-busqueda
+  [opcionesBusqueda]&#x3D;&quot;opcionesBusqueda&quot;
+ 
+  [columnasDisponibles]&#x3D;&quot;columnasDisponibles&quot;
+  (filtrosAplicados)&#x3D;&quot;onFiltrosAplicados($event)&quot;&gt;
+&lt;/app-barra-busqueda&gt;
+
+&lt;app-tabla-dinamica
+  [productos]&#x3D;&quot;productosVisibles$ | async&quot;
+  [columnasVisibles]&#x3D;&quot;columnasDisponibles&quot;
+  (editarProducto)&#x3D;&quot;onEditarProducto($event)&quot;
+  (eliminarProducto)&#x3D;&quot;onEliminarProducto($event)&quot;&gt;
+&lt;/app-tabla-dinamica&gt;
+
+
+
+&lt;div class&#x3D;&quot;catalogo_inputs&quot;&gt;
+    &lt;!-- 1. Input normal --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input1&quot; class&#x3D;&quot;input-label&quot;&gt;1. Input Normal&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input1&quot; class&#x3D;&quot;input-normal&quot; placeholder&#x3D;&quot;Input normal&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 2. Input con fondo gris y borde gris --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input2&quot; class&#x3D;&quot;input-label&quot;&gt;2. Input con Fondo Gris&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input2&quot; class&#x3D;&quot;input-fondo-gris&quot; placeholder&#x3D;&quot;Fondo gris&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 3. Input con texto en un costado --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input3&quot; class&#x3D;&quot;input-label&quot;&gt;3. Input con Texto al Costado&lt;/label&gt;
+        &lt;div class&#x3D;&quot;input-texto-costado&quot;&gt;
+            &lt;span class&#x3D;&quot;texto-costado&quot;&gt;Texto al costado&lt;/span&gt;
+            &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input3&quot; class&#x3D;&quot;input-normal&quot; placeholder&#x3D;&quot;Input con texto al costado&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 4. Input con fondo rojo y sombreado suave --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input4&quot; class&#x3D;&quot;input-label&quot;&gt;4. Input con Fondo Rojo&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input4&quot; class&#x3D;&quot;input-borde-rojo-suave&quot; placeholder&#x3D;&quot;Fondo rojo&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 5. Input deshabilitado --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input5&quot; class&#x3D;&quot;input-label&quot;&gt;5. Input Deshabilitado&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input5&quot; class&#x3D;&quot;input-deshabilitado&quot; placeholder&#x3D;&quot;Deshabilitado&quot; disabled&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 6. Input con estado de error --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input6&quot; class&#x3D;&quot;input-label&quot;&gt;6. Input con Error&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input6&quot; class&#x3D;&quot;input-borde-rojo&quot; placeholder&#x3D;&quot;Error&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 7. Input con estado de éxito --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input7&quot; class&#x3D;&quot;input-label&quot;&gt;7. Input con Éxito&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input7&quot; class&#x3D;&quot;input-exito&quot; placeholder&#x3D;&quot;Éxito&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 8. Input con estado de advertencia --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input8&quot; class&#x3D;&quot;input-label&quot;&gt;8. Input con Advertencia&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input8&quot; class&#x3D;&quot;input-advertencia&quot; placeholder&#x3D;&quot;Advertencia&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 9. Input con estado informativo --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input9&quot; class&#x3D;&quot;input-label&quot;&gt;9. Input Informativo&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input9&quot; class&#x3D;&quot;input-informativo&quot; placeholder&#x3D;&quot;Informativo&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 10. Input con fondo oscuro --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input10&quot; class&#x3D;&quot;input-label&quot;&gt;10. Input con Fondo Oscuro&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input10&quot; class&#x3D;&quot;input-fondo-oscuro&quot; placeholder&#x3D;&quot;Fondo oscuro&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 11. Input con texto claro sobre fondo oscuro --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input11&quot; class&#x3D;&quot;input-label&quot;&gt;11. Input con Texto Claro&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input11&quot; class&#x3D;&quot;input-texto-claro&quot; placeholder&#x3D;&quot;Texto claro&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 12. Input con tamaño grande --&gt;
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+        &lt;label for&#x3D;&quot;input12&quot; class&#x3D;&quot;input-label&quot;&gt;12. Input Grande&lt;/label&gt;
+        &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;input12&quot; class&#x3D;&quot;input-grande&quot; placeholder&#x3D;&quot;Input grande&quot;&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Grupo de Sí / No --&gt;
+&lt;div class&#x3D;&quot;radio-toggle-group&quot;&gt;
+    &lt;label class&#x3D;&quot;radio-toggle-label&quot;&gt;Descuento&lt;/label&gt;
+    &lt;div class&#x3D;&quot;radio-toggle-options&quot;&gt;
+      &lt;label class&#x3D;&quot;radio-toggle-option&quot;&gt;
+        &lt;input type&#x3D;&quot;radio&quot; name&#x3D;&quot;descuento&quot; value&#x3D;&quot;true&quot; /&gt;
+        &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+        Sí
+      &lt;/label&gt;
+      &lt;label class&#x3D;&quot;radio-toggle-option&quot;&gt;
+        &lt;input type&#x3D;&quot;radio&quot; name&#x3D;&quot;descuento&quot; value&#x3D;&quot;false&quot; checked /&gt;
+        &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+        No
+      &lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- Grupo de selección tipo impuesto --&gt;
+  &lt;div class&#x3D;&quot;radio-list-group&quot;&gt;
+    &lt;label class&#x3D;&quot;radio-list-label&quot;&gt;Impuesto &lt;span class&#x3D;&quot;obligatorio&quot;&gt;- Obligatorio&lt;/span&gt;&lt;/label&gt;
+    &lt;div class&#x3D;&quot;radio-list-options&quot;&gt;
+      &lt;label class&#x3D;&quot;radio-list-option&quot;&gt;
+        &lt;input type&#x3D;&quot;radio&quot; name&#x3D;&quot;iva&quot; value&#x3D;&quot;0&quot; /&gt;
+        &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+        IVA - TARIFA CERO 0%
+      &lt;/label&gt;
+      &lt;label class&#x3D;&quot;radio-list-option&quot;&gt;
+        &lt;input type&#x3D;&quot;radio&quot; name&#x3D;&quot;iva&quot; value&#x3D;&quot;15&quot; checked /&gt;
+        &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+        IVA - TARIFA QUINCE 15%
+      &lt;/label&gt;
+      &lt;label class&#x3D;&quot;radio-list-option&quot;&gt;
+        &lt;input type&#x3D;&quot;radio&quot; name&#x3D;&quot;iva&quot; value&#x3D;&quot;noObjeto&quot; /&gt;
+        &lt;span class&#x3D;&quot;custom-radio&quot;&gt;&lt;/span&gt;
+        IVA - NO OBJETO DE IMPUESTOS 0%
+      &lt;/label&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./pruebra.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import &#x27;../catalogo_css/catalogo_inputs.scss&#x27;;
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><app-navbar></app-navbar><!-- Menú completo con padres e hijos (manejado internamente) --><app-dynamic-menu  [menuPadre]="menuPadre"  [menuHijosMap]="menuHijosMap"  [isCollapsed]="isMenuCollapsed"  (toggleCollapse)="toggleMenuCollapse()"  (itemClicked)="onMenuHijoClick($event)"></app-dynamic-menu>  <app-barra-ubicacion></app-barra-ubicacion><app-barra-busqueda  [opcionesBusqueda]="opcionesBusqueda"   [columnasDisponibles]="columnasDisponibles"  (filtrosAplicados)="onFiltrosAplicados($event)"></app-barra-busqueda><app-tabla-dinamica  [productos]="productosVisibles$ | async"  [columnasVisibles]="columnasDisponibles"  (editarProducto)="onEditarProducto($event)"  (eliminarProducto)="onEliminarProducto($event)"></app-tabla-dinamica><div class="catalogo_inputs">    <!-- 1. Input normal -->    <div class="input-group">        <label for="input1" class="input-label">1. Input Normal</label>        <input type="text" id="input1" class="input-normal" placeholder="Input normal">    </div>    <!-- 2. Input con fondo gris y borde gris -->    <div class="input-group">        <label for="input2" class="input-label">2. Input con Fondo Gris</label>        <input type="text" id="input2" class="input-fondo-gris" placeholder="Fondo gris">    </div>    <!-- 3. Input con texto en un costado -->    <div class="input-group">        <label for="input3" class="input-label">3. Input con Texto al Costado</label>        <div class="input-texto-costado">            <span class="texto-costado">Texto al costado</span>            <input type="text" id="input3" class="input-normal" placeholder="Input con texto al costado">        </div>    </div>    <!-- 4. Input con fondo rojo y sombreado suave -->    <div class="input-group">        <label for="input4" class="input-label">4. Input con Fondo Rojo</label>        <input type="text" id="input4" class="input-borde-rojo-suave" placeholder="Fondo rojo">    </div>    <!-- 5. Input deshabilitado -->    <div class="input-group">        <label for="input5" class="input-label">5. Input Deshabilitado</label>        <input type="text" id="input5" class="input-deshabilitado" placeholder="Deshabilitado" disabled>    </div>    <!-- 6. Input con estado de error -->    <div class="input-group">        <label for="input6" class="input-label">6. Input con Error</label>        <input type="text" id="input6" class="input-borde-rojo" placeholder="Error">    </div>    <!-- 7. Input con estado de éxito -->    <div class="input-group">        <label for="input7" class="input-label">7. Input con Éxito</label>        <input type="text" id="input7" class="input-exito" placeholder="Éxito">    </div>    <!-- 8. Input con estado de advertencia -->    <div class="input-group">        <label for="input8" class="input-label">8. Input con Advertencia</label>        <input type="text" id="input8" class="input-advertencia" placeholder="Advertencia">    </div>    <!-- 9. Input con estado informativo -->    <div class="input-group">        <label for="input9" class="input-label">9. Input Informativo</label>        <input type="text" id="input9" class="input-informativo" placeholder="Informativo">    </div>    <!-- 10. Input con fondo oscuro -->    <div class="input-group">        <label for="input10" class="input-label">10. Input con Fondo Oscuro</label>        <input type="text" id="input10" class="input-fondo-oscuro" placeholder="Fondo oscuro">    </div>    <!-- 11. Input con texto claro sobre fondo oscuro -->    <div class="input-group">        <label for="input11" class="input-label">11. Input con Texto Claro</label>        <input type="text" id="input11" class="input-texto-claro" placeholder="Texto claro">    </div>    <!-- 12. Input con tamaño grande -->    <div class="input-group">        <label for="input12" class="input-label">12. Input Grande</label>        <input type="text" id="input12" class="input-grande" placeholder="Input grande">    </div></div><!-- Grupo de Sí / No --><div class="radio-toggle-group">    <label class="radio-toggle-label">Descuento</label>    <div class="radio-toggle-options">      <label class="radio-toggle-option">        <input type="radio" name="descuento" value="true" />        <span class="custom-radio"></span>        Sí      </label>      <label class="radio-toggle-option">        <input type="radio" name="descuento" value="false" checked />        <span class="custom-radio"></span>        No      </label>    </div>  </div>    <!-- Grupo de selección tipo impuesto -->  <div class="radio-list-group">    <label class="radio-list-label">Impuesto <span class="obligatorio">- Obligatorio</span></label>    <div class="radio-list-options">      <label class="radio-list-option">        <input type="radio" name="iva" value="0" />        <span class="custom-radio"></span>        IVA - TARIFA CERO 0%      </label>      <label class="radio-list-option">        <input type="radio" name="iva" value="15" checked />        <span class="custom-radio"></span>        IVA - TARIFA QUINCE 15%      </label>      <label class="radio-list-option">        <input type="radio" name="iva" value="noObjeto" />        <span class="custom-radio"></span>        IVA - NO OBJETO DE IMPUESTOS 0%      </label>    </div>  </div>  </div>'
+    var COMPONENTS = [{'name': 'AdministracionComponent', 'selector': 'app-administracion'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BarraBusquedaComponent', 'selector': 'app-barra-busqueda'},{'name': 'BarraUbicacionComponent', 'selector': 'app-barra-ubicacion'},{'name': 'BillingSofAdminComponent', 'selector': 'app-billing-sof-admin'},{'name': 'ClientesComponent', 'selector': 'app-clientes'},{'name': 'ClientesVistaComponent', 'selector': 'app-clientes-vista'},{'name': 'ConfiguracionComponent', 'selector': 'app-configuracion'},{'name': 'CuentasContablesComponent', 'selector': 'app-cuentas-contables'},{'name': 'CuentasVistasComponent', 'selector': 'app-cuentas-vistas'},{'name': 'DeleteModalComponent', 'selector': 'app-delete-modal'},{'name': 'DynamicMenuComponent', 'selector': 'app-dynamic-menu'},{'name': 'EmpresaComponent', 'selector': 'app-empresa'},{'name': 'FormularioDinamicoComponent', 'selector': 'app-formulario-dinamico'},{'name': 'FormularioDinamicoLoaderComponent', 'selector': 'app-formulario-dinamico-loader'},{'name': 'ImportarComponent', 'selector': 'app-importar'},{'name': 'MarcasComponent', 'selector': 'app-marcas'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PlanCuentasComponent', 'selector': 'app-plan-cuentas'},{'name': 'ProveedoresComponent', 'selector': 'app-proveedores'},{'name': 'ProveedoresVistaComponent', 'selector': 'app-proveedores-vista'},{'name': 'PruebraComponent', 'selector': 'app-pruebra'},{'name': 'TablaDinamicaComponent', 'selector': 'app-tabla-dinamica'},{'name': 'TarifasPorGrupoComponent', 'selector': 'app-tarifas-por-grupo'},{'name': 'TiposClientesComponent', 'selector': 'app-tipos-clientes'},{'name': 'TiposProductosComponent', 'selector': 'app-tipos-productos'},{'name': 'TiposProveedoresComponent', 'selector': 'app-tipos-proveedores'},{'name': 'TiposPVPComponent', 'selector': 'app-tipos-pvp'},{'name': 'TiposPvpVistaComponent', 'selector': 'app-tipos-pvp-vista'},{'name': 'VistaGeneralComponent', 'selector': 'app-vista-general'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'PruebraComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PruebraComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
