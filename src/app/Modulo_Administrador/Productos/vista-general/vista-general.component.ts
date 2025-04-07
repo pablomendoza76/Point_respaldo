@@ -10,7 +10,7 @@ import {
   setFiltrosDinamicos,
   setTotalRegistros
 } from '../../../state/tabla_NgRx/tabla.actions';
-import { selectProductosVisibles } from '../../../state/tabla_NgRx/tabla.selectors';
+import { selectProductos  } from '../../../state/tabla_NgRx/tabla.selectors';
 import { BarraUbicacionComponent } from '../../../componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
 import { BarraBusquedaComponent } from '../../../componentes_reutilizables/barra-busqueda/barra-busqueda.component';
 import { TablaDinamicaComponent } from '../../../componentes_reutilizables/tabla-dinamica/tabla-dinamica.component';
@@ -117,7 +117,7 @@ export class VistaGeneralComponent implements OnInit {
     private SubproductoService: SubproductoService,
     private tipoProductoService: TipoProductoService
   ) {
-    this.productosVisibles$ = this.store.pipe(select(selectProductosVisibles));
+    this.productosVisibles$ = this.store.pipe(select(selectProductos ));
   }
 
   /**
@@ -195,14 +195,24 @@ export class VistaGeneralComponent implements OnInit {
   /**
    * Abre el formulario en modo edición para el producto seleccionado.
    */
-  onEditarProducto(producto: any): void {
+  onEditarProducto(productoParcial: any): void {
     this.modoEdicion = true;
-    this.productoSeleccionado = { ...producto };
-    console.log(this.productoSeleccionado)
-    this.cargarSubgruposPorGrupo(producto.productogrupoCodigo);
-    this.bloquesFormulario = this.generarTodosLosCamposComoBloque(this.productoSeleccionado);
-    this.formularioVisible = true;
+  
+    // Buscamos el producto completo usando el código
+    this.store.pipe(select(selectProductos)).subscribe(productos => {
+      const productoCompleto = productos.find(p => p.codigo === productoParcial.codigo);
+  
+      if (productoCompleto) {
+        this.productoSeleccionado = { ...productoCompleto };
+        this.cargarSubgruposPorGrupo(this.productoSeleccionado.productogrupoCodigo);
+        this.bloquesFormulario = this.generarTodosLosCamposComoBloque(this.productoSeleccionado);
+        this.formularioVisible = true;
+      } else {
+        console.warn('Producto completo no encontrado en el store.');
+      }
+    }).unsubscribe(); // Nos desuscribimos de inmediato para evitar memoria extra
   }
+  
 
   /**
    * Abre el formulario en modo creación con un producto vacío.
