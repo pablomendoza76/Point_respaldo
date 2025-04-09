@@ -9,7 +9,7 @@
  * @param {string} $color - Color del texto del botón.
  * @param {string} $border-color - Color del borde del botón.
  */
-@mixin ios-button($background, $color, $border-color) {
+ @mixin ios-button($background, $color, $border-color) {
   background-color: $background;
   color: $color;
   border: 1px solid $border-color;
@@ -23,9 +23,11 @@
   align-items: center;
   justify-content: center;
   gap: 0.3rem;
-  width: auto;
-  flex-grow: 1;
-  flex-shrink: 1;
+
+  // ⚠️ Aquí quitamos flex-grow y flex-shrink
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
 
   i {
     font-size: 0.75rem;
@@ -54,16 +56,17 @@
   }
 }
 
+
 /**
  * Contenedor de búsqueda
  */
-.search-container {
+ .search-container {
   display: flex;
-  gap: 0.8%;
   align-items: center;
   padding-left: 2%;
   padding-right: 3%;
   flex: 1;
+  gap: 0.8%;
 
   select,
   input,
@@ -77,89 +80,87 @@
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
 
-    &:hover {
-      background-color: lighten($gris-borde, 5%);
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-      border-color: lighten($gris-borde, 5%);
-    }
-
-    &:focus {
-      border-color: lighten($gris-borde, 5%);
-      box-shadow: 0 0 0 2px rgba($gris-borde, 0.15);
-    }
+  input[type="search"] {
+    flex: 1 1 auto;
+    width: 25%;
+    max-width: 30%;
+    min-width: 20%;
+    background-color: $fondo-claro;
+    color: $texto-principal;
+    font-size: 0.75rem;
   }
 
   .search-btn {
     @include ios-button($gris-borde, $texto-claro, $gris-borde);
   }
 
-  .btn-export {
-    @include ios-button($verde-botones, $texto-claro, $verde-botones);
-    margin-left: 10%;
+  // Solo este grupo se empuja al final
+  .acciones-finales {
+    display: flex;
+    gap: 0.4rem;
+    margin-left: auto;
 
-    i {
-      font-size: 0.65rem;
-      margin-right: 0.3rem;
+    .btn-export {
+      @include ios-button($verde-botones, $texto-claro, $verde-botones);
+
+      i {
+        font-size: 0.65rem;
+        margin-right: 0.3rem;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
-    span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
+    .btn-import {
+      @include ios-button($fondo-claro, $rojo-botones, $rojo-botones);
+      min-width: 120px;
 
-  .btn-import {
-    @include ios-button($fondo-claro, $rojo-botones, $rojo-botones);
-    margin-left: 0.4rem;
-    min-width: 120px;
+      i {
+        font-size: 0.65rem;
+        margin-right: 0.3rem;
+      }
 
-    i {
-      font-size: 0.65rem;
-      margin-right: 0.3rem;
-    }
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-    span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      &:hover {
+        background-color: lighten($rojo-botones, 30%);
+        color: $rojo-botones;
+      }
     }
 
-    &:hover {
-      background-color: lighten($rojo-botones, 30%);
-      color: $rojo-botones;
+    .btn-agregar {
+      @include ios-button($rojo-botones, $texto-claro, $rojo-botones);
+      min-width: 130px;
+
+      i {
+        font-size: 0.65rem;
+        margin-right: 0.3rem;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        background-color: lighten($rojo-botones, 20%);
+        color: $texto-claro;
+      }
     }
-  }
-
-  .btn-agregar {
-    @include ios-button($rojo-botones, $texto-claro, $rojo-botones);
-    min-width: 130px;
-
-    i {
-      font-size: 0.65rem;
-      margin-right: 0.3rem;
-    }
-
-    span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    &:hover {
-      background-color: lighten($rojo-botones, 20%);
-      color: $texto-claro;
-    }
-  }
-
-  input[type="search"] {
-    flex-grow: 1;
-    background-color: $fondo-claro;
-    color: $texto-principal;
-    font-size: 0.75rem;
   }
 }
+
 
 /**
  * Estilos mejorados del selector de columnas
@@ -329,3 +330,4 @@
 .filter-section.hidden {
   display: none;
 }
+

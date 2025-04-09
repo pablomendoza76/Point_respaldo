@@ -54,6 +54,11 @@ export class BarraBusquedaComponent implements OnInit {
    * Texto del botón de agregar.
    */
   @Input() textoBotonAgregar: string = 'Agregar';
+  /**
+   * regula lo que muestra la barra de busqueda.
+   */
+ @Input() mostrarSoloBusqueda: boolean = false;
+
 
   /**
    * Emite los filtros transformados.
@@ -71,6 +76,8 @@ export class BarraBusquedaComponent implements OnInit {
    * Emite evento para indicar que se desea agregar un nuevo registro.
    */
   @Output() agregar = new EventEmitter<void>();
+
+  
 
   searchType: string = '';
   searchValue: string = '';

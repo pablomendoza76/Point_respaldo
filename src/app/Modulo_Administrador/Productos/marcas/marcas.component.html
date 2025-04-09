@@ -1,0 +1,36 @@
+<!-- Componente de barra de ubicación -->
+<app-barra-ubicacion></app-barra-ubicacion>
+
+<!-- Barra de búsqueda sin filtros ni columnas -->
+<app-barra-busqueda
+  [opcionesBusqueda]="[{ value: 'nombre', label: 'Nombre' }]"
+  (agregar)="onAgregarNuevaMarca()">
+</app-barra-busqueda>
+
+<!-- Tabla para listar marcas con observables -->
+<app-tabla-dinamica
+  [paginaActual]="paginaActual"
+  [itemsPorPagina]="itemsPorPagina"
+  [opcionesPaginacion]="opcionesPaginacion"
+  [columnasVisibles$]="columnasVisibles$"
+  [registrosVisibles$]="registrosVisibles$"
+  (editarRegistro)="onEditarMarca($event)"
+  (cambioPagina)="onCambioPagina($event)"
+  (cambioItemsPorPagina)="onCambioItemsPorPagina($event)">
+</app-tabla-dinamica>
+
+<!-- Formulario para crear o editar marca -->
+<app-formulario-dinamico-loader
+  [mostrar]="formularioVisible"
+  [titulo]="modoEdicion ? 'Editar Marca' : 'Nueva Marca'"
+  [bloques]="bloquesFormulario"
+  [datos]="marcaSeleccionada"
+  [modoEdicion]="modoEdicion"
+  [botonesAccion]="[
+    { texto: modoEdicion ? 'Guardar' : 'Crear', accion: 'guardar' },
+    { texto: 'Cancelar', accion: 'cancelar' }
+  ]"
+  (guardar)="onGuardarMarca($event)"
+  (cerrar)="onCerrarFormulario()"
+  (accion)="onCerrarFormulario()">
+</app-formulario-dinamico-loader>

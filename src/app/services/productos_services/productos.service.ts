@@ -6,6 +6,7 @@ import { ApiUrls } from '../../enums/api-urls.enum';
 import { Enums_productos } from '../../enums/enums_Productos/productos.enum';
 import { Producto } from '../../Interfaces/Productos/producto.model';
 
+
 /**
  * Servicio encargado de obtener productos desde la API y generar dinámicamente las columnas,
  * además de extraer información útil como marcas y grupos para filtros.
@@ -172,9 +173,20 @@ private transformarProducto(producto: any): any {
  * @param producto Datos del nuevo producto
  * @returns Observable con la respuesta del servidor
  */
-  crearProducto(producto: any): Observable<any> {
-    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`;
-    return this.http.post(url, producto);
-  }
+
+crearProducto(data: Partial<Producto>): Observable<any> {
+  const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`;
+
+  const producto: Producto = {
+    ...<Producto>{},  // Cast a Producto vacío
+    ...data,
+    codigo: 0,  // obligatorio según API
+    fechacreacion: new Date().toISOString(),
+    fechaultactualizacion: new Date().toISOString()
+  };
+
+  console.log(url, producto)
+  return this.http.post(url, producto);
+}
 
 }

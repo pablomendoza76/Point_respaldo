@@ -2,13 +2,12 @@
  * Contiene las url generales para conectar con las apis
  */
 
-export enum Enums_sub_grupo {
+export enum Enums_Cuentas {
     /**
-     *  Enums especificos para los sub_grupos 
+     *  Enums especificos para cuentas
      */ 
-    sub_grupo = 'subgrupo/', 
-    todos = 'obtener-subgrupo',
-    Por_grupo = 'obtener-subgrupos-grupo/',     
+    Marcas = 'bill-contaconfigcuentas/', 
+    todas = 'obtener-conta-config-cuentas',
     //Editar = 'editar-producto',
     //Borrar = 'cambiar-estado-producto/',
     //Crear = 'crear-producto'

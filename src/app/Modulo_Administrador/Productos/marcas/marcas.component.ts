@@ -1,194 +1,198 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+/**
+ * Componente que gestiona la vista de marcas.
+ * Permite listar, crear y editar marcas utilizando un formulario dinámico y una tabla con paginación.
+ */
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AppState } from '../../../state/tabla_NgRx/tabla.state';
+import { setProductos, setColumnasVisibles, setTotalRegistros } from '../../../state/tabla_NgRx/tabla.actions';
+import { selectProductos } from '../../../state/tabla_NgRx/tabla.selectors';
 import { MarcasService } from '../../../services/productos_services/marcas.service';
-import { MenuRoutesService } from '../../../services/servicios_compartidos/menu-routes.service'; // Importar el servicio
-import * as XLSX from 'xlsx';
+import { BarraUbicacionComponent } from '../../../componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
+import { BarraBusquedaComponent } from '../../../componentes_reutilizables/barra-busqueda/barra-busqueda.component';
+import { TablaDinamicaComponent } from '../../../componentes_reutilizables/tabla-dinamica/tabla-dinamica.component';
+import { FormularioDinamicoLoaderComponent } from '../../../componentes_reutilizables/formulario-dinamico-loader/formulario-dinamico-loader.component';
 
 @Component({
-  selector: 'app-marcas',
+  selector: 'app-vista-marcas',
   standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    BarraUbicacionComponent,
+    BarraBusquedaComponent,
+    TablaDinamicaComponent,
+    FormularioDinamicoLoaderComponent
+  ],
   templateUrl: './marcas.component.html',
   styleUrls: ['./marcas.component.scss'],
-  imports: [CommonModule, RouterModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MarcasComponent implements OnInit {
-  marcas: any[] = [];
-  marcasFiltradas: any[] = [];
-  marcasPaginadas: any[] = [];
-  columnasDisponibles: any[] = [
-    { key: 'nombre', name: 'Nombre', selected: true },
-    { key: 'descripcion', name: 'Descripción', selected: true },
-  ];
-  columnasVisibles: any[] = [];
-  searchValue: string = '';
-  searchType: string = 'nombre'; // Propiedad agregada para el tipo de búsqueda
-  mostrarFormularioEdicion: boolean = false;
-  mostrarModalEliminar: boolean = false;
+  /** Columnas visibles de la tabla de marcas */
+  columnasVisibles$!: Observable<any[]>;
+
+  /** Registros visibles de marcas (almacenados en el store) */
+  registrosVisibles$!: Observable<any[]>;
+
+  /** Marca seleccionada para edición o creación */
   marcaSeleccionada: any = null;
-  marcaAEliminar: any | null = null;
-  esEdicion: boolean = false;
-  paginaActual: number = 1;
-  itemsPorPagina: number = 10;
-  totalRegistros: number = 0;
-  isAdminMenuCollapsed: boolean = false;
-  Math = Math;
-  mostrarColumnas: boolean = false;
 
-  // Breadcrumb (barra de navegación)
-  breadcrumb: { label: string; path: string | null }[] = [];
+  /** Controla si el formulario está visible */
+  formularioVisible = false;
 
-  // Rutas del menú
-  menuRoutes: { [key: string]: string } = {};
+  /** Indica si el formulario está en modo edición o creación */
+  modoEdicion = true;
 
+  /** Estructura de bloques del formulario dinámico */
+  bloquesFormulario: any[] = [];
+
+  /** Página actual seleccionada */
+  paginaActual = 1;
+
+  /** Cantidad de ítems por página */
+  itemsPorPagina = 10;
+
+  /** Total de registros disponibles */
+  totalRegistros = 0;
+
+  /** Opciones disponibles para la paginación */
+  opcionesPaginacion = [
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+    { value: 50, label: '50' },
+    { value: 100, label: '100' },
+    { value: 20000, label: 'Todos' }
+  ];
+
+  /**
+   * Constructor del componente de marcas
+   * @param marcaService Servicio para obtener y crear marcas
+   * @param store Store de la aplicación para manejar estado global
+   */
   constructor(
-    private marcasService: MarcasService,
-    private router: Router,
-    private menuRoutesService: MenuRoutesService // Inyectar el servicio
+    private marcaService: MarcasService,
+    private store: Store<AppState>
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.actualizarBreadcrumb();
+    this.registrosVisibles$ = this.store.pipe(select(selectProductos));
+  }
+
+  /**
+   * Inicializa el componente cargando marcas desde el servicio.
+   */
+  ngOnInit(): void {
+    this.cargarMarcas();
+  }
+
+  /**
+   * Carga las marcas desde el servicio y actualiza el store con productos, columnas visibles y total.
+   */
+  cargarMarcas(): void {
+    this.marcaService.getMarcas().subscribe(marcas => {
+      this.store.dispatch(setProductos({ productos: marcas }));
+      this.totalRegistros = marcas.length;
+
+      if (marcas.length > 0) {
+        const columnas = Object.keys(marcas[0]).map(key => ({
+          key,
+          name: this.capitalizar(key),
+          selected: true
+        }));
+        this.store.dispatch(setColumnasVisibles({ columnasVisibles: columnas }));
+        this.store.dispatch(setTotalRegistros({ total: marcas.length }));
       }
     });
   }
 
-  ngOnInit(): void {
-    this.cargarDatos();
-    this.actualizarBreadcrumb();
-    this.columnasVisibles = this.columnasDisponibles.filter((col) => col.selected);
-    this.menuRoutes = this.menuRoutesService.getMenuRoutes(); // Obtener rutas del menú
-  }
-
-  cargarDatos(): void {
-
-    this.actualizarListaMarcas();
-  }
-
-  actualizarListaMarcas(): void {
-    this.marcasFiltradas = this.marcas.filter((m) =>
-      m[this.searchType].toLowerCase().includes(this.searchValue.toLowerCase())
-    );
-    this.totalRegistros = this.marcasFiltradas.length;
-    this.actualizarPaginacion();
-  }
-
-  agregarMarca(): void {
+  /**
+   * Abre el formulario en modo creación con campos vacíos.
+   */
+  onAgregarNuevaMarca(): void {
+    this.modoEdicion = false;
     this.marcaSeleccionada = { nombre: '', descripcion: '' };
-    this.esEdicion = false;
-    this.mostrarFormularioEdicion = true;
+    this.bloquesFormulario = this.generarBloquesFormulario('Nueva Marca');
+    this.formularioVisible = true;
   }
 
-  editarMarca(marca: any): void {
+  /**
+   * Abre el formulario en modo edición con los datos de la marca seleccionada.
+   * @param marca Marca a editar
+   */
+  onEditarMarca(marca: any): void {
+    this.modoEdicion = true;
     this.marcaSeleccionada = { ...marca };
-    this.esEdicion = true;
-    this.mostrarFormularioEdicion = true;
+    this.bloquesFormulario = this.generarBloquesFormulario('Editar Marca');
+    this.formularioVisible = true;
   }
 
-  guardarMarca(): void {
-    if (this.esEdicion) {
-      const index = this.marcas.findIndex((m) => m.nombre === this.marcaSeleccionada.nombre);
-      if (index !== -1) {
-        this.marcas[index] = { ...this.marcaSeleccionada };
-      }
+  /**
+   * Guarda una nueva marca o actualiza una existente.
+   * @param data Objeto con los datos del formulario
+   */
+  onGuardarMarca(data: any): void {
+    if (this.modoEdicion) {
+      console.log('Actualizar marca:', data);
+      // Implementar actualización si existe el endpoint
     } else {
-      this.marcas.push({ ...this.marcaSeleccionada });
+      this.marcaService.crearMarca(data).subscribe(() => {
+        this.cargarMarcas();
+        this.formularioVisible = false;
+      });
     }
-    this.actualizarListaMarcas();
-    this.mostrarFormularioEdicion = false;
   }
 
-  cancelarEdicion(): void {
-    this.mostrarFormularioEdicion = false;
+  /**
+   * Cierra el formulario dinámico y reinicia los datos relacionados.
+   */
+  onCerrarFormulario(): void {
+    this.formularioVisible = false;
     this.marcaSeleccionada = null;
+    this.bloquesFormulario = [];
   }
 
-  abrirModalEliminar(marca: any): void {
-    this.marcaAEliminar = marca;
-    this.mostrarModalEliminar = true;
+  /**
+   * Genera los bloques del formulario dinámico.
+   * @param titulo Título del bloque
+   * @returns Bloques con campos del formulario
+   */
+  generarBloquesFormulario(titulo: string): any[] {
+    return [
+      {
+        titulo,
+        campos: [
+          { key: 'nombre', label: 'Nombre', tipo: 'text', required: true },
+          { key: 'descripcion', label: 'Descripción', tipo: 'text', required: false }
+        ]
+      }
+    ];
   }
 
-  cerrarModalEliminar(): void {
-    this.mostrarModalEliminar = false;
-    this.marcaAEliminar = null;
+  /**
+   * Maneja el cambio de página.
+   * @param pagina Nueva página seleccionada
+   */
+  onCambioPagina(pagina: number): void {
+    this.paginaActual = pagina;
   }
 
-  eliminarMarca(): void {
-    if (this.marcaAEliminar) {
-      this.marcas = this.marcas.filter((m) => m.nombre !== this.marcaAEliminar.nombre);
-      this.actualizarListaMarcas();
-      this.cerrarModalEliminar();
-    }
-  }
-
-  cambiarPagina(pagina: number): void {
-    if (pagina >= 1 && pagina <= Math.ceil(this.totalRegistros / this.itemsPorPagina)) {
-      this.paginaActual = pagina;
-      this.actualizarPaginacion();
-    }
-  }
-
-  actualizarPaginacion(): void {
-    const inicio = (this.paginaActual - 1) * this.itemsPorPagina;
-    const fin = inicio + this.itemsPorPagina;
-    this.marcasPaginadas = this.marcasFiltradas.slice(inicio, fin);
-  }
-
-  cambiarItemsPorPagina(cantidad: number): void {
+  /**
+   * Cambia la cantidad de ítems por página.
+   * @param cantidad Número de elementos por página
+   */
+  onCambioItemsPorPagina(cantidad: number): void {
     this.itemsPorPagina = cantidad;
-    this.paginaActual = 1; // Reiniciar a la primera página
-    this.actualizarPaginacion();
+    this.paginaActual = 1;
   }
 
-  cambiarTipoBusqueda(): void {
-    this.searchValue = ''; // Limpiar el valor de búsqueda al cambiar el tipo
-    this.actualizarListaMarcas(); // Actualizar la lista de marcas
-  }
-
-  toggleColumnas(): void {
-    this.mostrarColumnas = !this.mostrarColumnas;
-  }
-
-  actualizarColumnas(): void {
-    this.columnasVisibles = this.columnasDisponibles.filter((col) => col.selected);
-  }
-
-  exportarExcel(): void {
-    let tabla = document.querySelector('table'); // Asumiendo que la tabla está en el HTML
-    let ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(tabla);
-    let wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Marcas');
-    XLSX.writeFile(wb, 'marcas.xlsx');
-  }
-
-  toggleAdminMenu(): void {
-    this.isAdminMenuCollapsed = !this.isAdminMenuCollapsed;
-  }
-
-  navigateTo(option: string): void {
-    const ruta = this.menuRoutes[option];
-    if (ruta) {
-      this.router.navigate([ruta]);
-      this.actualizarBreadcrumb();
-    }
-  }
-
-  actualizarBreadcrumb(): void {
-    const currentRoute = this.router.url.split('/').filter((part) => part); // Obtiene las partes de la ruta
-    this.breadcrumb = [];
-
-    if (currentRoute.includes('productos')) {
-      this.breadcrumb.push({ label: 'Productos', path: '/productos' });
-    }
-    if (currentRoute.includes('marcas')) {
-      this.breadcrumb.push({ label: 'Marcas', path: null });
-    }
-  }
-
-  isActive(option: string): boolean {
-    const ruta = this.menuRoutes[option];
-    return ruta ? this.router.url.includes(ruta) : false;
+  /**
+   * Capitaliza el texto separando camelCase con espacios.
+   * @param texto Texto a formatear
+   * @returns Texto capitalizado
+   */
+  private capitalizar(texto: string): string {
+    return texto.charAt(0).toUpperCase() + texto.slice(1).replace(/([A-Z])/g, ' $1');
   }
 }

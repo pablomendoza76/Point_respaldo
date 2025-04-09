@@ -23,4 +23,15 @@ export class MarcasService {
       })
     );
   }
-}                       
+
+  /**
+   * Llenvia los datos a point para crear una marca
+   * @returns Observable con el arreglo de marcas {nombre, descripcion } // ne l id es autogenrado 
+   */
+
+  crearMarca(marca: { nombre: string; descripcion: string }): Observable<any> {
+    const url = `${ApiUrls.Base_Url}${Enums_marcas.Marcas}${Enums_marcas.Crear}`;
+    return this.http.post<any>(url, marca);
+  }
+  
+} 

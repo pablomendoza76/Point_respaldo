@@ -20,6 +20,9 @@ import { MarcasService } from '../../../services/productos_services/marcas.servi
 import { TarifasService } from '../../../services/productos_services/tarifas.service';
 import { SubproductoService } from '../../../services/productos_services/subgrupos.service';
 import { TipoProductoService } from '../../../services/productos_services/tipo-producto.service';
+import { CuentasContablesService } from '../../../services/Cuentas_services/cuentas-contables.service';
+
+
 
 const etiquetasCampos: Record<string, string> = {
   nombreUnico: 'Nombre',
@@ -77,6 +80,8 @@ export class VistaGeneralComponent implements OnInit {
   columnasDisponibles: any[] = [];
   columnasSeleccionadas: any[] = [];
   filtrosConfiguracion: any[] = [];
+  cuentas: any[] = [];
+
 
   formularioVisible = false;
   productoSeleccionado: any = null;
@@ -97,7 +102,7 @@ export class VistaGeneralComponent implements OnInit {
   ];
 
   opcionesBusqueda = [
-    { value: 'codigo', label: 'Cod. Común' },
+    { value: 'codigo2', label: 'Cod. Común' },
     { value: 'nombreUnico', label: 'Nombre' },
     { value: 'codbarras1', label: 'Cod. de Barras 1' },
     { value: 'codbarras2', label: 'Cod. de Barras 2' },
@@ -115,7 +120,9 @@ export class VistaGeneralComponent implements OnInit {
     private marcasService: MarcasService,
     private TarifasService: TarifasService,
     private SubproductoService: SubproductoService,
-    private tipoProductoService: TipoProductoService
+    private tipoProductoService: TipoProductoService,
+    private cuentasContablesService: CuentasContablesService
+
   ) {
     this.productosVisibles$ = this.store.pipe(select(selectProductos ));
   }
@@ -151,12 +158,15 @@ export class VistaGeneralComponent implements OnInit {
     forkJoin({
       marcas: this.marcasService.getMarcas(),
       grupos: this.TarifasService.getGruposConTarifas(),
-      tipos: this.tipoProductoService.getTiposProductos()
-    }).subscribe(({ marcas, grupos, tipos }) => {
+      tipos: this.tipoProductoService.getTiposProductos(),
+      cuentas: this.cuentasContablesService.getCuentasContables()
+    }).subscribe(({ marcas, grupos, tipos, cuentas }) => {
       this.marcas = marcas || [];
       this.grupos = grupos || [];
       this.tiposProducto = Array.isArray(tipos) ? tipos : [];
-
+      this.cuentas = cuentas || []; 
+      console.log(cuentas)
+    
       this.filtrosConfiguracion = [
         {
           nombre: 'Grupo',
@@ -170,6 +180,7 @@ export class VistaGeneralComponent implements OnInit {
         }
       ];
     });
+    
   }
 
   /**
@@ -266,6 +277,7 @@ export class VistaGeneralComponent implements OnInit {
         error: (err) => console.error('Error al actualizar el producto:', err)
       });
     } else {
+      console.log('Enviando al backend para crear producto:', productoActualizado);
       this.adminService.crearProducto(productoActualizado).subscribe({
         next: () => {
           this.cargarProductos(this.paginaActual, this.limiteCargado);
@@ -315,6 +327,13 @@ generarTodosLosCamposComoBloque(producto: any): Array<{ titulo: string; campos: 
     const campos = keys.map(key => {
       let tipo = this.detectarTipo(producto[key]);
       let opciones: any[] | undefined;
+
+      //metodos dinamicos
+      if (['tipoCuentaCosto', 'tipoCuenta', 'tipoCuentaVentas'].includes(key)) {
+        tipo = 'select';
+        opciones = this.cuentas.map(c => ({ valor: c.id, texto: c.nombre }));
+      }
+      
 
       if (key === 'ivaporcent') {
         tipo = 'radio';
@@ -405,6 +424,7 @@ generarTodosLosCamposComoBloque(producto: any): Array<{ titulo: string; campos: 
    * Detecta el tipo de input según el valor recibido.
    */
   private detectarTipo(valor: any): string {
+    if (typeof valor === 'string' && !isNaN(Date.parse(valor))) return 'date';
     if (valor instanceof Date) return 'date';
     if (typeof valor === 'number') return 'number';
     return 'text';

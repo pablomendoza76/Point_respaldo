@@ -1,10 +1,10 @@
 {
-  "name": "app-biling-3",
+  "name": "app_biling_3",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npx ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.14",
     "@angular/cli": "^18.2.14",
-    "@angular/compiler-cli": "^18.2.0",
+    "@angular/compiler-cli": "^18.2.14",
     "@schematics/angular": "^18.2.14",
     "@types/chart.js": "^2.9.41",
     "@types/jasmine": "~5.1.0",

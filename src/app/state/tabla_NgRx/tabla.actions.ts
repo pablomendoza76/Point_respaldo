@@ -73,12 +73,6 @@ export const setTotalRegistros = createAction(
   props<{ total: number }>()
 );
 
-
-/**
- * Acción para cargar los productos iniciales (mock o desde API).
- */
-export const cargarProductos = createAction('[Tabla] Cargar Productos');
-
 /**
  * Acción para eliminar un producto )sincronizar con el store)
  */

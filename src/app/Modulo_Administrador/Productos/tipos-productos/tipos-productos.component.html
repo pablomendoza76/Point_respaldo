@@ -1,0 +1,38 @@
+<!-- Componente de barra de ubicación -->
+<app-barra-ubicacion></app-barra-ubicacion>
+
+<!-- Barra de búsqueda sin filtros ni columnas -->
+<app-barra-busqueda
+  [opcionesBusqueda]="[{ value: 'nombre', label: 'Nombre' }]"
+  (agregar)="onAgregarNuevoTipo()">
+</app-barra-busqueda>
+
+<!-- Tabla para listar tipos de producto usando observables del store -->
+<!-- Tabla para listar tipos de producto -->
+<app-tabla-dinamica
+  [paginaActual]="paginaActual"
+  [itemsPorPagina]="itemsPorPagina"
+  [opcionesPaginacion]="opcionesPaginacion"
+  [columnasVisibles$]="columnasVisibles$"
+  [registrosVisibles$]="registrosVisibles$"
+  (editarRegistro)="onEditarTipo($event)"
+  (cambioPagina)="onCambioPagina($event)"
+  (cambioItemsPorPagina)="onCambioItemsPorPagina($event)">
+</app-tabla-dinamica>
+
+
+<!-- Formulario para crear o editar tipo de producto -->
+<app-formulario-dinamico-loader
+  [mostrar]="formularioVisible"
+  [titulo]="modoEdicion ? 'Editar Tipo de Producto' : 'Nuevo Tipo de Producto'"
+  [bloques]="bloquesFormulario"
+  [datos]="tipoProductoSeleccionado"
+  [modoEdicion]="modoEdicion"
+  [botonesAccion]="[
+    { texto: modoEdicion ? 'Guardar' : 'Crear', accion: 'guardar' },
+    { texto: 'Cancelar', accion: 'cancelar' }
+  ]"
+  (guardar)="onGuardarTipo($event)"
+  (cerrar)="onCerrarFormulario()"
+  (accion)="onCerrarFormulario()">
+</app-formulario-dinamico-loader>

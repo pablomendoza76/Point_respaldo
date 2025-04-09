@@ -4,7 +4,7 @@
 
 export enum Enums_grupo {
     /**
-     *  Enums especificos para los productos 
+     *  Enums especificos para los grupos 
      */ 
     grupos = 'bill-producto-grupo/', 
     todas = 'obtener-producto-grupo',

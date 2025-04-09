@@ -1,174 +1,35 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map } from 'rxjs';
+import { ApiUrls } from '../../enums/api-urls.enum';
+import { Enums_Cuentas } from '../../enums/enums_Cuentas/cuentas.enum'; // Asegúrate de definir este enum
 
 @Injectable({
   providedIn: 'root',
 })
 export class CuentasContablesService {
-  // Datos simulados de cuentas contables
-  private cuentasContables: any[] = [
-    {
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },
-    {
-      codigo: 'CR002',
-      nombre: 'Cuenta de Retención 2',
-      descripcion: 'Descripción de la cuenta 2',
-      debe: 2000,
-      haber: 1000,
-      cuentaContable: 'Cuenta 2',
-      estado: 'Inactivo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },{
-      codigo: 'CR001',
-      nombre: 'Cuenta de Retención 1',
-      descripcion: 'Descripción de la cuenta 1',
-      debe: 1000,
-      haber: 500,
-      cuentaContable: 'Cuenta 1',
-      estado: 'Activo',
-    },
-  ];
-
-  // Opciones dinámicas para el formulario
-  private cuentasContablesOptions = ['Cuenta 1', 'Cuenta 2', 'Cuenta 3'];
-  private estados = ['Activo', 'Inactivo'];
-
-  constructor() {}
-
-  // Métodos para obtener datos
+  constructor(private http: HttpClient) {}
 
   /**
-   * Obtiene todas las cuentas contables.
+   * Llama al endpoint de cuentas contables y devuelve el arreglo de cuentas.
+   * @returns Observable con las cuentas contables { codigo, nombre, descripcion, ... }
    */
-  getCuentasContables(): any[] {
-    return this.cuentasContables;
+  getCuentasContables(): Observable<any[]> {
+    const url = `${ApiUrls.Base_Url}${Enums_Cuentas.Marcas}${Enums_Cuentas.todas}`;
+    return this.http.get<any>(url).pipe(
+      map((response: any) => {
+        return response?.respuesta?.datos || [];
+      })
+    );
   }
 
   /**
-   * Agrega una nueva cuenta contable.
+   * Envía una nueva cuenta contable al backend.
+   * @param cuenta Nueva cuenta contable a registrar.
+   * @returns Observable con la respuesta del servidor.
    */
-  agregarCuentaContable(nuevaCuenta: any): any[] {
-    this.cuentasContables.push(nuevaCuenta);
-    return this.cuentasContables;
-  }
-
-  /**
-   * Actualiza una cuenta contable existente.
-   */
-  actualizarCuentaContable(cuentaActualizada: any): any[] {
-    const index = this.cuentasContables.findIndex((c) => c.codigo === cuentaActualizada.codigo);
-    if (index !== -1) {
-      this.cuentasContables[index] = cuentaActualizada;
-    }
-    return this.cuentasContables;
-  }
-
-  /**
-   * Elimina una cuenta contable.
-   */
-  eliminarCuentaContable(codigo: string): any[] {
-    this.cuentasContables = this.cuentasContables.filter((c) => c.codigo !== codigo);
-    return this.cuentasContables;
-  }
-
-  // Métodos para obtener opciones dinámicas
-
-  /**
-   * Obtiene las opciones de cuentas contables.
-   */
-  getCuentasContablesOptions(): string[] {
-    return this.cuentasContablesOptions;
-  }
-
-  /**
-   * Obtiene los estados disponibles.
-   */
-  getEstados(): string[] {
-    return this.estados;
+  crearCuentaContable(cuenta: any): Observable<any> {
+    const url = `${ApiUrls.Base_Url}${Enums_Cuentas.Marcas}${Enums_Cuentas.todas}`;
+    return this.http.post<any>(url, cuenta);
   }
 }

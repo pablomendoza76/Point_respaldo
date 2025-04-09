@@ -1,6 +1,6 @@
 <div class="search-container">
   <!-- Selector de tipo de búsqueda -->
-  <select id="search-type" [(ngModel)]="searchType" (change)="cambiarTipoBusqueda()">
+  <select *ngIf="opcionesBusqueda.length" id="search-type" [(ngModel)]="searchType" (change)="cambiarTipoBusqueda()">
     <option *ngFor="let opcion of opcionesBusqueda" [value]="opcion.value">
       {{ opcion.label }}
     </option>
@@ -8,6 +8,7 @@
 
   <!-- Campo de búsqueda -->
   <input
+    *ngIf="opcionesBusqueda.length"
     type="search"
     id="search-input"
     [(ngModel)]="searchValue"
@@ -15,18 +16,18 @@
     placeholder="Buscar..."
   />
 
-  <!-- ✅ Botón de búsqueda con icono -->
-  <button class="search-btn" (click)="actualizarBusqueda()">
+  <!-- Botón de búsqueda -->
+  <button *ngIf="opcionesBusqueda.length" class="search-btn" (click)="actualizarBusqueda()">
     <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 
-  <!-- ✅ Botón para mostrar/ocultar filtros con icono -->
-  <button class="filter-toggle" (click)="toggleFiltros()">
+  <!-- Botón para mostrar/ocultar filtros -->
+  <button *ngIf="filtrosConfiguracion?.length" class="filter-toggle" (click)="toggleFiltros()">
     <i class="fa-solid" [ngClass]="mostrarFiltros ? 'fa-filter-circle-xmark' : 'fa-filter'"></i>
   </button>
 
-  <!-- ✅ Selector de columnas -->
-  <div style="position: relative;">
+  <!-- Selector de columnas -->
+  <div *ngIf="columnasDisponibles?.length" style="position: relative;">
     <button class="column-toggle" (click)="toggleColumnas()">
       <i class="fa-solid fa-chart-column"></i>
     </button>
@@ -41,28 +42,11 @@
           />
           {{ columna.name }}
         </label>
-        
       </div>
     </div>
   </div>
 
-  <!-- ✅ Botón para exportar datos -->
-  <button class="btn-export" (click)="exportar()">
-    <i class="fa-solid fa-download"></i> &nbsp; Exportar
-  </button>
-
-  <!-- ✅ Botón para importar datos -->
-  <button class="btn-import" (click)="importar()">
-    <i class="fa-solid fa-upload"></i> &nbsp; Importar
-  </button>
-
-  <!-- ✅ Botón para agregar nuevo elemento -->
-  <button class="btn-agregar" (click)="agregarRegistro()">
-    <i class="fa-solid fa-plus"></i> &nbsp; {{ textoBotonAgregar }}
-  </button>
-</div>
-
-<!-- ✅ Filtros dinámicos -->
+<!-- Sección de filtros -->
 <div class="filter-section" [class.hidden]="!mostrarFiltros">
   <div *ngFor="let filtro of filtrosConfiguracion">
     <label>{{ filtro.nombre }}</label>
@@ -77,36 +61,53 @@
     </select>
   </div>
 
-  <!-- ✅ Botones de filtro rápido -->
+  <!-- Botones de filtro rápido -->
   <div class="filter-buttons">
     <button
       class="filter-btn"
       (click)="aplicarFiltros('todos')"
-      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'todos')}"
+      [ngClass]="{ 'active': (filtrosSeleccionados['estado'] === 'todos') }"
     >
       Todos
     </button>
     <button
       class="filter-btn"
       (click)="aplicarFiltros('stock')"
-      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'stock')}"
+      [ngClass]="{ 'active': (filtrosSeleccionados['estado'] === 'stock') }"
     >
       Stock
     </button>
     <button
       class="filter-btn"
       (click)="aplicarFiltros('medio')"
-      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'medio')}"
+      [ngClass]="{ 'active': (filtrosSeleccionados['estado'] === 'medio') }"
     >
       Medio
     </button>
     <button
       class="filter-btn"
       (click)="aplicarFiltros('sin_stock')"
-      [ngClass]="{'active': (filtrosSeleccionados['estado'] === 'sin_stock')}"
+      [ngClass]="{ 'active': (filtrosSeleccionados['estado'] === 'sin_stock') }"
     >
       Sin Stock
     </button>
   </div>
-</div>
+</div> 
 
+<div class="acciones-finales"> 
+<!-- Botón para exportar -->
+<button *ngIf="columnasDisponibles?.length" class="btn-export" (click)="exportar()">
+  <i class="fa-solid fa-download"></i> &nbsp; Exportar
+</button>
+
+<!-- Botón para importar -->
+<button *ngIf="columnasDisponibles?.length" class="btn-import" (click)="importar()">
+  <i class="fa-solid fa-upload"></i> &nbsp; Importar
+</button>
+
+<!-- Botón para agregar nuevo elemento -->
+<button class="btn-agregar" (click)="agregarRegistro()">
+  <i class="fa-solid fa-plus"></i> &nbsp; {{ textoBotonAgregar }}
+</button>
+</div>
+</div>
