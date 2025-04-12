@@ -36,7 +36,7 @@ export class DynamicMenuComponent implements OnInit {
   @Output() itemClicked = new EventEmitter<MenuItem>();
 
   /** Estado de colapso del menú padre */
-  isCollapsed: boolean = false;
+  isCollapsed: boolean = true;
 
   /** Módulo padre actualmente seleccionado */
   moduloSeleccionado: string = '';

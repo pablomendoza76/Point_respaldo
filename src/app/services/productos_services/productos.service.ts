@@ -40,6 +40,17 @@ export class AdministracionServicios {
     );
   }
 
+
+  getOrigen(): Observable<Array<{ id: number; nombre: string; descripcion: string }>> {
+      const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Origen}`;
+  
+      return this.http.get<any>(url).pipe(
+        map((response: any) => {
+          return response?.respuesta?.datos || [];
+        })
+      );
+    }
+
   /**
    * Envía una solicitud para actualizar un producto existente.
    * El objeto enviado es procesado por el adaptador antes de enviarse.
