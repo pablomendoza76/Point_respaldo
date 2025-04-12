@@ -17,6 +17,7 @@
               <div class="form-row">
                 <ng-container *ngFor="let campo of bloque.campos">
                   <div class="form-group" [ngSwitch]="campo.tipo">
+                    
                     <!-- Input estándar y otros tipos -->
                     <ng-container *ngSwitchDefault>
                       <div class="label-personalizable">
@@ -51,6 +52,33 @@
                             {{ opcion.texto }}
                           </option>
                         </select>
+                      </div>
+                    </ng-container>
+
+                    <!-- Input doble (dos valores en una línea) -->
+                    <ng-container *ngSwitchCase="'input-doble'">
+                      <div class="label-personalizable">
+                        <span class="texto-costado">{{ campo.label }}</span>
+                        <div class="input-doble">
+                          <input
+                            type="text"
+                            class="sub-input"
+                            [(ngModel)]="datos[campo.keyIzquierdo]"
+                            [name]="campo.keyIzquierdo"
+                            [placeholder]="campo.placeholderIzquierdo || 'Mínimo'"
+                            [disabled]="campo.keyIzquierdo === 'codigo'"
+                            [required]="campo.required"
+                          />
+                          <input
+                            type="text"
+                            class="sub-input"
+                            [(ngModel)]="datos[campo.keyDerecho]"
+                            [name]="campo.keyDerecho"
+                            [placeholder]="campo.placeholderDerecho || 'Máximo'"
+                            [disabled]="campo.keyDerecho === 'codigo'"
+                            [required]="campo.required"
+                          />
+                        </div>
                       </div>
                     </ng-container>
 
@@ -100,6 +128,7 @@
                         </div>
                       </div>
                     </ng-container>
+
                   </div>
                 </ng-container>
               </div>
@@ -114,6 +143,10 @@
               <button
                 [type]="boton.accion === 'guardar' ? 'submit' : 'button'"
                 class="text-btn"
+                [ngClass]="{
+                  'btn-rojo': boton.accion === 'guardar',
+                  'btn-secundario': boton.accion === 'cancelar'
+                }"
                 (click)="
                   boton.accion !== 'guardar' ? onAccion(boton.accion) : null
                 "

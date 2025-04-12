@@ -6,7 +6,6 @@ import { ApiUrls } from '../../enums/api-urls.enum';
 import { Enums_productos } from '../../enums/enums_Productos/productos.enum';
 import { Producto } from '../../Interfaces/Productos/producto.model';
 
-
 /**
  * Servicio encargado de obtener productos desde la API y generar dinámicamente las columnas,
  * además de extraer información útil como marcas y grupos para filtros.
@@ -23,10 +22,6 @@ export class AdministracionServicios {
    * - Columnas visibles a partir del primer producto
    * - Marcas únicas
    * - Grupos únicos
-   *
-   * @param page Página actual
-   * @param limit Número de productos por página
-   * @returns Observable con productos, columnas, marcas, grupos y total
    */
   obtenerProductosYColumnas(
     page: number = 1,
@@ -42,9 +37,11 @@ export class AdministracionServicios {
 
     return this.http.get<any>(url).pipe(
       map((response: any) => {
-        const productosRaw = response?.respuesta?.datos?.productos || [];
+        const productosRaw = response?.respuesta?.datos?.datos || [];
         const total = response?.respuesta?.datos?.total || productosRaw.length;
+        console.log(response)
 
+        console.log(response)
         if (!Array.isArray(productosRaw) || productosRaw.length === 0) {
           return { productos: [], columnas: [], marcas: [], grupos: [], total };
         }
@@ -67,73 +64,63 @@ export class AdministracionServicios {
   }
 
   /**
-   * Transforma un objeto recibido de la API a un objeto `Producto` con tipos correctos.
-   * @param p Producto crudo recibido desde la API
-   * @returns Producto transformado
+   * Transforma un producto crudo a objeto con tipos correctos.
+   * Convierte fechas y strings numéricos a su tipo correspondiente.
    */
-  /**
- * Transforma un producto recibido al formato correcto para la API.
- * Asegura tipos válidos según la interfaz Producto.
- * @param producto Objeto original del producto
- * @returns Objeto transformado con tipos correctos
- */
-private transformarProducto(producto: any): any {
-  const fechas: string[] = [
-    'fechacreacion', 'fechaultactualizacion', 'finpvppromo', 'fechafinpromo',
-    'prodFechaCaducidad', 'fechaDestacado', 'fechaCompra'
-  ];
-
-  const resultado: any = {};
-
-  for (const key in producto) {
-    const valor = producto[key];
-
-    // Normalizar fechas
-    if (fechas.includes(key)) {
-      if (!valor || valor === 'Invalid Date') {
+  private transformarProducto(producto: any): any {
+    const fechas: string[] = [
+      'fechacreacion', 'fechaultactualizacion', 'finpvppromo', 'fechafinpromo',
+      'prodFechaCaducidad', 'fechaDestacado', 'fechaCompra'
+    ];
+  
+    const resultado: any = {};
+  
+    for (const key in producto) {
+      const valor = producto[key];
+  
+      // Normalizar fechas
+      if (fechas.includes(key)) {
+        if (!valor || valor === 'Invalid Date') {
+          resultado[key] = null;
+        } else if (valor instanceof Date) {
+          resultado[key] = valor.toISOString();
+        } else if (typeof valor === 'string' && !isNaN(Date.parse(valor))) {
+          resultado[key] = new Date(valor).toISOString();
+        } else {
+          resultado[key] = null;
+        }
+      }
+  
+      // Normalizar números
+      else if (typeof valor === 'string' && valor.trim() === '') {
         resultado[key] = null;
-      } else if (valor instanceof Date) {
-        resultado[key] = valor.toISOString();
-      } else if (typeof valor === 'string' && !isNaN(Date.parse(valor))) {
-        resultado[key] = new Date(valor).toISOString();
-      } else {
-        resultado[key] = null;
+      } else if (typeof valor === 'string' && !isNaN(Number(valor))) {
+        resultado[key] = Number(valor);
+      } else if (typeof valor === 'number') {
+        resultado[key] = valor;
+      }
+  
+      // Normalizar booleanos (si llegan como número)
+      else if (valor === 0 || valor === 1) {
+        resultado[key] = valor;
+      }
+  
+      // Normalizar strings
+      else if (typeof valor === 'string') {
+        resultado[key] = valor;
+      }
+  
+      // Default a null
+      else {
+        resultado[key] = valor ?? null;
       }
     }
-
-    // Normalizar números
-    else if (typeof valor === 'string' && valor.trim() === '') {
-      resultado[key] = null;
-    } else if (typeof valor === 'string' && !isNaN(Number(valor))) {
-      resultado[key] = Number(valor);
-    } else if (typeof valor === 'number') {
-      resultado[key] = valor;
-    }
-
-    // Normalizar booleanos (si llegan como número)
-    else if (valor === 0 || valor === 1) {
-      resultado[key] = valor;
-    }
-
-    // Normalizar strings
-    else if (typeof valor === 'string') {
-      resultado[key] = valor;
-    }
-
-    // Default a null
-    else {
-      resultado[key] = valor ?? null;
-    }
+  
+    return resultado;
   }
-
-  return resultado;
-}
-
 
   /**
    * Convierte una clave de objeto a un nombre legible para columnas.
-   * @param key Clave cruda del objeto
-   * @returns Nombre legible
    */
   private formatearNombre(key: string): string {
     return key
@@ -143,50 +130,40 @@ private transformarProducto(producto: any): any {
 
   /**
    * Extrae valores únicos de una lista de productos para una clave específica.
-   * @param productos Lista de productos
-   * @param key Clave a extraer
-   * @returns Lista de valores únicos como strings
    */
   private extraerValoresUnicos(productos: any[], key: string): string[] {
     return Array.from(new Set(productos.map(p => p[key]).filter(Boolean))).map(v => String(v));
   }
 
   /**
-   * Edita un producto enviando un JSON actualizado al endpoint correspondiente.
-   * 
-   * @param codigo Código del producto a editar.
-   * @param data Datos actualizados del producto en formato JSON.
-   * @returns Observable con la respuesta del servidor.
+   * Envía una solicitud para editar un producto.
    */
-  editarProducto(codigo: number, data: any): Observable<any> {
+  editarProducto(codigo: number, data: Partial<Producto>): Observable<any> {
     const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Editar}/${codigo}`;
 
-    return this.http.put<any>(url, data).pipe(
-      map(response => {
-        return response;
-      })
-    );
+    const productoActualizado: Producto = {
+      ...<Producto>{},
+      ...data,
+      fechaultactualizacion: new Date().toISOString()
+    };
+
+    return this.http.put(url, productoActualizado);
   }
 
   /**
- * Envía una solicitud para crear un nuevo producto.
- * @param producto Datos del nuevo producto
- * @returns Observable con la respuesta del servidor
- */
+   * Envía una solicitud para crear un nuevo producto.
+   */
+  crearProducto(data: Partial<Producto>): Observable<any> {
+    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`;
 
-crearProducto(data: Partial<Producto>): Observable<any> {
-  const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`;
+    const producto: Producto = {
+      ...<Producto>{},
+      ...data,
+      codigo: 0,
+      fechacreacion: new Date().toISOString(),
+      fechaultactualizacion: new Date().toISOString()
+    };
 
-  const producto: Producto = {
-    ...<Producto>{},  // Cast a Producto vacío
-    ...data,
-    codigo: 0,  // obligatorio según API
-    fechacreacion: new Date().toISOString(),
-    fechaultactualizacion: new Date().toISOString()
-  };
-
-  console.log(url, producto)
-  return this.http.post(url, producto);
-}
-
+    return this.http.post(url, producto);
+  }
 }

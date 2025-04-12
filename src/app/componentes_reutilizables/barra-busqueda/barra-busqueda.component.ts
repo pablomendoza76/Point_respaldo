@@ -59,6 +59,8 @@ export class BarraBusquedaComponent implements OnInit {
    */
  @Input() mostrarSoloBusqueda: boolean = false;
 
+ 
+
 
   /**
    * Emite los filtros transformados.

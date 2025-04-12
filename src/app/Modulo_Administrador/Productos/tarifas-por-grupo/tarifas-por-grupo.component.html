@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<!-- Componente de barra de ubicación -->
+<app-barra-ubicacion></app-barra-ubicacion>
+
+<!-- Barra de búsqueda solo con botón de agregar -->
+<app-barra-busqueda
+  (agregar)="agregarGrupo()">
+</app-barra-busqueda>
+
+<!-- Contenido Principal -->
+<main class="main-content">
+  <div class="grupos-container">
+    
+    <!-- Lista de Grupos -->
+    <div class="grupos-list">
+      <h2>Lista de Grupos</h2>
+
+      <ul *ngIf="grupos.length > 0; else sinResultados">
+        <li
+          *ngFor="let grupo of grupos"
+          (click)="seleccionarGrupo(grupo)"
+          [class.selected]="grupoSeleccionado?.codigo === grupo.codigo"
+        >
+          <span>{{ grupo.nombre }}</span>
+          <span class="grupo-codigo">Cod: {{ grupo.codigo }}</span>
+          <button class="btn-delete" (click)="abrirModalEliminar(grupo); $event.stopPropagation()">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </li>
+      </ul>
+
+      <ng-template #sinResultados>
+        <div class="texto-vacio">
+          <i class="fas fa-circle-exclamation"></i> No se encontraron grupos.
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Detalles del Grupo -->
+    <div class="grupo-detalles">
+      <div class="grupo-header" *ngIf="grupoSeleccionado">
+        <h2>Cod: {{ grupoSeleccionado.codigo }} {{ grupoSeleccionado.nombre }}</h2>
+        <div class="grupo-actions">
+          <button class="btn-estado" (click)="cambiarEstado()">
+            <i [ngClass]="grupoSeleccionado.estado === 'Activo' ? 'fas fa-circle text-green-500' : 'fas fa-circle text-gray-400'"></i>
+            {{ grupoSeleccionado.estado }}
+          </button>
+          <button class="btn-edit" (click)="editarGrupo(grupoSeleccionado)">
+            <i class="fas fa-pen"></i> Editar
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="grupoSeleccionado">
+        <p class="descripcion">{{ grupoSeleccionado.descripcion }}</p>
+        <div class="grupo-info">
+          <span><strong>Garantía (meses):</strong> {{ grupoSeleccionado.garantia }}</span>
+          <span><strong>Orden:</strong> {{ grupoSeleccionado.orden }}</span>
+          <span><strong>Vista Web:</strong> {{ grupoSeleccionado.vistaWeb ? 'Sí' : 'No' }}</span>
+          <span><strong>Vista Sistema:</strong> {{ grupoSeleccionado.vistaSistema ? 'Sí' : 'No' }}</span>
+          <span><strong>Parent:</strong> {{ grupoSeleccionado.parent ? 'Sí' : 'No' }}</span>
+        </div>
+
+        <div class="tarifas-container">
+          <h3>Tarifas de Precios (P.V.P.)</h3>
+          <div class="tarifas-grid">
+            <div class="tarjeta-tarifa" *ngFor="let tarifa of grupoSeleccionado.tarifas">
+              <div class="tarjeta-header">
+                <h4>{{ tarifa.tipo }}</h4>
+              </div>
+              <div class="tarjeta-body">
+                <p><strong>Utilidad:</strong> ${{ tarifa.utilidad }}</p>
+                <p><strong>Descuento:</strong> %{{ tarifa.descuento }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="!grupoSeleccionado">
+        <p class="descripcion texto-vacio">
+          <i class="fas fa-info-circle"></i> Selecciona un grupo para ver sus detalles.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario dinámico -->
+  <app-formulario-dinamico-loader
+    [mostrar]="mostrarFormularioEdicion"
+    [titulo]="esEdicion ? 'Editar Grupo' : 'Nuevo Grupo'"
+    [bloques]="bloquesFormulario"
+    [datos]="grupoSeleccionado"
+    [modoEdicion]="esEdicion"
+    [botonesAccion]="[
+      { texto: esEdicion ? 'Guardar' : 'Crear', accion: 'guardar' },
+      { texto: 'Cancelar', accion: 'cancelar' }
+    ]"
+    (guardar)="guardarGrupo()"
+    (cerrar)="cancelarEdicion()"
+    (accion)="cancelarEdicion()">
+  </app-formulario-dinamico-loader>
+
+  <!-- Modal eliminar -->
+  <app-delete-modal
+    [isOpen]="mostrarModalEliminar"
+    [itemName]="registroAEliminar?.nombre || 'el grupo'"
+    [title]="'Eliminar Grupo'"
+    [warningMessage]="'Esta acción eliminará el grupo del sistema.'"
+    (confirmed)="confirmarEliminacion()"
+    (canceled)="cancelarEliminacion()">
+  </app-delete-modal>
+</main>

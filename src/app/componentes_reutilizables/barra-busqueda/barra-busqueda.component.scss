@@ -260,11 +260,11 @@
   border-radius: 12px;
   align-items: center;
   font-family: $font-work-sans;
-  font-size: 0.75rem; // ✅ Unifica tamaño con botones
+  font-size: 0.75rem; 
 
   label {
     font-family: inherit;
-    font-size: inherit; // ✅ Igual que los botones
+    font-size: inherit;
   }
 
   .filter-buttons {

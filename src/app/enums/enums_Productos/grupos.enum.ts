@@ -8,7 +8,7 @@ export enum Enums_grupo {
      */ 
     grupos = 'bill-producto-grupo/', 
     todas = 'obtener-producto-grupo',
-    //Editar = 'editar-producto',
-    //Borrar = 'cambiar-estado-producto/',
-    //Crear = 'crear-producto'
+    crear = 'crear',
+    actualizar = 'actualizar',
+    eliminar = 'eliminar'
 }

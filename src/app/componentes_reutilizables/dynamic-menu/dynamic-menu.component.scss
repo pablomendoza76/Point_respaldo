@@ -84,9 +84,13 @@
   border-left: 4px solid color.$rojo-botones;
 }
 
-.admin-menu .menu-item.active i,
-.side-menu .menu-item.active i {
+
+.admin-menu .menu-item.active i {
   color: color.$rojo-texto;
+}
+
+.side-menu .menu-item.active i{
+  color: color.$fondo-oscuro-70;
 }
 
 .admin-menu .menu-item i,
@@ -103,9 +107,12 @@
   transition: color 0.3s ease;
 }
 
-.admin-menu .menu-item.active span,
-.side-menu .menu-item.active span {
+.admin-menu .menu-item.active span{
   color: color.$rojo-texto;
+}
+
+.side-menu .menu-item.active span {
+  color: color.$fondo-oscuro-70;
 }
 
 .admin-menu .footer {

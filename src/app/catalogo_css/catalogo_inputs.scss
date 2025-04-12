@@ -203,51 +203,66 @@
  /**
   * Estilo para opciones tipo toggle (radio Sí/No).
   */
- .radio-toggle-options {
-   display: flex;
-   gap: 20px;
- 
-   .radio-toggle-option {
-     display: flex;
-     align-items: center;
-     gap: 8px;
-     font-size: $font-size-body-small;
-     font-family: $font-work-sans;
-     color: $texto-secundario;
-     cursor: pointer;
-     position: relative;
- 
-     input[type='radio'] {
-       display: none;
- 
-       &:checked + .custom-radio {
-         border-color: $rojo-botones;
-         background-color: $rojo-botones;
- 
-         &::after {
-           content: '';
-           width: 8px;
-           height: 8px;
-           background-color: $fondo-claro;
-           border-radius: 50%;
-           position: absolute;
-           top: 4px;
-           left: 4px;
-         }
-       }
-     }
- 
-     .custom-radio {
-       width: 18px;
-       height: 18px;
-       border: 2px solid $gris-borde;
-       border-radius: 50%;
-       position: relative;
-       display: inline-block;
-       transition: all 0.2s ease;
-     }
-   }
- }
+  .radio-toggle-options {
+    display: inline-flex;
+    border: 1px solid $gris-borde;
+    border-radius: 999px;
+    overflow: hidden;
+    background-color: $fondo-claro;
+    height: 38px;
+    min-width: 140px;
+  
+    .radio-toggle-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 16px;
+      cursor: pointer;
+      font-size: $font-size-body-small;
+      font-family: $font-work-sans;
+      color: $texto-secundario;
+      position: relative;
+      transition: all 0.2s ease;
+  
+      // Línea divisoria entre opciones
+      &:not(:last-child) {
+        border-right: 1px solid $gris-borde;
+      }
+  
+      input[type='radio'] {
+        display: none;
+  
+        &:checked + .custom-radio {
+          border-color: $rojo-botones;
+          background-color: $rojo-botones;
+  
+          &::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: $fondo-claro;
+            border-radius: 50%;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+          }
+        }
+      }
+  
+      .custom-radio {
+        width: 18px;
+        height: 18px;
+        border: 2px solid $gris-borde;
+        border-radius: 50%;
+        position: relative;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+  
  
  /**
   * Estilo para listas de radios con múltiples opciones.
