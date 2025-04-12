@@ -451,7 +451,7 @@ onCambioItemsPorPagina(cantidad: number): void {
   this.paginaActual = 1;
   this.formularioVisible = false;
   this.productoSeleccionado = null;
-  this.bloquesFormulario = [];
+  this.bloquesFormulario = [];this.generarTodosLosCamposComoBloque
 
   if (cantidad > this.limiteCargado) {
     this.cargarProductos(1, cantidad);
