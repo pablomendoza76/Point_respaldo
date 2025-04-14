@@ -4,6 +4,7 @@
   "newProjectRoot": "projects",
   "schematics": {
     "@schematics/angular:component": {
+      "skipTests": true,
       "style": "scss"
     }
   },
@@ -33,8 +34,8 @@
               }
             ],
             "styles": [
-              "node_modules/@nebular/theme/styles/prebuilt/default.scss",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/custom.scss"
             ],
             "scripts": []
           },
@@ -62,7 +63,8 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
