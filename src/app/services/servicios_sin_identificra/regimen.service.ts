@@ -17,10 +17,16 @@ export class RegimenService {
    */
   getRegimenes(): Observable<any[]> {
     const url = `${ApiUrls.Base_Url}${Enums_Regimen.regimen}${Enums_Regimen.todas}`;
+    console.log('[DEBUG] URL getRegimenes:', url); // Verifica la URL exacta
+  
     return this.http.get<any>(url).pipe(
-      map((response: any) => response?.respuesta?.datos || [])
+      map((response: any) => {
+        console.log('[DEBUG] Respuesta getRegimenes:', response); // Verifica la estructura del response
+        return response?.respuesta?.datos?.datos || [];
+      })
     );
   }
+  
 
   /**
    * Crea un nuevo régimen en el sistema.

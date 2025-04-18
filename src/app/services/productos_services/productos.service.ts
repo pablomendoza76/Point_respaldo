@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ApiUrls } from '../../enums/api-urls.enum';
 import { Enums_productos } from '../../enums/enums_Productos/productos.enum';
 import { Producto } from '../../Interfaces/Productos/producto.model';
-import { adaptarProducto } from '../../adapters/producto-adapter';
+import { map } from 'rxjs/operators';
+
 
 /**
- * Servicio encargado de obtener productos desde la API y delegar
- * la transformación de datos al adaptador correspondiente.
+ * Servicio que se encarga exclusivamente de la comunicación con la API.
+ * Toda la transformación de datos es delegada al adaptador.
  */
 @Injectable({
   providedIn: 'root'
@@ -17,64 +18,47 @@ export class AdministracionServicios {
   constructor(private http: HttpClient) {}
 
   /**
-   * Obtiene productos paginados desde la API.
-   * La transformación de datos se realiza en el adaptador.
-   *
-   * @param page Página actual
-   * @param limit Cantidad de productos por página
-   * @returns Observable con productos tipados, columnas, marcas, grupos y total
+   * Llama al endpoint para obtener productos paginados (respuesta cruda).
+   * @param page Número de página
+   * @param limit Cantidad de elementos por página
    */
   obtenerProductosYColumnas(
     page: number = 1,
     limit: number = 0
-  ): Observable<{
-    productos: Producto[];
-    columnas: { name: string; key: string; selected: boolean }[];
-    marcas: string[];
-    grupos: string[];
-    total: number;
-  }> {
+  ): Observable<any> {
     const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.todos}?page=${page}&limit=${limit}`;
+    return this.http.get<any>(url);
+  }
+
+  /**
+   * Obtiene opciones para el campo origen del producto.
+   */
+  getOrigen(): Observable<Array<{ id: number; nombre: string; descripcion: string }>> {
+    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Origen}`;
     return this.http.get<any>(url).pipe(
-      map(response => adaptarProducto.desdeApi(response))
+      map((response: any) => {
+        console.log('Respuesta completa de getOrigen:', response);
+        return response?.respuesta?.datos?.datos || [];
+      })
     );
   }
-
-
-  getOrigen(): Observable<Array<{ id: number; nombre: string; descripcion: string }>> {
-      const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Origen}`;
   
-      return this.http.get<any>(url).pipe(
-        map((response: any) => {
-          return response?.respuesta?.datos || [];
-        })
-      );
-    }
 
   /**
-   * Envía una solicitud para actualizar un producto existente.
-   * El objeto enviado es procesado por el adaptador antes de enviarse.
-   *
-   * @param codigo ID del producto a editar
-   * @param data Datos del producto
-   * @returns Observable con respuesta del backend
+   * Llama al endpoint de edición de producto. No transforma el objeto.
+   * La transformación debe hacerse previamente (por el adaptador).
    */
-  editarProducto(codigo: number, data: Partial<Producto>): Observable<any> {
+  editarProducto(codigo: number, productoAdaptado: Producto): Observable<any> {
     const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Editar}/${codigo}`;
-    const producto = adaptarProducto.prepararParaEdicion(data as Producto);
-    return this.http.put(url, producto);
+    return this.http.put(url, productoAdaptado);
   }
 
   /**
-   * Envía una solicitud para crear un nuevo producto.
-   * Los campos como fechas y `codigo` se agregan automáticamente en el adaptador.
-   *
-   * @param data Datos del nuevo producto
-   * @returns Observable con respuesta del backend
+   * Llama al endpoint de creación de producto. No transforma el objeto.
+   * La transformación debe hacerse previamente (por el adaptador).
    */
-  crearProducto(data: Partial<Producto>): Observable<any> {
+  crearProducto(productoAdaptado: Producto): Observable<any> {
     const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`;
-    const producto = adaptarProducto.prepararParaCreacion(data as Producto);
-    return this.http.post(url, producto);
+    return this.http.post(url, productoAdaptado);
   }
 }

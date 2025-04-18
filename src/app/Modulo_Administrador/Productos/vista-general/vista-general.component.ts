@@ -21,6 +21,8 @@ import { TarifasService } from '../../../services/productos_services/tarifas.ser
 import { SubproductoService } from '../../../services/productos_services/subgrupos.service';
 import { TipoProductoService } from '../../../services/productos_services/tipo-producto.service';
 import { CuentasContablesService } from '../../../services/Cuentas_services/cuentas-contables.service';
+import { RegimenService } from '../../../services/servicios_sin_identificra/regimen.service';
+import { ImpuestosService } from '../../../services/servicios_sin_identificra/Impuestos.service';
 import { Producto } from '../../../Interfaces/Productos/producto.model';
 import { adaptarProducto } from '../../../adapters/producto-adapter';
 
@@ -85,25 +87,34 @@ export class VistaGeneralComponent implements OnInit {
     private SubproductoService: SubproductoService,
     private tipoProductoService: TipoProductoService,
     private cuentasContablesService: CuentasContablesService,
+    private regimenService: RegimenService,
+    private impuestosService: ImpuestosService,
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.productosVisibles$ = this.store.pipe(select(selectProductos));
+    await adaptarProducto.cargarOpcionesGlobales(
+      this.adminService,
+      this.regimenService,
+      this.impuestosService
+    );
     this.cargarProductos(1, this.limiteCargado);
     this.cargarOpciones();
   }
 
   cargarProductos(pagina: number, limite: number): void {
-    this.adminService.obtenerProductosYColumnas(pagina, limite).subscribe(({ productos, columnas, total }) => {
-      this.store.dispatch(setProductos({ productos }));
-      this.store.dispatch(setTotalRegistros({ total }));
-      this.totalRegistros = total;
-      this.limiteCargado = productos.length;
-      this.columnasDisponibles = columnas;
-      this.columnasSeleccionadas = columnas.filter(c => c.selected);
-      this.store.dispatch(setColumnasVisibles({ columnasVisibles: this.columnasSeleccionadas }));
-    });
+    adaptarProducto
+      .obtenerProductosAdaptados(this.adminService, pagina, limite, this.columnasDisponibles)
+      .subscribe(({ productos, columnas, total }) => {
+        this.store.dispatch(setProductos({ productos }));
+        this.store.dispatch(setTotalRegistros({ total }));
+        this.totalRegistros = total;
+        this.limiteCargado = productos.length;
+        this.columnasDisponibles = columnas;
+        this.columnasSeleccionadas = columnas.filter(c => c.selected);
+        this.store.dispatch(setColumnasVisibles({ columnasVisibles: this.columnasSeleccionadas }));
+      });
   }
 
   cargarOpciones(): void {

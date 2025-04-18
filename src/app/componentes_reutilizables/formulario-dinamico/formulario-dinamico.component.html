@@ -110,7 +110,7 @@
                         <!-- Lista de múltiples opciones -->
                         <div
                           class="radio-list-options"
-                          *ngIf="campo.opciones?.length > 2"
+                          *ngIf="campo.opciones?.length && campo.opciones?.length !== 2"
                         >
                           <label
                             class="radio-list-option"
