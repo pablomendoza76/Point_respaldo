@@ -20,7 +20,7 @@ export const MENU_CONFIG: {
 
   hijos: {
     Productos: [
-      { label: 'Vista General', icon: 'fas fa-eye', route: 'productos/vista-general' },
+      { label: 'Gestión de Productos', icon: 'fas fa-eye', route: 'productos/vista-general' },
       { label: 'Marcas', icon: 'fas fa-tags', route: 'productos/marcas' },
       { label: 'Tipos de Productos', icon: 'fas fa-boxes', route: 'productos/tipos-productos' },
       { label: 'Tarifas por Grupo', icon: 'fas fa-percent', route: 'productos/tarifas-por-grupo' },

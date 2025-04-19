@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { IconosComponent } from '@app/Iconos_Modulos_Svg/iconos/iconos.component';
 
 /**
  * Interfaz para definir los elementos del menú.
@@ -18,7 +19,7 @@ export interface MenuItem {
 @Component({
   selector: 'app-dynamic-menu',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IconosComponent],
   templateUrl: './dynamic-menu.component.html',
   styleUrls: ['./dynamic-menu.component.scss']
 })

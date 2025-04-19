@@ -1,7 +1,7 @@
-@use 'sass:color';
-@use '../../catalogo_css/colores.scss' as *;
-@use '../../catalogo_css/tipografia.scss' as *;
-// @use '../../catalogo_css/catalogo_inputs.scss' as *;
+@use "sass:color";
+@use '../../catalogo_css/colores.scss' as palette;
+@use '../../catalogo_css/tipografia.scss' as font;
+@use '../../catalogo_css/catalogo_inputs.scss' as inputs;
 
 .modal-overlay {
   position: fixed;
@@ -15,18 +15,17 @@
   animation: fadeIn 0.3s ease-out;
 
   .modal-container {
-    background-color: $fondo-claro;
+    background-color: palette.$fondo-claro;
     border-radius: 16px;
     padding: 32px;
     max-height: 90vh;
-    max-width: 1200px; // 🔸 NUEVO: límite superior global de crecimiento
+    max-width: 1200px;
     overflow-y: auto;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
 
-    // Ajuste dinámico según número de bloques
     &.bloques-1 { width: 90%; max-width: 640px; }
     &.bloques-2 { width: 92%; max-width: 840px; }
     &.bloques-3 { width: 95%; max-width: 1000px; }
@@ -34,16 +33,15 @@
     &.bloques-5,
     &.bloques-6 { width: 100%; }
 
-    // Scroll elegante
     scrollbar-width: thin;
-    scrollbar-color: $gris-borde transparent;
+    scrollbar-color: palette.$gris-borde transparent;
 
     &::-webkit-scrollbar {
       width: 6px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: $gris-borde;
+      background-color: palette.$gris-borde;
       border-radius: 4px;
     }
 
@@ -60,8 +58,8 @@
   padding-bottom: 16px;
 
   h2 {
-    font-size: $font-size-headline-title;
-    color: $texto-principal;
+    font-size: font.$font-size-headline-title;
+    color: palette.$texto-principal;
     margin: 0;
   }
 
@@ -69,11 +67,11 @@
     background: none;
     border: none;
     font-size: 24px;
-    color: $texto-secundario;
+    color: palette.$texto-secundario;
     cursor: pointer;
 
     &:hover {
-      color: $rojo-texto;
+      color: palette.$rojo-texto;
     }
   }
 }
@@ -106,13 +104,13 @@
       }
 
       .titulo-bloque {
-        background-color: $rojo-fondo;
-        color: $rojo-texto;
+        background-color: palette.$rojo-fondo;
+        color: palette.$rojo-texto;
         font-weight: 600;
         padding: 10px 14px;
         border-radius: 8px;
         margin-bottom: 14px;
-        border-left: 4px solid $rojo-texto;
+        border-left: 4px solid palette.$rojo-texto;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
       }
 
@@ -124,12 +122,62 @@
         .form-group {
           display: flex;
           flex-direction: column;
+          gap: 6px;
+          max-width: 100%;
+
+          label {
+            font-size: font.$font-size-body-small;
+            font-family: font.$font-work-sans;
+            color: palette.$texto-secundario;
+            margin-bottom: 4px;
+          }
+
+          input,
+          select {
+            font-family: font.$font-work-sans;
+            font-size: font.$font-size-body-small;
+            border: 1px solid palette.$gris-borde;
+            background-color: palette.$fondo-claro;
+            color: palette.$texto-principal;
+            padding: 10px 12px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            height: 36px;
+            max-height: 40px;
+            max-width: 100%;
+            appearance: none;
+
+            &:focus {
+              outline: none;
+              border-color: palette.$rojo-botones;
+              box-shadow: 0 3px 6px rgba(198, 40, 40, 0.15);
+            }
+
+            &:disabled {
+              background-color: palette.$gris-fondo;
+              color: palette.$texto-deshabilitado;
+              border-color: palette.$gris-borde;
+              cursor: not-allowed;
+              box-shadow: none;
+            }
+          }
+
+          select {
+            max-width: 100%;
+
+            option {
+              background-color: palette.$fondo-claro;
+              color: palette.$texto-principal;
+              font-family: font.$font-work-sans;
+              font-size: font.$font-size-body-small;
+            }
+          }
         }
       }
     }
   }
 }
-
 
 .label-personalizable {
   display: flex;
@@ -137,13 +185,9 @@
   gap: 12px;
 
   .texto-costado {
-    font-size: $font-size-body-small;
-    color: $texto-secundario;
+    font-size: font.$font-size-body-small;
+    color: palette.$texto-secundario;
     white-space: nowrap;
-
-    i {
-      font-size: 16px;
-    }
   }
 
   > *:last-child {
@@ -163,28 +207,28 @@
     .text-btn {
       padding: 10px 20px;
       border-radius: 8px;
-      font-size: $font-size-body-small;
+      font-size: font.$font-size-body-small;
       font-weight: 500;
       border: none;
       cursor: pointer;
-      font-family: $font-work-sans;
+      font-family: font.$font-work-sans;
       transition: background-color 0.2s ease;
 
       &.btn-rojo {
-        background-color: $rojo-botones;
-        color: $fondo-claro;
+        background-color: palette.$rojo-botones;
+        color: palette.$fondo-claro;
 
         &:hover {
-          background-color:  color.adjust($rojo-botones, $lightness: -8%);
+          background-color: color.adjust(palette.$rojo-botones, $lightness: -8%);
         }
       }
 
       &.btn-secundario {
-        background-color: $gris-fondo;
-        color: $texto-principal;
+        background-color: palette.$gris-fondo;
+        color: palette.$texto-principal;
 
         &:hover {
-          background-color:  color.adjust($gris-fondo, $lightness: 5%);
+          background-color: color.adjust(palette.$gris-fondo, $lightness: 5%);
         }
       }
     }

@@ -1,7 +1,12 @@
-<div class="menu-container">
+<div class="menu-container">   
   <!-- Menú lateral principal -->
   <aside class="admin-menu" [class.collapsed]="isCollapsed">
-    <ul class="menu menu-padre">
+    <!-- Ícono representativo del módulo -->
+    <div class="icono-wrapper">    
+      <app-iconos tipo="admin" [colapsado]="isCollapsed"></app-iconos>
+  </div>
+    <!-- Menú padre -->
+    <ul class="menu menu-padre">  
       <li *ngFor="let item of menuPadre"
           class="menu-item"
           [class.active]="item.label === moduloSeleccionado"
@@ -10,7 +15,7 @@
         <span>{{ item.label }}</span>
       </li>
     </ul>
-    
+
     <!-- Footer del menú lateral (siempre visible) -->
     <div class="footer">
       <span *ngIf="!isCollapsed">© 2024 Punto Pymes</span>
