@@ -1,6 +1,7 @@
 // Importar variables de tipografía y colores
-@import '../../catalogo_css/colores.scss';
-@import '../../catalogo_css/tipografia.scss';
+@use 'sass:color';
+@use'../../catalogo_css/colores.scss' as *;
+@use'../../catalogo_css/tipografia.scss' as *;
 
 /**
  * Estilos mejorados para el breadcrumb
@@ -39,7 +40,7 @@
   }
 
   .breadcrumb-separator {
-    color: lighten($texto-secundario, 20%);
+    color: color.adjust($texto-secundario, $lightness: 20%);
     font-size: 0.875rem;
   }
 }

@@ -4,8 +4,8 @@
  * Se usa en los formularios dinámicos de productos.
  */
 
- @import './colores.scss';
- @import './tipografia.scss';
+ @use './colores.scss' as *;
+ @use './tipografia.scss' as *;
  
  /**
   * Estilo base para etiquetas de los inputs.

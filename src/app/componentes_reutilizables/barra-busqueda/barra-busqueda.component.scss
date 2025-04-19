@@ -1,6 +1,7 @@
 // Importar variables de colores y tipografía 
-@import '../../catalogo_css/colores.scss';
-@import '../../catalogo_css/tipografia.scss';
+@use 'sass:color';
+@use '../../catalogo_css/colores.scss' as *;
+@use '../../catalogo_css/tipografia.scss' as *;
 
 /**
  * Mixin para botones estilo iOS
@@ -38,18 +39,18 @@
   }
 
   &:hover {
-    background-color: lighten($background, 12%);
+    background-color: color.adjust($background, $lightness: 12%);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   }
 
   &:active {
-    background-color: darken($background, 5%);
+    background-color: color.adjust($background, $lightness: -5%);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     transform: scale(0.98);
   }
 
   &:disabled {
-    background-color: lighten($background, 15%);
+    background-color: color.adjust($background, $lightness: 15%);
     color: $texto-deshabilitado;
     cursor: not-allowed;
     box-shadow: none;
@@ -133,7 +134,7 @@
       }
 
       &:hover {
-        background-color: lighten($rojo-botones, 30%);
+        background-color: color.adjust($rojo-botones, $lightness: 30%);
         color: $rojo-botones;
       }
     }
@@ -154,7 +155,7 @@
       }
 
       &:hover {
-        background-color: lighten($rojo-botones, 20%);
+        background-color: color.adjust($rojo-botones, $lightness: 20%);
         color: $texto-claro;
       }
     }
@@ -212,7 +213,7 @@
 
       &:hover {
         color: $verde-botones;
-        background-color: lighten($verde-botones, 45%);
+        background-color: color.adjust($verde-botones, $lightness: 45%);
       }
     }
 
@@ -243,7 +244,7 @@
       }
 
       &:hover {
-        border-color: darken($gris-borde, 10%);
+        border-color: color.adjust($gris-borde, $lightness: -10%);
       }
     }
   }
@@ -289,7 +290,7 @@
       }
 
       &:hover {
-        background-color: lighten($gris-borde, 15%);
+        background-color: color.adjust($gris-borde, $lightness: 15%);
         color: $texto-principal;
       }
 
@@ -313,7 +314,7 @@
     transition: all 0.3s ease;
 
     &:hover {
-      border-color: lighten($gris-borde, 15%);
+      border-color: color.adjust($gris-borde, $lightness: 15%);
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     }
 

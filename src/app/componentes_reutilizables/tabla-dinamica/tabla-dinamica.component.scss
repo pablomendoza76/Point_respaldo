@@ -1,5 +1,6 @@
-@import '../../catalogo_css/colores.scss';
-@import '../../catalogo_css/tipografia.scss';
+@use 'sass:color';
+@use '../../catalogo_css/colores.scss' as *;
+@use '../../catalogo_css/tipografia.scss' as *;
 
 /**
  * Contenedor principal de la tabla.
@@ -195,7 +196,7 @@
     box-shadow: 0 2px 6px rgba($rojo-botones, 0.3);
 
     &:hover {
-      background-color: darken($rojo-botones, 5%);
+      background-color: color.adjust($rojo-botones, $lightness: -5%);
     }
   }
 }

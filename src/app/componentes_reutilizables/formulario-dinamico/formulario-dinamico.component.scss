@@ -1,6 +1,7 @@
-@import '../../catalogo_css/colores.scss';
-@import '../../catalogo_css/tipografia.scss';
-@import '../../catalogo_css/catalogo_inputs.scss';
+@use 'sass:color';
+@use '../../catalogo_css/colores.scss' as *;
+@use '../../catalogo_css/tipografia.scss' as *;
+// @use '../../catalogo_css/catalogo_inputs.scss' as *;
 
 .modal-overlay {
   position: fixed;
@@ -174,7 +175,7 @@
         color: $fondo-claro;
 
         &:hover {
-          background-color: darken($rojo-botones, 8%);
+          background-color:  color.adjust($rojo-botones, $lightness: -8%);
         }
       }
 
@@ -183,7 +184,7 @@
         color: $texto-principal;
 
         &:hover {
-          background-color: lighten($gris-fondo, 5%);
+          background-color:  color.adjust($gris-fondo, $lightness: 5%);
         }
       }
     }

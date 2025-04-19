@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import './app/catalogo_css/colores.scss'; 
+@use 'tailwindcss';
+@use './app/catalogo_css/colores.scss' as *;
 
 body {
-   background-color: $fondo-gris-suave;
+  background-color: $fondo-gris-suave;
 }
