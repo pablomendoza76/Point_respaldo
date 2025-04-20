@@ -25,10 +25,19 @@
       "dom"
     ],
     "paths": {
-      "@app/*": ["src/app/*"],
-      "@environments/*": ["src/environments/*"],
-      "@documentation/*": ["documentation/*"],
-      "@public/*": ["public/*"]
+      "@doc/*": ["doc/*"],
+      "@public/*": ["public/*"],
+
+      "@auth/*": ["src/app/auth/*"],
+      "@env/*": ["src/app/config/env/*"],
+      "@config/*": ["src/app/config/*"],
+
+      "@routes/*": ["src/app/routes/*"],
+      "@modules/*": ["src/app/modules/*"],
+      "@reusables/*": ["src/app/shared/components/*"],
+      "@stores/*": ["src/app/shared/stores/*"],
+      "@styles/*": ["src/app/shared/styles/*"],
+      "@shared/*": ["src/app/shared/*"]
     }
   },
   "angularCompilerOptions": {
