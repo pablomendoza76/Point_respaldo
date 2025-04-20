@@ -1,6 +1,6 @@
 @use 'sass:color';
-@use '../../../../../shared/styles/catalogo/colores.scss' as *;
-@use '../../../../../shared/styles/catalogo/tipografia.scss' as *;
+@use 'styles/catalogo/colores.scss' as *;
+@use 'styles/catalogo/tipografia.scss' as *;
 
 .grupos-container {
   display: flex;

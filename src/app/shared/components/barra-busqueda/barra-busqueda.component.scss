@@ -1,7 +1,7 @@
 // Importar variables de colores y tipografía
 @use 'sass:color';
-@use '../../styles/catalogo/colores.scss' as *;
-@use '../../styles/catalogo/tipografia.scss' as *;
+@use 'styles/catalogo/colores.scss' as *;
+@use 'styles/catalogo/tipografia.scss' as *;
 
 /**
  * Mixin para botones estilo iOS

@@ -1,7 +1,7 @@
 @use 'sass:color';
-@use '../../styles/catalogo/colores.scss' as palette;
-@use '../../styles/catalogo/tipografia.scss' as font;
-@use '../../styles/catalogo/catalogo_inputs.scss' as inputs;
+@use 'styles/catalogo/colores.scss' as palette;
+@use 'styles/catalogo/tipografia.scss' as font;
+@use 'styles/catalogo/catalogo_inputs.scss' as inputs;
 
 .modal-overlay {
   position: fixed;

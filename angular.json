@@ -6,6 +6,9 @@
     "@schematics/angular:component": {
       "skipTests": true,
       "style": "scss"
+    },
+    "@schematics/angular:service": {
+      "skipTests": true
     }
   },
   "projects": {
@@ -32,6 +35,9 @@
               }
             ],
             "styles": ["src/styles.scss", "src/custom.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/app/shared"]
+            },
             "scripts": []
           },
           "configurations": {
