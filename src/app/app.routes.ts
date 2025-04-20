@@ -1,37 +1,36 @@
 import { Routes } from '@angular/router';
 
 //  Importar módulos desde Modulo_Administrador
-import { BillingSofAdminComponent } from './billing-sof-admin/billing-sof-admin.component';
-import { AdministracionComponent } from './Modulo_Administrador/Productos/productos/administracion.component';
-import { ImportarComponent } from './Modulo_Administrador/importar/importar.component';
-import { ProveedoresComponent } from './Modulo_Administrador/proveedores_general/proveedores/proveedores.component';
-import { TiposPVPComponent } from './Modulo_Administrador/tipos_pvp_general/tipos-pvp/tipos-pvp.component';
-import { ClientesComponent } from './Modulo_Administrador/clientes_general/clientes/clientes.component';
-import { CuentasContablesComponent } from './Modulo_Administrador/cuentas/cuentas-contables/cuentas-contables.component';
-import { EmpresaComponent } from './Modulo_Administrador/empresa/empresa.component';
-import { ConfiguracionComponent } from './Modulo_Administrador/configuracion/configuracion.component';
-import { MarcasComponent } from './Modulo_Administrador/Productos/marcas/marcas.component';
-import { TiposProductosComponent } from './Modulo_Administrador/Productos/tipos-productos/tipos-productos.component';
-import { TarifasPorGrupoComponent } from './Modulo_Administrador/Productos/tarifas-por-grupo/tarifas-por-grupo.component';
-import { TiposProveedoresComponent } from './Modulo_Administrador/proveedores_general/tipos-proveedores/tipos-proveedores.component';
-import { TiposClientesComponent } from './Modulo_Administrador/clientes_general/tipos-clientes/tipos-clientes.component';
-import { PlanCuentasComponent } from './Modulo_Administrador/cuentas/plan-cuentas/plan-cuentas.component';
-import { VistaGeneralComponent } from './Modulo_Administrador/Productos/vista-general/vista-general.component';
-import { ClientesVistaComponent } from './Modulo_Administrador/clientes_general/clientes-vista/clientes-vista.component';
-import { ProveedoresVistaComponent } from './Modulo_Administrador/proveedores_general/proveedores-vista/proveedores-vista.component';
-import { TiposPvpVistaComponent } from './Modulo_Administrador/tipos_pvp_general/tipos-pvp-vista/tipos-pvp-vista.component';
-import { CuentasVistasComponent } from './Modulo_Administrador/cuentas/cuentas-vistas/cuentas-vistas.component';
-
 //  Seguridad
-import { AuthGuard } from './auth.guard';
-import { AppComponent } from './app.component';
-import { PruebraComponent } from './pruebra/pruebra.component';
-import { BarraBusquedaComponent } from './componentes_reutilizables/barra-busqueda/barra-busqueda.component';
-import { BarraUbicacionComponent } from './componentes_reutilizables/barra-ubicacion/barra-ubicacion.component';
-import { NavbarComponent } from './componentes_reutilizables/navbar/navbar.component';
-import { DynamicMenuComponent } from './componentes_reutilizables/dynamic-menu/dynamic-menu.component';
-import { FormularioDinamicoComponent } from './componentes_reutilizables/formulario-dinamico/formulario-dinamico.component';
-import { FormularioDinamicoLoaderComponent } from './componentes_reutilizables/formulario-dinamico-loader/formulario-dinamico-loader.component';
+import { AuthGuard } from './auth.guard'
+import { AppComponent } from './app.component'
+import { PruebraComponent } from './modules/administracion/pages/cuentas/pruebra/pruebra.component'
+import { BarraBusquedaComponent } from './shared/components/barra-busqueda/barra-busqueda.component'
+import { BarraUbicacionComponent } from './shared/components/barra-ubicacion/barra-ubicacion.component'
+import { NavbarComponent } from './shared/components/navbar/navbar.component'
+import { DynamicMenuComponent } from './shared/components/dynamic-menu/dynamic-menu.component'
+import { FormularioDinamicoComponent } from './shared/components/formulario-dinamico/formulario-dinamico.component'
+import { FormularioDinamicoLoaderComponent } from './shared/components/formulario-dinamico-loader/formulario-dinamico-loader.component'
+import { BillingSofAdminComponent } from './modules/administracion/pages/billing-sof-admin/billing-sof-admin.component'
+import { ClientesVistaComponent } from './modules/administracion/pages/clientes_general/clientes-vista/clientes-vista.component'
+import { ClientesComponent } from './modules/administracion/pages/clientes_general/clientes/clientes.component'
+import { TiposClientesComponent } from './modules/administracion/pages/clientes_general/tipos-clientes/tipos-clientes.component'
+import { ConfiguracionComponent } from './modules/administracion/pages/configuracion/configuracion.component'
+import { CuentasContablesComponent } from './modules/administracion/pages/cuentas/cuentas-contables/cuentas-contables.component'
+import { CuentasVistasComponent } from './modules/administracion/pages/cuentas/cuentas-vistas/cuentas-vistas.component'
+import { PlanCuentasComponent } from './modules/administracion/pages/cuentas/plan-cuentas/plan-cuentas.component'
+import { EmpresaComponent } from './modules/administracion/pages/empresa/empresa.component'
+import { ImportarComponent } from './modules/administracion/pages/importar/importar.component'
+import { MarcasComponent } from './modules/administracion/pages/Productos/marcas/marcas.component'
+import { AdministracionComponent } from './modules/administracion/pages/Productos/productos/administracion.component'
+import { TarifasPorGrupoComponent } from './modules/administracion/pages/Productos/tarifas-por-grupo/tarifas-por-grupo.component'
+import { TiposProductosComponent } from './modules/administracion/pages/Productos/tipos-productos/tipos-productos.component'
+import { VistaGeneralComponent } from './modules/administracion/pages/Productos/vista-general/vista-general.component'
+import { ProveedoresVistaComponent } from './modules/administracion/pages/proveedores_general/proveedores-vista/proveedores-vista.component'
+import { ProveedoresComponent } from './modules/administracion/pages/proveedores_general/proveedores/proveedores.component'
+import { TiposProveedoresComponent } from './modules/administracion/pages/proveedores_general/tipos-proveedores/tipos-proveedores.component'
+import { TiposPvpVistaComponent } from './modules/administracion/pages/tipos_pvp_general/tipos-pvp-vista/tipos-pvp-vista.component'
+import { TiposPVPComponent } from './modules/administracion/pages/tipos_pvp_general/tipos-pvp/tipos-pvp.component'
 
 export const routes: Routes = [
   { path: 'login', component: AppComponent },

@@ -1,11 +1,11 @@
-import { MenuItem } from './componentes_reutilizables/dynamic-menu/dynamic-menu.component';
+import { MenuItem } from './shared/components/dynamic-menu/dynamic-menu.component'
 
 /**
  * Estructura de menú principal y submódulos del sistema.
  * Esta configuración puede ser usada para alimentar menús dinámicos.
  */
 export const MENU_CONFIG: {
-  principales: MenuItem[],
+  principales: MenuItem[]
   hijos: { [modulo: string]: MenuItem[] }
 } = {
   principales: [
@@ -15,7 +15,7 @@ export const MENU_CONFIG: {
     { label: 'Cuentas', icon: 'fas fa-coins' },
     { label: 'Empresa', icon: 'fas fa-building', route: 'empresa' },
     { label: 'Configuración', icon: 'fas fa-gear', route: 'configuracion' },
-    { label: 'Importar', icon: 'fas fa-file-import', route: 'importar' }
+    { label: 'Importar', icon: 'fas fa-file-import', route: 'importar' },
   ],
 
   hijos: {
@@ -27,15 +27,15 @@ export const MENU_CONFIG: {
     ],
     Clientes: [
       { label: 'Clientes General', icon: 'fas fa-user', route: 'clientes/clientes-general' },
-      { label: 'Tipos de Clientes', icon: 'fas fa-id-badge', route: 'clientes/tipo-cliente' }
+      { label: 'Tipos de Clientes', icon: 'fas fa-id-badge', route: 'clientes/tipo-cliente' },
     ],
     Proveedores: [
       { label: 'Gestión Proveedores', icon: 'fas fa-truck-front', route: 'proveedores/gestion-proveedores' },
-      { label: 'Tipos de Proveedores', icon: 'fas fa-clipboard-check', route: 'proveedores/tipo-proveedor' }
+      { label: 'Tipos de Proveedores', icon: 'fas fa-clipboard-check', route: 'proveedores/tipo-proveedor' },
     ],
     Cuentas: [
       { label: 'Cuentas Contables', icon: 'fas fa-coins', route: 'cuentas/cuentas-contables' },
-      { label: 'Plan Cuentas', icon: 'fas fa-sitemap', route: 'cuentas/plan-cuentas' }
+      { label: 'Plan Cuentas', icon: 'fas fa-sitemap', route: 'cuentas/plan-cuentas' },
     ],
-  }
-};
+  },
+}

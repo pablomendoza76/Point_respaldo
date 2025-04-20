@@ -1,0 +1,331 @@
+// Importar variables de colores y tipografía
+@use 'sass:color';
+@use '../../styles/catalogo/colores.scss' as *;
+@use '../../styles/catalogo/tipografia.scss' as *;
+
+/**
+ * Mixin para botones estilo iOS
+ * 
+ * @param {string} $background - Color de fondo del botón.
+ * @param {string} $color - Color del texto del botón.
+ * @param {string} $border-color - Color del borde del botón.
+ */
+@mixin ios-button($background, $color, $border-color) {
+  background-color: $background;
+  color: $color;
+  border: 1px solid $border-color;
+  padding: 0.35rem 0.75rem;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-family: $font-work-sans;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+
+  // ⚠️ Aquí quitamos flex-grow y flex-shrink
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+
+  i {
+    font-size: 0.75rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &:hover {
+    background-color: color.adjust($background, $lightness: 12%);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    background-color: color.adjust($background, $lightness: -5%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transform: scale(0.98);
+  }
+
+  &:disabled {
+    background-color: color.adjust($background, $lightness: 15%);
+    color: $texto-deshabilitado;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+}
+
+/**
+ * Contenedor de búsqueda
+ */
+.search-container {
+  display: flex;
+  align-items: center;
+  padding-left: 2%;
+  padding-right: 3%;
+  flex: 1;
+  gap: 0.8%;
+
+  select,
+  input,
+  button {
+    padding: 0.35rem 0.75rem;
+    border: 1px solid $gris-borde;
+    border-radius: 14px;
+    font-size: 0.75rem;
+    font-family: $font-work-sans;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  input[type='search'] {
+    flex: 1 1 auto;
+    width: 25%;
+    max-width: 30%;
+    min-width: 20%;
+    background-color: $fondo-claro;
+    color: $texto-principal;
+    font-size: 0.75rem;
+  }
+
+  .search-btn {
+    @include ios-button($gris-borde, $texto-claro, $gris-borde);
+  }
+
+  // Solo este grupo se empuja al final
+  .acciones-finales {
+    display: flex;
+    gap: 0.4rem;
+    margin-left: auto;
+
+    .btn-export {
+      @include ios-button($verde-botones, $texto-claro, $verde-botones);
+
+      i {
+        font-size: 0.65rem;
+        margin-right: 0.3rem;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .btn-import {
+      @include ios-button($fondo-claro, $rojo-botones, $rojo-botones);
+      min-width: 120px;
+
+      i {
+        font-size: 0.65rem;
+        margin-right: 0.3rem;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        background-color: color.adjust($rojo-botones, $lightness: 30%);
+        color: $rojo-botones;
+      }
+    }
+
+    .btn-agregar {
+      @include ios-button($rojo-botones, $texto-claro, $rojo-botones);
+      min-width: 130px;
+
+      i {
+        font-size: 0.65rem;
+        margin-right: 0.3rem;
+      }
+
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        background-color: color.adjust($rojo-botones, $lightness: 20%);
+        color: $texto-claro;
+      }
+    }
+  }
+}
+
+/**
+ * Estilos mejorados del selector de columnas
+ */
+.column-selector {
+  position: absolute;
+  background-color: $fondo-claro;
+  border: 1px solid $gris-borde;
+  border-radius: 14px;
+  padding: 0.8rem;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  max-height: 230px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  top: 100%;
+  min-width: 200px;
+  width: auto;
+  transition: opacity 0.3s ease, transform 0.2s ease;
+  opacity: 0;
+  transform: translateY(10px);
+  display: none;
+
+  &.hidden {
+    display: none;
+  }
+
+  &:not(.hidden) {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .column-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: $texto-principal;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      padding: 0.4rem;
+      border-radius: 6px;
+
+      &:hover {
+        color: $verde-botones;
+        background-color: color.adjust($verde-botones, $lightness: 45%);
+      }
+    }
+
+    input[type='checkbox'] {
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid $gris-borde;
+      border-radius: 6px;
+      background-color: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+
+      &:checked {
+        background-color: $verde-botones;
+        border-color: $verde-botones;
+        box-shadow: 0 0 5px rgba($verde-botones, 0.5);
+
+        &::after {
+          content: '✔';
+          color: $texto-claro;
+          font-size: 0.6rem;
+          font-weight: bold;
+        }
+      }
+
+      &:hover {
+        border-color: color.adjust($gris-borde, $lightness: -10%);
+      }
+    }
+  }
+}
+
+/**
+ * Sección de filtros 
+ */
+.filter-section {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  padding-left: 1.5rem;
+  border-radius: 12px;
+  align-items: center;
+  font-family: $font-work-sans;
+  font-size: 0.75rem;
+
+  label {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 4px;
+    padding: 0.4rem;
+    background-color: $fondo-claro;
+    border-radius: 12px;
+
+    .filter-btn {
+      @include ios-button(transparent, $texto-principal, transparent);
+      font-size: inherit;
+      background-color: $fondo-claro;
+      padding: 0.4rem 0.8rem;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      box-shadow: none;
+      font-family: inherit;
+
+      i {
+        font-size: inherit;
+      }
+
+      &:hover {
+        background-color: color.adjust($gris-borde, $lightness: 15%);
+        color: $texto-principal;
+      }
+
+      &.active {
+        background-color: $rojo-fondo;
+        color: $rojo-botones;
+        box-shadow: 0 2px 4px rgba($rojo-botones, 0.3);
+      }
+    }
+  }
+
+  select {
+    @include ios-button($fondo-claro, $texto-principal, $gris-borde);
+    padding: 0.4rem;
+    max-width: 130px;
+    font-size: inherit;
+    font-family: inherit;
+    border-radius: 12px;
+    text-overflow: ellipsis;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: color.adjust($gris-borde, $lightness: 15%);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus {
+      border-color: $rojo-botones;
+      box-shadow: 0 0 5px rgba($rojo-botones, 0.3);
+    }
+  }
+}
+
+/**
+ * Ocultar filtros por defecto
+ */
+.filter-section.hidden {
+  display: none;
+}

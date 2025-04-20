@@ -1,0 +1,255 @@
+@use 'sass:color';
+@use '../../../../../shared/styles/catalogo/colores.scss' as *;
+@use '../../../../../shared/styles/catalogo/tipografia.scss' as *;
+
+.grupos-container {
+  display: flex;
+  gap: 24px;
+  height: calc(100vh - 170px);
+  padding: 24px;
+  font-family: $font-work-sans;
+  overflow: hidden;
+}
+
+/* LISTA DE GRUPOS */
+.grupos-list {
+  flex: 0 0 280px;
+  display: flex;
+  flex-direction: column;
+  background-color: $fondo-claro;
+  padding: 16px;
+  border-radius: 16px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  height: 100%;
+
+  h2 {
+    font-family: $font-poppins;
+    font-size: $font-size-headline-title;
+    line-height: $line-height-headline-title;
+    font-weight: 600;
+    color: $texto-principal;
+    margin-bottom: 16px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex: 1;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 6px;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: $font-size-body-small;
+    line-height: $line-height-body-small;
+    font-family: $font-work-sans;
+    font-weight: 500;
+    color: $texto-principal;
+
+    &:hover {
+      background-color: $gris-fondo;
+      transform: translateX(4px);
+    }
+
+    &.selected {
+      background-color: $rojo-fondo;
+      border-left: 4px solid $rojo-botones;
+      color: $rojo-texto;
+
+      i,
+      span {
+        color: $rojo-texto;
+      }
+    }
+
+    span {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding-right: 8px;
+    }
+
+    .grupo-codigo {
+      color: $texto-terciario;
+      font-size: $font-size-caption;
+      flex-shrink: 0;
+    }
+
+    .btn-delete {
+      background: none;
+      border: none;
+      color: $rojo-botones;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: color 0.3s ease;
+
+      i {
+        font-size: 0.95rem;
+        pointer-events: none;
+      }
+
+      &:hover {
+        color: $rojo-texto;
+      }
+    }
+  }
+}
+
+/* DETALLES DEL GRUPO */
+.grupo-detalles {
+  flex-grow: 1;
+  border-radius: 16px;
+  padding: 24px;
+  background-color: $fondo-claro;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+
+  .grupo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h2 {
+      font-family: $font-poppins;
+      font-size: $font-size-headline-title;
+      font-weight: 600;
+      color: $texto-principal;
+    }
+
+    .grupo-actions {
+      display: flex;
+      gap: 8px;
+
+      button {
+        border: none;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        padding: 8px 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+
+        i {
+          font-size: 0.9rem;
+        }
+
+        &.btn-estado {
+          background-color: $gris-fondo;
+          color: $texto-principal;
+
+          &:hover {
+            background-color: color.adjust($gris-fondo, $lightness: 6%);
+          }
+        }
+
+        &.btn-edit {
+          background-color: $gris-borde;
+          color: $texto-claro;
+
+          &:hover {
+            background-color: color.adjust($gris-borde, $lightness: -12%);
+          }
+        }
+      }
+    }
+  }
+
+  .descripcion {
+    font-family: $font-work-sans;
+    font-size: $font-size-body-small;
+    line-height: $line-height-body-small;
+    font-weight: 500;
+    color: $texto-principal;
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 14px;
+    background-color: rgba($fondo-claro, 0.7);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
+  }
+
+  .grupo-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: $font-size-body-small;
+    color: $texto-terciario;
+    margin-bottom: 24px;
+
+    span {
+      white-space: nowrap;
+    }
+  }
+
+  .tarifas-container {
+    h3 {
+      font-size: $font-size-headline-subtitle;
+      font-weight: 600;
+      color: $texto-principal;
+      margin-bottom: 12px;
+    }
+
+    .tarifas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+
+      .tarjeta-tarifa {
+        background-color: $fondo-claro;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.3s ease;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tarjeta-header {
+          background-color: $gris-fondo;
+          padding: 10px;
+          font-size: 0.9rem;
+          text-align: center;
+          font-weight: 600;
+          color: $texto-principal;
+        }
+
+        .tarjeta-body {
+          padding: 1rem;
+
+          p {
+            font-size: 0.8rem;
+            color: $texto-secundario;
+            margin-bottom: 6px;
+          }
+        }
+      }
+    }
+  }
+}

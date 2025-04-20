@@ -1,0 +1,63 @@
+@use '../../colores.scss' as color;
+@use '../../tipografia.scss' as font;
+
+.icono-container {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: color.$gris-fondo;
+  border-radius: 0;
+  font-family: font.$font-poppins;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s ease;
+  color: color.$rojo-texto;
+
+  svg {
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    display: block;
+
+    // Aplica a todos los paths y líneas por igual
+    path,
+    line,
+    circle {
+      stroke: currentColor;
+      fill: currentColor;
+      stroke-width: 6;
+      stroke-linecap: round;
+    }
+
+    // En caso de íconos con solo fill, como paths únicos
+    path {
+      stroke: none;
+      fill: currentColor;
+    }
+  }
+
+  .texto-icono {
+    margin-top: 8px;
+    font-size: font.$font-size-headline-title;
+    line-height: font.$line-height-headline-title;
+    font-weight: 600;
+    color: inherit;
+    text-align: center;
+    white-space: nowrap;
+    transition: opacity 0.3s ease, max-height 0.3s ease;
+    max-height: 100px;
+    overflow: hidden;
+  }
+
+  &.colapsado .texto-icono {
+    display: none;
+  }
+
+  @media (max-width: 90px) {
+    .texto-icono {
+      display: none;
+    }
+  }
+}

@@ -1,5 +1,5 @@
 @use 'tailwindcss';
-@use './app/catalogo_css/colores.scss' as *;
+@use 'app/shared/styles/catalogo/colores.scss' as *;
 
 body {
   background-color: $fondo-gris-suave;

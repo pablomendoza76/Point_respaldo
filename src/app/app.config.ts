@@ -3,8 +3,8 @@ import { provideRouter, RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { filterReducer } from './state/Filtros_NgRx/filter.reducer';
-import { tablaReducer } from './state/tabla_NgRx/tabla.reducer';
+import { filterReducer } from './shared/stores/Filtros_NgRx/filter.reducer'
+import { tablaReducer } from './shared/stores/tabla_NgRx/tabla.reducer'
 import { provideHttpClient } from '@angular/common/http'; // ✅ Importado correctamente
 
 /**
