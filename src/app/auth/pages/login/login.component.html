@@ -1,0 +1,30 @@
+<div class="background-container" *ngIf="!usuarioAutenticado">
+  <img src="/img/fondo_login.png" alt="Fondo" class="background-image">
+</div>
+
+<div class="login-container" *ngIf="!usuarioAutenticado">
+  <div class="login-box">
+    <img src="/img/fondo_icono_login.png" alt="Logo" class="logo">
+    <h2>Bienvenido a BillingSof!</h2>
+    <p>Acceda a su cuenta</p>
+
+    <form (ngSubmit)="onLogin()">
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario" placeholder="Ingrese su usuario" [(ngModel)]="usuario" name="usuario" required>
+
+      <label for="password">Contraseña</label>
+      <div class="password-container">
+        <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Ingrese su contraseña"
+          [(ngModel)]="password" name="password" required>
+        <span class="toggle-password" (click)="togglePasswordVisibility()">👁️</span>
+      </div>
+
+      <div class="remember-container">
+        <input type="checkbox" id="recordar" [(ngModel)]="recordar" name="recordar">
+        <label for="recordar">Recordar Cuenta</label>
+        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+      </div>
+      <button type="submit" class="login-button">Iniciar Sesión</button>
+    </form>
+  </div>
+</div>

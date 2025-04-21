@@ -3,7 +3,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
 import { provideRouter, RouterModule } from '@angular/router'
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
-import { routes } from '../app.routes'
+import { routes } from '@routes/app.routes'
 import { filterReducer } from '../shared/stores/Filtros_NgRx/filter.reducer'
 import { tablaReducer } from '../shared/stores/tabla_NgRx/tabla.reducer'
 
