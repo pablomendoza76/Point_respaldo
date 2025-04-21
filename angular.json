@@ -59,7 +59,26 @@
                   "maximumError": "3mb"
                 }
               ],
-              "outputHashing": "all"
+              "fileReplacements": [
+                {
+                  "replace": "src/config/env/dev.env.ts",
+                  "with": "src/config/env/prod.env.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "fonts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": false
+                }
+              },
+              "outputHashing": "bundles",
+              "namedChunks": false,
+              "aot": true,
+              "sourceMap": true,
+              "extractLicenses": true,
+              "deleteOutputPath": true
             },
             "development": {
               "optimization": false,
