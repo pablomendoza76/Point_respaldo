@@ -2,19 +2,19 @@
  * Componente que gestiona la vista de tipos de productos, permitiendo crear, editar y listar tipos
  * de productos con paginación, integración NgRx y formulario dinámico reutilizable.
  */
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { Store, select } from '@ngrx/store'
-import { Observable } from 'rxjs'
 import { TipoProductoService } from '@modules/administracion/services/productos_services/tipo-producto.service'
+import { Store, select } from '@ngrx/store'
 import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda.component'
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { FormularioDinamicoLoaderComponent } from '@reusables/formulario-dinamico-loader/formulario-dinamico-loader.component'
 import { TablaDinamicaComponent } from '@reusables/tabla-dinamica/tabla-dinamica.component'
-import { setProductos, setColumnasVisibles, setTotalRegistros } from '@stores/tabla_NgRx/tabla.actions'
+import { setColumnasVisibles, setProductos, setTotalRegistros } from '@stores/tabla_NgRx/tabla.actions'
 import { selectProductos } from '@stores/tabla_NgRx/tabla.selectors'
 import { AppState } from '@stores/tabla_NgRx/tabla.state'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-tipos-productos',

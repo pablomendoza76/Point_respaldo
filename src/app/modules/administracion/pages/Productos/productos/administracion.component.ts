@@ -1,9 +1,9 @@
-import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { DynamicMenuComponent, MenuItem } from '@reusables/dynamic-menu/dynamic-menu.component'
 import { NavbarComponent } from '@reusables/navbar/navbar.component'
-import { MENU_CONFIG } from 'src/app/menu.config'
+import { MENU_CONFIG } from '@routes/enums/menu.config'
 
 @Component({
   selector: 'app-administracion',
@@ -42,7 +42,7 @@ export class AdministracionComponent {
 
     // Si el módulo tiene una ruta directa, navegar a ella
     if (modulo.route) {
-      this.router.navigate([modulo.route])
+      this.router.navigate([`dashboard/${modulo.route}`])
     }
   }
 
@@ -51,7 +51,7 @@ export class AdministracionComponent {
     this.opcionActiva = item.label
 
     if (item.route) {
-      this.router.navigate([item.route])
+      this.router.navigate([`dashboard/${item.route}`])
     }
 
     console.log('Hijo clickeado:', item)

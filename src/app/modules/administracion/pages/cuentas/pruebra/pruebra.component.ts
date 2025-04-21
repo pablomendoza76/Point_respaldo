@@ -1,17 +1,17 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
-import { Store, select } from '@ngrx/store'
-import { Observable, of } from 'rxjs'
 import { CommonModule } from '@angular/common'
-import { tap } from 'rxjs/operators'
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit } from '@angular/core'
+import { Store, select } from '@ngrx/store'
 import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda.component'
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { DynamicMenuComponent, MenuItem } from '@reusables/dynamic-menu/dynamic-menu.component'
 import { NavbarComponent } from '@reusables/navbar/navbar.component'
 import { TablaDinamicaComponent } from '@reusables/tabla-dinamica/tabla-dinamica.component'
-import { setProductos, setColumnasVisibles, setFiltrosDinamicos } from '@stores/tabla_NgRx/tabla.actions'
+import { MENU_CONFIG } from '@routes/enums/menu.config'
+import { setColumnasVisibles, setFiltrosDinamicos, setProductos } from '@stores/tabla_NgRx/tabla.actions'
 import { selectProductosVisibles, selectTotalRegistros } from '@stores/tabla_NgRx/tabla.selectors'
 import { AppState } from '@stores/tabla_NgRx/tabla.state'
-import { MENU_CONFIG } from 'src/app/menu.config'
+import { Observable, of } from 'rxjs'
+import { tap } from 'rxjs/operators'
 
 @Component({
   selector: 'app-pruebra',

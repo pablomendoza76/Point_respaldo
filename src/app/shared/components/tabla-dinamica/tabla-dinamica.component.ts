@@ -1,14 +1,14 @@
 /**
  * Componente que representa una tabla dinámica con paginación y eliminación de registros.
  */
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core'
-import { Store, select } from '@ngrx/store'
-import { Observable, Subscription } from 'rxjs'
 import { CommonModule } from '@angular/common'
-import { AppState } from '../../stores/tabla_NgRx/tabla.state'
-import { selectProductosVisibles, selectTotalRegistros } from '../../stores/tabla_NgRx/tabla.selectors'
-import { setPaginaActual, setItemsPorPagina, eliminarProducto } from '../../stores/tabla_NgRx/tabla.actions'
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core'
+import { Store, select } from '@ngrx/store'
+import { DeleteModalComponent } from '@reusables/delete-modal/delete-modal.component'
+import { eliminarProducto, setItemsPorPagina, setPaginaActual } from '@stores/tabla_NgRx/tabla.actions'
+import { selectProductosVisibles, selectTotalRegistros } from '@stores/tabla_NgRx/tabla.selectors'
+import { AppState } from '@stores/tabla_NgRx/tabla.state'
+import { Observable, Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-tabla-dinamica',

@@ -1,9 +1,9 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnInit } from '@angular/core'
-import { NavigationService } from '../../../modules/administracion/services/servicios_compartidos/navigation.service'
 import { CommonModule } from '@angular/common'
-import { RouterModule, Router, NavigationEnd } from '@angular/router'
-import { DashboardService } from '../../../modules/administracion/services/dashboard.service'
-import { MenuRoutesService } from '../../../modules/administracion/services/servicios_compartidos/menu-routes.service'
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { NavigationEnd, Router, RouterModule } from '@angular/router'
+import { DashboardService } from '@modules/administracion/services/dashboard.service'
+import { MenuRoutesService } from '@modules/administracion/services/servicios_compartidos/menu-routes.service'
+import { NavigationService } from '@modules/administracion/services/servicios_compartidos/navigation.service'
 import { filter } from 'rxjs/operators'
 
 @Component({

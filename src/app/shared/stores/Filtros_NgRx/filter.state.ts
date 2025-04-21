@@ -4,10 +4,10 @@ export const initialState: FilterState = {
   searchTerm: '',
   filtroActivo: 'todos',
   filtrosDinamicos: {},
-  columnasVisibles: [],
-  productos: [],
-  productosVisibles: []
-};
+  // columnasVisibles: [],
+  // productos: [],
+  // productosVisibles: []
+}
 
 export function cloneState<T>(state: T): T {
   try {

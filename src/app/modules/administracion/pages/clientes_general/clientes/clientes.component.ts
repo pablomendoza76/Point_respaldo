@@ -278,9 +278,10 @@ export class ClientesComponent implements OnInit {
   navigateTo(option: string): void {
     const ruta = this.menuRoutes[option];
     if (ruta) {
-      this.router.navigate([`/${ruta}`]);
+      console.log(`Navegando a: ${ruta}`)
+      this.router.navigate([`dashboard/${ruta}`])
     } else if (option === 'Importar') {
-      this.router.navigate(['/importar']);
+      this.router.navigate(['dashboard/importar'])
     }
   }
 

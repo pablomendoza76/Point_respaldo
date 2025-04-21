@@ -1,12 +1,12 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, OnInit } from '@angular/core'
-import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormsModule } from '@angular/forms'
 import { Store } from '@ngrx/store'
 import { Subject } from 'rxjs'
 import { debounceTime } from 'rxjs/operators'
 
-import { setSearchTerm, setFiltroActivo, setFiltrosDinamicos, setColumnasVisibles } from '../../stores/tabla_NgRx/tabla.actions'
-import { FiltroConfiguracion } from '../../stores/Filtros_NgRx/filter.model'
+import { FiltroConfiguracion } from '@stores/Filtros_NgRx/filter.model'
+import { setColumnasVisibles, setFiltroActivo, setFiltrosDinamicos, setSearchTerm } from '@stores/tabla_NgRx/tabla.actions'
 import * as XLSX from 'xlsx'
 
 @Component({

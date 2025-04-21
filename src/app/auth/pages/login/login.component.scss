@@ -1,0 +1,120 @@
+/* Asegura que solo afecte a este componente */
+:host {
+  display: block;
+}
+
+/* Contenedor de la imagen de fondo */
+.background-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+.background-image {
+  width: 100%;
+  height: 100%;
+  background-size: auto;
+  background-repeat: repeat;
+  background-position: center;
+}
+
+/* Contenedor del login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-box {
+  background: #f5f5f5;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 380px;
+  text-align: center;
+}
+
+/* Logo */
+.logo {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+/* Título */
+h2 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Campos de entrada */
+label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+  margin-top: 10px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Contenedor para la contraseña con icono */
+.password-container {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Recordar cuenta y enlace de contraseña */
+.remember-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.forgot-password {
+  text-decoration: none;
+  color: #d32f2f;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Botón de inicio de sesión */
+.login-button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: #b71c1c;
+}

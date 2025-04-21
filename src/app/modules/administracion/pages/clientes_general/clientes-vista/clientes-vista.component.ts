@@ -71,7 +71,7 @@ export class ClientesVistaComponent implements OnInit {
   navigateTo(option: string): void {
     const ruta = this.menuRoutes[option];
     if (ruta) {
-      this.router.navigate([ruta]);
+      this.router.navigate([`dashboard/${ruta}`])
     }
   }
 

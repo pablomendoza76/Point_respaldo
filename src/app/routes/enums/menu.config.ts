@@ -1,4 +1,4 @@
-import { MenuItem } from './shared/components/dynamic-menu/dynamic-menu.component'
+import { MenuItem } from '../../shared/components/dynamic-menu/dynamic-menu.component'
 
 /**
  * Estructura de menú principal y submódulos del sistema.

@@ -271,7 +271,7 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
 
     const route = routes[option];
     if (route) {
-      this.router.navigate([route]);
+      this.router.navigate([`dashboard/${route}`])
     } else {
       console.warn(`No se encontró una ruta para el módulo: ${option}`);
     }

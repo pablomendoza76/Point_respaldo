@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
-import { Subject } from 'rxjs'
-import { takeUntil, debounceTime } from 'rxjs/operators'
-import { TarifasService } from '../../../services/productos_services/tarifas.service'
+import { TarifasService } from '@modules/administracion/services/productos_services/tarifas.service'
 import { MenuRoutesService } from '@modules/administracion/services/servicios_compartidos/menu-routes.service'
 import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda.component'
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { DeleteModalComponent } from '@reusables/delete-modal/delete-modal.component'
 import { FormularioDinamicoLoaderComponent } from '@reusables/formulario-dinamico-loader/formulario-dinamico-loader.component'
+import { Subject } from 'rxjs'
+import { debounceTime, takeUntil } from 'rxjs/operators'
 
 @Component({
   selector: 'app-tarifas-por-grupo',
