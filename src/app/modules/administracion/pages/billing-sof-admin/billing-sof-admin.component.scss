@@ -15,69 +15,55 @@ body {
 }
 
 /* Barra de navegación */
-nav,
 .top-bar {
+  display: flex;
+  height: 3.75rem;
   justify-content: space-between;
+  align-items: center;
+  padding-inline: 1.5rem;
   background-color: white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  border-bottom: 1px solid #e0e0e0;
-}
+  border-bottom-width: 0.063rem;
+  border-bottom-color: #bdbdbd;
 
-nav {
-  height: 60px;
-}
+  &__logo {
+    height: 3.438rem;
+  }
 
-nav .flex.items-center,
-.top-icons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+  > h1 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #d51f36;
+  }
 
-nav img {
-  height: 50px;
-  margin-right: 0.75rem;
-}
+  &__options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 
-nav h1,
-nav h2,
-.top-bar .title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #d32f2f;
-}
+    > li {
+      display: flex;
+      height: 2.813rem;
+      width: 2.813rem;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 999px;
+      transition: background-color 0.3s ease;
 
-.top-bar .title {
-  font-size: 24px;
-}
+      &:hover {
+        background-color: rgba(227,227,227,0.4);
+      }
+     
+      .icon {
+        font-size: 1.25rem;
+        color: #d51f36;
+      }
 
-nav .flex.items-center span,
-.top-icons .icon {
-  cursor: pointer;
-  font-size: 1.25rem;
-  color: #d32f2f;
-  transition: color 0.3s ease;
-}
-
-nav .flex.items-center span:hover,
-.top-icons .icon:hover {
-  color: #b71c1c;
-}
-
-.user-profile {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-left: 1rem;
-  border: 2px solid #e0e0e0;
-  transition: border-color 0.3s ease;
-}
-
-.user-profile:hover {
-  border-color: #d32f2f;
+      .profile-image {
+        height: 2.25rem;
+      }
+    }
+  }
 }
 
 /* Sección de bienvenida */

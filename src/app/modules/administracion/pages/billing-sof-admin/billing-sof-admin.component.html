@@ -6,30 +6,35 @@
 
 <div class="app-container">
   <!-- Navegación superior -->
-  <nav class="bg-white shadow flex justify-between items-center p-4">
-    <div class="flex items-center">
-      <img src="/img/icon.png" alt="logo" class="h-8 mr-2" />
-    </div>
-    <h2 class="text-xl font-bold text-red-500">
-      Supermercado "LABRYC" CIA LTDA
-    </h2>
-    <div class="flex items-center space-x-4">
-      <span #notificationsToggle id="notifications-toggle" class="text-red-500 cursor-pointer"
-        ><i class="fa-regular fa-bell"></i
-      ></span>
-      <span #menuToggle id="menu-toggle" class="text-red-500 cursor-pointer"
-        ><i class="fa-solid fa-bars"></i
-      ></span>
-      <span #supportToggle id="support-toggle" class="text-red-500 cursor-pointer"
-        ><i class="fa-solid fa-headset"></i
-      ></span>
-      <span class="text-red-500 cursor-pointer"
-        ><i class="fa-solid fa-circle-info"></i
-      ></span>
+   <div class="top-bar">
+    <img src="/img/icon.png" alt="Logo horizontal Billing" class="top-bar__logo">
 
-      <img src="/img/user.png" alt="Usuario" class="h-8 w-8 rounded-full" />
-    </div>
-  </nav>
+    <h1>
+      Supermercado "LABRYC" CIA LTDA
+    </h1>
+
+    <ul class="top-bar__options">
+      <li #notificationsToggle id="notifications-toggle">
+        <i class="fa-regular fa-bell icon"></i>
+      </li>
+
+      <li #menuToggle id="menu-toggle">
+        <i class="fa-solid fa-bars icon"></i>
+      </li>
+
+      <li #supportToggle id="support-toggle">
+        <i class="fa-solid fa-headset icon"></i>
+      </li>
+
+      <li>
+        <i class="fa-solid fa-circle-info icon"></i>
+      </li>
+
+      <li>
+        <img src="/img/user.png" alt="Imagen de usuario" class="profile-image">
+      </li>
+    </ul>
+   </div>
 
   <!-- Sección de bienvenida y barra de búsqueda -->
   <div class="welcome-section">
