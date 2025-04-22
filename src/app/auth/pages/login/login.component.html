@@ -10,21 +10,23 @@
       <p>Acceda a su cuenta</p>
 
       <form (ngSubmit)="login()">
-        <label for="usuario">Usuario</label>
+        <label for="usuario" class="input-label">Usuario</label>
         <input type="text" id="usuario" placeholder="Ingrese su usuario" [(ngModel)]="credentials.usuario"
           name="usuario"
-          required>
+          required
+          class="input-field"
+        >
 
-        <label for="password">Contraseña</label>
+        <label for="password" class="input-label">Contraseña</label>
         <div class="password-container">
           <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Ingrese su contraseña"
-            [(ngModel)]="credentials.clave" name="password" required>
+            [(ngModel)]="credentials.clave" name="password" required class="input-field">
           <span class="toggle-password" (click)="togglePasswordVisibility()">👁️</span>
         </div>
 
         <div class="remember-container text-sm">
-          <span class="flex items-center justify-between">
-            <input type="checkbox" id="recordar" [(ngModel)]="recordar" name="recordar">
+          <span class="flex items-center gap-1 justify-between">
+            <input type="checkbox" id="recordar" [(ngModel)]="recordar" name="recordar" class="w-fit">
             <label for="recordar">Recordar Cuenta</label>
           </span>
           <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
