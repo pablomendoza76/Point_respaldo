@@ -1,36 +1,36 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, signal } from '@angular/core'
+import { Router } from '@angular/router'
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
 import { DashboardService } from '../../services/dashboard.service'
-import { Chart } from 'chart.js/auto';
+import { Chart } from 'chart.js/auto'
 
 interface BusinessStat {
-  value: number;
-  icon: string;
-  label: string;
+  value: number
+  icon: string
+  label: string
 }
 
 interface Module {
-  name: string;
-  selected: boolean;
+  name: string
+  selected: boolean
 }
 
 interface ModuleGroup {
-  category: string;
-  modules: Module[];
+  category: string
+  modules: Module[]
 }
 
 interface Notification {
-  title: string;
-  description: string;
-  date: string;
-  type: string;
+  title: string
+  description: string
+  date: string
+  type: string
 }
 
 interface NotificationGroup {
-  category: string;
-  notifications: Notification[];
+  category: string
+  notifications: Notification[]
 }
 
 @Component({
@@ -41,25 +41,26 @@ interface NotificationGroup {
   imports: [CommonModule, RouterModule],
 })
 export class BillingSofAdminComponent implements OnInit, AfterViewInit {
-  @ViewChild('notificationsToggle') notificationsToggle!: ElementRef;
-  @ViewChild('notificationsPopup') notificationsPopup!: ElementRef;
-  @ViewChild('supportToggle') supportToggle!: ElementRef;
-  @ViewChild('supportPopup') supportPopup!: ElementRef;
-  @ViewChild('menuToggle') menuToggle!: ElementRef; // Referencia al ícono del menú flotante
-  @ViewChild('floatingMenu') floatingMenu!: ElementRef; // Referencia al popup del menú flotante
-  @ViewChild('sideMenu') sideMenu!: ElementRef; // Referencia al menú lateral
-  @ViewChild('content') content!: ElementRef; // Referencia al contenido principal
-  @ViewChild('toggleMenu') toggleMenu!: ElementRef; // Referencia al ícono de expansión del menú lateral
+  @ViewChild('notificationsToggle') notificationsToggle!: ElementRef
+  @ViewChild('notificationsPopup') notificationsPopup!: ElementRef
+  @ViewChild('supportToggle') supportToggle!: ElementRef
+  @ViewChild('supportPopup') supportPopup!: ElementRef
+  @ViewChild('menuToggle') menuToggle!: ElementRef // Referencia al ícono del menú flotante
+  @ViewChild('floatingMenu') floatingMenu!: ElementRef // Referencia al popup del menú flotante
+  @ViewChild('sideMenu') sideMenu!: ElementRef // Referencia al menú lateral
+  @ViewChild('content') content!: ElementRef // Referencia al contenido principal
+  @ViewChild('toggleMenu') toggleMenu!: ElementRef // Referencia al ícono de expansión del menú lateral
 
-  businessStats: Record<string, BusinessStat> = {};
-  salesData: any[] = [];
-  topProducts: any[] = [];
-  notifications: Notification[] = [];
-  notificationGroups: NotificationGroup[] = [];
-  isMenuExpanded = false; // Estado del menú lateral
+  businessStats: Record<string, BusinessStat> = {}
+  salesData: any[] = []
+  topProducts: any[] = []
+  notifications: Notification[] = []
+  notificationGroups: NotificationGroup[] = []
+  isMenuExpanded = false // Estado del menú lateral
+  isSidebarExpanded = signal<boolean>(false)
 
-  filteredModules: Module[] = []; // Módulos filtrados
-  searchQuery: string = ''; //
+  filteredModules = signal<Module[]>([]) // Módulos filtrados
+  searchQuery = signal<string>('') //
 
   groupedModules: ModuleGroup[] = [
     {
@@ -132,48 +133,48 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
         { name: 'Tienda en Línea', selected: true },
       ],
     },
-  ];
+  ]
 
-  allModules: Module[] = this.groupedModules.flatMap((group) => group.modules);
-  welcomeData: any = {};
+  allModules: Module[] = this.groupedModules.flatMap((group) => group.modules)
+  welcomeData: any = {}
 
-  constructor(
-    private dashboardService: DashboardService,
-    private router: Router
-  ) {}
+  constructor(private dashboardService: DashboardService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadDashboardData();
-    this.loadWelcomeData();
-    this.groupNotificationsByDate();
+    this.loadDashboardData()
+    this.loadWelcomeData()
+    this.groupNotificationsByDate()
+    this.filteredModules.set(this.allModules)
   }
 
   ngAfterViewInit(): void {
-    this.setupMenuToggle(); // Configurar el evento del menú flotante
-    this.setupToggleMenu(); // Configurar el evento del botón de expansión del menú lateral
-    this.setupNotificationsToggle();
-    this.setupSupportToggle();
+    this.setupMenuToggle() // Configurar el evento del menú flotante
+    this.setupToggleMenu() // Configurar el evento del botón de expansión del menú lateral
+    this.setupNotificationsToggle()
+    this.setupSupportToggle()
     setTimeout(() => {
-      this.createSalesChart();
-      this.createRadarChart();
-    }, 500);
+      this.createSalesChart()
+      this.createRadarChart()
+    }, 500)
   }
 
-  
-
   loadDashboardData(): void {
-    this.businessStats = this.dashboardService.getBusinessStats();
-    this.salesData = this.dashboardService.getSalesData();
-    this.topProducts = this.dashboardService.getTopProducts();
-    this.notifications = this.dashboardService.getNotifications();
+    this.businessStats = this.dashboardService.getBusinessStats()
+    this.salesData = this.dashboardService.getSalesData()
+    this.topProducts = this.dashboardService.getTopProducts()
+    this.notifications = this.dashboardService.getNotifications()
   }
 
   loadWelcomeData(): void {
-    this.welcomeData = this.dashboardService.getWelcomeData();
+    this.welcomeData = this.dashboardService.getWelcomeData()
+  }
+
+  toggleModulesSidebar() {
+    this.isSidebarExpanded.update((val) => !val)
   }
 
   createSalesChart(): void {
-    const ctx = document.getElementById('salesChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('salesChart') as HTMLCanvasElement
     if (ctx) {
       new Chart(ctx, {
         type: 'bar',
@@ -195,12 +196,12 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
             y: { beginAtZero: true },
           },
         },
-      });
+      })
     }
   }
 
   createRadarChart(): void {
-    const ctx = document.getElementById('radarChart') as HTMLCanvasElement;
+    const ctx = document.getElementById('radarChart') as HTMLCanvasElement
     if (ctx) {
       new Chart(ctx, {
         type: 'radar',
@@ -226,7 +227,7 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
             },
           },
         },
-      });
+      })
     }
   }
 
@@ -267,13 +268,13 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
       Veterinaria: '/veterinaria',
       Talleres: '/talleres',
       'Tienda en Línea': '/tienda-en-linea',
-    };
+    }
 
-    const route = routes[option];
+    const route = routes[option]
     if (route) {
       this.router.navigate([`dashboard/${route}`])
     } else {
-      console.warn(`No se encontró una ruta para el módulo: ${option}`);
+      console.warn(`No se encontró una ruta para el módulo: ${option}`)
     }
   }
 
@@ -314,108 +315,98 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
       Veterinaria: 'fa-paw',
       Talleres: 'fa-wrench',
       'Tienda en Línea': 'fa-store',
-    };
-    return `fa-solid ${icons[moduleName]}`;
+    }
+    return `fa-solid ${icons[moduleName]}`
   }
 
   highlightModule(module: Module): void {
-    module.selected = true;
+    module.selected = true
   }
 
   unhighlightModule(module: Module): void {
-    module.selected = false;
+    module.selected = false
   }
 
   // Configura el evento del botón de expansión del menú lateral
   setupToggleMenu(): void {
     if (this.toggleMenu && this.sideMenu && this.content) {
       this.toggleMenu.nativeElement.addEventListener('click', () => {
-        this.toggleMenuState();
-      });
+        this.toggleMenuState()
+      })
     }
   }
 
   // Expande o contrae el menú lateral
   toggleMenuState(): void {
-    this.isMenuExpanded = !this.isMenuExpanded;
-    
+    this.isMenuExpanded = !this.isMenuExpanded
+
     // Añade la clase `expanded`
-    this.sideMenu.nativeElement.classList.toggle('expanded', this.isMenuExpanded);
-    this.content.nativeElement.classList.toggle('expanded', this.isMenuExpanded);
-  
-    //se agrego para oculatar las seciones, y evitar que se sobre esciban los css 
-    const additionalData = document.querySelector('.additional-data') as HTMLElement;
+    this.sideMenu.nativeElement.classList.toggle('expanded', this.isMenuExpanded)
+    this.content.nativeElement.classList.toggle('expanded', this.isMenuExpanded)
+
+    //se agrego para oculatar las seciones, y evitar que se sobre esciban los css
+    const additionalData = document.querySelector('.additional-data') as HTMLElement
     if (additionalData) {
-      additionalData.style.display = this.isMenuExpanded ? 'none' : 'block';
+      additionalData.style.display = this.isMenuExpanded ? 'none' : 'block'
     }
   }
-  
 
   // Configura el evento del botón del menú flotante
   setupMenuToggle(): void {
     if (this.menuToggle && this.floatingMenu) {
       this.menuToggle.nativeElement.addEventListener('click', () => {
-        this.floatingMenu.nativeElement.classList.toggle('hidden');
-      });
+        this.floatingMenu.nativeElement.classList.toggle('hidden')
+      })
     }
   }
- 
+
   setupNotificationsToggle(): void {
     if (this.notificationsToggle && this.notificationsPopup) {
       this.notificationsToggle.nativeElement.addEventListener('click', () => {
-        this.notificationsPopup.nativeElement.classList.toggle('hidden');
-      });
+        this.notificationsPopup.nativeElement.classList.toggle('hidden')
+      })
     }
   }
 
   setupSupportToggle(): void {
     if (this.supportToggle && this.supportPopup) {
       this.supportToggle.nativeElement.addEventListener('click', () => {
-        this.supportPopup.nativeElement.classList.toggle('hidden');
-      });
+        this.supportPopup.nativeElement.classList.toggle('hidden')
+      })
     }
   }
 
   groupNotificationsByDate(): void {
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(today.getDate() - 1);
-    const twoDaysAgo = new Date(today);
-    twoDaysAgo.setDate(today.getDate() - 2);
+    const today = new Date()
+    const yesterday = new Date(today)
+    yesterday.setDate(today.getDate() - 1)
+    const twoDaysAgo = new Date(today)
+    twoDaysAgo.setDate(today.getDate() - 2)
 
     const formatDateForComparison = (date: Date): string => {
-      return date.toISOString().split('T')[0];
-    };
+      return date.toISOString().split('T')[0]
+    }
 
     const todayNotifications = this.notifications.filter((notification) => {
-      const notificationDate = new Date(notification.date);
-      return (
-        formatDateForComparison(notificationDate) ===
-        formatDateForComparison(today)
-      );
-    });
+      const notificationDate = new Date(notification.date)
+      return formatDateForComparison(notificationDate) === formatDateForComparison(today)
+    })
 
     const yesterdayNotifications = this.notifications.filter((notification) => {
-      const notificationDate = new Date(notification.date);
-      return (
-        formatDateForComparison(notificationDate) ===
-        formatDateForComparison(yesterday)
-      );
-    });
+      const notificationDate = new Date(notification.date)
+      return formatDateForComparison(notificationDate) === formatDateForComparison(yesterday)
+    })
 
     const olderNotifications = this.notifications.filter((notification) => {
-      const notificationDate = new Date(notification.date);
-      return (
-        formatDateForComparison(notificationDate) <
-        formatDateForComparison(twoDaysAgo)
-      );
-    });
+      const notificationDate = new Date(notification.date)
+      return formatDateForComparison(notificationDate) < formatDateForComparison(twoDaysAgo)
+    })
 
     this.notificationGroups = [
       { category: 'Hoy', notifications: todayNotifications },
       { category: 'Ayer', notifications: yesterdayNotifications },
       { category: 'Hace más de dos días', notifications: olderNotifications },
-    ];
+    ]
   }
 
   getNotificationIcon(type: string): string {
@@ -424,38 +415,37 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
       warning: 'fas fa-exclamation-triangle text-yellow-500',
       error: 'fas fa-times-circle text-red-500',
       success: 'fas fa-check-circle text-green-500',
-    };
+    }
 
-    return icons[type] || 'fas fa-bell text-gray-500';
+    return icons[type] || 'fas fa-bell text-gray-500'
   }
 
   openMessenger(): void {
-    const messengerUrl = 'https://m.me/tu_pagina_de_facebook';
-    window.open(messengerUrl, '_blank');
+    const messengerUrl = 'https://m.me/tu_pagina_de_facebook'
+    window.open(messengerUrl, '_blank')
   }
 
   openTelegram(): void {
-    const telegramUrl = 'https://t.me/tu_usuario_de_telegram';
-    window.open(telegramUrl, '_blank');
+    const telegramUrl = 'https://t.me/tu_usuario_de_telegram'
+    window.open(telegramUrl, '_blank')
   }
 
   openSMS(): void {
-    const phoneNumber = '0963319244';
-    const smsUrl = `sms:${phoneNumber}`;
-    window.location.href = smsUrl;
+    const phoneNumber = '0963319244'
+    const smsUrl = `sms:${phoneNumber}`
+    window.location.href = smsUrl
   }
 
   // Función para filtrar módulos
   filterModules(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this.searchQuery = inputElement.value.toLowerCase(); // Convierte la consulta a minúsculas
+    const inputElement = event.target as HTMLInputElement
+    this.searchQuery.set(inputElement.value.toLowerCase()) // Convierte la consulta a minúsculas
 
-    if (this.searchQuery) {
-      this.filteredModules = this.allModules.filter((module) =>
-        module.name.toLowerCase().includes(this.searchQuery)
-      );
+    if (this.searchQuery()) {
+      const newFilteredModules = this.allModules.filter((module) => module.name.toLowerCase().includes(this.searchQuery()))
+      this.filteredModules.set(newFilteredModules)
     } else {
-      this.filteredModules = this.allModules; // Si no hay consulta, muestra todos los módulos
+      this.filteredModules.set(this.allModules) // Si no hay consulta, muestra todos los módulos
     }
   }
 }

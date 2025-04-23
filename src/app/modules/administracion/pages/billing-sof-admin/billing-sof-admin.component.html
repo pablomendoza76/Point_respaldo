@@ -1,147 +1,99 @@
 <!-- Enlace al CDN de Font Awesome -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
 <div class="app-container">
   <!-- Navegación superior -->
-   <div class="top-bar">
-    <img src="/img/icon.png" alt="Logo horizontal Billing" class="top-bar__logo">
+  <div class="top-bar">
+    <img src="/img/icon.png" alt="Logo horizontal Billing" class="top-bar__logo" />
 
-    <h1>
-      Supermercado "LABRYC" CIA LTDA
-    </h1>
+    <h1>Supermercado "LABRYC" CIA LTDA</h1>
 
     <ul class="top-bar__options">
-      <li #notificationsToggle id="notifications-toggle">
+      <li #notificationsToggle id="notifications-toggle" class="icon-button">
         <i class="fa-regular fa-bell icon"></i>
       </li>
 
-      <li #menuToggle id="menu-toggle">
+      <li #menuToggle id="menu-toggle" class="icon-button">
         <i class="fa-solid fa-bars icon"></i>
       </li>
 
-      <li #supportToggle id="support-toggle">
+      <li #supportToggle id="support-toggle" class="icon-button">
         <i class="fa-solid fa-headset icon"></i>
       </li>
 
-      <li>
+      <li class="icon-button">
         <i class="fa-solid fa-circle-info icon"></i>
       </li>
 
-      <li>
-        <img src="/img/user.png" alt="Imagen de usuario" class="profile-image">
+      <li class="icon-button">
+        <img src="/img/user.png" alt="Imagen de usuario" class="profile-image" />
       </li>
     </ul>
-   </div>
+  </div>
 
   <!-- Sección de bienvenida y barra de búsqueda -->
   <div class="welcome-section">
-    <h1 class="welcome-text">Hola, {{ welcomeData.userName }}</h1>
-    <div class="search-bar">
-      <input
-        id="search-input"
-        type="text"
-        [placeholder]="welcomeData.searchPlaceholder"
-        class="search-input"
-        (input)="filterModules($event)"
-      />
-      <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-    </div>
-<!-- Lista de resultados debajo de la barra de búsqueda -->
-<div *ngIf="searchQuery" class="search-results">
-  <ul>
-    <li *ngFor="let module of filteredModules" (click)="navigateTo(module.name)">
-      <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
-      <span>{{ module.name }}</span>
-    </li>
-    <li *ngIf="filteredModules.length === 0" class="no-results">
-      No se encontraron módulos.
-    </li>
-  </ul>
-</div>
+    <div class="welcome-section__breadcrumbs">
+      <span class="icon-button">
+        <i class="fa-solid fa-house icon"></i>
+      </span>
 
+      <p>
+        Dashboard
+        <span>/</span>
+      </p>
+    </div>
+
+    <div class="welcome-section__content">
+      <h1>
+        Hola, {{ welcomeData.userName }}
+      </h1>
+
+      <div class="search-bar">
+        <input id="search-input" type="text" placeholder="Qué Módulo esta buscando?" (input)="filterModules($event)" class="search-bar__input">
+
+        <button type="button" class="search-bar__button">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
   </div>
+  <!-- Lista de resultados debajo de la barra de búsqueda -->
+  <!-- <div *ngIf="searchQuery" class="search-results">
+    <ul>
+      <li *ngFor="let module of filteredModules()" (click)="navigateTo(module.name)">
+        <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
+        <span>{{ module.name }}</span>
+      </li>
+      <li *ngIf="filteredModules.length === 0" class="no-results">No se encontraron módulos.</li>
+    </ul>
+  </div> -->
 
   <!-- Contenedor principal -->
   <div class="main-container">
-    <!-- Menú lateral -->
-    <aside #sideMenu class="side-menu" id="side-menu">
-      <i #toggleMenu class="fa-solid fa-indent" id="toggle-menu"></i>
-      <ul>
-        <li *ngFor="let module of allModules" (click)="navigateTo(module.name)">
-          <i class="module-icon" [class]="getModuleIcon(module.name)"></i> 
-          <div class="menu-item-container">{{ module.name }}</div>
-        </li>
-      </ul>
+    <aside class="main-container__sidebar-modules" [class.isExpanded]="isSidebarExpanded()">
+      <button type="button" (click)="toggleModulesSidebar()" class="icon-button">
+        <i class="fa-solid fa-indent icon"></i>
+      </button>
+
+      <div class="container">
+          <ul class="container__sidebar-modules-list">
+            @for (module of filteredModules(); track module.name) {
+              <li (click)="navigateTo(module.name)" class="sidebar-module-item">
+                <span>
+                  <i [class]="getModuleIcon(module.name)"></i>
+                </span>
+
+                {{module.name}}
+              </li>
+            }
+          </ul>
+      </div>
     </aside>
 
-    <!-- Contenido principal -->
-    <main #content class="content">
-      <!-- Estadísticas del Negocio -->
-      <section class="business-stats">
-        <h2>Estadísticas del Negocio</h2>
-        <div class="stats-grid">
-          <div *ngFor="let stat of businessStats | keyvalue" class="stat-item">
-            <span class="stat-icon">{{ stat.value.icon }}</span>
-            <span class="stat-value">{{ stat.value.value }}</span>
-            <span class="stat-label">{{ stat.value.label }}</span>
-          </div>
-        </div>
-      </section>
+    <main class="main-container__content" [class.isExpanded]="isSidebarExpanded()">
 
-      <!-- Gráfico de Nuevos Clientes -->
-      <section class="bar-chart">
-        <h2>Nuevos Clientes</h2>
-        <canvas id="salesChart"></canvas>
-        <p>Crecimiento respecto al mes anterior</p>
-      </section>
     </main>
-
-    <!-- Sección de más datos y notificaciones -->
-    <aside class="additional-data">
-      <!-- Más Datos -->
-      <section class="more-data">
-        <h2>Más Datos</h2>
-        <div class="data-grid">
-          <div class="data-item">
-            <h4>Marcas más Vendidas</h4>
-            <canvas id="radarChart"></canvas>
-          </div>
-          <div class="data-item">
-            <h4>Productos más Vendidos</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Unidades</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let product of topProducts">
-                  <td>{{ product.name }}</td>
-                  <td>{{ product.units }}</td>
-                  <td>${{ product.total }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Notificaciones -->
-      <section class="notifications">
-        <h3>Notificaciones</h3>
-        <div *ngFor="let notification of notifications" class="notification">
-          <i [class]="getNotificationIcon(notification.type)"></i>
-          <strong>{{ notification.title }}</strong>
-          <p>{{ notification.description }}</p>
-          <span>{{ notification.date }}</span>
-        </div>
-      </section>
-    </aside>
 
     <!-- Popup con los módulos -->
     <div #floatingMenu id="floating-menu" class="floating-menu hidden">
@@ -159,9 +111,7 @@
                 (mouseleave)="unhighlightModule(module)"
               >
                 <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
-                <span [class.selected]="module.selected">{{
-                  module.name
-                }}</span>
+                <span [class.selected]="module.selected">{{ module.name }}</span>
               </div>
             </div>
           </div>
@@ -174,23 +124,15 @@
       <div class="popup-content">
         <h3>Notificaciones</h3>
         <div class="notification-groups">
-          <div
-            *ngFor="let group of notificationGroups"
-            class="notification-group"
-          >
+          <div *ngFor="let group of notificationGroups" class="notification-group">
             <h4>{{ group.category }}</h4>
             <div class="notification-items">
-              <div
-                *ngFor="let notification of group.notifications"
-                class="notification-item"
-              >
+              <div *ngFor="let notification of group.notifications" class="notification-item">
                 <i [class]="getNotificationIcon(notification.type)"></i>
                 <div class="notification-item-content">
                   <strong>{{ notification.title }}</strong>
                   <p>{{ notification.description }}</p>
-                  <span>{{
-                    notification.date | date : "dd/MM/yyyy, hh:mm a"
-                  }}</span>
+                  <span>{{ notification.date | date : 'dd/MM/yyyy, hh:mm a' }}</span>
                 </div>
               </div>
             </div>
