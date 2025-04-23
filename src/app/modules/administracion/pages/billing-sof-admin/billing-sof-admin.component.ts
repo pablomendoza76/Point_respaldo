@@ -448,7 +448,7 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
   getIconContainerColor(iconColor: string): string {
     const decoponsition = iconColor.split('-')
     const lowerOpacity = `${decoponsition[2][0]}0`
-    console.log(`bg-${decoponsition[1]}-${lowerOpacity}`)
+    // console.log(`bg-${decoponsition[1]}-${lowerOpacity}`)
 
     return `bg-${decoponsition[1]}-${lowerOpacity}`
   }
