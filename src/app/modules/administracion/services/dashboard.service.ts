@@ -16,11 +16,11 @@ export class DashboardService {
   // Métodos existentes
   getBusinessStats() {
     return {
-      gananciasTotales: { value: 12000, icon: "💵", label: "Ganancias Totales" },
-      ventasTotales: { value: 5000, icon: "💰", label: "Ventas Totales" },
-      inventarioActual: { value: 800, icon: "📦", label: "Inventario Disponible" },
-      ordenesProcesadas: { value: 150, icon: "🛒", label: "Órdenes Procesadas" }
-    };
+      gananciasTotales: { value: 12000, icon: 'fa-dollar-sign text-blue-500', label: 'Ganancias - Hoy' },
+      ventasTotales: { value: 5000, icon: 'fa-bag-shopping text-yellow-500', label: 'Ventas - Del día' },
+      inventarioActual: { value: 800, icon: 'fa-box-archive text-green-500', label: 'Inventario - Total' },
+      ordenesProcesadas: { value: 150, icon: 'fa-file text-red-500', label: 'Ordenes - Principal' },
+    }
   }
 
   getSalesData() {

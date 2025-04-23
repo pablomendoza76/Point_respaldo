@@ -76,8 +76,8 @@
         <i class="fa-solid fa-indent icon"></i>
       </button>
 
-      <div class="container">
-          <ul class="container__sidebar-modules-list">
+      <div class="modules-container">
+          <ul class="modules-container__modules-list">
             @for (module of filteredModules(); track module.name) {
               <li (click)="navigateTo(module.name)" class="sidebar-module-item">
                 <span>
@@ -92,7 +92,144 @@
     </aside>
 
     <main class="main-container__content" [class.isExpanded]="isSidebarExpanded()">
+      <div class="content-container">
+        <div class="content-grid">
+          <div class="content-grid__first-column" [class.isExpanded]="isSidebarExpanded()">
+            <!-- Estadísticas -->
+            <section class="statistics-section">
+              <h2 class="section-title">
+                Estadísticas del Negocio
+              </h2>
 
+              <div class="statistics-cards-grid" [class.isExpanded]="isSidebarExpanded()">
+                @for (statistic of businessStats() | keyvalue; track statistic.key) {
+                  <div class="statistics-cards-grid__card">
+                    <span [class]="getIconContainerColor(`${statistic.value.icon.split(' ')[1]}`)">
+                      <i class="fa-solid" [class]="statistic.value.icon"></i>
+                    </span>
+
+                    <p class="statistic-value">
+                      @if (statistic.value.label.split("-")[0].trim() === "Ganancias") { $ }
+                      
+                      {{statistic.value.value}}
+                    </p>
+
+                    <p class="statistic-label">
+                      <strong>
+                        {{statistic.value.label.split("-")[0]}}
+                      </strong>
+                      {{`- ${statistic.value.label.split("-")[1]}`}}
+                    </p>
+                  </div>
+                }
+              </div>
+            </section>
+
+            <!-- Nuevos Clientes -->
+            <section class="new-clients-section" [class.isExpanded]="isSidebarExpanded()">
+              <div class="title-container">
+                <span>
+                  <i class="fa-solid fa-user"></i>
+                </span>
+
+                <h2 class="section-title">
+                  Nuevos Clientes
+                </h2>
+              </div>
+
+              <canvas id="salesChart"></canvas>
+
+              <div class="metrica-container">
+                <p>
+                  Crecimiento relación mes anterior 
+                </p>
+
+                <span>
+                  15%
+                  <i class="fa-solid fa-arrow-trend-up"></i>
+                </span>
+              </div>
+            </section>
+          </div>
+    
+          <div class="content-grid__second-column" [class.isExpanded]="isSidebarExpanded()">
+            <!-- Más datos -->
+            <section class="additional-data-section">
+              <h2 class="section-title">
+                Más Datos
+              </h2>
+
+              <div class="data-container">
+                <div class="data-container__chart-card">
+                  <h3 class="section-subtitle">
+                    Marcas más Vendidas
+                  </h3>
+
+                  <canvas id="radarChart"></canvas>
+                </div>
+
+                <div class="data-container__table-card">
+                  <h3 class="section-subtitle">
+                    Productos más Vendidos
+                  </h3>
+
+                  <table>
+                    <colgroup>
+                      <col style="width: 40%;">
+                      <col style="width: 40%;">
+                      <col style="width: 20%;">
+                    </colgroup>
+
+                    <tbody>
+                      @for (product of topProducts(); track product.name) {
+                        <tr>
+                          <td>{{product.name}}</td>
+                          <td>{{product.units}} <span>(Unidades)</span></td>
+                          <td>$ {{product.total}}</td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <section class="notifications-section">
+              <h2 class="section-title">
+                Notificaciones
+              </h2>
+
+              <div class="notifications-container">
+                <div>
+                  <ul class="notifications-list">
+                    @for (notification of notifications; track notification.title) {
+                      <li class="notifications-list__notification-card">
+                        <span>
+                          <i [class]="getNotificationIcon(notification.type)"></i>
+                        </span>
+  
+                        <div>
+                          <p class="notification-title">
+                            {{ notification.title }}
+                          </p>
+  
+                          <p class="notification-description">
+                            {{ notification.description }}
+                          </p>
+  
+                          <p class="notification-date">
+                            {{ notification.date }}
+                          </p>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Popup con los módulos -->

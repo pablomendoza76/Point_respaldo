@@ -33,6 +33,12 @@ interface NotificationGroup {
   notifications: Notification[]
 }
 
+interface TopProduct {
+  name: string
+  units: number
+  total: number
+}
+
 @Component({
   selector: 'app-billing-sof-admin',
   standalone: true,
@@ -51,9 +57,9 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
   @ViewChild('content') content!: ElementRef // Referencia al contenido principal
   @ViewChild('toggleMenu') toggleMenu!: ElementRef // Referencia al ícono de expansión del menú lateral
 
-  businessStats: Record<string, BusinessStat> = {}
+  businessStats = signal<Record<string, BusinessStat>>({})
   salesData: any[] = []
-  topProducts: any[] = []
+  topProducts = signal<TopProduct[]>([])
   notifications: Notification[] = []
   notificationGroups: NotificationGroup[] = []
   isMenuExpanded = false // Estado del menú lateral
@@ -159,9 +165,9 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
   }
 
   loadDashboardData(): void {
-    this.businessStats = this.dashboardService.getBusinessStats()
+    this.businessStats.set(this.dashboardService.getBusinessStats())
     this.salesData = this.dashboardService.getSalesData()
-    this.topProducts = this.dashboardService.getTopProducts()
+    this.topProducts.set(this.dashboardService.getTopProducts())
     this.notifications = this.dashboardService.getNotifications()
   }
 
@@ -184,16 +190,30 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
             {
               label: 'Clientes Nuevos',
               data: this.salesData.map((data) => data.value),
-              backgroundColor: 'rgba(0, 204, 153, 0.5)',
-              borderColor: 'rgba(0, 204, 153, 1)',
-              borderWidth: 1,
+              backgroundColor: 'rgb(39, 218, 203)',
+              barThickness: 10,
             },
           ],
         },
         options: {
           responsive: true,
           scales: {
-            y: { beginAtZero: true },
+            x: {
+              grid: {
+                display: false,
+              },
+            },
+            y: {
+              beginAtZero: true,
+              grid: {
+                display: false,
+              },
+            },
+          },
+          plugins: {
+            legend: {
+              display: false,
+            },
           },
         },
       })
@@ -211,8 +231,8 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
             {
               label: 'Marcas más Vendidas',
               data: [8, 7, 6, 9, 7],
-              backgroundColor: 'rgba(54, 162, 235, 0.2)',
-              borderColor: 'rgba(54, 162, 235, 1)',
+              backgroundColor: 'rgba(202, 253, 244, 0.2)',
+              borderColor: 'rgba(14, 97, 94, 0.8)',
               borderWidth: 2,
             },
           ],
@@ -224,6 +244,11 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
               angleLines: { display: true },
               suggestedMin: 0,
               suggestedMax: 10,
+            },
+          },
+          plugins: {
+            legend: {
+              display: false,
             },
           },
         },
@@ -418,6 +443,14 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
     }
 
     return icons[type] || 'fas fa-bell text-gray-500'
+  }
+
+  getIconContainerColor(iconColor: string): string {
+    const decoponsition = iconColor.split('-')
+    const lowerOpacity = `${decoponsition[2][0]}0`
+    console.log(`bg-${decoponsition[1]}-${lowerOpacity}`)
+
+    return `bg-${decoponsition[1]}-${lowerOpacity}`
   }
 
   openMessenger(): void {
