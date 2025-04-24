@@ -165,64 +165,6 @@ body {
   }
 }
 
-// /* Lista habilitante para a barra de busqueda */
-// /* Estilos para la lista de resultados */
-// .search-results {
-//   position: absolute;
-//   top: 80%; /* Debajo de la barra de búsqueda */
-//   left: 72%;
-//   width: 26%;
-//   background-color: white;
-//   border-radius: 12px;
-//   box-shadow: var(--box-shadow);
-//   z-index: 1000; /* Para que aparezca por encima de otros elementos */
-//   max-height: 300px;
-//   overflow-y: auto;
-// }
-
-// .search-results ul {
-//   list-style: none;
-//   padding: 0;
-//   margin: 0;
-// }
-
-// .search-results li {
-//   padding: 0.75rem 1rem;
-//   cursor: pointer;
-//   display: flex;
-//   align-items: center;
-//   gap: 0.75rem;
-//   transition: var(--transition);
-// }
-
-// .search-results li:hover {
-//   background-color: #ffebeb;
-//   color: #d32f2f;
-//   transform: translateY(-2px);
-// }
-
-// .search-results li .module-icon {
-//   font-size: 16px;
-//   color: var(--primary-color);
-//   background-color: #f7f7f7;
-//   padding: 6px;
-//   border-radius: 6px;
-//   transition: var(--transition);
-// }
-
-// .search-results li:hover .module-icon {
-//   background-color: #ffebeb;
-//   color: #d32f2f;
-//   transform: translateY(-2px);
-// }
-
-// .no-results {
-//   text-align: center;
-//   color: #777;
-//   font-style: italic;
-//   padding: 1rem;
-// }
-
 /* Contenedor principal */
 .main-container {
   display: flex;
@@ -233,7 +175,7 @@ body {
 
   &__sidebar-modules {
     display: flex;
-    width: 20%;
+    width: 18%;
     flex-direction: column;
     padding-block: 1.25rem;
     padding-inline-end: 1.25rem;
@@ -264,7 +206,7 @@ body {
         .sidebar-module-item {
           display: flex;
           height: 4.5rem;
-          width: 15.625rem;
+          width: 13.75rem;
           align-items: center;
           gap: 0.5rem;
           font-size: 0.875rem;
@@ -313,7 +255,7 @@ body {
 
   &__content {
     display: flex;
-    width: 80%;
+    width: 82%;
     padding-block: 1.25rem;
     padding-inline-start: 1.25rem;
     transition: width 0.5s ease;

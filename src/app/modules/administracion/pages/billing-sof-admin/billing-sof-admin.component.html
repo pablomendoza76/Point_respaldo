@@ -9,15 +9,15 @@
     <h1>Supermercado "LABRYC" CIA LTDA</h1>
 
     <ul class="top-bar__options">
-      <li #notificationsToggle id="notifications-toggle" class="icon-button">
+      <li id="notifications-toggle" (click)="toggleNotificationsPopup()" class="icon-button">
         <i class="fa-regular fa-bell icon"></i>
       </li>
 
-      <li #menuToggle id="menu-toggle" class="icon-button">
+      <li id="menu-toggle" (click)="toggleFloatingMenu()" class="icon-button">
         <i class="fa-solid fa-bars icon"></i>
       </li>
 
-      <li #supportToggle id="support-toggle" class="icon-button">
+      <li id="support-toggle" (click)="toggleSupportPopup()" class="icon-button">
         <i class="fa-solid fa-headset icon"></i>
       </li>
 
@@ -46,11 +46,11 @@
 
     <div class="welcome-section__content">
       <h1>
-        Hola, {{ welcomeData.userName }}
+        Hola, Pablo
       </h1>
 
       <div class="search-bar">
-        <input id="search-input" type="text" placeholder="Qué Módulo esta buscando?" (input)="filterModules($event)" class="search-bar__input">
+        <input id="search-input" type="text" placeholder="Qué Módulo esta buscando?" (input)="searchQuery.set($any($event.target).value)" class="search-bar__input">
 
         <button type="button" class="search-bar__button">
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -58,21 +58,11 @@
       </div>
     </div>
   </div>
-  <!-- Lista de resultados debajo de la barra de búsqueda -->
-  <!-- <div *ngIf="searchQuery" class="search-results">
-    <ul>
-      <li *ngFor="let module of filteredModules()" (click)="navigateTo(module.name)">
-        <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
-        <span>{{ module.name }}</span>
-      </li>
-      <li *ngIf="filteredModules.length === 0" class="no-results">No se encontraron módulos.</li>
-    </ul>
-  </div> -->
 
   <!-- Contenedor principal -->
   <div class="main-container">
-    <aside class="main-container__sidebar-modules" [class.isExpanded]="isSidebarExpanded()">
-      <button type="button" (click)="toggleModulesSidebar()" class="icon-button">
+    <aside class="main-container__sidebar-modules" [class.isExpanded]="sidebarOpen()">
+      <button type="button" (click)="toggleSidebar()" class="icon-button">
         <i class="fa-solid fa-indent icon"></i>
       </button>
 
@@ -91,17 +81,17 @@
       </div>
     </aside>
 
-    <main class="main-container__content" [class.isExpanded]="isSidebarExpanded()">
+    <main class="main-container__content" [class.isExpanded]="sidebarOpen()">
       <div class="content-container">
         <div class="content-grid">
-          <div class="content-grid__first-column" [class.isExpanded]="isSidebarExpanded()">
+          <div class="content-grid__first-column" [class.isExpanded]="sidebarOpen()">
             <!-- Estadísticas -->
             <section class="statistics-section">
               <h2 class="section-title">
                 Estadísticas del Negocio
               </h2>
 
-              <div class="statistics-cards-grid" [class.isExpanded]="isSidebarExpanded()">
+              <div class="statistics-cards-grid" [class.isExpanded]="sidebarOpen()">
                 @for (statistic of businessStats() | keyvalue; track statistic.key) {
                   <div class="statistics-cards-grid__card">
                     <span [class]="getIconContainerColor(`${statistic.value.icon.split(' ')[1]}`)">
@@ -129,7 +119,7 @@
             </section>
 
             <!-- Nuevos Clientes -->
-            <section class="new-clients-section" [class.isExpanded]="isSidebarExpanded()">
+            <section class="new-clients-section" [class.isExpanded]="sidebarOpen()">
               <div class="title-container">
                 <span>
                   <i class="fa-solid fa-user"></i>
@@ -140,7 +130,7 @@
                 </h2>
               </div>
 
-              <canvas id="salesChart"></canvas>
+              <canvas *ngIf="salesData().length" id="salesChart"></canvas>
 
               <div class="metrica-container">
                 <p>
@@ -155,7 +145,7 @@
             </section>
           </div>
     
-          <div class="content-grid__second-column" [class.isExpanded]="isSidebarExpanded()">
+          <div class="content-grid__second-column" [class.isExpanded]="sidebarOpen()">
             <!-- Más datos -->
             <section class="additional-data-section">
               <h2 class="section-title">
@@ -206,7 +196,7 @@
               <div class="notifications-container">
                 <div>
                   <ul class="notifications-list">
-                    @for (notification of notifications; track notification.title) {
+                    @for (notification of notifications(); track notification.title) {
                       <li class="notifications-list__notification-card">
                         <span>
                           <i [class]="getNotificationIcon(notification.type)"></i>
@@ -237,7 +227,7 @@
     </main>
 
     <!-- Popup con los módulos -->
-    <div #floatingMenu id="floating-menu" class="floating-menu hidden">
+    <div id="floating-menu" class="floating-menu" [class.hidden]="!floatingMenuOpen()">
       <div class="popup-content">
         <h3>Módulos</h3>
         <div class="module-grid">
@@ -261,11 +251,11 @@
     </div>
 
     <!-- Popup de Notificaciones -->
-    <div #notificationsPopup id="notifications-popup" class="floating-menu hidden">
+    <div id="notifications-popup" class="floating-menu" [class.hidden]="!notificationsPopupOpen()">
       <div class="popup-content">
         <h3>Notificaciones</h3>
         <div class="notification-groups">
-          <div *ngFor="let group of notificationGroups" class="notification-group">
+          <div *ngFor="let group of notificationGroups()" class="notification-group">
             <h4>{{ group.category }}</h4>
             <div class="notification-items">
               <div *ngFor="let notification of group.notifications" class="notification-item">
@@ -283,7 +273,7 @@
     </div>
 
     <!-- Popup de Soporte -->
-    <div #supportPopup id="support-popup" class="floating-menu hidden">
+    <div id="support-popup" class="floating-menu" [class.hidden]="!supportPopupOpen()">
       <div class="popup-content">
         <h3>Soporte</h3>
         <div class="support-items">

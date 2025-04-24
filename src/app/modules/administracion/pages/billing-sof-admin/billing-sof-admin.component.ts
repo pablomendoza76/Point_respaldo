@@ -1,43 +1,10 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, signal } from '@angular/core'
+import { Component, OnInit, AfterViewInit, signal, computed } from '@angular/core'
 import { Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { DashboardService } from '../../services/dashboard.service'
 import { Chart } from 'chart.js/auto'
-
-interface BusinessStat {
-  value: number
-  icon: string
-  label: string
-}
-
-interface Module {
-  name: string
-  selected: boolean
-}
-
-interface ModuleGroup {
-  category: string
-  modules: Module[]
-}
-
-interface Notification {
-  title: string
-  description: string
-  date: string
-  type: string
-}
-
-interface NotificationGroup {
-  category: string
-  notifications: Notification[]
-}
-
-interface TopProduct {
-  name: string
-  units: number
-  total: number
-}
+import { BusinessStat, Module, ModuleGroup, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
 
 @Component({
   selector: 'app-billing-sof-admin',
@@ -47,26 +14,16 @@ interface TopProduct {
   imports: [CommonModule, RouterModule],
 })
 export class BillingSofAdminComponent implements OnInit, AfterViewInit {
-  @ViewChild('notificationsToggle') notificationsToggle!: ElementRef
-  @ViewChild('notificationsPopup') notificationsPopup!: ElementRef
-  @ViewChild('supportToggle') supportToggle!: ElementRef
-  @ViewChild('supportPopup') supportPopup!: ElementRef
-  @ViewChild('menuToggle') menuToggle!: ElementRef // Referencia al ícono del menú flotante
-  @ViewChild('floatingMenu') floatingMenu!: ElementRef // Referencia al popup del menú flotante
-  @ViewChild('sideMenu') sideMenu!: ElementRef // Referencia al menú lateral
-  @ViewChild('content') content!: ElementRef // Referencia al contenido principal
-  @ViewChild('toggleMenu') toggleMenu!: ElementRef // Referencia al ícono de expansión del menú lateral
-
   businessStats = signal<Record<string, BusinessStat>>({})
-  salesData: any[] = []
+  notifications = signal<Notification[]>([])
+  notificationGroups = signal<NotificationGroup[]>([])
+  salesData = signal<any[]>([])
+  searchQuery = signal<string>('')
   topProducts = signal<TopProduct[]>([])
-  notifications: Notification[] = []
-  notificationGroups: NotificationGroup[] = []
-  isMenuExpanded = false // Estado del menú lateral
-  isSidebarExpanded = signal<boolean>(false)
-
-  filteredModules = signal<Module[]>([]) // Módulos filtrados
-  searchQuery = signal<string>('') //
+  floatingMenuOpen = signal<boolean>(false)
+  notificationsPopupOpen = signal<boolean>(false)
+  sidebarOpen = signal<boolean>(false)
+  supportPopupOpen = signal<boolean>(false)
 
   groupedModules: ModuleGroup[] = [
     {
@@ -142,41 +99,43 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
   ]
 
   allModules: Module[] = this.groupedModules.flatMap((group) => group.modules)
-  welcomeData: any = {}
+  filteredModules = computed(() => (this.searchQuery() ? this.allModules.filter((m) => m.name.toLowerCase().includes(this.searchQuery())) : this.allModules))
 
   constructor(private dashboardService: DashboardService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadDashboardData()
-    this.loadWelcomeData()
     this.groupNotificationsByDate()
-    this.filteredModules.set(this.allModules)
   }
 
   ngAfterViewInit(): void {
-    this.setupMenuToggle() // Configurar el evento del menú flotante
-    this.setupToggleMenu() // Configurar el evento del botón de expansión del menú lateral
-    this.setupNotificationsToggle()
-    this.setupSupportToggle()
     setTimeout(() => {
       this.createSalesChart()
       this.createRadarChart()
     }, 500)
   }
 
+  toggleFloatingMenu() {
+    this.floatingMenuOpen.update((prev) => !prev)
+  }
+
+  toggleNotificationsPopup() {
+    this.notificationsPopupOpen.update((prev) => !prev)
+  }
+
+  toggleSidebar() {
+    this.sidebarOpen.update((prev) => !prev)
+  }
+
+  toggleSupportPopup() {
+    this.supportPopupOpen.update((prev) => !prev)
+  }
+
   loadDashboardData(): void {
     this.businessStats.set(this.dashboardService.getBusinessStats())
-    this.salesData = this.dashboardService.getSalesData()
+    this.salesData.set(this.dashboardService.getSalesData())
     this.topProducts.set(this.dashboardService.getTopProducts())
-    this.notifications = this.dashboardService.getNotifications()
-  }
-
-  loadWelcomeData(): void {
-    this.welcomeData = this.dashboardService.getWelcomeData()
-  }
-
-  toggleModulesSidebar() {
-    this.isSidebarExpanded.update((val) => !val)
+    this.notifications.set(this.dashboardService.getNotifications())
   }
 
   createSalesChart(): void {
@@ -185,11 +144,11 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
       new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: this.salesData.map((data) => data.month),
+          labels: this.salesData().map((data) => data.month),
           datasets: [
             {
               label: 'Clientes Nuevos',
-              data: this.salesData.map((data) => data.value),
+              data: this.salesData().map((data) => data.value),
               backgroundColor: 'rgb(39, 218, 203)',
               barThickness: 10,
             },
@@ -257,50 +216,46 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
   }
 
   navigateTo(option: string): void {
-    const routes: { [key: string]: string } = {
-      Administración: '/productos/vista-general',
-      Créditos: '/creditos',
-      Contratos: '/contratos',
-      'Control de…': '/control',
-      Reposiciones: '/reposiciones',
-      Caja: '/caja',
-      'C x P': '/cxp',
-      'C x C': '/cxc',
-      Facturación: '/facturacion',
-      Ventas: '/ventas',
-      Cupones: '/cupones',
-      Cotizaciones: '/cotizaciones',
-      'Servicio técnico': '/servicio-tecnico',
-      Autoservicio: '/autoservicio',
-      'Verificador…': '/verificador',
-      Inventarios: '/inventarios',
-      'Compras (…)': '/compras',
-      Encomiendas: '/encomiendas',
-      Producción: '/produccion',
-      'Notas de entrega': '/notas-entrega',
-      'Manejo de…': '/manejo-activos',
-      'Reporte ATS': '/reporte-ats',
-      Agenda: '/agenda',
-      Reuniones: '/reuniones',
-      Reportes: '/reportes',
-      Mensajería: '/mensajeria',
-      Nómina: '/nomina',
-      Contabilidad: '/contabilidad',
-      Bancos: '/bancos',
-      Restaurante: '/restaurante',
-      Parking: '/parking',
-      Hoteles: '/hoteles',
-      Veterinaria: '/veterinaria',
-      Talleres: '/talleres',
-      'Tienda en Línea': '/tienda-en-linea',
+    const MODULE_ROUTES: Record<string, string> = {
+      Administración: 'productos/vista-general',
+      Créditos: 'creditos',
+      Contratos: 'contratos',
+      'Control de…': 'control',
+      Reposiciones: 'reposiciones',
+      Caja: 'caja',
+      'C x P': 'cxp',
+      'C x C': 'cxc',
+      Facturación: 'facturacion',
+      Ventas: 'ventas',
+      Cupones: 'cupones',
+      Cotizaciones: 'cotizaciones',
+      'Servicio técnico': 'servicio-tecnico',
+      Autoservicio: 'autoservicio',
+      'Verificador…': 'verificador',
+      Inventarios: 'inventarios',
+      'Compras (…)': 'compras',
+      Encomiendas: 'encomiendas',
+      Producción: 'produccion',
+      'Notas de entrega': 'notas-entrega',
+      'Manejo de…': 'manejo-activos',
+      'Reporte ATS': 'reporte-ats',
+      Agenda: 'agenda',
+      Reuniones: 'reuniones',
+      Reportes: 'reportes',
+      Mensajería: 'mensajeria',
+      Nómina: 'nomina',
+      Contabilidad: 'contabilidad',
+      Bancos: 'bancos',
+      Restaurante: 'restaurante',
+      Parking: 'parking',
+      Hoteles: 'hoteles',
+      Veterinaria: 'veterinaria',
+      Talleres: 'talleres',
+      'Tienda en Línea': 'tienda-en-linea',
     }
 
-    const route = routes[option]
-    if (route) {
-      this.router.navigate([`dashboard/${route}`])
-    } else {
-      console.warn(`No se encontró una ruta para el módulo: ${option}`)
-    }
+    const path = MODULE_ROUTES[option]
+    if (path) this.router.navigate(['dashboard', ...path.split('/')])
   }
 
   getModuleIcon(moduleName: string): string {
@@ -352,55 +307,6 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
     module.selected = false
   }
 
-  // Configura el evento del botón de expansión del menú lateral
-  setupToggleMenu(): void {
-    if (this.toggleMenu && this.sideMenu && this.content) {
-      this.toggleMenu.nativeElement.addEventListener('click', () => {
-        this.toggleMenuState()
-      })
-    }
-  }
-
-  // Expande o contrae el menú lateral
-  toggleMenuState(): void {
-    this.isMenuExpanded = !this.isMenuExpanded
-
-    // Añade la clase `expanded`
-    this.sideMenu.nativeElement.classList.toggle('expanded', this.isMenuExpanded)
-    this.content.nativeElement.classList.toggle('expanded', this.isMenuExpanded)
-
-    //se agrego para oculatar las seciones, y evitar que se sobre esciban los css
-    const additionalData = document.querySelector('.additional-data') as HTMLElement
-    if (additionalData) {
-      additionalData.style.display = this.isMenuExpanded ? 'none' : 'block'
-    }
-  }
-
-  // Configura el evento del botón del menú flotante
-  setupMenuToggle(): void {
-    if (this.menuToggle && this.floatingMenu) {
-      this.menuToggle.nativeElement.addEventListener('click', () => {
-        this.floatingMenu.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
-  setupNotificationsToggle(): void {
-    if (this.notificationsToggle && this.notificationsPopup) {
-      this.notificationsToggle.nativeElement.addEventListener('click', () => {
-        this.notificationsPopup.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
-  setupSupportToggle(): void {
-    if (this.supportToggle && this.supportPopup) {
-      this.supportToggle.nativeElement.addEventListener('click', () => {
-        this.supportPopup.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
   groupNotificationsByDate(): void {
     const today = new Date()
     const yesterday = new Date(today)
@@ -412,26 +318,26 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
       return date.toISOString().split('T')[0]
     }
 
-    const todayNotifications = this.notifications.filter((notification) => {
+    const todayNotifications = this.notifications().filter((notification) => {
       const notificationDate = new Date(notification.date)
       return formatDateForComparison(notificationDate) === formatDateForComparison(today)
     })
 
-    const yesterdayNotifications = this.notifications.filter((notification) => {
+    const yesterdayNotifications = this.notifications().filter((notification) => {
       const notificationDate = new Date(notification.date)
       return formatDateForComparison(notificationDate) === formatDateForComparison(yesterday)
     })
 
-    const olderNotifications = this.notifications.filter((notification) => {
+    const olderNotifications = this.notifications().filter((notification) => {
       const notificationDate = new Date(notification.date)
       return formatDateForComparison(notificationDate) < formatDateForComparison(twoDaysAgo)
     })
 
-    this.notificationGroups = [
+    this.notificationGroups.set([
       { category: 'Hoy', notifications: todayNotifications },
       { category: 'Ayer', notifications: yesterdayNotifications },
       { category: 'Hace más de dos días', notifications: olderNotifications },
-    ]
+    ])
   }
 
   getNotificationIcon(type: string): string {
@@ -448,7 +354,6 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
   getIconContainerColor(iconColor: string): string {
     const decoponsition = iconColor.split('-')
     const lowerOpacity = `${decoponsition[2][0]}0`
-    // console.log(`bg-${decoponsition[1]}-${lowerOpacity}`)
 
     return `bg-${decoponsition[1]}-${lowerOpacity}`
   }
@@ -467,18 +372,5 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
     const phoneNumber = '0963319244'
     const smsUrl = `sms:${phoneNumber}`
     window.location.href = smsUrl
-  }
-
-  // Función para filtrar módulos
-  filterModules(event: Event): void {
-    const inputElement = event.target as HTMLInputElement
-    this.searchQuery.set(inputElement.value.toLowerCase()) // Convierte la consulta a minúsculas
-
-    if (this.searchQuery()) {
-      const newFilteredModules = this.allModules.filter((module) => module.name.toLowerCase().includes(this.searchQuery()))
-      this.filteredModules.set(newFilteredModules)
-    } else {
-      this.filteredModules.set(this.allModules) // Si no hay consulta, muestra todos los módulos
-    }
   }
 }
