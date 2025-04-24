@@ -118,7 +118,10 @@
                       <strong>
                         {{statistic.value.label.split("-")[0]}}
                       </strong>
-                      {{`- ${statistic.value.label.split("-")[1]}`}}
+                      -
+                      <span [class]="statistic.value.icon.split(' ')[1]">
+                        {{statistic.value.label.split("-")[1]}}
+                      </span>
                     </p>
                   </div>
                 }
@@ -194,6 +197,7 @@
               </div>
             </section>
 
+            <!-- Notificaciones -->
             <section class="notifications-section">
               <h2 class="section-title">
                 Notificaciones
