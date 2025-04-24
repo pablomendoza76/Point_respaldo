@@ -20,17 +20,13 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
       "@doc/*": ["doc/*"],
       "@public/*": ["public/*"],
 
+      "@env/*": ["src/env/*"],
       "@auth/*": ["src/app/auth/*"],
-      "@env/*": ["src/app/config/env/*"],
-      "@config/*": ["src/app/config/*"],
 
       "@routes/*": ["src/app/routes/*"],
       "@modules/*": ["src/app/modules/*"],

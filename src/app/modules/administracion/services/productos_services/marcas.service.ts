@@ -16,7 +16,6 @@ export class MarcasService {
    */
   getMarcas(): Observable<Array<{ id: number; nombre: string; descripcion: string }>> {
     const url = `${ApiUrls.Base_Url}${Enums_marcas.Marcas}${Enums_marcas.todas}`
-
     return this.http.get<any>(url).pipe(
       map((response: any) => {
         return response?.respuesta?.datos || []

@@ -1,13 +1,12 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http' // ✅ Importado correctamente
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
 import { provideRouter, RouterModule } from '@angular/router'
+import { authInterceptor } from '@auth/functions/auth.interceptor'
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { routes } from '@routes/app.routes'
-import { filterReducer } from '../shared/stores/Filtros_NgRx/filter.reducer'
-import { tablaReducer } from '../shared/stores/tabla_NgRx/tabla.reducer'
-import { AuthInterceptor } from '../interceptors/request.interceptor'
-
+import { filterReducer } from '@stores/Filtros_NgRx/filter.reducer'
+import { tablaReducer } from '@stores/tabla_NgRx/tabla.reducer'
 
 /**
  * ✅ Configuración principal de la aplicación.
@@ -28,8 +27,7 @@ export const appConfig: ApplicationConfig = {
     /**
      * ✅ Cliente HTTP para consumir servicios REST (necesario para HttpClient)
      */
-    provideHttpClient(withInterceptors([AuthInterceptor])), 
-
+    provideHttpClient(withInterceptors([authInterceptor])),
 
     /**
      * ✅ Configuración de NgRx para el estado global. (Este nombre debe coincidir con lo que usas en selectors y componentes)
