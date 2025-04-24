@@ -364,8 +364,8 @@ export const adaptarProducto = {
         if (key === 'descuentoActivo' || key === 'especificaciones') {
           tipo = 'radio'
           opciones = [
-            { valor: 'true', etiqueta: 'Sí' },
-            { valor: 'false', etiqueta: 'No' },
+            { valor: 1, etiqueta: 'Sí' },
+            { valor: 0, etiqueta: 'No' },
           ]
         }
 

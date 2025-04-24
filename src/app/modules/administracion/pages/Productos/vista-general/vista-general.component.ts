@@ -20,6 +20,8 @@ import { TarifasService } from '../../../services/productos_services/tarifas.ser
 import { TipoProductoService } from '../../../services/productos_services/tipo-producto.service'
 import { ImpuestosService } from '../../../services/servicios_sin_identificra/Impuestos.service'
 import { RegimenService } from '../../../services/servicios_sin_identificra/regimen.service'
+import { take } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-vista-general',
@@ -193,8 +195,17 @@ export class VistaGeneralComponent implements OnInit {
   }
 
   onFiltrosAplicados(filtros: { [key: string]: string }): void {
-    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }))
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
+  
+    // Verifica si los productos filtrados son cero, y si se puede traer más
+    this.productosVisibles$.pipe(take(1)).subscribe((productos: Producto[]) => {
+      if (productos.length === 0 && this.limiteCargado < this.totalRegistros) {
+        const nuevoLimite = Math.min(this.limiteCargado + 100, this.totalRegistros);
+        this.cargarProductos(1, nuevoLimite);
+      }
+    });
   }
+  
 
   onColumnasActualizadas(columnas: any[]): void {
     this.columnasSeleccionadas = columnas.filter((c) => c.selected)

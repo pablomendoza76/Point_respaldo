@@ -172,4 +172,47 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   trackByCodigo(index: number, item: any): string {
     return item.codigo
   }
+ /**
+ * Devuelve ícono, clase y texto en base al stockactual, min y max.
+ * Se evalúa directamente en el componente sin tocar el store.
+ */
+ getIconoStockVisual(
+  stockactual: string | number,
+  min: string | number,
+  max: string | number
+): { icono: string; clase: string; texto: string } {
+  const stock = parseFloat(stockactual as string) || 0;
+  const stockMin = parseFloat(min as string) || 0;
+  const stockMax = parseFloat(max as string) || 0;
+  const promedio = (stockMin + stockMax) / 2;
+
+  console.log('💥 Evaluando stock:', { stock, stockMin, stockMax, promedio });
+
+  if (stock <= 0) {
+    console.log('❌ Resultado: SIN STOCK');
+    return {
+      icono: 'fas fa-times-circle',
+      clase: 'icon-danger',
+      texto: 'Sin stock'
+    };
+  }
+
+  if (stock > 0 && stock < promedio) {
+    console.log('⚠️ Resultado: STOCK BAJO');
+    return {
+      icono: 'fas fa-exclamation-triangle',
+      clase: 'icon-warning',
+      texto: 'Stock bajo'
+    };
+  }
+
+  console.log('Resultado: STOCK SUFICIENTE');
+  return {
+    icono: 'fas fa-check-circle',
+    clase: 'icon-ok',
+    texto: 'Stock suficiente'
+  };
+}
+
+
 }

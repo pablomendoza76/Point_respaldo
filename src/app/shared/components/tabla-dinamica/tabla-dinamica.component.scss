@@ -11,7 +11,7 @@
   max-width: 100%;
   overflow: auto;
   height: auto;
-  max-height: calc(100vh - 300px);
+  max-height: calc(100vh - 310px);
   margin: 1rem;
   background-color: $fondo-claro;
   border-radius: 14px;
@@ -246,5 +246,32 @@
       box-shadow: 0 0 0 3px rgba($rojo-botones, 0.1);
       outline: none;
     }
+  }
+}
+/**
+ * Estilo visual para los íconos del estado de stock.
+ */
+ .stock-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+
+  i {
+    font-size: 0.9rem;
+    vertical-align: middle;
+  }
+
+  &.icon-danger {
+    color: $rojo-texto; 
+  }
+
+  &.icon-warning {
+    color: $amarillo-texto; 
+  }
+
+  &.icon-ok {
+    color: $verde-botones; 
   }
 }

@@ -106,19 +106,41 @@
     cursor: not-allowed;
   }
 
-  .input-texto-costado {
-    display: flex;
+  /**
+   * Input con etiqueta a la izquierda (modo horizontal).
+   */
+   .input-group.input-texto-costado {
+    flex-direction: row;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
 
-    span {
+    span,
+    label {
       font-family: $font-work-sans;
       font-size: $font-size-body-small;
       color: $texto-secundario;
+      white-space: nowrap;
+      min-width: 130px;
     }
 
-    input {
+    input,
+    select,
+    .input-doble {
       flex: 1;
+      width: 100%;
+    }
+
+    .input-doble {
+      display: flex;
+      gap: 12px;
+
+      .sub-input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid $gris-borde;
+        font-family: $font-work-sans;
+      }
     }
   }
 
@@ -151,6 +173,7 @@
     background-color: $rojo-fondo;
     color: $rojo-texto;
   }
+
 }
 
 /**

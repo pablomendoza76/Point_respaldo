@@ -61,8 +61,8 @@
               ],
               "fileReplacements": [
                 {
-                  "replace": "src/config/env/dev.env.ts",
-                  "with": "src/config/env/prod.env.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
                 }
               ],
               "optimization": {
@@ -84,7 +84,13 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"

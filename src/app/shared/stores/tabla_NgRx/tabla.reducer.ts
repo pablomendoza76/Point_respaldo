@@ -50,7 +50,7 @@ function filtrarProductos(state: TablaState): any[] {
         const promedio = (stockMin + stockMax) / 2;
 
         if (valor === 'stock') return stock > 0;
-        if (valor === 'medio') return stock <= promedio;
+        if (valor === 'medio') return stock <= promedio && stock > 0;
         if (valor === 'sin_stock') return stock === 0;
         return true;
       });

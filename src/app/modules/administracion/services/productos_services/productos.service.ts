@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { ApiUrls } from '../../enums/api-urls.enum'
 import { Enums_productos } from '../../enums/enums_Productos/productos.enum'
 import { Producto } from '../../Interfaces/Productos/producto.model'
 import { map } from 'rxjs/operators'
+import {environment} from '../../../../../environments/environment'
 
 /**
  * Servicio que se encarga exclusivamente de la comunicación con la API.
@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators'
   providedIn: 'root',
 })
 export class AdministracionServicios {
+  private ApiUrls= environment.api_url;
   constructor(private http: HttpClient) {}
 
   /**
@@ -22,7 +23,7 @@ export class AdministracionServicios {
    * @param limit Cantidad de elementos por página
    */
   obtenerProductosYColumnas(page: number = 1, limit: number = 0): Observable<any> {
-    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.todos}?page=${page}&limit=${limit}`
+    const url = `${this.ApiUrls}${Enums_productos.Productos}${Enums_productos.todos}?page=${page}&limit=${limit}`
     return this.http.get<any>(url)
   }
 
@@ -30,7 +31,7 @@ export class AdministracionServicios {
    * Obtiene opciones para el campo origen del producto.
    */
   getOrigen(): Observable<Array<{ id: number; nombre: string; descripcion: string }>> {
-    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Origen}`
+    const url = `${this.ApiUrls}${Enums_productos.Productos}${Enums_productos.Origen}`
     return this.http.get<any>(url).pipe(
       map((response: any) => {
         console.log('Respuesta completa de getOrigen:', response)
@@ -44,7 +45,7 @@ export class AdministracionServicios {
    * La transformación debe hacerse previamente (por el adaptador).
    */
   editarProducto(codigo: number, productoAdaptado: Producto): Observable<any> {
-    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Editar}/${codigo}`
+    const url = `${this.ApiUrls}${Enums_productos.Productos}${Enums_productos.Editar}/${codigo}`
     return this.http.put(url, productoAdaptado)
   }
 
@@ -53,7 +54,7 @@ export class AdministracionServicios {
    * La transformación debe hacerse previamente (por el adaptador).
    */
   crearProducto(productoAdaptado: Producto): Observable<any> {
-    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`
+    const url = `${this.ApiUrls}${Enums_productos.Productos}${Enums_productos.Crear}`
     return this.http.post(url, productoAdaptado)
   }
 }

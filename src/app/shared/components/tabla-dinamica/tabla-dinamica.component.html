@@ -12,8 +12,19 @@
         <tbody>
           <tr *ngFor="let registro of registros; trackBy: trackByCodigo">
             <td *ngFor="let columna of columnas">
-              {{ registro[columna.key] }}
+              <ng-container *ngIf="columna.key === 'stockactual'; else mostrarTexto">
+                <ng-container *ngIf="getIconoStockVisual(registro[columna.key], registro.existenciaMinima, registro.existenciaMaxima) as visual">
+                  <span class="stock-icon" [ngClass]="visual.clase" [title]="visual.texto">
+                    <i [class]="visual.icono"></i> {{ registro[columna.key] }}
+                  </span>
+                </ng-container>
+              </ng-container>
+              <ng-template #mostrarTexto>
+                {{ registro[columna.key] }}
+              </ng-template>
+              
             </td>
+            
             <td>
               <button class="btn-edit" (click)="onEditarRegistro(registro)">
                 <i class="fa-regular fa-pen-to-square"></i>
@@ -38,7 +49,6 @@
 
 <!-- Modales dinámicos -->
 <ng-container>
-  <!-- Modal de confirmación de eliminación -->
   <app-delete-modal
     [isOpen]="mostrarModalEliminar"
     [itemName]="registroAEliminar?.nombre || 'el registro'"
