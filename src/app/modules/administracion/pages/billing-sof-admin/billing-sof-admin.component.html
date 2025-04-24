@@ -1,6 +1,4 @@
 <!-- Enlace al CDN de Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
 <div class="app-container">
   <!-- Navegación superior -->
   <div class="top-bar">
@@ -50,7 +48,8 @@
       </h1>
 
       <div class="search-bar">
-        <input id="search-input" type="text" placeholder="Qué Módulo esta buscando?" (input)="searchQuery.set($any($event.target).value)" class="search-bar__input">
+        <input id="search-input" type="text" placeholder="Qué Módulo esta buscando?"
+          (input)="searchQuery.set($any($event.target).value)" class="search-bar__input">
 
         <button type="button" class="search-bar__button">
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -67,17 +66,17 @@
       </button>
 
       <div class="modules-container">
-          <ul class="modules-container__modules-list">
-            @for (module of filteredModules(); track module.name) {
-              <li (click)="navigateTo(module.name)" class="sidebar-module-item">
-                <span>
-                  <i [class]="getModuleIcon(module.name)"></i>
-                </span>
+        <ul class="modules-container__modules-list">
+          @for (module of filteredModules(); track module.name) {
+          <li (click)="navigateTo(module.name)" class="sidebar-module-item">
+            <span>
+              <i [class]="getModuleIcon(module.name)"></i>
+            </span>
 
-                {{module.name}}
-              </li>
+            {{module.name}}
+            </li>
             }
-          </ul>
+            </ul>
       </div>
     </aside>
 
@@ -93,26 +92,26 @@
 
               <div class="statistics-cards-grid" [class.isExpanded]="sidebarOpen()">
                 @for (statistic of businessStats() | keyvalue; track statistic.key) {
-                  <div class="statistics-cards-grid__card">
-                    <span [class]="getIconContainerColor(`${statistic.value.icon.split(' ')[1]}`)">
-                      <i class="fa-solid" [class]="statistic.value.icon"></i>
+                <div class="statistics-cards-grid__card">
+                  <span [class]="getIconContainerColor(`${statistic.value.icon.split(' ')[1]}`)">
+                    <i class="fa-solid" [class]="statistic.value.icon"></i>
+                  </span>
+
+                  <p class="statistic-value">
+                    @if (statistic.value.label.split("-")[0].trim() === "Ganancias") { $ }
+                  
+                    {{statistic.value.value}}
+                  </p>
+
+                  <p class="statistic-label">
+                    <strong>
+                      {{statistic.value.label.split("-")[0]}}
+                    </strong>
+                    -
+                    <span [class]="statistic.value.icon.split(' ')[1]">
+                      {{statistic.value.label.split("-")[1]}}
                     </span>
-
-                    <p class="statistic-value">
-                      @if (statistic.value.label.split("-")[0].trim() === "Ganancias") { $ }
-                      
-                      {{statistic.value.value}}
-                    </p>
-
-                    <p class="statistic-label">
-                      <strong>
-                        {{statistic.value.label.split("-")[0]}}
-                      </strong>
-                      -
-                      <span [class]="statistic.value.icon.split(' ')[1]">
-                        {{statistic.value.label.split("-")[1]}}
-                      </span>
-                    </p>
+                  </p>
                   </div>
                 }
               </div>
@@ -134,7 +133,7 @@
 
               <div class="metrica-container">
                 <p>
-                  Crecimiento relación mes anterior 
+                  Crecimiento relación mes anterior
                 </p>
 
                 <span>
@@ -144,7 +143,7 @@
               </div>
             </section>
           </div>
-    
+
           <div class="content-grid__second-column" [class.isExpanded]="sidebarOpen()">
             <!-- Más datos -->
             <section class="additional-data-section">
@@ -175,11 +174,11 @@
 
                     <tbody>
                       @for (product of topProducts(); track product.name) {
-                        <tr>
-                          <td>{{product.name}}</td>
-                          <td>{{product.units}} <span>(Unidades)</span></td>
-                          <td>$ {{product.total}}</td>
-                        </tr>
+                      <tr>
+                        <td>{{product.name}}</td>
+                        <td>{{product.units}} <span>(Unidades)</span></td>
+                        <td>$ {{product.total}}</td>
+                      </tr>
                       }
                     </tbody>
                   </table>
@@ -197,25 +196,25 @@
                 <div>
                   <ul class="notifications-list">
                     @for (notification of notifications(); track notification.title) {
-                      <li class="notifications-list__notification-card">
-                        <span>
-                          <i [class]="getNotificationIcon(notification.type)"></i>
-                        </span>
-  
-                        <div>
-                          <p class="notification-title">
-                            {{ notification.title }}
-                          </p>
-  
-                          <p class="notification-description">
-                            {{ notification.description }}
-                          </p>
-  
-                          <p class="notification-date">
-                            {{ notification.date }}
-                          </p>
-                        </div>
-                      </li>
+                    <li class="notifications-list__notification-card">
+                      <span>
+                        <i [class]="getNotificationIcon(notification.type)"></i>
+                      </span>
+                    
+                      <div>
+                        <p class="notification-title">
+                          {{ notification.title }}
+                        </p>
+                    
+                        <p class="notification-description">
+                          {{ notification.description }}
+                        </p>
+                    
+                        <p class="notification-date">
+                          {{ notification.date }}
+                        </p>
+                      </div>
+                    </li>
                     }
                   </ul>
                 </div>
@@ -239,8 +238,7 @@
                 class="module-item"
                 (click)="navigateTo(module.name)"
                 (mouseenter)="highlightModule(module)"
-                (mouseleave)="unhighlightModule(module)"
-              >
+                (mouseleave)="unhighlightModule(module)">
                 <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
                 <span [class.selected]="module.selected">{{ module.name }}</span>
               </div>
