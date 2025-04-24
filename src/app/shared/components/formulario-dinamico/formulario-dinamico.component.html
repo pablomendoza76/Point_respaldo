@@ -13,102 +13,123 @@
               <div class="titulo-bloque">{{ bloque.titulo }}</div>
 
               <div class="form-row">
+                <!-- Resto de los campos -->
                 <ng-container *ngFor="let campo of bloque.campos">
-                  <div class="form-group" [ngSwitch]="campo.tipo">
+                  <ng-container *ngIf="!(campo.tipo === 'radio' && campo.opciones?.length === 2)">
+                    <div class="form-group" [ngSwitch]="campo.tipo">
 
-                    <!-- Input estándar -->
-                    <ng-container *ngSwitchDefault>
-                      <div class="input-group input-texto-costado">
-                        <span>{{ campo.label }}</span>
-                        <input
-                          class="input-normal"
-                          [type]="campo.tipo"
-                          [(ngModel)]="datos[campo.key]"
-                          [name]="campo.key"
-                          [disabled]="campo.key === 'codigo'"
-                          [required]="campo.required"
-                        />
-                      </div>
-                    </ng-container>
-
-                    <!-- Select -->
-                    <ng-container *ngSwitchCase="'select'">
-                      <div class="input-group input-texto-costado">
-                        <span>{{ campo.label }}</span>
-                        <div class="relative w-full">
-                          <select
-                            class="input-normal w-full pr-10 pl-3 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 appearance-none"
+                      <!-- Input estándar -->
+                      <ng-container *ngSwitchDefault>
+                        <div class="input-group input-texto-costado">
+                          <span>{{ campo.label }}</span>
+                          <input
+                            class="input-normal"
+                            [type]="campo.tipo"
                             [(ngModel)]="datos[campo.key]"
                             [name]="campo.key"
                             [disabled]="campo.key === 'codigo'"
                             [required]="campo.required"
-                            (change)="onCampoChange(campo, datos[campo.key])"
-                          >
-                            <option *ngFor="let opcion of campo.opciones" [value]="opcion.valor">
-                              {{ opcion.texto }}
-                            </option>
-                          </select>
-                          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
-                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                          />
+                        </div>
+                      </ng-container>
+
+                      <!-- Select -->
+                      <ng-container *ngSwitchCase="'select'">
+                        <div class="input-group input-texto-costado">
+                          <span>{{ campo.label }}</span>
+                          <div class="relative w-full">
+                            <select
+                              class="input-normal w-full pr-10 pl-3 py-2 rounded-lg border border-gray-300 text-sm font-medium text-gray-700 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 appearance-none"
+                              [(ngModel)]="datos[campo.key]"
+                              [name]="campo.key"
+                              [disabled]="campo.key === 'codigo'"
+                              [required]="campo.required"
+                              (change)="onCampoChange(campo, datos[campo.key])"
+                            >
+                              <option *ngFor="let opcion of campo.opciones" [value]="opcion.valor">
+                                {{ opcion.texto }}
+                              </option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-500">
+                              <i class="fa-solid fa-chevron-down text-xs"></i>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </ng-container>
+                      </ng-container>
 
-                    <!-- Input doble -->
-                    <ng-container *ngSwitchCase="'input-doble'">
-                      <div class="input-group input-texto-costado">
-                        <span>{{ campo.label }}</span>
-                        <div class="input-doble">
-                          <input
-                            class="sub-input"
-                            type="text"
-                            [(ngModel)]="datos[campo.keyIzquierdo]"
-                            [name]="campo.keyIzquierdo"
-                            [placeholder]="campo.placeholderIzquierdo || 'Mínimo'"
-                            [disabled]="campo.keyIzquierdo === 'codigo'"
-                            [required]="campo.required"
-                          />
-                          <input
-                            class="sub-input"
-                            type="text"
-                            [(ngModel)]="datos[campo.keyDerecho]"
-                            [name]="campo.keyDerecho"
-                            [placeholder]="campo.placeholderDerecho || 'Máximo'"
-                            [disabled]="campo.keyDerecho === 'codigo'"
-                            [required]="campo.required"
-                          />
+                      <!-- Input doble -->
+                      <ng-container *ngSwitchCase="'input-doble'">
+                        <div class="input-group input-texto-costado">
+                          <span>{{ campo.label }}</span>
+                          <div class="input-doble">
+                            <input
+                              class="sub-input"
+                              type="text"
+                              [(ngModel)]="datos[campo.keyIzquierdo]"
+                              [name]="campo.keyIzquierdo"
+                              [placeholder]="campo.placeholderIzquierdo || 'Mínimo'"
+                              [disabled]="campo.keyIzquierdo === 'codigo'"
+                              [required]="campo.required"
+                            />
+                            <input
+                              class="sub-input"
+                              type="text"
+                              [(ngModel)]="datos[campo.keyDerecho]"
+                              [name]="campo.keyDerecho"
+                              [placeholder]="campo.placeholderDerecho || 'Máximo'"
+                              [disabled]="campo.keyDerecho === 'codigo'"
+                              [required]="campo.required"
+                            />
+                          </div>
                         </div>
-                      </div>
-                    </ng-container>
+                      </ng-container>
 
-                    <!-- Radios dinámicos -->
-                    <ng-container *ngSwitchCase="'radio'">
-                      <div class="input-group">
-                        <label class="input-label">{{ campo.label }}</label>
-
-                        <!-- Toggle Sí/No -->
-                        <div class="radio-toggle-options" *ngIf="campo.opciones?.length === 2">
-                          <label class="radio-toggle-option" *ngFor="let opcion of campo.opciones">
-                            <input type="radio" [name]="campo.key" [value]="opcion.valor" [(ngModel)]="datos[campo.key]" />
-                            <span class="custom-radio"></span>
-                            {{ opcion.etiqueta }}
-                          </label>
+                      <!-- Lista de opciones (más de dos radios) -->
+                      <ng-container *ngSwitchCase="'radio'">
+                        <div class="input-group" *ngIf="campo.opciones?.length > 2">
+                          <label class="input-label">{{ campo.label }}</label>
+                          <div class="radio-list-options">
+                            <label class="radio-list-option" *ngFor="let opcion of campo.opciones">
+                              <input
+                                type="radio"
+                                [name]="campo.key"
+                                [value]="opcion.valor"
+                                [(ngModel)]="datos[campo.key]"
+                              />
+                              <span class="custom-radio"></span>
+                              {{ opcion.etiqueta }}
+                            </label>
+                          </div>
                         </div>
+                      </ng-container>
 
-                        <!-- Lista de opciones -->
-                        <div class="radio-list-options" *ngIf="campo.opciones?.length && campo.opciones?.length !== 2">
-                          <label class="radio-list-option" *ngFor="let opcion of campo.opciones">
-                            <input type="radio" [name]="campo.key" [value]="opcion.valor" [(ngModel)]="datos[campo.key]" />
-                            <span class="custom-radio"></span>
-                            {{ opcion.etiqueta }}
-                          </label>
-                        </div>
-                      </div>
-                    </ng-container>
-
-                  </div>
+                    </div>
+                  </ng-container>
                 </ng-container>
+
+                <!-- Radios tipo Sí/No agrupados en un solo contenedor -->
+                <div class="input-group borde-radio-si-no" *ngIf="tieneRadiosSiNo(bloque)">
+                  <ng-container *ngFor="let campo of bloque.campos">
+                    <ng-container *ngIf="campo.tipo === 'radio' && campo.opciones?.length === 2">
+                      <div class="radio-toggle-item">
+                        <label class="input-label">{{ campo.label }}</label>
+                        <div class="radio-toggle-options">
+                          <label class="radio-toggle-option" *ngFor="let opcion of campo.opciones">
+                            <input
+                              type="radio"
+                              [name]="campo.key"
+                              [value]="opcion.valor"
+                              [(ngModel)]="datos[campo.key]"
+                            />
+                            <span class="custom-radio"></span>
+                            {{ opcion.etiqueta }}
+                          </label>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+
               </div>
             </div>
           </ng-container>
