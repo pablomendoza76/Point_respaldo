@@ -201,4 +201,15 @@ onCampoChange(campo: any, valor: any): void {
   }
 }
 
+/**
+ * Verifica si el bloque contiene al menos un campo tipo radio con solo dos opciones
+ * @param bloque Bloque de campos
+ * @returns true si hay radios tipo Sí/No
+ */
+tieneRadiosSiNo(bloque: { campos: any[] }): boolean {
+  return bloque.campos?.some(campo => campo.tipo === 'radio' && campo.opciones?.length === 2);
+}
+
+
+
 }
