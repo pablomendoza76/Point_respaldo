@@ -1,5 +1,12 @@
 @use 'tailwindcss';
 @use 'styles/catalogo/colores.scss' as *;
+@forward 'styles/catalogo/colores.scss';
+
+/* tailwind */
+@theme {
+  --color-red-500: #b71c1c;
+  --color-gray-50: #f5f5f5;
+}
 
 body {
   background-color: $fondo-gris-suave;

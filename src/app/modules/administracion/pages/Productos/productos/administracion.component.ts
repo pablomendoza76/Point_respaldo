@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { DynamicMenuComponent, MenuItem } from '@reusables/dynamic-menu/dynamic-menu.component'
-import { NavbarComponent } from '@reusables/navbar/navbar.component'
 import { MENU_CONFIG } from '@routes/enums/menu.config'
 
 @Component({
@@ -10,7 +9,7 @@ import { MENU_CONFIG } from '@routes/enums/menu.config'
   standalone: true,
   templateUrl: './administracion.component.html',
   styleUrls: ['./administracion.component.scss'],
-  imports: [CommonModule, RouterModule, NavbarComponent, DynamicMenuComponent],
+  imports: [CommonModule, RouterModule, DynamicMenuComponent],
 })
 export class AdministracionComponent {
   /** Estado del menú colapsado */

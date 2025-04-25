@@ -4,7 +4,6 @@ import { Store, select } from '@ngrx/store'
 import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda.component'
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { DynamicMenuComponent, MenuItem } from '@reusables/dynamic-menu/dynamic-menu.component'
-import { NavbarComponent } from '@reusables/navbar/navbar.component'
 import { TablaDinamicaComponent } from '@reusables/tabla-dinamica/tabla-dinamica.component'
 import { MENU_CONFIG } from '@routes/enums/menu.config'
 import { setColumnasVisibles, setFiltrosDinamicos, setProductos } from '@stores/tabla_NgRx/tabla.actions'
@@ -16,7 +15,7 @@ import { tap } from 'rxjs/operators'
 @Component({
   selector: 'app-pruebra',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, DynamicMenuComponent, BarraUbicacionComponent, BarraBusquedaComponent, TablaDinamicaComponent],
+  imports: [CommonModule, DynamicMenuComponent, BarraUbicacionComponent, BarraBusquedaComponent, TablaDinamicaComponent],
   templateUrl: './pruebra.component.html',
   styleUrls: ['./pruebra.component.scss'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
