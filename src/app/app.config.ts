@@ -1,10 +1,13 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http' // ✅ Importado correctamente
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
+import { ApplicationConfig, importProvidersFrom, provideEnvironmentInitializer, provideZoneChangeDetection } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
+import { provideAnimations } from '@angular/platform-browser/animations'
 import { provideRouter, RouterModule } from '@angular/router'
 import { authInterceptor } from '@auth/functions/auth.interceptor'
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { routes } from '@routes/app.routes'
+import { IconService } from '@shared/services/icon.service'
 import { filterReducer } from '@stores/Filtros_NgRx/filter.reducer'
 import { tablaReducer } from '@stores/tabla_NgRx/tabla.reducer'
 
@@ -41,5 +44,10 @@ export const appConfig: ApplicationConfig = {
      * ✅ Habilita Redux Devtools para la depuración.
      */
     provideStoreDevtools(),
+    provideAnimations(),
+    importProvidersFrom(MatIconModule),
+    provideEnvironmentInitializer(
+      () => [IconService], // Dependencies
+    ),
   ],
 }
