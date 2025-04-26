@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { outlined } from '@shared/enums/icon.enum'
-import { IconService } from '@shared/services/icon.service'
+import { loadFilled, loadOutlined } from '@icons/functions/icon.loader'
+import { IconService } from 'src/app/icons/services/icon.service'
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private iconService: IconService) {}
 
   ngOnInit() {
-    const icons = [...outlined]
+    const icons = [...loadFilled(), ...loadOutlined()]
     this.iconService.registerIcons(icons)
   }
 }

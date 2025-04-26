@@ -6,10 +6,10 @@ import { provideRouter, RouterModule } from '@angular/router'
 import { authInterceptor } from '@auth/functions/auth.interceptor'
 import { provideStore } from '@ngrx/store'
 import { provideStoreDevtools } from '@ngrx/store-devtools'
-import { routes } from '@routes/app.routes'
-import { IconService } from '@shared/services/icon.service'
+import { routes } from '@routing/app.routes'
 import { filterReducer } from '@stores/Filtros_NgRx/filter.reducer'
 import { tablaReducer } from '@stores/tabla_NgRx/tabla.reducer'
+import { IconService } from 'src/app/icons/services/icon.service'
 
 /**
  * ✅ Configuración principal de la aplicación.

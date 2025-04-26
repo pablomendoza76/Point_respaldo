@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
-import { Icon } from '@shared/enums/icon.interface'
+import { IconProps } from 'src/app/icons/interfaces/icon.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,10 @@ import { Icon } from '@shared/enums/icon.interface'
 export class IconService {
   constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
 
-  registerIcons(icons: Icon[]) {
+  registerIcons(icons: IconProps[]) {
     icons.forEach((icon) => {
       const iconPath = `public/icons/${icon.fill}/${!!icon.path ? icon.path : icon.name}.svg`
-      this.matIconRegistry.addSvgIcon(icon.name, this.domSanitizer.bypassSecurityTrustResourceUrl(iconPath))
+      this.matIconRegistry.addSvgIcon(icon.name || 'Err!', this.domSanitizer.bypassSecurityTrustResourceUrl(iconPath))
     })
   }
 }
