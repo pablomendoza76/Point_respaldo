@@ -13,6 +13,7 @@
         "@angular/platform-browser": "^19.2.0",
         "@angular/platform-browser-dynamic": "^19.2.0",
         "@angular/router": "^19.2.0",
+        "@ng-select/ng-select": "^14.7.0",
         "@ngrx/effects": "^19.1.0",
         "@ngrx/entity": "^19.1.0",
         "@ngrx/store": "^19.1.0",
@@ -430,6 +431,8 @@
     "@napi-rs/nice-win32-ia32-msvc": ["@napi-rs/nice-win32-ia32-msvc@1.0.1", "", { "os": "win32", "cpu": "ia32" }, "sha512-t7eBAyPUrWL8su3gDxw9xxxqNwZzAqKo0Szv3IjVQd1GpXXVkb6vBBQUuxfIYaXMzZLwlxRQ7uzM2vdUE9ULGw=="],
 
     "@napi-rs/nice-win32-x64-msvc": ["@napi-rs/nice-win32-x64-msvc@1.0.1", "", { "os": "win32", "cpu": "x64" }, "sha512-JlF+uDcatt3St2ntBG8H02F1mM45i5SF9W+bIKiReVE6wiy3o16oBP/yxt+RZ+N6LbCImJXJ6bXNO2kn9AXicg=="],
+
+    "@ng-select/ng-select": ["@ng-select/ng-select@14.7.0", "", { "dependencies": { "tslib": "^2.3.1" }, "peerDependencies": { "@angular/common": "^19.0.0", "@angular/core": "^19.0.0", "@angular/forms": "^19.0.0" } }, "sha512-KVSrMt5JoMzf1U9RyyS1WfWXxWyy62rqSeu0cV+OKA5SV1q8CVxgScqXwzUaoCRdBVvRcpRNEFpjWdbsprrUJw=="],
 
     "@ngrx/effects": ["@ngrx/effects@19.1.0", "", { "dependencies": { "tslib": "^2.0.0" }, "peerDependencies": { "@angular/core": "^19.0.0", "@ngrx/store": "19.1.0", "rxjs": "^6.5.3 || ^7.5.0" } }, "sha512-rGRN0ZnzAPmQdUPvmoqZsK7Da/AoCfQcfody+h6PfHTwXNm+M2MRc8tXO6C+fznMRww8ZgNror2dfFmoOSOvNg=="],
 

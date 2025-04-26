@@ -235,8 +235,7 @@ export const adaptarProducto = {
     onGrupoChange: (codigo: number) => void,
   ): Array<{ titulo: string; campos: any[] }> {
     const camposAgrupados: Record<string, string[]> = {
-      'Información Básica': ['nombreUnico', 'descripcion', 'productotipoId', 'productogrupoCodigo', 'idSubgrupo', 'marcaId', 'codbarras1', 'codigo2'],
-      'Impuestos y Precios': ['pvpa', 'pvpb', 'pvpc', 'pvpd', 'pvpe', 'regimenProd', 'iceporcent', 'ivaporcent'],
+      'Información Básica': ['nombreUnico', 'descripcion', 'productotipoId', 'productogrupoCodigo', 'idSubgrupo','marcaId', 'codbarras1', 'codigo2'],
       'Información Adicional': [
         'codbarras2',
         'codbarras3',
@@ -253,6 +252,7 @@ export const adaptarProducto = {
         'descuentoActivo',
         'especificaciones',
       ],
+      'Impuestos y Precios': ['pvpa', 'pvpb', 'pvpc', 'pvpd', 'pvpe', 'regimenProd', 'iceporcent', 'ivaporcent'],
       Cuentas: ['tipoCuentaCosto', 'tipoCuenta', 'tipoCuentaVentas'],
     }
 

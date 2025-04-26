@@ -25,25 +25,25 @@
     <i class="fa-solid" [ngClass]="mostrarFiltros ? 'fa-filter-circle-xmark' : 'fa-filter'"></i>
   </button>
 
-  <!-- Selector de columnas SOLO si mostrarSoloBusqueda es false -->
-  <div *ngIf="!mostrarSoloBusqueda && columnasDisponibles?.length" style="position: relative;">
-  <button class="column-toggle" (click)="toggleColumnas()">
-    <i class="fa-solid fa-chart-column"></i>
-  </button>
+  <!-- Selector de columnas SIEMPRE visible -->
+  <div style="position: relative;">
+    <button class="column-toggle" (click)="toggleColumnas()">
+      <i class="fa-solid fa-chart-column"></i>
+    </button>
 
-  <div class="column-selector" [class.hidden]="!mostrarColumnas">
-    <div class="column-list">
-      <label *ngFor="let columna of columnasDisponibles">
-        <input
-          type="checkbox"
-          [checked]="columna.selected"
-          (change)="onSeleccionarColumna(columna, $event)"
-        />
-        {{ columna.name }}
-      </label>
+    <div class="column-selector" [class.hidden]="!mostrarColumnas">
+      <div class="column-list">
+        <label *ngFor="let columna of columnasDisponibles">
+          <input
+            type="checkbox"
+            [checked]="columna.selected"
+            (change)="onSeleccionarColumna(columna, $event)"
+          />
+          {{ columna.name }}
+        </label>
+      </div>
     </div>
   </div>
-</div>
 
   <!-- Acciones finales -->
   <div class="acciones-finales">

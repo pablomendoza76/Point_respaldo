@@ -8,16 +8,16 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 /**
  * Componente de formulario reutilizable y dinámico.
- * Recibe bloques de campos que pueden variar según el contexto.
- * Permite personalizar inputs, selects, botones y manejar eventos.
+ * Divide los bloques en dos columnas y permite personalización de campos y botones.
  */
 @Component({
   selector: 'app-formulario-dinamico',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgSelectModule],
   templateUrl: './formulario-dinamico.component.html',
   styleUrls: ['./formulario-dinamico.component.scss']
 })
@@ -27,9 +27,6 @@ export class FormularioDinamicoComponent implements OnChanges {
 
   /** Bloques estructurados que agrupan los campos del formulario */
   @Input() bloques: Array<{ titulo: string; campos: any[] }> = [];
-
-  /** Opciones disponibles para campos tipo select */
-  @Input() opcionesSelect: Record<string, string[]> = {};
 
   /** Datos precargados del formulario */
   @Input() datos: Record<string, any> = {};
@@ -52,108 +49,55 @@ export class FormularioDinamicoComponent implements OnChanges {
   /** Evento emitido cuando se cierra completamente el formulario */
   @Output() closed = new EventEmitter<void>();
 
-  /**
-   * Getter para verificar si hay bloques disponibles
-   */
-  get hayBloques(): boolean {
-    return Array.isArray(this.bloques) && this.bloques.length > 0;
-  }
+  /** Bloques asignados a la columna izquierda */
+  bloquesIzquierda: Array<{ titulo: string; campos: any[] }> = [];
+
+  /** Bloques asignados a la columna derecha */
+  bloquesDerecha: Array<{ titulo: string; campos: any[] }> = [];
 
   /**
-   * Getter para verificar si hay botones de acción definidos
-   */
-  get hayBotones(): boolean {
-    return Array.isArray(this.botonesAccion) && this.botonesAccion.length > 0;
-  }
-
-  /**
-   * Detecta cambios en los inputs y genera bloques automáticamente
-   * si no se han definido manualmente.
+   * Detecta cambios en los bloques y los distribuye en columnas izquierda/derecha
    */
   ngOnChanges(changes: SimpleChanges): void {
-    if ((!this.bloques || this.bloques.length === 0) && this.datos) {
-      this.bloques = this.generarBloquesDesdeDatos(this.datos);
+    if (changes['bloques'] && Array.isArray(this.bloques)) {
+      this.repartirBloquesEnColumnas(this.bloques);
     }
   }
 
   /**
-   * Genera un bloque único con todos los campos del objeto recibido
-   * @param datos Objeto con claves y valores para el formulario
-   * @returns Arreglo con un solo bloque de campos
+   * Divide los bloques entre izquierda y derecha de forma alterna
+   * @param bloques Lista de bloques originales
    */
-  private generarBloquesDesdeDatos(datos: any): Array<{ titulo: string; campos: any[] }> {
-    const campos = Object.keys(datos).map(key => ({
-      key,
-      label: this.capitalizar(key),
-      tipo: this.inferirTipoCampo(datos[key]),
-      required: false
-    }));
-
-    return [{
-      titulo: 'Todos los Campos',
-      campos
-    }];
+  private repartirBloquesEnColumnas(bloques: Array<{ titulo: string; campos: any[] }>): void {
+    this.bloquesIzquierda = [];
+    this.bloquesDerecha = [];
+  
+    const bloquesValidos = bloques.filter(b => Array.isArray(b.campos) && b.campos.length > 0);
+  
+    bloquesValidos.forEach((bloque, index) => {
+      if (index % 2 === 0) {
+        this.bloquesIzquierda.push(bloque);
+      } else {
+        this.bloquesDerecha.push(bloque);
+      }
+    });
   }
+  
 
   /**
-   * Convierte claves en texto legible capitalizado
-   * @param texto Texto a capitalizar
-   * @returns Texto capitalizado
-   */
-  private capitalizar(texto: string): string {
-    return texto
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/_/g, ' ')
-      .replace(/\b\w/g, l => l.toUpperCase());
-  }
-
-  /**
-   * Determina el tipo de campo según el valor recibido
-   * @param valor Valor del campo
-   * @returns Tipo de input: text, number, radio o date
-   */
-  private inferirTipoCampo(valor: any): string {
-    if (typeof valor === 'number') return 'number';
-    if (typeof valor === 'boolean') return 'radio';
-    if (this.esFecha(valor)) return 'date';
-    return 'text';
-  }
-
-  /**
-   * Valida si un valor representa una fecha válida con guiones o slashes
-   * @param valor Valor a evaluar
-   * @returns True si el valor tiene formato y es parseable como fecha
-   */
-  private esFecha(valor: any): boolean {
-    if (!valor || typeof valor !== 'string') return false;
-    const contieneFormatoFecha = /[-/]/.test(valor);
-    return contieneFormatoFecha && !isNaN(Date.parse(valor));
-  }
-
-  /**
-   * Emite el evento de guardar al enviar el formulario.
-   * En modo edición se emite el código por separado.
-   * En modo creación se emite un único objeto con todos los datos.
+   * Emite los datos del formulario al hacer submit, diferenciando edición y creación
    */
   onSubmit(): void {
-    if (this.modoEdicion) {
-      if (!this.datos || typeof this.datos['codigo'] !== 'number') return;
-
-      this.guardar.emit({
-        codigo: this.datos['codigo'],
-        datos: { ...this.datos }
-      });
+    if (this.modoEdicion && typeof this.datos['codigo'] === 'number') {
+      this.guardar.emit({ codigo: this.datos['codigo'], datos: { ...this.datos } });
     } else {
-      const datosParaCrear = { ...this.datos };
-    console.log('Enviando datos para creación:', datosParaCrear);
-    this.guardar.emit(datosParaCrear);
+      this.guardar.emit({ ...this.datos });
     }
-
     this.closed.emit();
   }
 
   /**
-   * Emite el evento de cerrar el formulario sin guardar
+   * Cierra el formulario sin guardar
    */
   onCerrar(): void {
     this.cerrar.emit();
@@ -161,8 +105,8 @@ export class FormularioDinamicoComponent implements OnChanges {
   }
 
   /**
-   * Ejecuta una acción personalizada y cierra si es cancelar
-   * @param accion Nombre de la acción a ejecutar
+   * Ejecuta una acción personalizada y cierra si la acción es cancelar
+   * @param accion Nombre de la acción
    */
   onAccion(accion: string): void {
     this.accion.emit(accion);
@@ -172,44 +116,29 @@ export class FormularioDinamicoComponent implements OnChanges {
   }
 
   /**
-   * Retorna el código y los datos modificados del formulario
-   * solo si el formulario está en modo edición.
-   * Se puede invocar manualmente desde el componente padre.
-   * @returns Objeto con el código y los datos actualizados
+   * Ejecuta la función `onChange` si está definida en el campo
+   * @param campo Campo con lógica personalizada
+   * @param valor Valor seleccionado
    */
-  emitirDatosActualizados(): { codigo: number; datos: any } | null {
-    if (!this.modoEdicion || !this.datos || typeof this.datos['codigo'] !== 'number') {
-      return null;
+  onCampoChange(campo: any, valor: any): void {
+    if (campo.onChange && typeof campo.onChange === 'function') {
+      campo.onChange(valor);
     }
-
-    return {
-      codigo: this.datos['codigo'],
-      datos: { ...this.datos }
-    };
   }
 
   /**
- * Ejecuta la función `onChange` si está definida en el campo.
- * Esto permite reacciones dinámicas como cargar subgrupos al cambiar el grupo.
- * 
- * @param campo Campo actual con posible onChange
- * @param valor Valor seleccionado por el usuario
- */
-onCampoChange(campo: any, valor: any): void {
-  if (campo.onChange && typeof campo.onChange === 'function') {
-    campo.onChange(valor);
+   * Verifica si un bloque contiene radios tipo Sí/No (dos opciones)
+   * @param bloque Bloque de campos
+   * @returns True si hay radios con dos opciones
+   */
+  tieneRadiosSiNo(bloque: { campos: any[] }): boolean {
+    return bloque.campos?.some(campo => campo.tipo === 'radio' && campo.opciones?.length === 2);
   }
+
+  /** Devuelve true si solo hay un bloque con campos válidos */
+get hayUnSoloBloqueConCampos(): boolean {
+  const bloquesValidos = this.bloques.filter(b => Array.isArray(b.campos) && b.campos.length > 0);
+  return bloquesValidos.length === 1;
 }
-
-/**
- * Verifica si el bloque contiene al menos un campo tipo radio con solo dos opciones
- * @param bloque Bloque de campos
- * @returns true si hay radios tipo Sí/No
- */
-tieneRadiosSiNo(bloque: { campos: any[] }): boolean {
-  return bloque.campos?.some(campo => campo.tipo === 'radio' && campo.opciones?.length === 2);
-}
-
-
 
 }
