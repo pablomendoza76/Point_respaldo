@@ -27,9 +27,10 @@
 
       "@env/*": ["src/env/*"],
       "@auth/*": ["src/app/auth/*"],
-
-      "@routes/*": ["src/app/routes/*"],
+      "@icons/*": ["src/app/icons/*"],
+      "@routing/*": ["src/app/routing/*"],
       "@modules/*": ["src/app/modules/*"],
+
       "@reusables/*": ["src/app/shared/components/*"],
       "@stores/*": ["src/app/shared/stores/*"],
       "@styles/*": ["src/app/shared/styles/*"],
