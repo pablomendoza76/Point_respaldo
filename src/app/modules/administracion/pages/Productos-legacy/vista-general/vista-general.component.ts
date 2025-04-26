@@ -82,10 +82,10 @@ export class VistaGeneralComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.productosVisibles$ = this.store.pipe(select(selectProductos))
-    await adaptarProducto.cargarOpcionesGlobales(this.adminService, this.regimenService, this.impuestosService)
-    this.cargarProductos(1, this.limiteCargado)
-    this.cargarOpciones()
+    // this.productosVisibles$ = this.store.pipe(select(selectProductos))
+    // await adaptarProducto.cargarOpcionesGlobales(this.adminService, this.regimenService, this.impuestosService)
+    // this.cargarProductos(1, this.limiteCargado)
+    // this.cargarOpciones()
   }
 
   cargarProductos(pagina: number, limite: number): void {

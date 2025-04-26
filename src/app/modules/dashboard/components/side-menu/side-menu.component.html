@@ -1,44 +1,56 @@
-<nav class="text-red-500 border-r-1 border-gray-500 h-screen">
-  <header class="w-full flex justify-start items-center bg-white">
-    <div class="w-2/3 flex items-center px-2">
-      <a href="dashboard">
-        <img src="/svg/logo-billingsof.svg" alt="Logo horizontal BillingSof" class="h-[7vh]" />
+<nav class="text-red-500 border-r-1 border-gray-500 h-screen flex bg-white">
+  <div class="flex-1">
+    <header class="w-full flex justify-start items-center h-[7vh]">
+      <div class="w-2/3 flex items-center px-2">
+        <a href="dashboard">
+          <img src="/svg/logo-billingsof.svg" alt="Logo horizontal BillingSof" />
+        </a>
+      </div>
+    </header>
+    <div class="flex-1 flex flex-col justify-center items-center bg-gray-50 border-y-1 border-gray-500 py-2">
+      <mat-icon svgIcon="{{ currentRouteIcon }}" style="height: 80px; width: 80px"></mat-icon>
+      <span>{{ currentRouteName }}</span>
+    </div>
+    <div class="flex-7 p-3 space-y-4 text-gray-500">
+      <!-- <div class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-500">
+        <mat-icon svgIcon="{{ item.icon?.name }}"></mat-icon>
+        <span>{{ item.name }}</span>
+      </div> -->
+
+      @for (group of groups; track $index) {
+      <!-- each group -->
+      @for (item of group; track $index) {
+      <a
+        class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-300 bg-gray-300"
+        [routerLink]="[currentRoute, item.path]"
+        routerLinkActive="hover:bg-gray-300 bg-gray-300 font-bold active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        <mat-icon svgIcon="{{ item.icon?.name }}"></mat-icon>
+        <span>{{ item.name }}</span>
       </a>
+      }
+      <hr />
+      }
     </div>
-  </header>
-  <div class="flex-1 flex flex-col justify-center items-center bg-gray-50 border-y-1 border-gray-500 py-2">
-    <mat-icon svgIcon="apps" style="height: 80px; width: 80px;"></mat-icon>
-    <span>Administración</span>
   </div>
-  <div class="flex-7 p-3 space-y-4 text-gray-500">
-
-    @for (item of grupo1; track $index) {
-    <div class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-500">
-      <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-      <span>{{item.name}}</span>
+  <div class="flex-1 border-l-1 border-gray-500 bg-white">
+    <header class="w-full flex justify-start items-center bg-white border-b-1 border-gray-500 h-[7vh]">
+      <div class="w-2/3 flex items-center px-2">{{ currentSubRouteName }}</div>
+    </header>
+    <div class="flex-1 p-3 space-y-4 text-gray-500">
+      @for (item of subgroups; track $index) {
+      <a
+        class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-300 bg-gray-300"
+        role="button"
+        [routerLink]="[currentSubRoute, item.path]"
+        routerLinkActive="hover:bg-gray-300 bg-gray-300 font-bold active"
+        [routerLinkActiveOptions]="{ exact: false }"
+      >
+        <mat-icon svgIcon="{{ item.icon?.name }}"></mat-icon>
+        <span>{{ item.name }}</span>
+      </a>
+      }
     </div>
-    }
-    <hr>
-    @for (item of grupo2; track $index) {
-    <div class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-500">
-      <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-      <span>{{item.name}}</span>
-    </div>
-    }
-    <hr>
-    @for (item of grupo3; track $index) {
-    <div class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-500">
-      <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-      <span>{{item.name}}</span>
-    </div>
-    }
-    <hr>
-    @for (item of grupo4; track $index) {
-    <div class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-500">
-      <mat-icon svgIcon="{{item.icon}}"></mat-icon>
-      <span>{{item.name}}</span>
-    </div>
-    }
-
   </div>
 </nav>

@@ -1,4 +1,10 @@
-export type ICON_FILL = 'filled' | 'outlined' | 'round' | 'sharp' | 'two-tone'
+export enum ICON_FILL {
+  filled = 'filled',
+  outlined = 'outlined',
+  round = 'round',
+  sharp = 'sharp',
+  two_tone = 'two-tone',
+}
 
 export interface Icon {
   name: string

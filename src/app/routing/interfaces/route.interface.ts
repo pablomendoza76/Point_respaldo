@@ -7,6 +7,7 @@ interface Route {
   comp: Type<any>
   grupo: string
   icon: IconProps
+  children: Partial<Route>[]
 }
 
 export interface RouteProps extends Partial<Route> {}

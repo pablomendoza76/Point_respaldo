@@ -1,10 +1,6 @@
 <main class="flex">
-  @if (!isAdminRoute) {
-  <!-- <app-side-menu class="flex-1"></app-side-menu> -->
-  }
-
-  @if (!isAdminRoute) {
-  <!-- <app-side-sub-menu class="flex-1"></app-side-sub-menu> -->
+  @if (!isAdminRoute ) {
+  <app-side-menu class="flex-2"></app-side-menu>
   }
 
   <section class="flex flex-col flex-5 h-screen">
@@ -12,5 +8,5 @@
     <div class="flex-1">
       <router-outlet></router-outlet>
     </div>
-    </section>
-    </main>
+  </section>
+  </main>
