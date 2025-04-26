@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common'
 import { Component } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { DynamicMenuComponent, MenuItem } from '@reusables/dynamic-menu/dynamic-menu.component'
-import { MENU_CONFIG } from '@routes/enums/menu.config'
+import { MENU_CONFIG } from 'src/app/routing/enums/menu.config'
 
 @Component({
   selector: 'app-administracion',

@@ -5,7 +5,7 @@ import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { DynamicMenuComponent, MenuItem } from '@reusables/dynamic-menu/dynamic-menu.component'
 import { TablaDinamicaComponent } from '@reusables/tabla-dinamica/tabla-dinamica.component'
-import { MENU_CONFIG } from '@routes/enums/menu.config'
+import { MENU_CONFIG } from 'src/app/routing/enums/menu.config'
 import { setColumnasVisibles, setFiltrosDinamicos, setProductos } from '@stores/tabla_NgRx/tabla.actions'
 import { selectProductosVisibles, selectTotalRegistros } from '@stores/tabla_NgRx/tabla.selectors'
 import { AppState } from '@stores/tabla_NgRx/tabla.state'

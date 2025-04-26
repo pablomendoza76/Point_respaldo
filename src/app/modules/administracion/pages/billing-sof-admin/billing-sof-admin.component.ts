@@ -1,10 +1,9 @@
-import { Component, OnInit, AfterViewInit, signal, computed } from '@angular/core'
-import { Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
-import { RouterModule } from '@angular/router'
-import { DashboardService } from '../../services/dashboard.service'
-import { Chart } from 'chart.js/auto'
+import { AfterViewInit, Component, computed, OnInit, signal } from '@angular/core'
+import { Router, RouterModule } from '@angular/router'
 import { BusinessStat, Module, ModuleGroup, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
+import { Chart } from 'chart.js/auto'
+import { DashboardService } from '../../services/dashboard.service'
 
 @Component({
   selector: 'app-billing-sof-admin',
@@ -217,7 +216,7 @@ export class BillingSofAdminComponent implements OnInit, AfterViewInit {
 
   navigateTo(option: string): void {
     const MODULE_ROUTES: Record<string, string> = {
-      Administración: 'productos/vista-general',
+      Administración: 'administracion/productos',
       Créditos: 'creditos',
       Contratos: 'contratos',
       'Control de…': 'control',

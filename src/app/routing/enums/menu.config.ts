@@ -20,10 +20,10 @@ export const MENU_CONFIG: {
 
   hijos: {
     Productos: [
-      { label: 'Gestión de Productos', icon: 'fas fa-eye', route: 'productos/vista-general' },
-      { label: 'Marcas', icon: 'fas fa-tags', route: 'productos/marcas' },
-      { label: 'Tipos de Productos', icon: 'fas fa-boxes', route: 'productos/tipos-productos' },
-      { label: 'Tarifas por Grupo', icon: 'fas fa-percent', route: 'productos/tarifas-por-grupo' },
+      { label: 'Gestión de Productos', icon: 'fas fa-eye', route: 'administracion/productos/vista-general' },
+      { label: 'Marcas', icon: 'fas fa-tags', route: 'administracion/productos/marcas' },
+      { label: 'Tipos de Productos', icon: 'fas fa-boxes', route: 'administracion/productos/tipos-productos' },
+      { label: 'Tarifas por Grupo', icon: 'fas fa-percent', route: 'administracion/productos/tarifas-por-grupo' },
     ],
     Clientes: [
       { label: 'Clientes General', icon: 'fas fa-user', route: 'clientes/clientes-general' },

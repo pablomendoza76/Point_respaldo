@@ -1,3 +1,16 @@
-<app-nav></app-nav>
+<main class="flex">
+  @if (!isAdminRoute) {
+  <!-- <app-side-menu class="flex-1"></app-side-menu> -->
+  }
 
-<router-outlet></router-outlet>
+  @if (!isAdminRoute) {
+  <!-- <app-side-sub-menu class="flex-1"></app-side-sub-menu> -->
+  }
+
+  <section class="flex flex-col flex-5 h-screen">
+    <app-nav></app-nav>
+    <div class="flex-1">
+      <router-outlet></router-outlet>
+    </div>
+    </section>
+    </main>

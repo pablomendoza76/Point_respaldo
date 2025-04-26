@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router'
 import { authGuard } from '@auth/functions/auth.guard'
 import { LoginComponent } from '@auth/pages/login/login.component'
-import { BillingSofAdminComponent } from '@modules/administracion/pages/billing-sof-admin/billing-sof-admin.component'
 import { ClientesVistaComponent } from '@modules/administracion/pages/clientes_general/clientes-vista/clientes-vista.component'
 import { ClientesComponent } from '@modules/administracion/pages/clientes_general/clientes/clientes.component'
 import { TiposClientesComponent } from '@modules/administracion/pages/clientes_general/tipos-clientes/tipos-clientes.component'
@@ -12,11 +11,6 @@ import { PlanCuentasComponent } from '@modules/administracion/pages/cuentas/plan
 import { PruebraComponent } from '@modules/administracion/pages/cuentas/pruebra/pruebra.component'
 import { EmpresaComponent } from '@modules/administracion/pages/empresa/empresa.component'
 import { ImportarComponent } from '@modules/administracion/pages/importar/importar.component'
-import { MarcasComponent } from '@modules/administracion/pages/Productos/marcas/marcas.component'
-import { AdministracionComponent } from '@modules/administracion/pages/Productos/productos/administracion.component'
-import { TarifasPorGrupoComponent } from '@modules/administracion/pages/Productos/tarifas-por-grupo/tarifas-por-grupo.component'
-import { TiposProductosComponent } from '@modules/administracion/pages/Productos/tipos-productos/tipos-productos.component'
-import { VistaGeneralComponent } from '@modules/administracion/pages/Productos/vista-general/vista-general.component'
 import { ProveedoresVistaComponent } from '@modules/administracion/pages/proveedores_general/proveedores-vista/proveedores-vista.component'
 import { ProveedoresComponent } from '@modules/administracion/pages/proveedores_general/proveedores/proveedores.component'
 import { TiposProveedoresComponent } from '@modules/administracion/pages/proveedores_general/tipos-proveedores/tipos-proveedores.component'
@@ -26,6 +20,7 @@ import { DashboardComponent } from '@modules/dashboard/dashboard.component'
 import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda.component'
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { FormularioDinamicoComponent } from '@reusables/formulario-dinamico/formulario-dinamico.component'
+import { administracion } from './administracion.routes'
 
 //  Importar módulos desde Modulo_Administrador
 //  Seguridad
@@ -39,24 +34,7 @@ export const routes: Routes = [
     canActivateChild: [authGuard],
     children: [
       //  Ruta de administrador
-      {
-        path: 'administrador',
-        component: BillingSofAdminComponent,
-        canActivate: [authGuard],
-      },
-
-      //  Ruta para administración de productos
-      {
-        path: 'productos',
-        component: AdministracionComponent,
-        canActivate: [authGuard],
-        children: [
-          { path: 'marcas', component: MarcasComponent },
-          { path: 'vista-general', component: VistaGeneralComponent },
-          { path: 'tipos-productos', component: TiposProductosComponent },
-          { path: 'tarifas-por-grupo', component: TarifasPorGrupoComponent },
-        ],
-      },
+      ...administracion,
 
       //  Ruta para importar datos
       {
@@ -124,12 +102,12 @@ export const routes: Routes = [
         ],
       },
 
-      { path: '', redirectTo: 'administrador', pathMatch: 'full' },
+      { path: '', redirectTo: 'administracion', pathMatch: 'full' },
     ],
   },
 
   //  Ruta por defecto
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 
   //  Ruta para manejar errores 404 (ruta no encontrada)
   { path: '**', redirectTo: '/login' },
