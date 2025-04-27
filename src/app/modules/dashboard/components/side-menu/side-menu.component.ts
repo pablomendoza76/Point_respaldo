@@ -41,11 +41,9 @@ export class SideMenuComponent implements OnInit, OnDestroy {
     this.currentRoute = '/' + currentLocation.slice(0, -2).join('/')
     this.currentSubRoute = '/' + currentLocation.slice(0, -1).join('/')
 
-    const admin = ROUTES_ADMINISTRACION.find((route) => route.path === currentLocation[currentLocation.length - 2])
-    const admin_prods = ROUTES_ADMINISTRACION_PRODUCTOS.find((route) => route.path === currentLocation[currentLocation.length - 1])
-    this.currentRouteIcon = admin?.icon?.name
-    this.currentRouteName = admin?.name
-    this.currentSubRouteName = admin_prods?.name
+    this.currentRouteIcon = ROUTES_ADMINISTRACION[0].icon?.name
+    this.currentRouteName = ROUTES_ADMINISTRACION[0].name
+    this.currentSubRouteName = ROUTES_ADMINISTRACION.find((route) => route.path === currentLocation[currentLocation.length - 2])?.name
   }
 
   ngOnDestroy() {

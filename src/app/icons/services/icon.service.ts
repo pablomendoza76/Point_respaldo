@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { MatIconRegistry } from '@angular/material/icon'
 import { DomSanitizer } from '@angular/platform-browser'
-import { IconProps } from 'src/app/icons/interfaces/icon.interface'
+import { ICON_FILL, IconProps } from 'src/app/icons/interfaces/icon.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class IconService {
 
   registerIcons(icons: IconProps[]) {
     icons.forEach((icon) => {
-      const iconPath = `public/icons/${icon.fill}/${!!icon.path ? icon.path : icon.name}.svg`
+      const iconPath = `public/icons/${!!icon.path ? icon.path : icon.name}.svg`
       this.matIconRegistry.addSvgIcon(icon.name || 'Err!', this.domSanitizer.bypassSecurityTrustResourceUrl(iconPath))
     })
   }

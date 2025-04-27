@@ -15,6 +15,7 @@
         "@angular/platform-browser-dynamic": "^19.2.0",
         "@angular/router": "^19.2.0",
         "@material-design-icons/svg": "^0.14.15",
+        "@material-symbols/svg-400": "^0.31.2",
         "@ngrx/effects": "^19.1.0",
         "@ngrx/entity": "^19.1.0",
         "@ngrx/store": "^19.1.0",
@@ -390,6 +391,8 @@
     "@lmdb/lmdb-win32-x64": ["@lmdb/lmdb-win32-x64@3.2.6", "", { "os": "win32", "cpu": "x64" }, "sha512-XlqVtILonQnG+9fH2N3Aytria7P/1fwDgDhl29rde96uH2sLB8CHORIf2PfuLVzFQJ7Uqp8py9AYwr3ZUCFfWg=="],
 
     "@material-design-icons/svg": ["@material-design-icons/svg@0.14.15", "", {}, "sha512-6nbjwGwyJnphwQUscJAYqw1Tk6+W8KvsgOAeyVgzIFXVsHfgX5XyplTUcZ29wbcTUysMMyCUi1LYpmFKA/e61g=="],
+
+    "@material-symbols/svg-400": ["@material-symbols/svg-400@0.31.2", "", {}, "sha512-XKl1pC00ogBHw2NGqJt31XgwXX5bLVk9BgujxPe6lAE015L5Ji5BIG8le6/6xf5QViIqcRj4IWyh69JlJO/Gyg=="],
 
     "@msgpackr-extract/msgpackr-extract-darwin-arm64": ["@msgpackr-extract/msgpackr-extract-darwin-arm64@3.0.3", "", { "os": "darwin", "cpu": "arm64" }, "sha512-QZHtlVgbAdy2zAqNA9Gu1UpIuI8Xvsd1v8ic6B2pZmeFnFcMWiPLfWXh7TVw4eGEZ/C9TH281KwhVoeQUKbyjw=="],
 
