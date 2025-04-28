@@ -17,5 +17,6 @@ export function routeMapper(routes: RouteProps[]) {
           : [],
       }
     }),
+    { path: '', redirectTo: routes[0].path, pathMatch: 'full' as 'prefix' | 'full' },
   ]
 }

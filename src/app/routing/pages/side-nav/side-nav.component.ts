@@ -6,12 +6,12 @@ import { routeGrouping } from '@routing/functions/route.grouping'
 import { Subscription } from 'rxjs'
 
 @Component({
-  selector: 'app-side-menu',
+  selector: 'app-side-nav',
   imports: [MatIconModule, RouterModule],
-  templateUrl: './side-menu.component.html',
-  styleUrl: './side-menu.component.scss',
+  templateUrl: './side-nav.component.html',
+  styleUrl: './side-nav.component.scss',
 })
-export class SideMenuComponent implements OnInit, OnDestroy {
+export class SideNavComponent implements OnInit, OnDestroy {
   groups = routeGrouping(ROUTES_ADMINISTRACION)
   subgroups = ROUTES_ADMINISTRACION_PRODUCTOS
   currentRoute = ''

@@ -8,12 +8,12 @@ import { NavigationService } from '@modules/administracion/services/servicios_co
 import { filter } from 'rxjs'
 
 @Component({
-  selector: 'app-nav',
+  selector: 'app-top-nav',
   imports: [MatIconModule, CommonModule, RouterModule],
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss',
+  templateUrl: './top-nav.component.html',
+  styleUrl: './top-nav.component.scss',
 })
-export class NavComponent implements OnInit, AfterViewInit {
+export class TopNavComponent implements OnInit, AfterViewInit {
   empresa = 'IMELDA JARAMILLO CIA'
 
   @ViewChild('notificationsToggle') notificationsToggle!: ElementRef
