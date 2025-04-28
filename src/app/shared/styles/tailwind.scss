@@ -1,0 +1,22 @@
+/* tailwind */
+@theme {
+  // Accent's colors
+  --color-accent-500: #0ebeb2;
+
+  // Informative's colors
+  --color-informative-500: #0ea2e9;
+  --color-informative-50: #f0f9ff;
+
+  // Neutral's colors
+  --color-neutral-50: #f6f6f6;
+
+  // Text's colors
+  --color-text-950: #2b2b2b;
+  --color-text-600: #5a5a5a;
+  --color-text-500: #6d6d6d;
+
+  --color-red-pp-500: #b71c1c;
+  --color-gray-pp-50: #f5f5f5;
+
+  --text-red-pp-500: var(--color-red-pp-500);
+}
