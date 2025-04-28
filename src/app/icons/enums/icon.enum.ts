@@ -6,6 +6,8 @@ export enum ICON_NAME {
   support_agent = 'support_agent',
   info = 'info',
   // account_circle = 'account_circle',
+  right_panel_close = 'right_panel_close',
+  right_panel_open = 'right_panel_open',
   home = 'home',
   dashboard = 'dashboard',
 

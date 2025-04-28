@@ -1,68 +1,58 @@
-<header class="grid h-[3.75rem] w-full grid-cols-3 items-center text-red-500 bg-white px-4">
+<header class="grid h-[7vh] w-full grid-cols-3 items-center text-red-pp-500 bg-white px-4">
   <div class="col-span-1">
     @if (isDashboard ) {
-    <a href="dashboard">
-      <img src="/svg/billing-imagotipo_horizontal-color.svg" alt="Logo horizontal BillingSof" class="h-[3rem] w-auto" />
+    <a href="dashboard" class="flex w-fit h-[6vh]">
+      <img src="/svg/logo-billingsof-imagotipo.svg" alt="Logo horizontal BillingSof"/>
     </a>
     }
   </div>
-  <div class="col-span-1 text-center text-xl font-medium">{{ empresa }}</div>
+  <div class="col-span-1 text-xl font-medium text-center">{{ empresa }}</div>
 
-  <div class="col-span-1 flex justify-end items-center gap-x-4">
+  <div class="flex items-center justify-end col-span-1 gap-x-4">
     <app-icon-dropdown iconName="notifications">
-      <h1 class="font-medium text-base mb-8 text-text-950">
-        Notificaciones
-      </h1>
+      <h1 class="mb-8 text-base font-medium text-text-950">Notificaciones</h1>
 
       <ul class="flex flex-col gap-8">
         <li>
-          <h2 class="font-medium mb-3.5 text-base text-text-500">
-            Hoy
-          </h2>
-  
+          <h2 class="font-medium mb-3.5 text-base text-text-500">Hoy</h2>
+
           <ul class="flex flex-col gap-3.5">
-            <li class="flex p-2 rounded-xl gap-2 cursor-pointer hover:bg-neutral-50">
+            <li class="flex gap-2 p-2 cursor-pointer rounded-xl hover:bg-neutral-50">
               <span class="shrink-0 flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-informative-50 text-informative-500">
                 <mat-icon svgIcon="system_update_alt"></mat-icon>
               </span>
-  
+
               <div class="flex-1">
-                <h3 class="font-medium text-sm leading-6.5 text-text-950 truncate">
-                  Nueva actualización disponible
-                </h3>
-                
-                <p class="font-normal text-sm leading-6.5 text-text-600 w-[14.375rem] truncate">
-                  sample text of a description
-                </p>
-                
-                <span class="font-normal text-sm text-text-600">
-                  19 dic, 10:30 AM  
-                </span>
+                <h3 class="font-medium text-sm leading-6.5 text-text-950 truncate">Nueva actualización disponible</h3>
+
+                <p class="font-normal text-sm leading-6.5 text-text-600 w-[14.375rem] truncate">sample text of a description</p>
+
+                <span class="text-sm font-normal text-text-600"> 19 dic, 10:30 AM </span>
               </div>
-  
+
               <div class="shrink-0 h-2.5 w-2.5 rounded-full bg-accent-500"></div>
             </li>
           </ul>
         </li>
       </ul>
     </app-icon-dropdown>
-    
+
     <app-icon-dropdown iconName="apps"></app-icon-dropdown>
-    
+
     <app-icon-dropdown iconName="support_agent"></app-icon-dropdown>
-    
-    <span class="cursor-pointer rounded-full hover:bg-gray-50 p-3 flex justify-center items-center">
+
+    <span class="flex items-center justify-center p-3 rounded-full cursor-pointer hover:bg-gray-50">
       <mat-icon svgIcon="info"></mat-icon>
     </span>
-    
-    <span class="cursor-pointer rounded-full flex justify-center items-center text-gray-500">
+
+    <span class="flex items-center justify-center text-gray-500 rounded-full cursor-pointer">
       <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ryan" alt="cuenta" class="w-[40px] h-[40px] border-gray-500 border-1 rounded-full" />
     </span>
   </div>
 </header>
 
 <!-- Popup con los módulos -->
-<!-- <div #floatingMenu id="floating-menu" class="floating-menu hidden">
+<!-- <div #floatingMenu id="floating-menu" class="hidden floating-menu">
   <div class="popup-content">
     <h3>Módulos</h3>
     <div class="module-grid">
@@ -86,7 +76,7 @@
 </div> -->
 
 <!-- Popup de Notificaciones -->
-<!-- <div #notificationsPopup id="notifications-popup" class="floating-menu hidden">
+<!-- <div #notificationsPopup id="notifications-popup" class="hidden floating-menu">
   <div class="popup-content">
     <h3>Notificaciones</h3>
     <div class="notification-groups">
@@ -108,7 +98,7 @@
 </div> -->
 
 <!-- Popup de Soporte -->
-<!-- <div #supportPopup id="support-popup" class="floating-menu hidden">
+<!-- <div #supportPopup id="support-popup" class="hidden floating-menu">
   <div class="popup-content">
     <h3>Soporte</h3>
     <div class="support-items">

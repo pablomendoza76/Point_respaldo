@@ -343,7 +343,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     const icons: Record<string, string> = {
       info: 'fas fa-info-circle text-blue-500',
       warning: 'fas fa-exclamation-triangle text-yellow-500',
-      error: 'fas fa-times-circle text-red-500',
+      error: 'fas fa-times-circle text-red-pp-500',
       success: 'fas fa-check-circle text-green-500',
     }
 

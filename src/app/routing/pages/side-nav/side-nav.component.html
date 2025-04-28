@@ -1,42 +1,50 @@
-<nav class="text-red-500 border-r-1 border-gray-500 h-screen flex bg-white">
-  <div class="flex-1">
-    <header class="w-full flex justify-start items-center border-b-1 border-gray-500 h-[7vh]">
-      <div class="w-2/3 flex items-center px-2">
-        <a href="dashboard">
-          <img src="/svg/logo-billingsof.svg" alt="Logo horizontal BillingSof" />
-        </a>
-      </div>
+<nav class="flex h-screen bg-white border-gray-500 text-red-pp-500 border-r-1">
+  <div class="{{ !isSideNavCollapsed ? 'min-w-[16vw] w-[16vw] flex-1' : '' }} flex flex-col">
+    <header class="w-full flex justify-center items-center border-b-1 border-gray-500 h-[7vh]">
+      <a href="dashboard" class="{{ !isSideNavCollapsed ? 'h-[5vh]' : 'h-[5.5vh]' }} flex w-fit">
+        <img src="/svg/logo-billingsof-{{ !isSideNavCollapsed ? 'imagotipo' : 'isotipo' }}.svg" alt="Logo horizontal BillingSof" />
+      </a>
     </header>
-    <div class="flex-1 flex flex-col justify-center items-center border-b-1 border-gray-500 py-2">
-      <mat-icon svgIcon="{{ currentRoute?.icon?.name }}" style="height: 80px; width: 80px"></mat-icon>
+    <div class="flex flex-col items-center justify-center flex-1 py-2 bg-gray-300 border-gray-500 border-b-1">
+      <mat-icon svgIcon="{{ currentRoute?.icon?.name }}" style="width: 70px; height: 70px"></mat-icon>
+      @if (!isSideNavCollapsed) {
       <span>{{ currentRoute?.name }}</span>
+      }
     </div>
-    <div class="flex-7 p-3 space-y-4 text-gray-500">
+    <div class="p-3 space-y-3 text-gray-500 flex-7">
       @for (group of groups; track $index) {
       <!-- each group -->
       @for (item of group; track $index) {
       <a
-        class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-300 bg-gray-300"
+        class="{{ !isSideNavCollapsed ? 'justify-start' : 'justify-center' }} flex items-center p-2 space-x-2 bg-gray-300 rounded-full hover:bg-gray-300"
         [routerLink]="[currentRoute?.path, item.path]"
         routerLinkActive="hover:bg-gray-300 bg-gray-300 font-bold active"
         [routerLinkActiveOptions]="{ exact: false }"
       >
         <mat-icon svgIcon="{{ item.icon?.name }}"></mat-icon>
+        @if (!isSideNavCollapsed) {
         <span>{{ item.name }}</span>
+        }
       </a>
       }
       <hr />
       }
     </div>
+    <div class="{{ !isSideNavCollapsed ? 'justify-between items-end' : 'items-center flex-col-reverse gap-3' }} flex flex-3 p-3 mb-3 text-gray-500 text-sm">
+      <span>{{ sideNaveLabel }}</span>
+      <button class="flex justify-center cursor-pointer align-center hover:opacity-50" (click)="toggleSideNav()">
+        <mat-icon svgIcon="{{ sideNavIcon }}"></mat-icon>
+      </button>
+    </div>
   </div>
-  <div class="flex-1 border-l-1 border-gray-500 bg-white">
+  <div class="flex-1 bg-white border-gray-500 border-l-1 min-w-[16vw] w-[16vw]">
     <header class="w-full flex justify-start items-center border-b-1 border-gray-500 h-[7vh]">
-      <div class="w-2/3 flex items-center px-2">{{ currentSubRoute?.name }}</div>
+      <div class="flex items-center w-2/3 px-2">{{ currentSubRoute?.name }}</div>
     </header>
-    <div class="flex-1 p-3 space-y-4 text-gray-500">
+    <div class="flex-1 p-3 space-y-3 text-gray-500">
       @for (item of subgroups; track $index) {
       <a
-        class="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-300 bg-gray-300"
+        class="flex items-center p-2 space-x-2 bg-gray-300 rounded-full hover:bg-gray-300"
         role="button"
         [routerLink]="[currentRoute?.path, currentSubRoute?.path, item.path]"
         routerLinkActive="hover:bg-gray-300 bg-gray-300 font-bold active"

@@ -21,7 +21,7 @@ export class DashboardService {
       gananciasTotales: { value: 12000, icon: 'fa-dollar-sign text-blue-500', label: 'Ganancias - Hoy' },
       ventasTotales: { value: 5000, icon: 'fa-bag-shopping text-yellow-500', label: 'Ventas - Del día' },
       inventarioActual: { value: 800, icon: 'fa-box-archive text-green-500', label: 'Inventario - Total' },
-      ordenesProcesadas: { value: 150, icon: 'fa-file text-red-500', label: 'Ordenes - Principal' },
+      ordenesProcesadas: { value: 150, icon: 'fa-file text-red-pp-500', label: 'Ordenes - Principal' },
     }
   }
 

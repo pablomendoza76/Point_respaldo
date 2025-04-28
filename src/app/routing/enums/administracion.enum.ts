@@ -48,6 +48,6 @@ export const ROOT_ADMINISTRACION: RouteProps = {
   name: 'Administración',
   path: 'administracion',
   comp: AdministracionComponent,
-  icon: { name: 'apps' },
+  icon: { name: 'page_info' },
   children: ROUTES_ADMINISTRACION,
 }
