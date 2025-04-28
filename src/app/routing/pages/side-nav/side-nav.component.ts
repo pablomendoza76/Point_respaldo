@@ -1,9 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
-import { NavigationEnd, Router, RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router'
 import { ROUTES_ADMINISTRACION, ROUTES_ADMINISTRACION_PRODUCTOS } from '@routing/enums/administracion.enum'
+import { MODULE_ROUTES } from '@routing/enums/modules.enum'
 import { routeGrouping } from '@routing/functions/route.grouping'
-import { Subscription } from 'rxjs'
+import { RouteProps } from '@routing/interfaces/route.interface'
+import { RoutingService } from '@routing/services/routing.service'
 
 @Component({
   selector: 'app-side-nav',
@@ -11,43 +13,17 @@ import { Subscription } from 'rxjs'
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss',
 })
-export class SideNavComponent implements OnInit, OnDestroy {
+export class SideNavComponent {
+  constructor(private srvRouting: RoutingService) {
+    this.srvRouting.routeState$.subscribe((route) => {
+      const segments = route?.url.split('/').filter((segment) => segment)
+      this.currentRoute = segments && MODULE_ROUTES.find((route) => route.path == segments[1])
+      this.currentSubRoute = segments && this.currentRoute?.children && this.currentRoute?.children.find((route) => route.path == segments[2])
+    })
+  }
+
   groups = routeGrouping(ROUTES_ADMINISTRACION)
   subgroups = ROUTES_ADMINISTRACION_PRODUCTOS
-  currentRoute = ''
-  currentSubRoute = ''
-  currentRouteIcon: any
-  currentRouteName: any
-  currentSubRouteName: any
-  private routerSubscription: Subscription | undefined
-
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    // Subscribe to router events
-    this.routerSubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Execute the route parsing logic
-        this.updateRouteInfo()
-      }
-    })
-
-    // Run initially for the current route
-    this.updateRouteInfo()
-  }
-
-  private updateRouteInfo() {
-    const currentLocation = window.location.pathname.split('/').filter((segment) => segment) // Remove empty segments
-    this.currentRoute = '/' + currentLocation.slice(0, -2).join('/')
-    this.currentSubRoute = '/' + currentLocation.slice(0, -1).join('/')
-
-    this.currentRouteIcon = ROUTES_ADMINISTRACION[0].icon?.name
-    this.currentRouteName = ROUTES_ADMINISTRACION[0].name
-    this.currentSubRouteName = ROUTES_ADMINISTRACION.find((route) => route.path === currentLocation[currentLocation.length - 2])?.name
-  }
-
-  ngOnDestroy() {
-    // Clean up the subscription
-    this.routerSubscription?.unsubscribe()
-  }
+  currentRoute?: RouteProps = {} as any
+  currentSubRoute?: RouteProps = {} as any
 }

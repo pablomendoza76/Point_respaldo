@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { NavigationEnd, Router, RouterModule } from '@angular/router'
-import { filter } from 'rxjs'
-import { SideNavComponent } from '../side-nav/side-nav.component'
-import { TopNavComponent } from '../top-nav/top-nav.component'
+import { Component } from '@angular/core'
+import { RouterModule } from '@angular/router'
+import { SideNavComponent } from '@routing/pages/side-nav/side-nav.component'
+import { TopNavComponent } from '@routing/pages/top-nav/top-nav.component'
+import { RoutingService } from '@routing/services/routing.service'
 
 @Component({
   selector: 'app-nav-wrapper',
@@ -10,17 +10,13 @@ import { TopNavComponent } from '../top-nav/top-nav.component'
   templateUrl: './nav-wrapper.component.html',
   styleUrl: './nav-wrapper.component.scss',
 })
-export class NavWrapperComponent implements OnInit {
-  constructor(private router: Router) {}
-
-  isAdminRoute = true
-
-  ngOnInit(): void {
-    this.isAdminRoute = this.router.url.includes('/dashboard/administrador')
-
-    // Subscribe to router events to update isAdminRoute
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
-      this.isAdminRoute = event.urlAfterRedirects.includes('/dashboard/administrador')
+export class NavWrapperComponent {
+  constructor(private srvRouting: RoutingService) {
+    this.srvRouting.routeState$.subscribe((route) => {
+      const segments = route?.url.split('/').filter((segment) => segment)
+      this.isDashboard = (segments && segments.length === 1 && segments[0] === 'dashboard') || false
     })
   }
+
+  isDashboard = true
 }

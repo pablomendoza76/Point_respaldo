@@ -5,6 +5,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
 import { MenuRoutesService } from '@modules/administracion/services/servicios_compartidos/menu-routes.service'
 import { NavigationService } from '@modules/administracion/services/servicios_compartidos/navigation.service'
+import { RoutingService } from '@routing/services/routing.service'
 import { filter } from 'rxjs'
 
 @Component({
@@ -14,6 +15,20 @@ import { filter } from 'rxjs'
   styleUrl: './top-nav.component.scss',
 })
 export class TopNavComponent implements OnInit, AfterViewInit {
+  constructor(
+    private navigationService: NavigationService,
+    private dashboardService: DashboardService,
+    private router: Router,
+    private menuRoutesService: MenuRoutesService,
+    private srvRouting: RoutingService,
+  ) {
+    this.srvRouting.routeState$.subscribe((route) => {
+      const segments = route?.url.split('/').filter((segment) => segment)
+      this.isDashboard = (segments && segments.length === 1 && segments[0] === 'dashboard') || false
+    })
+  }
+
+  isDashboard = true
   empresa = 'IMELDA JARAMILLO CIA'
 
   @ViewChild('notificationsToggle') notificationsToggle!: ElementRef
@@ -31,8 +46,6 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   searchQuery: string = ''
   moduloActual: string = ''
   submoduloActual: string = ''
-
-  constructor(private navigationService: NavigationService, private dashboardService: DashboardService, private router: Router, private menuRoutesService: MenuRoutesService) {}
 
   ngOnInit(): void {
     this.loadData()

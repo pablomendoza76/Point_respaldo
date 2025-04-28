@@ -1,8 +1,10 @@
 <header class="w-full flex justify-end items-center text-red-500 bg-white">
   <div class="w-1/3 flex items-center px-2">
+    @if (isDashboard ) {
     <a href="dashboard">
       <img src="/svg/logo-billingsof.svg" alt="Logo horizontal BillingSof" />
     </a>
+    }
   </div>
   <div class="w-1/3 flex justify-center items-center text-xl font-medium">{{ empresa }}</div>
   <div class="w-1/3 flex justify-end items-center p-2 gap-x-4">
@@ -20,7 +22,6 @@
     </span>
     <span class="cursor-pointer rounded-full flex justify-center items-center text-gray-500">
       <img src="https://api.dicebear.com/9.x/micah/svg?seed=Ryan" alt="cuenta" class="w-[40px] h-[40px] border-gray-500 border-1 rounded-full" />
-      <!-- <mat-icon svgIcon="account_circle" style="width: 40px; height: 40px;"></mat-icon> -->
     </span>
   </div>
 </header>
