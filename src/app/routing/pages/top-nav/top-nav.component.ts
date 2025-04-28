@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common'
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
 import { MenuRoutesService } from '@modules/administracion/services/servicios_compartidos/menu-routes.service'
 import { NavigationService } from '@modules/administracion/services/servicios_compartidos/navigation.service'
+import { IconDropdownComponent } from '@routing/pages/icon-dropdown/icon-dropdown.component'
 import { RoutingService } from '@routing/services/routing.service'
 import { filter } from 'rxjs'
 
 @Component({
   selector: 'app-top-nav',
-  imports: [MatIconModule, CommonModule, RouterModule],
+  imports: [MatIconModule, CommonModule, RouterModule, IconDropdownComponent],
   templateUrl: './top-nav.component.html',
   styleUrl: './top-nav.component.scss',
 })
-export class TopNavComponent implements OnInit, AfterViewInit {
+export class TopNavComponent implements OnInit {
   constructor(
     private navigationService: NavigationService,
     private dashboardService: DashboardService,
@@ -31,13 +32,6 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   isDashboard = true
   empresa = 'IMELDA JARAMILLO CIA'
 
-  @ViewChild('notificationsToggle') notificationsToggle!: ElementRef
-  @ViewChild('notificationsPopup') notificationsPopup!: ElementRef
-  @ViewChild('supportToggle') supportToggle!: ElementRef
-  @ViewChild('supportPopup') supportPopup!: ElementRef
-  @ViewChild('menuToggle') menuToggle!: ElementRef
-  @ViewChild('floatingMenu') floatingMenu!: ElementRef
-
   notificationGroups: any[] = []
   welcomeData: any = {}
   groupedModules: any[] = []
@@ -50,12 +44,6 @@ export class TopNavComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.loadData()
     this.detectCurrentRoute()
-  }
-
-  ngAfterViewInit(): void {
-    this.setupMenuToggle()
-    this.setupNotificationsToggle()
-    this.setupSupportToggle()
   }
 
   private loadData(): void {
@@ -123,30 +111,6 @@ export class TopNavComponent implements OnInit, AfterViewInit {
       success: 'fas fa-check-circle text-green-500',
     }
     return icons[type] || 'fas fa-bell text-gray-500'
-  }
-
-  setupNotificationsToggle(): void {
-    if (this.notificationsToggle && this.notificationsPopup) {
-      this.notificationsToggle.nativeElement.addEventListener('click', () => {
-        this.notificationsPopup.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
-  setupSupportToggle(): void {
-    if (this.supportToggle && this.supportPopup) {
-      this.supportToggle.nativeElement.addEventListener('click', () => {
-        this.supportPopup.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
-  setupMenuToggle(): void {
-    if (this.menuToggle && this.floatingMenu) {
-      this.menuToggle.nativeElement.addEventListener('click', () => {
-        this.floatingMenu.nativeElement.classList.toggle('hidden')
-      })
-    }
   }
 
   openMessenger(): void {

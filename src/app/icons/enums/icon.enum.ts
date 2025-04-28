@@ -26,4 +26,7 @@ export enum ICON_NAME {
   table_view = 'table_view',
   corporate_fare = 'corporate_fare',
   settings = 'settings',
+
+  // Notifications
+  system_update_alt = 'system_update_alt',
 }
