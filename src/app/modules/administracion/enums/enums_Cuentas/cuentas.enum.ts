@@ -1,6 +1,6 @@
-/**
- * Contiene las url generales para conectar con las apis
- */
+    /**
+     * Contiene las url generales para conectar con las apis
+     */
 
 export enum Enums_Cuentas {
     /**

@@ -1,11 +1,10 @@
-import { map, forkJoin, switchMap, of, Observable } from "rxjs";
-import { Producto } from "../Interfaces/Productos/producto.model";
-import { CategoriaService } from "../services/productos_services/categoria.service";
-import { AdministracionServicios } from "../services/productos_services/productos.service";
-import { SubcategoriaService } from "../services/productos_services/subcategoria.service";
-import { ImpuestosService } from "../services/servicios_sin_identificra/Impuestos.service";
-import { RegimenService } from "../services/servicios_sin_identificra/regimen.service";
-
+import { Producto } from '../../Interfaces/Productos/producto.model';
+import { Observable, forkJoin, of, map, switchMap } from 'rxjs';
+import { AdministracionServicios } from '../../services/productos_services/productos.service';
+import { RegimenService } from '../../services/servicios_sin_identificra/regimen.service';
+import { ImpuestosService } from '../../services/servicios_sin_identificra/Impuestos.service';
+import { CategoriaService } from '../../services/productos_services/categoria.service';
+import { SubcategoriaService } from '../../services/productos_services/subcategoria.service';
 
 /** Etiquetas amigables para los campos del formulario */
 const etiquetasCampos: Record<string, string> = {

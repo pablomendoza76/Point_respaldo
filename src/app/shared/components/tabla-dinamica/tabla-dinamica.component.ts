@@ -185,11 +185,8 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   const stockMin = parseFloat(min as string) || 0;
   const stockMax = parseFloat(max as string) || 0;
   const promedio = (stockMin + stockMax) / 2;
-
-  console.log('💥 Evaluando stock:', { stock, stockMin, stockMax, promedio });
-
+    
   if (stock <= 0) {
-    console.log('❌ Resultado: SIN STOCK');
     return {
       icono: 'fas fa-times-circle',
       clase: 'icon-danger',
@@ -198,7 +195,6 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   }
 
   if (stock > 0 && stock < promedio) {
-    console.log('⚠️ Resultado: STOCK BAJO');
     return {
       icono: 'fas fa-exclamation-triangle',
       clase: 'icon-warning',
@@ -206,13 +202,11 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
     };
   }
 
-  console.log('Resultado: STOCK SUFICIENTE');
+
   return {
     icono: 'fas fa-check-circle',
     clase: 'icon-ok',
     texto: 'Stock suficiente'
   };
 }
-
-
 }

@@ -20,38 +20,38 @@
     <i class="fa-solid fa-magnifying-glass"></i>
   </button>
 
-  <!-- Botón para mostrar/ocultar filtros -->
+  <!-- Botón para mostrar/ocultar filtros SOLO si hay filtros -->
   <button *ngIf="filtrosConfiguracion?.length" class="filter-toggle" (click)="toggleFiltros()">
     <i class="fa-solid" [ngClass]="mostrarFiltros ? 'fa-filter-circle-xmark' : 'fa-filter'"></i>
   </button>
 
-  <!-- Selector de columnas SOLO si mostrarSoloBusqueda es false -->
-  <div *ngIf="!mostrarSoloBusqueda && columnasDisponibles?.length" style="position: relative;">
-  <button class="column-toggle" (click)="toggleColumnas()">
-    <i class="fa-solid fa-chart-column"></i>
-  </button>
+  <!-- Botón para columnas SOLO si hay columnas configuradas -->
+  <div *ngIf="columnasDisponibles?.length" style="position: relative;">
+    <button class="column-toggle" (click)="toggleColumnas()">
+      <i class="fa-solid fa-chart-column"></i>
+    </button>
 
-  <div class="column-selector" [class.hidden]="!mostrarColumnas">
-    <div class="column-list">
-      <label *ngFor="let columna of columnasDisponibles">
-        <input
-          type="checkbox"
-          [checked]="columna.selected"
-          (change)="onSeleccionarColumna(columna, $event)"
-        />
-        {{ columna.name }}
-      </label>
+    <div class="column-selector" [class.hidden]="!mostrarColumnas">
+      <div class="column-list">
+        <label *ngFor="let columna of columnasDisponibles">
+          <input
+            type="checkbox"
+            [checked]="columna.selected"
+            (change)="onSeleccionarColumna(columna, $event)"
+          />
+          {{ columna.name }}
+        </label>
+      </div>
     </div>
   </div>
-</div>
 
-  <!-- Acciones finales -->
+  <!-- Acciones finales: SOLO mostrar botones si se habilitan explícitamente -->
   <div class="acciones-finales">
-    <button class="btn-export" (click)="exportar()">
+    <button *ngIf="habilitarExportar" class="btn-export" (click)="exportar()">
       <i class="fa-solid fa-download"></i> &nbsp; Exportar
     </button>
 
-    <button class="btn-import" (click)="importar()">
+    <button *ngIf="habilitarImportar" class="btn-import" (click)="importar()">
       <i class="fa-solid fa-upload"></i> &nbsp; Importar
     </button>
 
@@ -61,8 +61,8 @@
   </div>
 </div>
 
-<!-- filtros ocultos -->
-<div class="filter-section" *ngIf="mostrarFiltros">
+<!-- Filtros ocultos, solo si mostrarFiltros -->
+<div *ngIf="mostrarFiltros && filtrosConfiguracion?.length" class="filter-section">
   <div *ngFor="let filtro of filtrosConfiguracion" class="filtro-item">
     <label>{{ filtro.nombre }}</label>
     <select [(ngModel)]="filtrosSeleccionados[filtro.nombre]" (change)="aplicarFiltros()">
@@ -73,7 +73,7 @@
     </select>
   </div>
 
-  <!-- Botones rápidos -->
+  <!-- Botones rápidos de estado -->
   <div class="filter-buttons" *ngIf="filtrosSeleccionados['estado'] !== undefined">
     <button
       class="filter-btn"
