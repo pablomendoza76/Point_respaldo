@@ -1,0 +1,11 @@
+<button #dropdownTrigger type="button" (click)="openDropdown()" class="flex h-[3rem] w-[3rem] items-center justify-center cursor-pointer rounded-full hover:bg-gray-50">
+  <mat-icon [svgIcon]="iconName()"></mat-icon>
+</button>
+
+<ng-template #dropdownTemplate let-close="close">
+  <div class="dropdown-shadow w-[22rem] h-96 rounded-2xl bg-white p-5">
+    <div class="h-full w-full overflow-y-auto">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-template>

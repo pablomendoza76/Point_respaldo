@@ -1,6 +1,6 @@
 /* Estilos generales */
 body {
-  font-family: "Arial", sans-serif;
+  font-family: 'Arial', sans-serif;
   background-color: #e0e0e0; /* Gris más oscuro */
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@ body {
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   background-color: #f6f6f6;
 }
@@ -26,7 +26,7 @@ body {
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: rgba(227,227,227,0.4);
+    background-color: rgba(227, 227, 227, 0.4);
   }
 
   .icon {
@@ -59,7 +59,7 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-     
+
     li > i {
       color: #d51f36;
     }
@@ -75,7 +75,7 @@ body {
   width: 100%;
   max-width: 93rem;
   margin: 0.75rem auto;
-  
+
   // Estilos del elemento "breadcrumb"
   &__breadcrumbs {
     display: flex;
@@ -139,7 +139,7 @@ body {
         font-size: 0.875rem;
         font-weight: 400;
         color: #5a5a5a;
-        
+
         &:focus {
           outline: none;
         }
@@ -158,7 +158,7 @@ body {
 
         i {
           font-size: 1.1rem;
-          color: #6d6d6d
+          color: #6d6d6d;
         }
       }
     }
@@ -214,7 +214,7 @@ body {
           border-radius: 0.75rem;
           padding-inline: 0.85rem;
           background-color: white;
-          color: #2B2B2B;
+          color: #2b2b2b;
           cursor: pointer;
 
           > span {
@@ -235,11 +235,11 @@ body {
           &:hover {
             background-color: #fff1f1;
             color: #86152d;
-            box-shadow: 0px 6px 8px 0px rgba(178,178,178,0.24);
+            box-shadow: 0px 6px 8px 0px rgba(178, 178, 178, 0.24);
 
             > span {
               background-color: #d51f36;
-              
+
               > i {
                 color: white;
               }
@@ -292,23 +292,23 @@ body {
           // Sección de estadísticas
           .statistics-section {
             margin-block-end: 1.5rem;
-  
+
             .statistics-cards-grid {
               display: grid;
               grid-template-columns: repeat(2, minmax(0, 1fr));
               gap: 0.75rem;
               margin-block-start: 1rem;
-    
+
               &__card {
                 grid-column: span 1 / span 1;
                 padding: 1rem;
                 border-radius: 0.75rem;
                 background-color: white;
-                
+
                 &:hover {
-                  box-shadow: 0px 6px 8px 0px rgba(178,178,178,0.24);
+                  box-shadow: 0px 6px 8px 0px rgba(178, 178, 178, 0.24);
                 }
-    
+
                 > span {
                   display: flex;
                   height: 2.5rem;
@@ -316,23 +316,23 @@ body {
                   justify-content: center;
                   align-items: center;
                   border-radius: 0.5rem;
-    
+
                   > i {
                     font-size: 1.1rem;
                   }
                 }
-    
+
                 .statistic-value {
                   font-size: 1.75rem;
                   font-weight: 500;
                   color: #2b2b2b;
                 }
-    
+
                 .statistic-label {
                   font-size: 0.875rem;
                   font-weight: 400;
                   color: #0ea2e9;
-    
+
                   > strong {
                     font-weight: 500;
                     color: #6d6d6d;
@@ -344,19 +344,19 @@ body {
               grid-template-columns: 1fr;
             }
           }
-  
+
           // Sección de nuevos clientes
           .new-clients-section {
             padding: 1.75rem;
             border-radius: 0.75rem;
             background-color: white;
-  
+
             .title-container {
               display: flex;
               align-items: center;
               gap: 0.75rem;
               margin-block-end: 0.5rem;
-              
+
               > span {
                 display: flex;
                 height: 2.5rem;
@@ -365,26 +365,26 @@ body {
                 align-items: center;
                 border-radius: 0.5rem;
                 background-color: #f3faf3;
-  
+
                 > i {
                   font-size: 1.1rem;
                   color: #4caf50;
                 }
               }
             }
-  
+
             .metrica-container {
               display: flex;
               align-items: center;
               gap: 0.5rem;
               margin-block-start: 0.5rem;
-  
+
               > p {
                 font-size: 1rem;
                 font-weight: 400;
-                color: #6d6d6d
+                color: #6d6d6d;
               }
-  
+
               > span {
                 display: flex;
                 gap: 0.5rem;
@@ -395,7 +395,7 @@ body {
                 border-radius: 999px;
                 color: #3d3d3d;
                 background-color: #f3faf3;
-                
+
                 > i {
                   color: #4caf50;
                 }
@@ -416,12 +416,12 @@ body {
           // Sección de más datos
           .additional-data-section {
             margin-block-end: 1.5rem;
-  
+
             .data-container {
               display: flex;
               gap: 0.75rem;
               margin-block-start: 1rem;
-  
+
               &__chart-card {
                 height: 17.625rem;
                 width: 40%;
@@ -429,7 +429,7 @@ body {
                 border-radius: 0.75rem;
                 background-color: white;
               }
-  
+
               &__table-card {
                 height: 17.625rem;
                 width: 60%;
@@ -441,12 +441,12 @@ body {
                   width: 100%;
                   border-collapse: collapse;
                   margin-block-start: 1rem;
-                   
+
                   tr {
                     height: 3rem;
                     border-block-end-width: 0.063rem;
                     border-block-end-color: #bdbdbd;
-                    
+
                     td {
                       font-size: 0.875rem;
                       font-weight: 400;
@@ -502,7 +502,6 @@ body {
                   border-radius: 0.75rem;
                   gap: 0.5rem;
                   transition: background-color 0.3s ease;
-                  
 
                   &:hover {
                     background-color: #f6f6f6;
@@ -515,7 +514,7 @@ body {
                     justify-content: center;
                     align-items: center;
                     border-radius: 999px;
-                  
+
                     > i {
                       font-size: 1.1rem;
                     }
@@ -557,265 +556,3 @@ body {
     width: 20%;
   }
 }
-
-/* CSS para el popup de módulos */
-.floating-menu {
-  position: fixed;
-  top: 60px;
-  right: 20px;
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  width: 400px;
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 16px;
-  transition: transform 0.3s ease;
-}
-
-.floating-menu:hover {
-  transform: translateY(-5px);
-}
-
-.popup-content h3 {
-  margin-bottom: 16px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #4b5563;
-}
-
-.module-groups {
-  margin-bottom: 16px;
-}
-
-.module-group h4 {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #6b7280;
-}
-
-.module-items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.module-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.module-item:hover {
-  background-color: #ffebeb;
-  color: #d32f2f;
-  transform: translateY(-2px);
-}
-
-.module-item.selected {
-  background-color: #ffebeb;
-  color: #d32f2f;
-  transform: translateY(-2px);
-}
-
-.module-icon {
-  font-size: 24px;
-  margin-bottom: 8px;
-  color: #4b5563;
-  transition: color 0.3s ease;
-}
-
-.module-item span {
-  font-size: 12px;
-  text-align: center;
-  color: #4b5563;
-  transition: color 0.3s ease;
-}
-
-.module-item.selected .module-icon,
-.module-item.selected span {
-  color: #e53e3e;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Estilos para el popup de soporte */
-.support-items {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.support-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 12px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
-}
-
-.support-item.clickable {
-  cursor: pointer;
-}
-
-.support-item.clickable:hover {
-  background-color: #f8fafc;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-}
-
-.support-item i.fa-phone {
-  color: #3b82f6;
-}
-
-.support-item i.fa-clock {
-  color: #ef4444;
-}
-
-.support-item i.fa-facebook-messenger {
-  color: #006aff;
-}
-
-.support-item i.fa-telegram {
-  color: #2aabee;
-}
-
-.support-item i.fa-comment-sms {
-  color: #10b981;
-}
-
-.support-item span {
-  font-size: 14px;
-  color: #2d3748;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.contact-info span {
-  font-size: 14px;
-  color: #4a5568;
-}
-
-.support-item.attention {
-  background-color: #fff5f5;
-  border: 1px solid #ef4444;
-}
-
-.support-item.attention i {
-  color: #ef4444;
-}
-
-.support-item.attention span {
-  color: #ef4444;
-  font-weight: bold;
-}
-
-.side-menu.expanded ul {
-  grid-template-columns: repeat(6, 1fr);
-}
-
-.side-menu.expanded {
-  width: 83%; /* Expansión completa */
-  margin-right: 32px; /* MÁS MARGEN DERECHO AL EXPANDIRSE */
-}
-
-/* Estado expandido (restaurar tamaño original) */
-.side-menu.expanded .module-icon {
-  font-size: 16px; /* Reducir el tamaño del ícono */
-  padding: 6px; /* Reducir el padding */
-  border-radius: 8px;
-}
-
-.side-menu.expanded li > i {
-  margin-right: 0.8rem; /* Espaciado mayor en menú expandido */
-}
-
-/* Ajustes cuando el menú lateral está expandido */
-.side-menu.expanded ~ .content .stat-item {
-  background-color: white; /* Cambiar el color de los contenedores a blanco */
-  border: none; /* Quitar el borde */
-  box-shadow: none; /* Quitar la sombra */
-}
-
-.side-menu.expanded ~ .content .stat-item {
-  background-color: white; /* Cambiar el color de los contenedores a blanco */
-}
-
-.side-menu.expanded ~ .content .data-item,
-.side-menu.expanded ~ .content .bar-chart,
-.side-menu.expanded ~ .content .more-data {
-  display: none; /* Ocultar las demás secciones */
-}
-
-/* Mejoras adicionales */
-.side-menu.expanded ~ .content .business-stats {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centrar el contenido */
-  width: 100%; /* Ocupar todo el ancho disponible */
-  padding: 1rem; /* Espaciado interno */
-  overflow: hidden; /* Eliminar el scroll */
-  background-color: transparent; /* Fondo transparente */
-}
-
-.side-menu.expanded ~ .content .business-stats h2 {
-  font-size: 1rem; /* Reducir el tamaño del título del contenedor */
-  color: #333; /* Color del título */
-  margin-bottom: 1rem; /* Espaciado debajo del título */
-  text-align: center; /* Centrar el título */
-}
-
-.side-menu.expanded ~ .content .stats-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem; /* Reducir el espaciado entre elementos */
-  width: 100%; /* Ocupar todo el ancho */
-  max-width: 300px; /* Limitar el ancho máximo para mejor legibilidad */
-}
-
-.side-menu.expanded ~ .content .stat-item {
-  background-color: white; /* Fondo blanco */
-  border: none; /* Sin borde */
-  box-shadow: none; /* Sin sombra */
-  color: #333; /* Color del texto */
-  padding: 0.8rem; /* Reducir el padding */
-  width: 100%; /* Ocupar todo el ancho */
-  text-align: center; /* Centrar el texto */
-  border-radius: 8px; /* Bordes redondeados */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.side-menu.expanded ~ .content .stat-value {
-  font-size: 1.8rem; /* Reducir el tamaño del valor */
-  font-weight: bold; /* Negrita */
-  color: #333; /* Color del valor */
-}
-
-.side-menu.expanded ~ .content .stat-label {
-  font-size: 0.7rem; /* Reducir el tamaño de la etiqueta */
-  color: #777; /* Color de la etiqueta */
-  margin-top: 0.5rem; /* Espaciado arriba de la etiqueta */
-}
-

@@ -21,6 +21,7 @@ import { BarraBusquedaComponent } from '@reusables/barra-busqueda/barra-busqueda
 import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicacion.component'
 import { FormularioDinamicoComponent } from '@reusables/formulario-dinamico/formulario-dinamico.component'
 import { administracion } from './administracion.routes'
+import { NavWrapperComponent } from './pages/nav-wrapper/nav-wrapper.component'
 
 //  Importar módulos desde Modulo_Administrador
 //  Seguridad
@@ -30,9 +31,11 @@ export const routes: Routes = [
   {
     canActivate: [authGuard],
     path: 'dashboard',
-    component: DashboardComponent,
+    component: NavWrapperComponent,
     canActivateChild: [authGuard],
     children: [
+      { path: '', component: DashboardComponent },
+
       //  Ruta de administrador
       ...administracion,
 
@@ -101,8 +104,6 @@ export const routes: Routes = [
           { path: 'prueba4', component: FormularioDinamicoComponent },
         ],
       },
-
-      { path: '', redirectTo: 'administracion', pathMatch: 'full' },
     ],
   },
 

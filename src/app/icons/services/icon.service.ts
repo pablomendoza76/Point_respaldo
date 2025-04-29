@@ -11,7 +11,7 @@ export class IconService {
 
   registerIcons(icons: IconProps[]) {
     icons.forEach((icon) => {
-      const iconPath = `public/icons/${icon.fill}/${!!icon.path ? icon.path : icon.name}.svg`
+      const iconPath = `public/icons/${!!icon.path ? icon.path : icon.name}.svg`
       this.matIconRegistry.addSvgIcon(icon.name || 'Err!', this.domSanitizer.bypassSecurityTrustResourceUrl(iconPath))
     })
   }

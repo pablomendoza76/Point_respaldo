@@ -1,27 +1,36 @@
 import { CommonModule } from '@angular/common'
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
 import { MenuRoutesService } from '@modules/administracion/services/servicios_compartidos/menu-routes.service'
 import { NavigationService } from '@modules/administracion/services/servicios_compartidos/navigation.service'
+import { IconDropdownComponent } from '@reusables/icon-dropdown/icon-dropdown.component'
+import { RoutingService } from '@routing/services/routing.service'
 import { filter } from 'rxjs'
 
 @Component({
-  selector: 'app-nav',
-  imports: [MatIconModule, CommonModule, RouterModule],
-  templateUrl: './nav.component.html',
-  styleUrl: './nav.component.scss',
+  selector: 'app-top-nav',
+  imports: [MatIconModule, CommonModule, RouterModule, IconDropdownComponent],
+  templateUrl: './top-nav.component.html',
+  styleUrl: './top-nav.component.scss',
 })
-export class NavComponent implements OnInit, AfterViewInit {
-  empresa = 'IMELDA JARAMILLO CIA'
+export class TopNavComponent implements OnInit {
+  constructor(
+    private navigationService: NavigationService,
+    private dashboardService: DashboardService,
+    private router: Router,
+    private menuRoutesService: MenuRoutesService,
+    private srvRouting: RoutingService,
+  ) {
+    this.srvRouting.routeState$.subscribe((route) => {
+      const segments = route?.url.split('/').filter((segment) => segment)
+      this.isDashboard = (segments && segments.length === 1 && segments[0] === 'dashboard') || false
+    })
+  }
 
-  @ViewChild('notificationsToggle') notificationsToggle!: ElementRef
-  @ViewChild('notificationsPopup') notificationsPopup!: ElementRef
-  @ViewChild('supportToggle') supportToggle!: ElementRef
-  @ViewChild('supportPopup') supportPopup!: ElementRef
-  @ViewChild('menuToggle') menuToggle!: ElementRef
-  @ViewChild('floatingMenu') floatingMenu!: ElementRef
+  isDashboard = true
+  empresa = 'IMELDA JARAMILLO CIA'
 
   notificationGroups: any[] = []
   welcomeData: any = {}
@@ -32,17 +41,9 @@ export class NavComponent implements OnInit, AfterViewInit {
   moduloActual: string = ''
   submoduloActual: string = ''
 
-  constructor(private navigationService: NavigationService, private dashboardService: DashboardService, private router: Router, private menuRoutesService: MenuRoutesService) {}
-
   ngOnInit(): void {
     this.loadData()
     this.detectCurrentRoute()
-  }
-
-  ngAfterViewInit(): void {
-    this.setupMenuToggle()
-    this.setupNotificationsToggle()
-    this.setupSupportToggle()
   }
 
   private loadData(): void {
@@ -106,34 +107,10 @@ export class NavComponent implements OnInit, AfterViewInit {
     const icons: Record<string, string> = {
       info: 'fas fa-info-circle text-blue-500',
       warning: 'fas fa-exclamation-triangle text-yellow-500',
-      error: 'fas fa-times-circle text-red-500',
+      error: 'fas fa-times-circle text-red-pp-500',
       success: 'fas fa-check-circle text-green-500',
     }
     return icons[type] || 'fas fa-bell text-gray-500'
-  }
-
-  setupNotificationsToggle(): void {
-    if (this.notificationsToggle && this.notificationsPopup) {
-      this.notificationsToggle.nativeElement.addEventListener('click', () => {
-        this.notificationsPopup.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
-  setupSupportToggle(): void {
-    if (this.supportToggle && this.supportPopup) {
-      this.supportToggle.nativeElement.addEventListener('click', () => {
-        this.supportPopup.nativeElement.classList.toggle('hidden')
-      })
-    }
-  }
-
-  setupMenuToggle(): void {
-    if (this.menuToggle && this.floatingMenu) {
-      this.menuToggle.nativeElement.addEventListener('click', () => {
-        this.floatingMenu.nativeElement.classList.toggle('hidden')
-      })
-    }
   }
 
   openMessenger(): void {

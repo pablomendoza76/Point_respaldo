@@ -1,0 +1,12 @@
+<main class="flex">
+  @if (!isDashboard ) {
+  <app-side-nav></app-side-nav>
+  }
+
+  <section class="flex flex-col flex-1 h-screen">
+    <app-top-nav></app-top-nav>
+    <div class="flex-1">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</main>
