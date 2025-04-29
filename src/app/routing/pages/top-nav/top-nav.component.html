@@ -39,7 +39,55 @@
 
     <app-icon-dropdown iconName="apps"></app-icon-dropdown>
 
-    <app-icon-dropdown iconName="support_agent"></app-icon-dropdown>
+    <app-icon-dropdown iconName="support_agent">
+      <ul class="flex flex-col gap-1">
+        <li class="flex h-[3.25rem] items-center gap-2 px-4 text-sm font-normal rounded-lg cursor-pointer text-text-950 hover:bg-neutral-50">
+          <mat-icon svgIcon="sms" style="color: #5A5A5A;"></mat-icon>
+
+          Recibir Soporte
+        </li>
+
+        <li class="flex h-[3.25rem] items-center gap-2 px-4 text-sm font-normal rounded-lg cursor-pointer text-text-950 hover:bg-neutral-50">
+          <img src="/svg/messenger.svg" alt="Logo de Messenger" class="h-auto w-6">
+
+          Contáctanos desde Facebook
+        </li>
+
+        <li class="flex h-[3.25rem] items-center gap-2 px-4 text-sm font-normal rounded-lg cursor-pointer text-text-950 hover:bg-neutral-50">
+          <img src="/svg/telegram.svg" alt="Logo de Messenger" class="h-auto w-6">
+
+          Iniciar chat via Telegram
+        </li>
+      </ul>
+
+      <div class="h-[0.063rem] w-full my-4 bg-neutral-200"></div>
+
+      <div class="mb-6">
+        <p class="mb-6 text-sm font-medium text-text-950">
+          Nuestras líneas de contacto
+        </p>
+
+        <ul class="flex flex-col gap-6">
+          <li class="flex gap-2 items-center text-sm font-normal px-4 text-text-950">
+            <mat-icon svgIcon="phone_iphone" style="color: #5A5A5A;"></mat-icon>
+
+            0963319244 - 0987243834
+          </li>
+
+          <li class="flex gap-2 text-sm font-normal px-4 text-text-950">
+            <mat-icon svgIcon="call" style="color: #5A5A5A;"></mat-icon>
+
+            072 576031 <br>
+            ext: 402 (Contabilidad) <br>
+            ext: 501 - 501 - 503 (Soporte)
+          </li>
+        </ul>
+      </div>
+
+      <p class="text-sm font-semibold py-4 text-center rounded-lg text-white bg-primary-600">
+        ¡Atendemos de Lunes a Viernes 9 am a 19 pm!
+      </p>
+    </app-icon-dropdown>
 
     <span class="flex items-center justify-center p-3 rounded-full cursor-pointer hover:bg-gray-50">
       <mat-icon svgIcon="info"></mat-icon>

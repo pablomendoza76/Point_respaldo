@@ -39,4 +39,9 @@ export enum ICON_NAME {
 
   // Notifications
   system_update_alt = 'system_update_alt',
+
+  // Asisntencia modal
+  sms = 'sms',
+  phone_iphone = 'phone_iphone',
+  call = 'call',
 }
