@@ -8,12 +8,12 @@ import { BarraUbicacionComponent } from '@reusables/barra-ubicacion/barra-ubicac
 import { FormularioDinamicoLoaderComponent } from '@reusables/formulario-dinamico-loader/formulario-dinamico-loader.component'
 import { TablaDinamicaComponent } from '@reusables/tabla-dinamica/tabla-dinamica.component'
 import { setColumnasVisibles, setFiltrosDinamicos, setProductos, setTotalRegistros } from '@stores/tabla_NgRx/tabla.actions'
-import { selectProductos } from '@stores/tabla_NgRx/tabla.selectors'
+import { selectProductos, selectProductosVisibles } from '@stores/tabla_NgRx/tabla.selectors'
 import { AppState } from '@stores/tabla_NgRx/tabla.state'
 import { Observable, forkJoin } from 'rxjs'
 import { take } from 'rxjs/operators'
 import { Producto } from '../../../Interfaces/Productos/producto.model'
-import { adaptarProducto } from '../../../adapters/producto-adapter'
+import { adaptarProducto } from '../../../adapters/Productos/producto-adapter'
 import { CuentasContablesService } from '../../../services/Cuentas_services/cuentas-contables.service'
 import { MarcasService } from '../../../services/productos_services/marcas.service'
 import { SubproductoService } from '../../../services/productos_services/subgrupos.service'
@@ -21,6 +21,8 @@ import { TarifasService } from '../../../services/productos_services/tarifas.ser
 import { TipoProductoService } from '../../../services/productos_services/tipo-producto.service'
 import { ImpuestosService } from '../../../services/servicios_sin_identificra/Impuestos.service'
 import { RegimenService } from '../../../services/servicios_sin_identificra/regimen.service'
+import { CategoriaService } from '../../../services/productos_services/categoria.service'
+import { SubcategoriaService } from '../../../services/productos_services/subcategoria.service'
 
 @Component({
   selector: 'app-vista-general',
@@ -32,6 +34,7 @@ import { RegimenService } from '../../../services/servicios_sin_identificra/regi
 })
 export class VistaGeneralComponent implements OnInit {
   productosVisibles$!: Observable<Producto[]>
+  productosFiltrados$!: Observable<Producto[]>
   columnasDisponibles: any[] = []
   columnasSeleccionadas: any[] = []
   filtrosConfiguracion: any[] = []
@@ -40,6 +43,7 @@ export class VistaGeneralComponent implements OnInit {
   productoSeleccionado: Producto | null = null
   bloquesFormulario: any[] = []
   modoEdicion = true
+  mostrandoSpinner: boolean = false;
 
   marcas: any[] = []
   grupos: any[] = []
@@ -79,11 +83,21 @@ export class VistaGeneralComponent implements OnInit {
     private regimenService: RegimenService,
     private impuestosService: ImpuestosService,
     private cdr: ChangeDetectorRef,
+    private categoriaService: CategoriaService,
+    private subcategoriaService: SubcategoriaService
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.productosVisibles$ = this.store.pipe(select(selectProductos))
-    await adaptarProducto.cargarOpcionesGlobales(this.adminService, this.regimenService, this.impuestosService)
+    this.productosFiltrados$ = this.store.pipe(select(selectProductosVisibles))
+    await adaptarProducto.cargarOpcionesGlobales(
+      this.adminService,
+      this.regimenService,
+      this.impuestosService,
+      this.categoriaService,
+      this.subcategoriaService
+    )
+    
     this.cargarProductos(1, this.limiteCargado)
     this.cargarOpciones()
   }
@@ -194,15 +208,30 @@ export class VistaGeneralComponent implements OnInit {
   }
 
   onFiltrosAplicados(filtros: { [key: string]: string }): void {
-    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }))
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
 
-    // Verifica si los productos filtrados son cero, y si se puede traer más
-    this.productosVisibles$.pipe(take(1)).subscribe((productos: Producto[]) => {
-      if (productos.length === 0 && this.limiteCargado < this.totalRegistros) {
-        const nuevoLimite = Math.min(this.limiteCargado + 100, this.totalRegistros)
-        this.cargarProductos(1, nuevoLimite)
-      }
-    })
+    let intento = 0;
+    const maxIntentos = 10; // Para evitar loops infinitos
+
+    const intentarCargarMasProductos = () => {
+      this.productosFiltrados$.pipe(take(1)).subscribe((productosFiltrados: Producto[]) => {
+        if (productosFiltrados.length > 0 || this.limiteCargado >= this.totalRegistros || intento >= maxIntentos) {
+          this.mostrandoSpinner = false;
+          return;
+        }
+
+        intento++;
+        const nuevoLimite = Math.min(this.limiteCargado + 100, this.totalRegistros);
+        this.cargarProductos(1, nuevoLimite);
+
+        setTimeout(() => {
+          intentarCargarMasProductos();
+        }, 100);
+      });
+    };
+
+    this.mostrandoSpinner = true;
+    intentarCargarMasProductos();
   }
 
   onColumnasActualizadas(columnas: any[]): void {
