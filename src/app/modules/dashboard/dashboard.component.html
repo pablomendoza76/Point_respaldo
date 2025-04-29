@@ -35,13 +35,9 @@
       <div class="modules-container">
         <ul class="modules-container__modules-list">
           @for (module of filteredModules(); track module.name) {
-          <li (click)="navigateTo(module.name)" class="sidebar-module-item">
-            <span>
-              <i [class]="getModuleIcon(module.name)"></i>
-            </span>
-
-            {{ module.name }}
-          </li>
+            <li (click)="navigateTo(module.path)">
+              <app-modulos-tarjetas [inconName]="module.icon" [moduleName]="module.name"></app-modulos-tarjetas>
+            </li>
           }
         </ul>
       </div>
@@ -177,86 +173,5 @@
         </div>
       </div>
     </main>
-
-    <!-- Popup con los módulos -->
-    <div id="floating-menu" class="floating-menu" [class.hidden]="!floatingMenuOpen()">
-      <div class="popup-content">
-        <h3>Módulos</h3>
-        <div class="module-grid">
-          <div *ngFor="let group of groupedModules" class="module-group">
-            <h4>{{ group.category }}</h4>
-            <div class="module-items">
-              <div
-                *ngFor="let module of group.modules"
-                class="module-item"
-                (click)="navigateTo(module.name)"
-                (mouseenter)="highlightModule(module)"
-                (mouseleave)="unhighlightModule(module)"
-              >
-                <i class="module-icon" [class]="getModuleIcon(module.name)"></i>
-                <span [class.selected]="module.selected">{{ module.name }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Popup de Notificaciones -->
-    <div id="notifications-popup" class="floating-menu" [class.hidden]="!notificationsPopupOpen()">
-      <div class="popup-content">
-        <h3>Notificaciones</h3>
-        <div class="notification-groups">
-          <div *ngFor="let group of notificationGroups()" class="notification-group">
-            <h4>{{ group.category }}</h4>
-            <div class="notification-items">
-              <div *ngFor="let notification of group.notifications" class="notification-item">
-                <i [class]="getNotificationIcon(notification.type)"></i>
-                <div class="notification-item-content">
-                  <strong>{{ notification.title }}</strong>
-                  <p>{{ notification.description }}</p>
-                  <span>{{ notification.date | date : 'dd/MM/yyyy, hh:mm a' }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Popup de Soporte -->
-    <div id="support-popup" class="floating-menu" [class.hidden]="!supportPopupOpen()">
-      <div class="popup-content">
-        <h3>Soporte</h3>
-        <div class="support-items">
-          <div class="support-item">
-            <i class="fa-solid fa-phone"></i>
-            <div class="contact-info">
-              <span>096 331 9244</span>
-              <span>098 724 3834</span>
-              <span>072 576 031</span>
-              <span>Ext: 402 (Contabilidad)</span>
-              <span>Ext: 501 - 502 - 503 (Soporte)</span>
-            </div>
-          </div>
-          <div class="support-item">
-            <i class="fa-solid fa-clock"></i>
-            <span>Atendemos de lunes a viernes de 9:00 a 19:00</span>
-          </div>
-          <div class="support-item clickable" (click)="openMessenger()">
-            <i class="fa-brands fa-facebook-messenger"></i>
-            <span>Enviar mensaje por Messenger</span>
-          </div>
-          <div class="support-item clickable" (click)="openTelegram()">
-            <i class="fa-brands fa-telegram"></i>
-            <span>Enviar mensaje por Telegram</span>
-          </div>
-          <div class="support-item clickable" (click)="openSMS()">
-            <i class="fa-solid fa-comment-sms"></i>
-            <span>Enviar mensaje de texto (SMS)</span>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

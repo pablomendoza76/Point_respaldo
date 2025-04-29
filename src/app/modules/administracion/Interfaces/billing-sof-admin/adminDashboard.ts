@@ -6,7 +6,8 @@ export interface BusinessStat {
 
 export interface Module {
   name: string
-  selected: boolean
+  icon: string
+  path: string
 }
 
 export interface ModuleGroup {

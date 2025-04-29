@@ -12,7 +12,6 @@ export enum ICON_NAME {
   dashboard = 'dashboard',
 
   // administracion
-  page_info = 'page_info',
   home_storage = 'home_storage',
   bookmark = 'bookmark',
   category = 'category',
@@ -28,6 +27,15 @@ export enum ICON_NAME {
   table_view = 'table_view',
   corporate_fare = 'corporate_fare',
   settings = 'settings',
+
+  // Sidebar Module
+  page_info = 'page_info',
+  shopping_bag = 'shopping_bag',
+  assignment = 'assignment',
+  stacks = 'stacks',
+  route = 'route',
+  browse_activity = 'browse_activity',
+  receipt_long = 'receipt_long',
 
   // Notifications
   system_update_alt = 'system_update_alt',
