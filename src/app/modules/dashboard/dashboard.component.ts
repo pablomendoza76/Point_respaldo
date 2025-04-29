@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component, computed, OnInit, signal } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
 import { Router, RouterModule } from '@angular/router'
-import { BusinessStat, Module, ModuleGroup, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
+import { BusinessStat, Module, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
+import { MODULE_ROUTES } from '@routing/enums/modules.enum'
+import { RouteProps } from '@routing/interfaces/route.interface'
 import { Chart } from 'chart.js/auto'
 
 @Component({
@@ -10,7 +13,7 @@ import { Chart } from 'chart.js/auto'
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [CommonModule, RouterModule],
+  imports: [MatIconModule, CommonModule, RouterModule],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   businessStats = signal<Record<string, BusinessStat>>({})
@@ -24,81 +27,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   sidebarOpen = signal<boolean>(false)
   supportPopupOpen = signal<boolean>(false)
 
-  groupedModules: ModuleGroup[] = [
-    {
-      category: 'Administración y Control',
-      modules: [
-        { name: 'Administración', selected: false },
-        { name: 'Créditos', selected: false },
-        { name: 'Contratos', selected: false },
-        { name: 'Control de…', selected: false },
-        { name: 'Reposiciones', selected: false },
-        { name: 'Caja', selected: false },
-        { name: 'C x P', selected: false },
-        { name: 'C x C', selected: false },
-      ],
-    },
-    {
-      category: 'Gestión de Ventas',
-      modules: [
-        { name: 'Facturación', selected: false },
-        { name: 'Ventas', selected: false },
-        { name: 'Cupones', selected: false },
-        { name: 'Cotizaciones', selected: false },
-      ],
-    },
-    {
-      category: 'Logística y Soporte',
-      modules: [
-        { name: 'Servicio técnico', selected: false },
-        { name: 'Autoservicio', selected: false },
-        { name: 'Verificador…', selected: false },
-        { name: 'Inventarios', selected: false },
-        { name: 'Compras (…)', selected: false },
-        { name: 'Encomiendas', selected: true },
-      ],
-    },
-    {
-      category: 'Operaciones y Producción',
-      modules: [
-        { name: 'Producción', selected: false },
-        { name: 'Notas de entrega', selected: false },
-        { name: 'Manejo de…', selected: false },
-        { name: 'Reporte ATS', selected: false },
-      ],
-    },
-    {
-      category: 'Comunicación y Gestión',
-      modules: [
-        { name: 'Agenda', selected: false },
-        { name: 'Reuniones', selected: false },
-        { name: 'Reportes', selected: false },
-        { name: 'Mensajería', selected: true },
-      ],
-    },
-    {
-      category: 'Finanzas',
-      modules: [
-        { name: 'Nómina', selected: false },
-        { name: 'Contabilidad', selected: false },
-        { name: 'Bancos', selected: false },
-      ],
-    },
-    {
-      category: 'Servicios',
-      modules: [
-        { name: 'Restaurante', selected: false },
-        { name: 'Parking', selected: false },
-        { name: 'Hoteles', selected: false },
-        { name: 'Veterinaria', selected: false },
-        { name: 'Talleres', selected: false },
-        { name: 'Tienda en Línea', selected: true },
-      ],
-    },
-  ]
-
-  allModules: Module[] = this.groupedModules.flatMap((group) => group.modules)
-  filteredModules = computed(() => (this.searchQuery() ? this.allModules.filter((m) => m.name.toLowerCase().includes(this.searchQuery())) : this.allModules))
+  allModules: RouteProps[] = MODULE_ROUTES
+  filteredModules = computed(() => (this.searchQuery() ? this.allModules.filter((m) => m.name && m.name.toLowerCase().includes(this.searchQuery())) : this.allModules))
 
   constructor(private dashboardService: DashboardService, private router: Router) {}
 
@@ -212,90 +142,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         },
       })
     }
-  }
-
-  navigateTo(option: string): void {
-    const MODULE_ROUTES: Record<string, string> = {
-      Administración: 'administracion',
-      Créditos: 'creditos',
-      Contratos: 'contratos',
-      'Control de…': 'control',
-      Reposiciones: 'reposiciones',
-      Caja: 'caja',
-      'C x P': 'cxp',
-      'C x C': 'cxc',
-      Facturación: 'facturacion',
-      Ventas: 'ventas',
-      Cupones: 'cupones',
-      Cotizaciones: 'cotizaciones',
-      'Servicio técnico': 'servicio-tecnico',
-      Autoservicio: 'autoservicio',
-      'Verificador…': 'verificador',
-      Inventarios: 'inventarios',
-      'Compras (…)': 'compras',
-      Encomiendas: 'encomiendas',
-      Producción: 'produccion',
-      'Notas de entrega': 'notas-entrega',
-      'Manejo de…': 'manejo-activos',
-      'Reporte ATS': 'reporte-ats',
-      Agenda: 'agenda',
-      Reuniones: 'reuniones',
-      Reportes: 'reportes',
-      Mensajería: 'mensajeria',
-      Nómina: 'nomina',
-      Contabilidad: 'contabilidad',
-      Bancos: 'bancos',
-      Restaurante: 'restaurante',
-      Parking: 'parking',
-      Hoteles: 'hoteles',
-      Veterinaria: 'veterinaria',
-      Talleres: 'talleres',
-      'Tienda en Línea': 'tienda-en-linea',
-    }
-
-    const path = MODULE_ROUTES[option]
-    if (path) this.router.navigate(['dashboard', ...path.split('/')])
-  }
-
-  getModuleIcon(moduleName: string): string {
-    const icons: { [key: string]: string } = {
-      Administración: 'fa-cogs',
-      Créditos: 'fa-credit-card',
-      Contratos: 'fa-file-contract',
-      'Control de…': 'fa-users',
-      Reposiciones: 'fa-boxes',
-      Caja: 'fa-cash-register',
-      'C x P': 'fa-hand-holding-usd',
-      'C x C': 'fa-handshake',
-      Facturación: 'fa-file-invoice',
-      Ventas: 'fa-shopping-cart',
-      Cupones: 'fa-tags',
-      Cotizaciones: 'fa-file-alt',
-      'Servicio técnico': 'fa-tools',
-      Autoservicio: 'fa-user-cog',
-      'Verificador…': 'fa-barcode',
-      Inventarios: 'fa-box-open',
-      'Compras (…)': 'fa-shopping-basket',
-      Encomiendas: 'fa-truck',
-      Producción: 'fa-industry',
-      'Notas de entrega': 'fa-clipboard-list',
-      'Manejo de…': 'fa-building',
-      'Reporte ATS': 'fa-file-excel',
-      Agenda: 'fa-calendar-alt',
-      Reuniones: 'fa-users',
-      Reportes: 'fa-chart-bar',
-      Mensajería: 'fa-envelope',
-      Nómina: 'fa-money-check-alt',
-      Contabilidad: 'fa-balance-scale',
-      Bancos: 'fa-university',
-      Restaurante: 'fa-utensils',
-      Parking: 'fa-parking',
-      Hoteles: 'fa-hotel',
-      Veterinaria: 'fa-paw',
-      Talleres: 'fa-wrench',
-      'Tienda en Línea': 'fa-store',
-    }
-    return `fa-solid ${icons[moduleName]}`
   }
 
   highlightModule(module: Module): void {

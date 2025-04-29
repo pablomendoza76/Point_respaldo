@@ -34,14 +34,13 @@
 
       <div class="modules-container">
         <ul class="modules-container__modules-list">
-          @for (module of filteredModules(); track module.name) {
-          <li (click)="navigateTo(module.name)" class="sidebar-module-item">
+          @for (module of filteredModules(); track $index) {
+          <a class="sidebar-module-item" [routerLink]="[module.path]">
             <span>
-              <i [class]="getModuleIcon(module.name)"></i>
+              <mat-icon svgIcon="{{ module.icon?.name }}"></mat-icon>
             </span>
-
             {{ module.name }}
-          </li>
+          </a>
           }
         </ul>
       </div>
@@ -179,7 +178,7 @@
     </main>
 
     <!-- Popup con los módulos -->
-    <div id="floating-menu" class="floating-menu" [class.hidden]="!floatingMenuOpen()">
+    <!-- <div id="floating-menu" class="floating-menu" [class.hidden]="!floatingMenuOpen()">
       <div class="popup-content">
         <h3>Módulos</h3>
         <div class="module-grid">
@@ -200,7 +199,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Popup de Notificaciones -->
     <div id="notifications-popup" class="floating-menu" [class.hidden]="!notificationsPopupOpen()">

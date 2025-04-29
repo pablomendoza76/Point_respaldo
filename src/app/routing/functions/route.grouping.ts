@@ -1,4 +1,5 @@
 import { RouteProps } from '@routing/interfaces/route.interface'
+import { filterRoutes } from './route.filter'
 
 export function routeGrouping(routes: RouteProps[]): RouteProps[][] {
   // compose object per groups
@@ -9,5 +10,5 @@ export function routeGrouping(routes: RouteProps[]): RouteProps[][] {
   })
 
   // extract groups to a 2-dim array
-  return [...Object.values(groups)]
+  return [...Object.values(groups).map((group) => filterRoutes(group))]
 }
