@@ -216,7 +216,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   navigateTo(option: string): void {
     const MODULE_ROUTES: Record<string, string> = {
-      Administración: 'administracion/productos',
+      Administración: 'administracion',
       Créditos: 'creditos',
       Contratos: 'contratos',
       'Control de…': 'control',

@@ -30,6 +30,7 @@ export const ROUTES_ADMINISTRACION_PRODUCTOS: RouteProps[] = [
   { icon: { name: ICON_NAME.home_storage } as IconProps, name: 'Categorías', path: 'categorias', comp: TarifasPorGrupoComponent },
   { icon: { name: ICON_NAME.workspaces } as IconProps, name: 'Grupos de Productos', path: 'grupos-productos', comp: TiposProductosComponent },
   { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
+  { path: '', redirectTo: 'gestion-productos', pathMatch: 'full' },
 ]
 
 // MARK: ROOT
@@ -42,6 +43,7 @@ export const ROUTES_ADMINISTRACION: RouteProps[] = [
   { path: ROUTES_ENUM_ADMINISTRACION.cuentas_contables, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '3', name: 'Cuentas Contables', icon: { name: ICON_NAME.table_view } },
   { path: ROUTES_ENUM_ADMINISTRACION.empresa, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '4', name: 'Empresa', icon: { name: ICON_NAME.corporate_fare } },
   { path: ROUTES_ENUM_ADMINISTRACION.configuracion, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '4', name: 'Configuración', icon: { name: ICON_NAME.settings } },
+  { path: '', redirectTo: ROUTES_ENUM_ADMINISTRACION.productos, pathMatch: 'full' },
 ]
 
 export const ROOT_ADMINISTRACION: RouteProps = {

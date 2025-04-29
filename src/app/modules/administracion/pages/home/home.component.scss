@@ -1,0 +1,558 @@
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e0e0e0; /* Gris más oscuro */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: #f6f6f6;
+}
+
+.icon-button {
+  display: flex;
+  height: 2.813rem;
+  width: 2.813rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(227, 227, 227, 0.4);
+  }
+
+  .icon {
+    font-size: 1.1rem;
+  }
+}
+
+/* Barra de navegación */
+.top-bar {
+  display: flex;
+  height: 3.75rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: 1.5rem;
+  background-color: white;
+  border-bottom-width: 0.063rem;
+  border-bottom-color: #bdbdbd;
+
+  &__logo {
+    height: 3.438rem;
+  }
+
+  > h1 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #d51f36;
+  }
+
+  &__options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    li > i {
+      color: #d51f36;
+    }
+
+    .profile-image {
+      height: 2.25rem;
+    }
+  }
+}
+
+/* Sección de bienvenida */
+.welcome-section {
+  width: 100%;
+  max-width: 93rem;
+  margin: 0.75rem auto;
+
+  // Estilos del elemento "breadcrumb"
+  &__breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-end: 0.75rem;
+
+    // Color específico para el icono
+    span > i {
+      color: #5a5a5a;
+    }
+
+    p {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #6d6d6d;
+
+      span {
+        margin-inline-start: 0.25rem;
+      }
+    }
+  }
+
+  // Estilos del elemento "content": titulo y search-bar
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: #d51f36;
+    }
+
+    // Estilos del search-bar
+    .search-bar {
+      display: flex;
+      width: 27rem;
+      height: 2.625rem;
+      background-color: white;
+      border-radius: 999px;
+      border-width: 0.063rem;
+      border-color: #bdbdbd;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+
+      // Efectos del search-bar
+      &:hover {
+        border-color: #969696;
+      }
+
+      &:focus-within {
+        outline: 0.188rem solid #fff1f1;
+      }
+
+      // Estilos especificos del input
+      &__input {
+        flex: 1;
+        padding-inline: 1rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: #5a5a5a;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          color: #9e9e9e;
+        }
+      }
+
+      // Estilos especificos del button
+      &__button {
+        width: 4rem;
+        border-inline-start-width: 0.063rem;
+        border-inline-start-color: #bdbdbd;
+        background-color: #f6f6f6;
+
+        i {
+          font-size: 1.1rem;
+          color: #6d6d6d;
+        }
+      }
+    }
+  }
+}
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  width: 100%;
+  max-width: 93rem;
+  flex: 1;
+  margin-inline: auto;
+
+  &__sidebar-modules {
+    display: flex;
+    width: 18%;
+    flex-direction: column;
+    padding-block: 1.25rem;
+    padding-inline-end: 1.25rem;
+    border-inline-end-width: 0.063rem;
+    border-inline-end-color: #d1d1d1;
+    transition: width 0.5s ease;
+
+    > button {
+      flex-shrink: 0;
+    }
+
+    .modules-container {
+      position: relative;
+      flex: 1;
+      overflow-y: auto;
+
+      &__modules-list {
+        position: absolute;
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        top: 0;
+        left: 0;
+        padding-block: 0.5rem;
+
+        .sidebar-module-item {
+          display: flex;
+          height: 4.5rem;
+          width: 13.75rem;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          border-radius: 0.75rem;
+          padding-inline: 0.85rem;
+          background-color: white;
+          color: #2b2b2b;
+          cursor: pointer;
+
+          > span {
+            display: flex;
+            height: 3rem;
+            width: 3rem;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.5rem;
+            background-color: #f6f6f6;
+
+            > i {
+              font-size: 1.1rem;
+              color: #5a5a5a;
+            }
+          }
+
+          &:hover {
+            background-color: #fff1f1;
+            color: #86152d;
+            box-shadow: 0px 6px 8px 0px rgba(178, 178, 178, 0.24);
+
+            > span {
+              background-color: #d51f36;
+
+              > i {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &__sidebar-modules.isExpanded {
+    width: 80%;
+  }
+
+  &__content {
+    display: flex;
+    width: 82%;
+    padding-block: 1.25rem;
+    padding-inline-start: 1.25rem;
+    transition: width 0.5s ease;
+
+    .content-container {
+      position: relative;
+      flex: 1;
+      overflow-y: auto;
+
+      .content-grid {
+        position: absolute;
+        display: grid;
+        width: 100%;
+        gap: 1.5rem;
+        top: 0;
+        left: 0;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+
+        .section-title {
+          font-size: 1.125rem;
+          font-weight: 500;
+          color: #2b2b2b;
+        }
+
+        .section-subtitle {
+          font-size: 0.875rem;
+          font-weight: 500;
+          color: #6d6d6d;
+        }
+
+        &__first-column {
+          grid-column: span 5 / span 5;
+
+          // Sección de estadísticas
+          .statistics-section {
+            margin-block-end: 1.5rem;
+
+            .statistics-cards-grid {
+              display: grid;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 0.75rem;
+              margin-block-start: 1rem;
+
+              &__card {
+                grid-column: span 1 / span 1;
+                padding: 1rem;
+                border-radius: 0.75rem;
+                background-color: white;
+
+                &:hover {
+                  box-shadow: 0px 6px 8px 0px rgba(178, 178, 178, 0.24);
+                }
+
+                > span {
+                  display: flex;
+                  height: 2.5rem;
+                  width: 2.5rem;
+                  justify-content: center;
+                  align-items: center;
+                  border-radius: 0.5rem;
+
+                  > i {
+                    font-size: 1.1rem;
+                  }
+                }
+
+                .statistic-value {
+                  font-size: 1.75rem;
+                  font-weight: 500;
+                  color: #2b2b2b;
+                }
+
+                .statistic-label {
+                  font-size: 0.875rem;
+                  font-weight: 400;
+                  color: #0ea2e9;
+
+                  > strong {
+                    font-weight: 500;
+                    color: #6d6d6d;
+                  }
+                }
+              }
+            }
+            .statistics-cards-grid.isExpanded {
+              grid-template-columns: 1fr;
+            }
+          }
+
+          // Sección de nuevos clientes
+          .new-clients-section {
+            padding: 1.75rem;
+            border-radius: 0.75rem;
+            background-color: white;
+
+            .title-container {
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              margin-block-end: 0.5rem;
+
+              > span {
+                display: flex;
+                height: 2.5rem;
+                width: 2.5rem;
+                justify-content: center;
+                align-items: center;
+                border-radius: 0.5rem;
+                background-color: #f3faf3;
+
+                > i {
+                  font-size: 1.1rem;
+                  color: #4caf50;
+                }
+              }
+            }
+
+            .metrica-container {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              margin-block-start: 0.5rem;
+
+              > p {
+                font-size: 1rem;
+                font-weight: 400;
+                color: #6d6d6d;
+              }
+
+              > span {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+                padding: 0.25rem 1rem;
+                font-size: 1.125rem;
+                font-weight: 500;
+                border-radius: 999px;
+                color: #3d3d3d;
+                background-color: #f3faf3;
+
+                > i {
+                  color: #4caf50;
+                }
+              }
+            }
+          }
+          .new-clients-section.isExpanded {
+            display: none;
+          }
+        }
+        &__first-column.isExpanded {
+          grid-column: span 12 / span 12;
+        }
+
+        &__second-column {
+          grid-column: span 7 / span 7;
+
+          // Sección de más datos
+          .additional-data-section {
+            margin-block-end: 1.5rem;
+
+            .data-container {
+              display: flex;
+              gap: 0.75rem;
+              margin-block-start: 1rem;
+
+              &__chart-card {
+                height: 17.625rem;
+                width: 40%;
+                padding: 1rem;
+                border-radius: 0.75rem;
+                background-color: white;
+              }
+
+              &__table-card {
+                height: 17.625rem;
+                width: 60%;
+                padding: 1rem;
+                border-radius: 0.75rem;
+                background-color: white;
+
+                > table {
+                  width: 100%;
+                  border-collapse: collapse;
+                  margin-block-start: 1rem;
+
+                  tr {
+                    height: 3rem;
+                    border-block-end-width: 0.063rem;
+                    border-block-end-color: #bdbdbd;
+
+                    td {
+                      font-size: 0.875rem;
+                      font-weight: 400;
+                      text-align: end;
+                      color: #3d3d3d;
+
+                      &:first-child {
+                        font-weight: 500;
+                        text-align: start;
+                        padding-inline-start: 0.5rem;
+                      }
+
+                      &:last-child {
+                        padding-inline-end: 0.5rem;
+                      }
+
+                      > span {
+                        font-size: 0.75rem;
+                        color: #6d6d6d;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          // Sección de notificaciones
+          .notifications-container {
+            height: 22.188rem;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-block-start: 1rem;
+            background-color: white;
+
+            > div {
+              position: relative;
+              height: 100%;
+              overflow-y: auto;
+
+              .notifications-list {
+                position: absolute;
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                gap: 0.75rem;
+                top: 0;
+                left: 0;
+
+                &__notification-card {
+                  display: flex;
+                  padding: 1rem;
+                  border-radius: 0.75rem;
+                  gap: 0.5rem;
+                  transition: background-color 0.3s ease;
+
+                  &:hover {
+                    background-color: #f6f6f6;
+                  }
+
+                  > span {
+                    display: flex;
+                    height: 2.813rem;
+                    width: 2.813rem;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 999px;
+
+                    > i {
+                      font-size: 1.1rem;
+                    }
+                  }
+
+                  > div {
+                    flex: 1;
+                    font-size: 0.875rem;
+
+                    .notification-title {
+                      font-weight: 500;
+                      margin-block-end: 0.25rem;
+                      color: #2b2b2b;
+                    }
+
+                    .notification-description {
+                      font-weight: 400;
+                      color: #5a5a5a;
+                      margin-block-end: 0.25rem;
+                    }
+
+                    .notification-date {
+                      font-weight: 500;
+                      color: #6d6d6d;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        &__second-column.isExpanded {
+          display: none;
+        }
+      }
+    }
+  }
+  &__content.isExpanded {
+    width: 20%;
+  }
+}
