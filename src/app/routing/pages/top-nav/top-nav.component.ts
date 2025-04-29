@@ -5,7 +5,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
 import { MenuRoutesService } from '@modules/administracion/services/servicios_compartidos/menu-routes.service'
 import { NavigationService } from '@modules/administracion/services/servicios_compartidos/navigation.service'
-import { IconDropdownComponent } from '@routing/pages/icon-dropdown/icon-dropdown.component'
+import { IconDropdownComponent } from '@reusables/icon-dropdown/icon-dropdown.component'
 import { RoutingService } from '@routing/services/routing.service'
 import { filter } from 'rxjs'
 
