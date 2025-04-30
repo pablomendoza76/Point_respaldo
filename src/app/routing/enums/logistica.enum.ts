@@ -44,7 +44,7 @@ export const ROOT_LOGISTICA: RouteProps = {
       path: ROUTES_ENUM_LOGISTICA['operaciones'],
       grupo: '1',
       name: 'Operaciones',
-      icon: { name: ICON_NAME['road-map'] },
+      icon: { name: ICON_NAME.pin_drop },
       children: [
         { icon: { name: ICON_NAME.two_pager_store } as IconProps, name: 'Despachos', path: 'despachos', comp: DespachosComponent },
         { icon: { name: ICON_NAME.assignment_turned_in } as IconProps, name: 'Guías de Remisión', path: 'guias-remision', comp: GuiasRemisionComponent },

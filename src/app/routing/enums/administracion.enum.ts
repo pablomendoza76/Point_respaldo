@@ -55,7 +55,7 @@ export const ROOT_ADMINISTRACION: RouteProps = {
       ],
     },
     { path: ROUTES_ENUM_ADMINISTRACION['tipos-pvp'], grupo: '1', name: 'Tipos PVP', icon: { name: ICON_NAME.price_check }, children: [] },
-    { path: ROUTES_ENUM_ADMINISTRACION.promociones, grupo: '1', name: 'Promociones', icon: { name: ICON_NAME.discount_percent }, children: [] },
+    { path: ROUTES_ENUM_ADMINISTRACION.promociones, grupo: '1', name: 'Promociones', icon: { name: ICON_NAME.percent }, children: [] },
     { path: ROUTES_ENUM_ADMINISTRACION.clientes, grupo: '2', name: 'Clientes', icon: { name: ICON_NAME.person_book }, children: [] },
     { path: ROUTES_ENUM_ADMINISTRACION['cuentas-contables'], grupo: '3', name: 'Cuentas Contables', icon: { name: ICON_NAME.table_view }, children: [] },
     { path: ROUTES_ENUM_ADMINISTRACION.empresa, grupo: '4', name: 'Empresa', icon: { name: ICON_NAME.corporate_fare }, children: [] },
