@@ -41,6 +41,11 @@ export enum ICON_NAME {
   // Notifications
   system_update_alt = 'system_update_alt',
 
+  // Asisntencia modal
+  sms = 'sms',
+  phone_iphone = 'phone_iphone',
+  call = 'call',
+
   // logistica
   activity_zone = 'activity_zone',
   'road-map' = 'road-map',
@@ -56,8 +61,6 @@ export enum ICON_NAME {
   two_pager_store = 'two_pager_store',
   assignment_turned_in = 'assignment_turned_in',
 
-  // Asisntencia modal
-  sms = 'sms',
-  phone_iphone = 'phone_iphone',
-  call = 'call',
+  // MODULO: Gestión de Pedidos
+  package_2 = 'package_2',
 }
