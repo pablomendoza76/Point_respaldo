@@ -2,8 +2,9 @@ import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component, computed, OnInit, signal } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { Router, RouterModule } from '@angular/router'
-import { BusinessStat, Module, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
+import { BusinessStat, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
+import { ModulosTarjetasComponent } from '@reusables/modulos-tarjetas/modulos-tarjetas.component'
 import { MODULE_ROUTES } from '@routing/enums/modules.enum'
 import { RouteProps } from '@routing/interfaces/route.interface'
 import { Chart } from 'chart.js/auto'
@@ -13,7 +14,7 @@ import { Chart } from 'chart.js/auto'
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [MatIconModule, CommonModule, RouterModule],
+  imports: [MatIconModule, CommonModule, RouterModule, ModulosTarjetasComponent],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   businessStats = signal<Record<string, BusinessStat>>({})
@@ -23,7 +24,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   searchQuery = signal<string>('')
   topProducts = signal<TopProduct[]>([])
   sidebarOpen = signal<boolean>(false)
-  supportPopupOpen = signal<boolean>(false)
 
   allModules: RouteProps[] = MODULE_ROUTES
   filteredModules = computed(() => (this.searchQuery() ? this.allModules.filter((m) => m.name && m.name.toLowerCase().includes(this.searchQuery())) : this.allModules))
@@ -128,14 +128,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         },
       })
     }
-  }
-
-  highlightModule(module: Module): void {
-    module.selected = true
-  }
-
-  unhighlightModule(module: Module): void {
-    module.selected = false
   }
 
   groupNotificationsByDate(): void {

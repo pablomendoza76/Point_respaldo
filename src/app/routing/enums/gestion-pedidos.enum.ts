@@ -3,7 +3,6 @@ import { IconProps } from '@icons/interfaces/icon.interface'
 import { MarcasComponent } from '@modules/administracion/pages/Productos-legacy/marcas/marcas.component'
 import { TiposProductosComponent } from '@modules/administracion/pages/Productos-legacy/tipos-productos/tipos-productos.component'
 import { VistaGeneralComponent } from '@modules/administracion/pages/Productos-legacy/vista-general/vista-general.component'
-import { HomeComponent } from '@modules/gestion-pedidos/pages/home/home.component'
 import { RouteProps } from '@routing/interfaces/route.interface'
 
 export enum ROUTES_ENUM_ADMINISTRACION {
@@ -14,7 +13,7 @@ export enum ROUTES_ENUM_ADMINISTRACION {
 export const ROOT_GESTION_PEDIDOS: RouteProps = {
   name: 'Gestión de Pedidos',
   path: 'gestion-pedidos',
-  comp: HomeComponent,
+  // comp: HomeComponent,
   icon: { name: 'page_info' },
   children: [
     {

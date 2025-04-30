@@ -1,9 +1,9 @@
-<div type="button" class="group flex h-[4.5rem] w-[13.75rem] items-center gap-[0.5rem] rounded-lg px-[0.85rem] bg-white text-text-950 cursor-pointer hover:bg-primary-50 card_shadow">
+<a [routerLink]="path()" class="group flex h-[4.5rem] w-[13.75rem] items-center gap-[0.5rem] rounded-lg px-[0.85rem] bg-white text-text-950 cursor-pointer hover:bg-primary-50 card_shadow">
     <span class="shrink-0 flex h-[3rem] w-[3rem] items-center justify-center rounded-lg bg-neutral-50 group-hover:bg-primary-600 group-hover:text-white">
-        <mat-icon [svgIcon]="inconName()"></mat-icon>
+        <mat-icon [svgIcon]="iconName()"></mat-icon>
     </span>
     
     <p class="font-medium text-sm w-[8.25rem] truncate">
         {{ moduleName() }}
     </p>
-</div>
+</a>

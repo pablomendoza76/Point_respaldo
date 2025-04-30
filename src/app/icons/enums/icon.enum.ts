@@ -42,7 +42,6 @@ export enum ICON_NAME {
   system_update_alt = 'system_update_alt',
 
   // logistica
-  route = 'route',
   activity_zone = 'activity_zone',
   'road-map' = 'road-map',
   // 'local_shipping' = 'local_shipping',
