@@ -14,21 +14,16 @@
       <span>{{ currentRoute.name }}</span>
       }
     </div>
-    <div class="p-3 space-y-3 text-gray-500 flex-7">
+    <div class="flex flex-col items-center gap-2 p-3 text-gray-500 flex-7">
       @for (group of groups; track $index) {
-      <!-- each group -->
-      @for (item of group; track $index) {
-      <a
-        class="{{ !isSideNavCollapsed ? 'justify-start' : 'justify-center' }} flex items-center p-2 space-x-2 bg-gray-300 rounded-full hover:bg-gray-300"
-        [routerLink]="[currentRoute.path, item.path]"
-        routerLinkActive="hover:bg-gray-300 bg-gray-300 font-bold active"
-        [routerLinkActiveOptions]="{ exact: false }"
-      >
-        <mat-icon svgIcon="{{ item.icon?.name }}"></mat-icon>
-        @if (!isSideNavCollapsed) {
-        <span>{{ item.name }}</span>
-        }
-      </a>
+        <!-- each group -->
+        @for (item of group; track $index) {
+        <c-sidebar-button
+          [collapsed]="isSideNavCollapsed"
+          [path]=" [currentRoute.path || '', item.path || ''] "
+          [iconName]=" item.icon?.name || '' "
+          [moduleName]=" item.name || '' "
+        />
       }
       <hr />
       }

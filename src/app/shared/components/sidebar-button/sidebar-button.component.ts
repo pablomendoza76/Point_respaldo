@@ -3,14 +3,14 @@ import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 
 @Component({
-  selector: 'c-modulos-tarjetas',
-  standalone: true,
+  selector: 'c-sidebar-button',
   imports: [MatIconModule, RouterModule],
-  templateUrl: './modulos-tarjetas.component.html',
-  styleUrl: './modulos-tarjetas.component.scss',
+  templateUrl: './sidebar-button.component.html',
+  styleUrl: './sidebar-button.component.scss',
 })
-export class ModulosTarjetasComponent {
-  path = input<string>('')
+export class SidebarButtonComponent {
+  collapsed = input<boolean>(true)
+  path = input<string[]>([])
   iconName = input<string>('')
   moduleName = input<string>('')
 }

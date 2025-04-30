@@ -24,7 +24,7 @@
 
 <div class="flex flex-wrap gap-6 px-8">
     @for (module of childrenModules; track $index) {
-        <app-home-module-card
+        <c-home-module-card
             [path]=" module.path || '' " 
             [iconName]=" module.icon?.name || '' "
             [moduleName]=" module.name || '' "

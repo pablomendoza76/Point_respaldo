@@ -35,7 +35,7 @@
       <div class="modules-container">
         <div class="modules-container__modules-list">
           @for (module of filteredModules(); track $index) {
-            <app-modulos-tarjetas
+            <c-modulos-tarjetas
               [path]=" module.path || '' "
               [iconName]=" module.icon?.name || '' "
               [moduleName]=" module.name || '' "

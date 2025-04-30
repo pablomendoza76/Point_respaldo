@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 
 @Component({
-  selector: 'app-home-module-card',
+  selector: 'c-home-module-card',
   imports: [MatIconModule, RouterModule],
   templateUrl: './home-module-card.component.html',
   styleUrl: './home-module-card.component.scss',

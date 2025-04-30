@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 import { RouterModule } from '@angular/router'
 import { ICON_NAME } from '@icons/enums/icon.enum'
+import { SidebarButtonComponent } from '@reusables/sidebar-button/sidebar-button.component'
 import { MODULE_ROUTES } from '@routing/enums/modules.enum'
 import { filterRoutes } from '@routing/functions/route.filter'
 import { routeGrouping } from '@routing/functions/route.grouping'
@@ -10,7 +11,7 @@ import { RoutingService } from '@routing/services/routing.service'
 
 @Component({
   selector: 'app-side-nav',
-  imports: [MatIconModule, RouterModule],
+  imports: [MatIconModule, RouterModule, SidebarButtonComponent],
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss',
 })
