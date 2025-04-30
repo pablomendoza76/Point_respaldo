@@ -23,7 +23,7 @@ export enum ICON_NAME {
   box = 'box',
   local_shipping = 'local_shipping',
   price_check = 'price_check',
-  // discount_percent = 'discount_percent',
+  discount_percent = 'discount_percent',
   person_book = 'person_book',
   table_view = 'table_view',
   corporate_fare = 'corporate_fare',

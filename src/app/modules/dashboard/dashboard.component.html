@@ -28,8 +28,8 @@
   <!-- Contenedor principal -->
   <div class="main-container">
     <aside class="main-container__sidebar-modules" [class.isExpanded]="sidebarOpen()">
-      <button type="button" (click)="toggleSidebar()" class="icon-button">
-        <i class="fa-solid fa-indent icon"></i>
+      <button #dashboard type="button" (click)="toggleSidebar()" class="icon-button">
+        <mat-icon svgIcon="dashboard"></mat-icon>
       </button>
 
       <div class="modules-container">

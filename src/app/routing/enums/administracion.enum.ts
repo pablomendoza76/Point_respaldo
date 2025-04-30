@@ -43,7 +43,7 @@ export const ROUTES_ADMINISTRACION: RouteProps[] = [
   { path: ROUTES_ENUM_ADMINISTRACION.productos, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Productos', icon: { name: ICON_NAME.box } },
   { path: ROUTES_ENUM_ADMINISTRACION.proveedores, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Proveedores', icon: { name: ICON_NAME.local_shipping } },
   { path: ROUTES_ENUM_ADMINISTRACION.tipos_pvp, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Tipos PVP', icon: { name: ICON_NAME.price_check } },
-  { path: ROUTES_ENUM_ADMINISTRACION.promociones, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Promociones' },
+  { path: ROUTES_ENUM_ADMINISTRACION.promociones, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Promociones', icon: { name: ICON_NAME.discount_percent } },
   { path: ROUTES_ENUM_ADMINISTRACION.clientes, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '2', name: 'Clientes', icon: { name: ICON_NAME.person_book } },
   { path: ROUTES_ENUM_ADMINISTRACION.cuentas_contables, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '3', name: 'Cuentas Contables', icon: { name: ICON_NAME.table_view } },
   { path: ROUTES_ENUM_ADMINISTRACION.empresa, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '4', name: 'Empresa', icon: { name: ICON_NAME.corporate_fare } },

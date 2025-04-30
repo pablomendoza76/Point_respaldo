@@ -1,4 +1,5 @@
 interface Filters {
+  omitEmptyPath: boolean
   omitRedirects: boolean
 }
 

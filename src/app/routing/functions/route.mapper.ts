@@ -2,7 +2,7 @@ import { Route } from '@angular/router'
 import { authGuard } from '@auth/functions/auth.guard'
 import { RouteProps } from '@routing/interfaces/route.interface'
 
-export function routeMapper(routes: RouteProps[]) {
+export function routeMapper(routes: RouteProps[]): Route[] {
   return [
     ...routes.map((route) => {
       return {
