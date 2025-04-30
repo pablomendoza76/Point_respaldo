@@ -26,5 +26,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnSaveMode": "modificationsIfAvailable",
-  "workbench.sideBar.location": "right"
+  "workbench.sideBar.location": "right",
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.experimental.configFile": "./src/styles.scss" // TailwindCSS v4.x
 }

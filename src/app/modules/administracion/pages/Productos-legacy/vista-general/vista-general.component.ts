@@ -15,14 +15,14 @@ import { take } from 'rxjs/operators'
 import { Producto } from '../../../Interfaces/Productos/producto.model'
 import { adaptarProducto } from '../../../mapping/producto.mapper'
 import { CuentasContablesService } from '../../../services/Cuentas_services/cuentas-contables.service'
+import { CategoriaService } from '../../../services/productos_services/categoria.service'
 import { MarcasService } from '../../../services/productos_services/marcas.service'
+import { SubcategoriaService } from '../../../services/productos_services/subcategoria.service'
 import { SubproductoService } from '../../../services/productos_services/subgrupos.service'
 import { TarifasService } from '../../../services/productos_services/tarifas.service'
 import { TipoProductoService } from '../../../services/productos_services/tipo-producto.service'
 import { ImpuestosService } from '../../../services/servicios_sin_identificra/Impuestos.service'
 import { RegimenService } from '../../../services/servicios_sin_identificra/regimen.service'
-import { CategoriaService } from '../../../services/productos_services/categoria.service'
-import { SubcategoriaService } from '../../../services/productos_services/subcategoria.service'
 
 @Component({
   selector: 'app-vista-general',
@@ -43,7 +43,7 @@ export class VistaGeneralComponent implements OnInit {
   productoSeleccionado: Producto | null = null
   bloquesFormulario: any[] = []
   modoEdicion = true
-  mostrandoSpinner: boolean = false;
+  mostrandoSpinner: boolean = false
 
   marcas: any[] = []
   grupos: any[] = []
@@ -84,20 +84,14 @@ export class VistaGeneralComponent implements OnInit {
     private impuestosService: ImpuestosService,
     private cdr: ChangeDetectorRef,
     private categoriaService: CategoriaService,
-    private subcategoriaService: SubcategoriaService
+    private subcategoriaService: SubcategoriaService,
   ) {}
 
   async ngOnInit(): Promise<void> {
     this.productosVisibles$ = this.store.pipe(select(selectProductos))
     this.productosFiltrados$ = this.store.pipe(select(selectProductosVisibles))
-    await adaptarProducto.cargarOpcionesGlobales(
-      this.adminService,
-      this.regimenService,
-      this.impuestosService,
-      this.categoriaService,
-      this.subcategoriaService
-    )
-    
+    await adaptarProducto.cargarOpcionesGlobales(this.adminService, this.regimenService, this.impuestosService, this.categoriaService, this.subcategoriaService)
+
     this.cargarProductos(1, this.limiteCargado)
     this.cargarOpciones()
   }
@@ -208,30 +202,30 @@ export class VistaGeneralComponent implements OnInit {
   }
 
   onFiltrosAplicados(filtros: { [key: string]: string }): void {
-    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }));
+    this.store.dispatch(setFiltrosDinamicos({ filtrosDinamicos: filtros }))
 
-    let intento = 0;
-    const maxIntentos = 10; // Para evitar loops infinitos
+    let intento = 0
+    const maxIntentos = 10 // Para evitar loops infinitos
 
     const intentarCargarMasProductos = () => {
       this.productosFiltrados$.pipe(take(1)).subscribe((productosFiltrados: Producto[]) => {
         if (productosFiltrados.length > 0 || this.limiteCargado >= this.totalRegistros || intento >= maxIntentos) {
-          this.mostrandoSpinner = false;
-          return;
+          this.mostrandoSpinner = false
+          return
         }
 
-        intento++;
-        const nuevoLimite = Math.min(this.limiteCargado + 100, this.totalRegistros);
-        this.cargarProductos(1, nuevoLimite);
+        intento++
+        const nuevoLimite = Math.min(this.limiteCargado + 100, this.totalRegistros)
+        this.cargarProductos(1, nuevoLimite)
 
         setTimeout(() => {
-          intentarCargarMasProductos();
-        }, 100);
-      });
-    };
+          intentarCargarMasProductos()
+        }, 100)
+      })
+    }
 
-    this.mostrandoSpinner = true;
-    intentarCargarMasProductos();
+    this.mostrandoSpinner = true
+    intentarCargarMasProductos()
   }
 
   onColumnasActualizadas(columnas: any[]): void {

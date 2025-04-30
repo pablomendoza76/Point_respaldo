@@ -1,4 +1,5 @@
 export enum ICON_NAME {
+  // MARK: routing
   // nav
   'grid_view-fill' = 'grid_view-fill',
   notifications = 'notifications',
@@ -11,18 +12,18 @@ export enum ICON_NAME {
   home = 'home',
   dashboard = 'dashboard',
 
+  // MARK: modules
   // administracion
   home_storage = 'home_storage',
   bookmark = 'bookmark',
   category = 'category',
   workspaces = 'workspaces',
   chat = 'chat',
-
   // administracion-productos
   box = 'box',
   local_shipping = 'local_shipping',
   price_check = 'price_check',
-  // discount_percent = 'discount_percent',
+  discount_percent = 'discount_percent',
   person_book = 'person_book',
   table_view = 'table_view',
   corporate_fare = 'corporate_fare',
@@ -39,6 +40,22 @@ export enum ICON_NAME {
 
   // Notifications
   system_update_alt = 'system_update_alt',
+
+  // logistica
+  route = 'route',
+  activity_zone = 'activity_zone',
+  'road-map' = 'road-map',
+  // 'local_shipping' = 'local_shipping',
+  badge = 'badge',
+  storefront = 'storefront',
+  // logistica-zonas-rutas
+  zoom_in_map = 'zoom_in_map',
+  guide = 'guide',
+  schedule = 'schedule',
+  table_convert = 'table_convert',
+  // logistica-operaciones
+  two_pager_store = 'two_pager_store',
+  assignment_turned_in = 'assignment_turned_in',
 
   // Asisntencia modal
   sms = 'sms',

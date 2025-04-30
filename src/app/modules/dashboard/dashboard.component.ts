@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component, computed, OnInit, signal } from '@angular/core'
+import { MatIconModule } from '@angular/material/icon'
 import { Router, RouterModule } from '@angular/router'
 import { BusinessStat, Module, Notification, NotificationGroup, TopProduct } from '@modules/administracion/Interfaces/billing-sof-admin/adminDashboard'
 import { DashboardService } from '@modules/administracion/services/dashboard.service'
-import { ModulosTarjetasComponent } from '@reusables/modulos-tarjetas/modulos-tarjetas.component'
+import { MODULE_ROUTES } from '@routing/enums/modules.enum'
+import { RouteProps } from '@routing/interfaces/route.interface'
 import { Chart } from 'chart.js/auto'
 
 @Component({
@@ -11,7 +13,7 @@ import { Chart } from 'chart.js/auto'
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  imports: [CommonModule, RouterModule, ModulosTarjetasComponent],
+  imports: [MatIconModule, CommonModule, RouterModule],
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   businessStats = signal<Record<string, BusinessStat>>({})
@@ -21,45 +23,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   searchQuery = signal<string>('')
   topProducts = signal<TopProduct[]>([])
   sidebarOpen = signal<boolean>(false)
+  supportPopupOpen = signal<boolean>(false)
 
-  allModules: Module[] = [
-    {
-      name: 'Administración',
-      icon: 'page_info',
-      path: 'administracion',
-    },
-    {
-      name: 'Ventas',
-      icon: 'shopping_bag',
-      path: 'ventas',
-    },
-    {
-      name: 'Facturación Electrónica',
-      icon: 'assignment',
-      path: 'facturacion_electronica',
-    },
-    {
-      name: 'Gestión de Pedidos',
-      icon: 'stacks',
-      path: 'gestion_pedidos',
-    },
-    {
-      name: 'Logística',
-      icon: 'route',
-      path: 'logistica',
-    },
-    {
-      name: 'Reporteria',
-      icon: 'browse_activity',
-      path: 'reporteria',
-    },
-    {
-      name: 'Compras y Reposición',
-      icon: 'receipt_long',
-      path: 'compas_reposicion',
-    },
-  ]
-  filteredModules = computed(() => (this.searchQuery() ? this.allModules.filter((m) => m.name.toLowerCase().includes(this.searchQuery())) : this.allModules))
+  allModules: RouteProps[] = MODULE_ROUTES
+  filteredModules = computed(() => (this.searchQuery() ? this.allModules.filter((m) => m.name && m.name.toLowerCase().includes(this.searchQuery())) : this.allModules))
 
   constructor(private dashboardService: DashboardService, private router: Router) {}
 
@@ -163,8 +130,12 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  navigateTo(path: string): void {
-    this.router.navigate(['dashboard', path])
+  highlightModule(module: Module): void {
+    module.selected = true
+  }
+
+  unhighlightModule(module: Module): void {
+    module.selected = false
   }
 
   groupNotificationsByDate(): void {

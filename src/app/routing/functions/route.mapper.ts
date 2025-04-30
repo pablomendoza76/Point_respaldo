@@ -1,13 +1,15 @@
+import { Route } from '@angular/router'
 import { authGuard } from '@auth/functions/auth.guard'
 import { RouteProps } from '@routing/interfaces/route.interface'
 
-export function routeMapper(routes: RouteProps[]) {
+export function routeMapper(routes: RouteProps[]): Route[] {
   return [
     ...routes.map((route) => {
       return {
+        canActivate: [authGuard],
         path: route.path,
         component: route.comp,
-        canActivate: [authGuard],
+        canActivateChild: [authGuard],
         children: !!route.children
           ? [
               ...route.children.map((route) => {
@@ -16,7 +18,7 @@ export function routeMapper(routes: RouteProps[]) {
               }),
             ]
           : [],
-      }
+      } as Route
     }),
   ]
 }

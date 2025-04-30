@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "npx ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "omit:ide": "git update-index --assume-unchanged .vscode/settings.json",
+    "index:ide": "git update-index --no-assume-unchanged .vscode/settings.json"
   },
   "private": true,
   "dependencies": {
