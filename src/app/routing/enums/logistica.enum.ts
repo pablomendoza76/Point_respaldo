@@ -18,38 +18,42 @@ export enum ROUTES_ENUM_ADMINISTRACION {
   configuracion = 'configuracion',
 }
 
-export const ROUTES_ADMINISTRACION_PRODUCTOS: RouteProps[] = [
-  {
-    icon: { name: ICON_NAME['grid_view-fill'] } as IconProps,
-    name: 'Gestión de Productos',
-    path: 'gestion-productos',
-    comp: VistaGeneralComponent,
-  },
-  { icon: { name: ICON_NAME.bookmark } as IconProps, name: 'Marcas', path: 'marcas', comp: MarcasComponent },
-  { icon: { name: ICON_NAME.category } as IconProps, name: 'Tipos de Productos', path: 'tipos-productos', comp: TiposProductosComponent },
-  { icon: { name: ICON_NAME.home_storage } as IconProps, name: 'Categorías', path: 'categorias', comp: TarifasPorGrupoComponent },
-  { icon: { name: ICON_NAME.workspaces } as IconProps, name: 'Grupos de Productos', path: 'grupos-productos', comp: TiposProductosComponent },
-  { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
-  { path: '', redirectTo: 'gestion-productos', pathMatch: 'full' },
-]
-
-export const ROUTES_ADMINISTRACION_PROVEEDORES: RouteProps[] = [
-  { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
-]
-
-// MARK: ROOT
-export const ROUTES_LOGISTICA: RouteProps[] = [
-  // Productos
-  { path: ROUTES_ENUM_ADMINISTRACION.productos, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Productos', icon: { name: ICON_NAME.box } },
-  // Proveedores
-
-  { path: '', redirectTo: ROUTES_ENUM_ADMINISTRACION.productos, pathMatch: 'full' },
-]
-
 export const ROOT_LOGISTICA: RouteProps = {
   name: 'Logística',
   path: 'logistica',
   comp: HomeComponent,
   icon: { name: 'page_info' },
-  children: ROUTES_LOGISTICA,
+  children: [
+    {
+      path: ROUTES_ENUM_ADMINISTRACION.productos,
+      grupo: '1',
+      name: 'Productos',
+      icon: { name: ICON_NAME.box },
+      children: [
+        {
+          icon: { name: ICON_NAME['grid_view-fill'] } as IconProps,
+          name: 'Gestión de Productos',
+          path: 'gestion-productos',
+          comp: VistaGeneralComponent,
+        },
+        { icon: { name: ICON_NAME.bookmark } as IconProps, name: 'Marcas', path: 'marcas', comp: MarcasComponent },
+        { icon: { name: ICON_NAME.category } as IconProps, name: 'Tipos de Productos', path: 'tipos-productos', comp: TiposProductosComponent },
+        { icon: { name: ICON_NAME.home_storage } as IconProps, name: 'Categorías', path: 'categorias', comp: TarifasPorGrupoComponent },
+        { icon: { name: ICON_NAME.workspaces } as IconProps, name: 'Grupos de Productos', path: 'grupos-productos', comp: TiposProductosComponent },
+        { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
+        { path: '', redirectTo: 'gestion-productos', pathMatch: 'full' },
+      ],
+    },
+    {
+      path: ROUTES_ENUM_ADMINISTRACION.proveedores,
+      grupo: '1',
+      name: 'Proveedores',
+      icon: { name: ICON_NAME.local_shipping },
+      children: [
+        { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
+        { path: '', redirectTo: 'productos-infaltables', pathMatch: 'full' },
+      ],
+    },
+    { path: '', redirectTo: ROUTES_ENUM_ADMINISTRACION.productos, pathMatch: 'full' },
+  ],
 }

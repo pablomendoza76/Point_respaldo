@@ -10,53 +10,56 @@ import { RouteProps } from '@routing/interfaces/route.interface'
 export enum ROUTES_ENUM_ADMINISTRACION {
   productos = 'productos',
   proveedores = 'proveedores',
-  tipos_pvp = 'tipos-pvp',
+  'tipos-pvp' = 'tipos-pvp',
   promociones = 'promociones',
   clientes = 'clientes',
-  cuentas_contables = 'cuentas-contables',
+  'cuentas-contables' = 'cuentas-contables',
   empresa = 'empresa',
   configuracion = 'configuracion',
 }
-
-export const ROUTES_ADMINISTRACION_PRODUCTOS: RouteProps[] = [
-  {
-    icon: { name: ICON_NAME['grid_view-fill'] } as IconProps,
-    name: 'Gestión de Productos',
-    path: 'gestion-productos',
-    comp: VistaGeneralComponent,
-  },
-  { icon: { name: ICON_NAME.bookmark } as IconProps, name: 'Marcas', path: 'marcas', comp: MarcasComponent },
-  { icon: { name: ICON_NAME.category } as IconProps, name: 'Tipos de Productos', path: 'tipos-productos', comp: TiposProductosComponent },
-  { icon: { name: ICON_NAME.home_storage } as IconProps, name: 'Categorías', path: 'categorias', comp: TarifasPorGrupoComponent },
-  { icon: { name: ICON_NAME.workspaces } as IconProps, name: 'Grupos de Productos', path: 'grupos-productos', comp: TiposProductosComponent },
-  { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
-  { path: '', redirectTo: 'gestion-productos', pathMatch: 'full' },
-]
-
-export const ROUTES_ADMINISTRACION_PROVEEDORES: RouteProps[] = [
-  { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
-]
-
-// MARK: ROOT
-export const ROUTES_ADMINISTRACION: RouteProps[] = [
-  // Productos
-  { path: ROUTES_ENUM_ADMINISTRACION.productos, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Productos', icon: { name: ICON_NAME.box } },
-  { path: ROUTES_ENUM_ADMINISTRACION.proveedores, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Proveedores', icon: { name: ICON_NAME.local_shipping } },
-  { path: ROUTES_ENUM_ADMINISTRACION.tipos_pvp, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Tipos PVP', icon: { name: ICON_NAME.price_check } },
-  { path: ROUTES_ENUM_ADMINISTRACION.promociones, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '1', name: 'Promociones', icon: { name: ICON_NAME.discount_percent } },
-  { path: ROUTES_ENUM_ADMINISTRACION.clientes, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '2', name: 'Clientes', icon: { name: ICON_NAME.person_book } },
-  { path: ROUTES_ENUM_ADMINISTRACION.cuentas_contables, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '3', name: 'Cuentas Contables', icon: { name: ICON_NAME.table_view } },
-  { path: ROUTES_ENUM_ADMINISTRACION.empresa, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '4', name: 'Empresa', icon: { name: ICON_NAME.corporate_fare } },
-  { path: ROUTES_ENUM_ADMINISTRACION.configuracion, children: ROUTES_ADMINISTRACION_PRODUCTOS, grupo: '4', name: 'Configuración', icon: { name: ICON_NAME.settings } },
-  // Proveedores
-
-  { path: '', redirectTo: ROUTES_ENUM_ADMINISTRACION.productos, pathMatch: 'full' },
-]
 
 export const ROOT_ADMINISTRACION: RouteProps = {
   name: 'Administración',
   path: 'administracion',
   comp: HomeComponent,
   icon: { name: 'page_info' },
-  children: ROUTES_ADMINISTRACION,
+  children: [
+    {
+      path: ROUTES_ENUM_ADMINISTRACION.productos,
+      grupo: '1',
+      name: 'Productos',
+      icon: { name: ICON_NAME.box },
+      children: [
+        {
+          icon: { name: ICON_NAME['grid_view-fill'] } as IconProps,
+          name: 'Gestión de Productos',
+          path: 'gestion-productos',
+          comp: VistaGeneralComponent,
+        },
+        { icon: { name: ICON_NAME.bookmark } as IconProps, name: 'Marcas', path: 'marcas', comp: MarcasComponent },
+        { icon: { name: ICON_NAME.category } as IconProps, name: 'Tipos de Productos', path: 'tipos-productos', comp: TiposProductosComponent },
+        { icon: { name: ICON_NAME.home_storage } as IconProps, name: 'Categorías', path: 'categorias', comp: TarifasPorGrupoComponent },
+        { icon: { name: ICON_NAME.workspaces } as IconProps, name: 'Grupos de Productos', path: 'grupos-productos', comp: TiposProductosComponent },
+        { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
+        { path: '', redirectTo: 'gestion-productos', pathMatch: 'full' },
+      ],
+    },
+    {
+      path: ROUTES_ENUM_ADMINISTRACION.proveedores,
+      grupo: '1',
+      name: 'Proveedores',
+      icon: { name: ICON_NAME.local_shipping },
+      children: [
+        { icon: { name: ICON_NAME.chat } as IconProps, name: 'Productos Infaltables', path: 'productos-infaltables', comp: TiposProductosComponent },
+        { path: '', redirectTo: 'productos-infaltables', pathMatch: 'full' },
+      ],
+    },
+    { path: ROUTES_ENUM_ADMINISTRACION['tipos-pvp'], grupo: '1', name: 'Tipos PVP', icon: { name: ICON_NAME.price_check }, children: [] },
+    { path: ROUTES_ENUM_ADMINISTRACION.promociones, grupo: '1', name: 'Promociones', icon: { name: ICON_NAME.discount_percent }, children: [] },
+    { path: ROUTES_ENUM_ADMINISTRACION.clientes, grupo: '2', name: 'Clientes', icon: { name: ICON_NAME.person_book }, children: [] },
+    { path: ROUTES_ENUM_ADMINISTRACION['cuentas-contables'], grupo: '3', name: 'Cuentas Contables', icon: { name: ICON_NAME.table_view }, children: [] },
+    { path: ROUTES_ENUM_ADMINISTRACION.empresa, grupo: '4', name: 'Empresa', icon: { name: ICON_NAME.corporate_fare }, children: [] },
+    { path: ROUTES_ENUM_ADMINISTRACION.configuracion, grupo: '4', name: 'Configuración', icon: { name: ICON_NAME.settings }, children: [] },
+    { path: '', redirectTo: ROUTES_ENUM_ADMINISTRACION.productos, pathMatch: 'full' },
+  ],
 }
