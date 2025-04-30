@@ -11,6 +11,7 @@ export enum ICON_NAME {
   right_panel_open = 'right_panel_open',
   home = 'home',
   dashboard = 'dashboard',
+  search = 'search',
 
   // MARK: modules
   // administracion

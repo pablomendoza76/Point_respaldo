@@ -1,1 +1,33 @@
-<p>home works!</p>
+<!-- Breadcrumb -->
+<div class="flex items-center gap-2 px-8 my-6">
+    <a href="/dashboard/gestion-pedidos" class="flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full text-text-600 hover:bg-neutral-200">
+        <mat-icon svgIcon="home"></mat-icon>
+    </a>
+
+    <p class="flex gap-2 text-xs font-normal text-text-500">
+        Gestión de Ventas /
+        <strong class="font-medium">
+            Menu
+        </strong>
+    </p>
+</div>
+
+<div class="px-8 mb-6">
+    <div class="flex h-[3rem] w-[28.25rem] rounded-full border overflow-hidden border-neutral-200 bg-white has-focus:outline-2 has-focus:outline-primary-50">
+        <input type="text" placeholder="¿Estas buscando un descuento?" class="flex-1 px-4 text-sm font-normal appearance-none placeholder:text-[#9e9e9e] focus:outline-none">
+
+        <button class="h-full border-l w-18 border-l-neutral-200 text-text-500 bg-neutral-50">
+            <mat-icon svgIcon="search"></mat-icon>
+        </button>
+    </div>
+</div>
+
+<div class="flex flex-wrap gap-6 px-8">
+    @for (module of childrenModules; track $index) {
+        <app-home-module-card
+            [path]=" module.path || '' " 
+            [iconName]=" module.icon?.name || '' "
+            [moduleName]=" module.name || '' "
+        />
+    }
+</div>

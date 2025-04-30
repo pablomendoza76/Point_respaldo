@@ -29,6 +29,5 @@ export const ROOT_GESTION_PEDIDOS: RouteProps = {
       icon: { name: ICON_NAME.assignment },
       comp: FacturacionComponent,
     },
-    { path: '', redirectTo: ROUTES_ENUM_GESTION_PEDIDOS.pedidos, pathMatch: 'full' },
   ],
 }

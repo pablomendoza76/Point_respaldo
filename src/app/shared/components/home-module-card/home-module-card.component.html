@@ -1,0 +1,13 @@
+<a
+  [routerLink]="path()"
+  link
+  class="group flex h-[13.75rem] w-[12.5rem] flex-col items-center justify-center gap-4 p-4 cursor-pointer rounded-lg border border-neutral-200 bg-white card_shadow"
+>
+  <span class="flex h-[4.75rem] w-[4.75rem] items-center justify-center rounded-lg text-text-600 group-hover:text-white group-hover:bg-primary-600">
+    <mat-icon [svgIcon]="iconName()" style="height: 52px; width: auto"></mat-icon>
+  </span>
+
+  <p class="text-lg font-medium text-text-950 group-hover:text-primary-900">
+    {{ moduleName() }}
+  </p>
+</a>
