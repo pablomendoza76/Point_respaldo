@@ -7,9 +7,11 @@
 >
   <mat-icon [svgIcon]="iconName()" style="height: 20px; width: auto"></mat-icon>
 
-  <span class="absolute top-0 hidden h-full px-4 left-full bg-complementary-950 text-text-50 group-hover:block">
-    {{ moduleName() }}
-  </span>
+  <div class="absolute left-full top-0 justify-center hidden group-hover:flex">
+    <span class="px-4 py-1.5 rounded-lg bg-complementary-950 text-text-50">
+      {{ moduleName() }}
+    </span>
+  </div>
 </a>
 } @else {
 <a
