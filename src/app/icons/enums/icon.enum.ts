@@ -17,6 +17,7 @@ export enum ICON_NAME {
   tune = 'tune',
   arrow_drop_down = 'arrow_drop_down',
   calendar_today = 'calendar_today',
+  close = 'close',
 
   // MARK: modules
   // administracion

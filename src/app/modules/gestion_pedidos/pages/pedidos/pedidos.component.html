@@ -17,21 +17,27 @@
     <div class="flex flex-col px-8 mb-6">
         <div class="flex items-center justify-between">
             <!-- Left: searchbar and filter button -->
-            <div class="flex gap-4">
-                <div class="flex h-[3rem] w-[28.25rem] rounded-full border overflow-hidden border-neutral-200 bg-white has-focus:outline-2 has-focus:outline-primary-50">
-                    <input type="text" placeholder="¿Estas buscando un descuento?" class="flex-1 px-4 text-sm font-normal appearance-none placeholder:text-[#9e9e9e] focus:outline-none">
-            
-                    <button class="h-full border-l w-18 border-l-neutral-200 text-text-500 bg-neutral-50">
-                        <mat-icon svgIcon="search"></mat-icon>
-                    </button>
+            <div class="flex items-end gap-4">
+                <div>
+                    <p class="text-sm leading-6.5 font-medium text-text-600">
+                        Buscar cliente
+                    </p>
+
+                    <div class="flex h-[3rem] w-[28.25rem] rounded-full border overflow-hidden border-neutral-200 bg-white has-focus:outline-2 has-focus:outline-primary-50">
+                        <input type="text" placeholder="¿Estas buscando un descuento?" class="flex-1 px-4 text-sm font-normal appearance-none placeholder:text-[#9e9e9e] focus:outline-none">
+                
+                        <button class="h-full border-l w-18 border-l-neutral-200 text-text-500 bg-neutral-50">
+                            <mat-icon svgIcon="search"></mat-icon>
+                        </button>
+                    </div>
                 </div>
         
                 <button type="button" (click)="toggleFilters()" class="group relative flex h-[3rem] w-[3rem] items-center justify-center rounded-full cursor-pointer border text-text-600 border-neutral-200 bg-white button-shadow">
-                    <mat-icon svgIcon="tune"></mat-icon>
+                    <mat-icon [svgIcon]="isFiltersOpen() ? 'close' : 'tune'"></mat-icon>
         
                     <div class="absolute left-0 justify-center hidden w-full bottom-full group-hover:flex">
                         <span class="px-5 py-2 text-base font-medium rounded-md shrink-0 text-text-50 bg-complementary-950">
-                            Filtros
+                            {{ isFiltersOpen() ? 'Ocultar filtros' : 'Ver filtros' }}
                         </span>
                     </div>
                 </button>
@@ -97,7 +103,7 @@
     <!-- Table Container -->
     <div class="flex flex-col flex-1 gap-2 px-8 pb-8">
         <!-- Table -->
-        <div class="flex-1 bg-white rounded-xl"></div>
+        <div class="flex-1 max-h-[37.5rem] bg-white rounded-xl"></div>
 
         <!-- Table Options -->
         <div class="shrink-0 flex items-center justify-between text-sm font-normal text-text-600">
