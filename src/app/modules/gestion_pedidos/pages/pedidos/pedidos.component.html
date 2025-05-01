@@ -1,46 +1,136 @@
-<div class="flex items-center gap-2 px-8 my-6">
-    <a href="/dashboard/gestion-pedidos" class="flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full text-text-600 hover:bg-neutral-200">
-        <mat-icon svgIcon="home"></mat-icon>
-    </a>
+<div class="flex flex-col h-full">
+    <!-- Breadcrumbs -->
+    <div class="flex items-center gap-2 px-8 my-6">
+        <a href="/dashboard/gestion-pedidos" class="flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full text-text-600 hover:bg-neutral-200">
+            <mat-icon svgIcon="home"></mat-icon>
+        </a>
 
-    <p class="flex gap-2 text-xs font-normal text-text-500">
-        Gestión de Ventas /
-        <strong class="font-medium">
-            Pedidos
-        </strong>
-    </p>
-</div>
-
-<div class="flex items-center justify-between px-8 mb-6">
-    <div class="flex gap-4">
-        <div class="flex h-[3rem] w-[28.25rem] rounded-full border overflow-hidden border-neutral-200 bg-white has-focus:outline-2 has-focus:outline-primary-50">
-            <input type="text" placeholder="¿Estas buscando un descuento?" class="flex-1 px-4 text-sm font-normal appearance-none placeholder:text-[#9e9e9e] focus:outline-none">
-    
-            <button class="h-full border-l w-18 border-l-neutral-200 text-text-500 bg-neutral-50">
-                <mat-icon svgIcon="search"></mat-icon>
-            </button>
-        </div>
-
-        <button type="button" class="group relative flex h-[3rem] w-[3rem] items-center justify-center rounded-full cursor-pointer border text-text-600 border-neutral-200 bg-white button-shadow">
-            <mat-icon svgIcon="tune"></mat-icon>
-
-            <div class="absolute left-0 justify-center hidden w-full bottom-full group-hover:flex">
-                <span class="px-5 py-2 text-base font-medium rounded-md shrink-0 text-text-50 bg-complementary-950">
-                    Filtros
-                </span>
-            </div>
-        </button>
+        <p class="flex gap-2 text-xs font-normal text-text-500">
+            Gestión de Ventas /
+            <strong class="font-medium">
+                Pedidos
+            </strong>
+        </p>
     </div>
 
-    <div class="flex gap-4">
-        <button type="button" class="flex h-[2.5rem] items-center gap-2 px-5 text-sm font-medium rounded-full cursor-pointer text-text-50 bg-[#218C52] hover:bg-[#2AB268] button-shadow">
-            <mat-icon svgIcon="download"></mat-icon>
-            Excel
-        </button>
+    <!-- Table Options -->
+    <div class="flex flex-col px-8 mb-6">
+        <div class="flex items-center justify-between">
+            <!-- Left: searchbar and filter button -->
+            <div class="flex gap-4">
+                <div class="flex h-[3rem] w-[28.25rem] rounded-full border overflow-hidden border-neutral-200 bg-white has-focus:outline-2 has-focus:outline-primary-50">
+                    <input type="text" placeholder="¿Estas buscando un descuento?" class="flex-1 px-4 text-sm font-normal appearance-none placeholder:text-[#9e9e9e] focus:outline-none">
+            
+                    <button class="h-full border-l w-18 border-l-neutral-200 text-text-500 bg-neutral-50">
+                        <mat-icon svgIcon="search"></mat-icon>
+                    </button>
+                </div>
+        
+                <button type="button" (click)="toggleFilters()" class="group relative flex h-[3rem] w-[3rem] items-center justify-center rounded-full cursor-pointer border text-text-600 border-neutral-200 bg-white button-shadow">
+                    <mat-icon svgIcon="tune"></mat-icon>
+        
+                    <div class="absolute left-0 justify-center hidden w-full bottom-full group-hover:flex">
+                        <span class="px-5 py-2 text-base font-medium rounded-md shrink-0 text-text-50 bg-complementary-950">
+                            Filtros
+                        </span>
+                    </div>
+                </button>
+            </div>
+        
+            <!-- Right: buttons -->
+            <div class="flex gap-4">
+                <button type="button" class="flex h-[2.5rem] items-center gap-2 px-5 text-sm font-medium rounded-full cursor-pointer text-text-50 bg-[#218C52] hover:bg-[#2AB268] button-shadow">
+                    <mat-icon svgIcon="download"></mat-icon>
+                    Excel
+                </button>
+        
+                <button type="button" disabled class="flex h-[2.5rem] items-center gap-2 px-5 text-sm font-medium rounded-full cursor-pointer text-text-50 bg-primary-600 disabled:text-[#9e9e9e] disabled:cursor-auto disabled:bg-neutral-200/40">
+                    <mat-icon svgIcon="sync_alt"></mat-icon>
+                    Convertir a Facturas
+                </button>
+            </div>
+        </div>
 
-        <button type="button" disabled class="flex h-[2.5rem] items-center gap-2 px-5 text-sm font-medium rounded-full cursor-pointer text-text-50 bg-primary-600 disabled:text-[#9e9e9e] disabled:cursor-auto disabled:bg-neutral-200/40">
-            <mat-icon svgIcon="sync_alt"></mat-icon>
-            Convertir a Facturas
-        </button>
+        <!-- Filters -->
+        <div class="transition-all duration-700 w-full overflow-hidden {{isFiltersOpen() ? 'h-15' : 'h-0'}}">
+            <div class="flex items-center gap-4 mt-5">
+                <div class="flex h-10 items-center gap-2 pl-4 pr-2 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    Zona
+                    <mat-icon svgIcon="arrow_drop_down" style="color: #D51F36;"></mat-icon>
+                </div>
+        
+                <div class="flex h-10 items-center gap-2 pl-4 pr-2 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    Ruta
+                    <mat-icon svgIcon="arrow_drop_down" style="color: #D51F36;"></mat-icon>
+                </div>
+        
+                <div class="flex h-10 items-center gap-2 pl-4 pr-2 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    Vendedor
+                    <mat-icon svgIcon="arrow_drop_down" style="color: #D51F36;"></mat-icon>
+                </div>
+                
+                <div class="h-10 w-[0.063rem] bg-neutral-200"></div>
+        
+                <div class="flex h-10 items-center gap-2 pl-4 pr-2 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    Estado de pedido
+                    <mat-icon svgIcon="arrow_drop_down" style="color: #D51F36;"></mat-icon>
+                </div>
+        
+                <div class="flex h-10 items-center gap-2 pl-4 pr-2 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    Tipo de venta
+                    <mat-icon svgIcon="arrow_drop_down" style="color: #D51F36;"></mat-icon>
+                </div>
+        
+                <div class="flex h-10 items-center gap-2 pl-4 pr-2 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    Estado de CxC
+                    <mat-icon svgIcon="arrow_drop_down" style="color: #D51F36;"></mat-icon>
+                </div>
+        
+                <div class="flex h-10 items-center gap-2 px-4 text-sm font-normal rounded-lg border text-[#9e9e9e] border-neutral-200 bg-white">
+                    <mat-icon svgIcon="calendar_today" style="color: #D51F36;"></mat-icon>
+                    dd/mm/yyyy
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="flex flex-col flex-1 gap-2 px-8 pb-8">
+        <!-- Table -->
+        <div class="flex-1 bg-white rounded-xl"></div>
+
+        <!-- Table Options -->
+        <div class="shrink-0 flex items-center justify-between text-sm font-normal text-text-600">
+            <!-- Limit view -->
+            <div class="flex items-center gap-5">
+                <strong class="font-medium">Mostrar</strong>
+
+                <div class="flex h-8 w-20 items-center rounded-lg border border-neutral-200 overflow-hidden">
+                    <p class="flex flex-1 items-center justify-center bg-white h-full">
+                        10
+                    </p>
+                    <div class="flex h-8 w-8 justify-center items-center text-primary-600 border-l border-l-neutral-200 bg-neutral-50">
+                        <mat-icon svgIcon="arrow_drop_down"></mat-icon>
+                    </div>
+                </div>
+
+                Mostrando del 1 al 10 resgistro de 2450
+            </div>
+
+            <!-- Pagination buttons -->
+            <div class="flex h-8 text-sm font-normal rounded-lg overflow-hidden border text-text-600 border-neutral-200">
+                <button type="button" class="h-full w-24 bg-white">
+                    Previa
+                </button>
+                
+                <p class="flex font-medium items-center h-full w-20 justify-center border-x text-primary-600 border-x-neutral-200">
+                    1 / 72
+                </p>
+
+                <button type="button" class="h-full w-24 bg-white">
+                    Siguiente
+                </button>
+            </div>
+        </div>
     </div>
 </div>

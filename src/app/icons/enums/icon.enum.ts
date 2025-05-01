@@ -15,6 +15,8 @@ export enum ICON_NAME {
   download = 'download',
   sync_alt = 'sync_alt',
   tune = 'tune',
+  arrow_drop_down = 'arrow_drop_down',
+  calendar_today = 'calendar_today',
 
   // MARK: modules
   // administracion

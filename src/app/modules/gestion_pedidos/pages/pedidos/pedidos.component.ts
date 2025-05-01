@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core'
 import { MatIconModule } from '@angular/material/icon'
 
 @Component({
@@ -7,4 +7,10 @@ import { MatIconModule } from '@angular/material/icon'
   templateUrl: './pedidos.component.html',
   styleUrl: './pedidos.component.scss',
 })
-export class PedidosComponent {}
+export class PedidosComponent {
+  isFiltersOpen = signal(false)
+
+  toggleFilters() {
+    this.isFiltersOpen.update((prev) => !prev)
+  }
+}
