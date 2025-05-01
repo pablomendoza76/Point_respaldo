@@ -1,38 +1,61 @@
-<nav class="flex h-screen bg-white border-gray-500 text-red-pp-500 border-r-1">
-  @if(currentRoute && groups && groups.length > 0) {
-  <div class="{{ !isSideNavCollapsed ? 'min-w-[16vw] w-[16vw] flex-1' : '' }} flex flex-col">
-    <header class="w-full flex justify-center items-center border-b-1 border-gray-500 h-[7vh]">
-      <a routerLink="/dashboard" class="{{ !isSideNavCollapsed ? 'h-[5vh]' : 'h-[5.5vh]' }} flex w-fit">
-        <img src="/svg/logo-billingsof-{{ !isSideNavCollapsed ? 'imagotipo' : 'isotipo' }}.svg" alt="Logo horizontal BillingSof" />
-      </a>
-    </header>
-    <div class="flex flex-col items-center justify-center flex-1 py-2 bg-gray-300 border-gray-500 border-b-1">
-      <a class="flex items-center justify-center" [routerLink]="[currentRoute.path]">
-        <mat-icon svgIcon="{{ currentRoute.icon?.name }}" style="width: 70px; height: 70px"></mat-icon>
-      </a>
-      @if (!isSideNavCollapsed) {
-      <span>{{ currentRoute.name }}</span>
-      }
+<aside class="flex h-screen border-r border-r-neutral-200 bg-white">
+  <!-- Main group -->
+  <div class="flex {{ isSideNavCollapsed ? 'w-[4.5rem]' : 'w-[15.5rem]' }} flex-col justify-between">
+    <div>
+      <!-- Logo -->
+       <div class="flex h-[3.75rem] w-full items-center justify-center border-b border-b-neutral-200">
+          <a routerLink="/dashboard">
+            <img src="/svg/logo-billingsof-{{ !isSideNavCollapsed ? 'imagotipo' : 'isotipo' }}.svg" alt="Logo horizontal Billingsof" class="h-12 w-auto">
+          </a>
+       </div>
+  
+       <!-- Module icon -->
+        <div class="flex h-[8.75rem] w-full flex-col items-center justify-center border-b-[0.125rem] text-primary-600 border-b-neutral-200 bg-neutral-50">
+          <a [routerLink]="[currentRoute?.path]">
+            <mat-icon [svgIcon]=" currentRoute?.icon?.name || '' " style="height: 50px; width: auto;"></mat-icon>
+          </a>
+          @if (!isSideNavCollapsed) {
+            <p class="text-lg font-meidum leading-7.5">
+              {{ currentRoute?.name }}
+            </p>
+          }
+        </div>
+  
+        <!-- Routes -->
+        @if (currentRoute && groups && groups.length > 0) {
+          <nav>
+            @for (group of groups; track $index) {
+              <div class="mx-auto flex w-fit flex-col items-center gap-2 py-3 border-b border-b-neutral-200">
+                @for (route of group; track $index) {
+                  <c-sidebar-button
+                    [collapsed]="isSideNavCollapsed"
+                    [path]="[currentRoute.path || '', route.path || '']"
+                    [iconName]="route.icon?.name || ''"
+                    [moduleName]="route.name || ''"
+                  />
+                }
+              </div>
+            }
+          </nav>
+        }
     </div>
-    <div class="flex flex-col items-center gap-2 p-3 text-gray-500 flex-7">
-      @for (group of groups; track $index) {
-      <!-- each group -->
-      @for (item of group; track $index) {
-      <c-sidebar-button [collapsed]="isSideNavCollapsed" [path]="[currentRoute.path || '', item.path || '']" [iconName]="item.icon?.name || ''" [moduleName]="item.name || ''" />
-      }
-      <hr class="w-full" />
-      }
-    </div>
-    <div class="{{ !isSideNavCollapsed ? 'justify-between items-end' : 'items-center flex-col-reverse gap-3' }} flex flex-3 p-3 mb-3 text-gray-500 text-sm">
-      <span>{{ sideNaveLabel }}</span>
-      <button class="flex justify-center cursor-pointer align-center hover:opacity-50" (click)="toggleSideNav()">
-        <mat-icon svgIcon="{{ sideNavIcon }}"></mat-icon>
+
+    <!-- Button to open/close sidebar -->
+    <div class="flex {{ isSideNavCollapsed ? 'flex-col' : 'flex-row-reverse justify-center' }} items-center gap-2 py-5">
+      <button type="button" (click)="toggleSideNav()" class="flex h-[2.5rem] w-[2.5rem] justify-center items-center rounded-full cursor-pointer text-text-600 hover:bg-neutral-50">
+        <mat-icon [svgIcon]="sideNavIcon" style="height: 20px; width: auto"></mat-icon>
       </button>
+
+      <p class="text-sm font-normal text-text-600">
+        {{ sideNaveLabel }}
+      </p>
     </div>
   </div>
+
+  @if(currentRoute && groups && groups.length > 0) {
   @if (currentSubRoute && subgroups && subgroups.length > 0) {
-  <div class="flex-1 bg-white border-gray-500 border-l-1 min-w-[16vw] w-[16vw]">
-    <header class="w-full flex justify-start items-center border-b-1 border-gray-500 h-[7vh]">
+  <div class="flex-1 bg-white border-neutral-200 border-l-1 min-w-[16vw] w-[16vw]">
+    <header class="w-full flex justify-start items-center border-b-1 border-neutral-200 h-[7vh]">
       <div class="flex items-center w-2/3 px-2">{{ currentSubRoute.name }}</div>
     </header>
     <div class="flex-1 p-3 space-y-3 text-gray-500">
@@ -51,4 +74,4 @@
     </div>
   </div>
   } }
-</nav>
+</aside>
