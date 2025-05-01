@@ -3,9 +3,13 @@
   [routerLink]="path()"
   routerLinkActive="active"
   [routerLinkActiveOptions]="{ exact: false }"
-  class="flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full cursor-pointer text-text-600 hover:bg-neutral-50"
+  class="group relative flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full cursor-pointer text-text-600 hover:bg-neutral-50"
 >
   <mat-icon [svgIcon]="iconName()" style="height: 20px; width: auto"></mat-icon>
+
+  <span class="absolute top-0 hidden h-full px-4 left-full bg-complementary-950 text-text-50 group-hover:block">
+    {{ moduleName() }}
+  </span>
 </a>
 } @else {
 <a

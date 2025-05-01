@@ -12,6 +12,9 @@ export enum ICON_NAME {
   home = 'home',
   dashboard = 'dashboard',
   search = 'search',
+  download = 'download',
+  sync_alt = 'sync_alt',
+  tune = 'tune',
 
   // MARK: modules
   // administracion
