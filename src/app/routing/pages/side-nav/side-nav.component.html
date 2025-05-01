@@ -1,43 +1,43 @@
-<aside class="flex h-screen border-r border-r-neutral-200 bg-white">
+<aside class="flex h-screen bg-white">
   <!-- Main group -->
-  <div class="flex {{ isSideNavCollapsed ? 'w-[4.5rem]' : 'w-[15.5rem]' }} flex-col justify-between">
+  <div class="flex {{ isSideNavCollapsed ? 'w-[4.5rem]' : 'w-[15.5rem]' }} flex-col justify-between border-r border-r-neutral-200">
     <div>
       <!-- Logo -->
-       <div class="flex h-[3.75rem] w-full items-center justify-center border-b border-b-neutral-200">
-          <a routerLink="/dashboard">
-            <img src="/svg/logo-billingsof-{{ !isSideNavCollapsed ? 'imagotipo' : 'isotipo' }}.svg" alt="Logo horizontal Billingsof" class="h-12 w-auto">
-          </a>
-       </div>
-  
-       <!-- Module icon -->
-        <div class="flex h-[8.75rem] w-full flex-col items-center justify-center border-b-[0.125rem] text-primary-600 border-b-neutral-200 bg-neutral-50">
-          <a [routerLink]="[currentRoute?.path]">
-            <mat-icon [svgIcon]=" currentRoute?.icon?.name || '' " style="height: 50px; width: auto;"></mat-icon>
-          </a>
-          @if (!isSideNavCollapsed) {
-            <p class="text-lg font-meidum leading-7.5">
-              {{ currentRoute?.name }}
-            </p>
+      <div class="flex h-[3.75rem] w-full items-center justify-center border-b border-b-neutral-200">
+        <a routerLink="/dashboard">
+          <img src="/svg/logo-billingsof-{{ !isSideNavCollapsed ? 'imagotipo' : 'isotipo' }}.svg" alt="Logo horizontal Billingsof" class="h-12 w-auto" />
+        </a>
+      </div>
+
+      <!-- Module icon -->
+      <div class="flex h-[8.75rem] w-full flex-col items-center justify-center border-b-[0.125rem] text-primary-600 border-b-neutral-200 bg-neutral-50">
+        <a [routerLink]="[currentRoute?.path]">
+          <mat-icon [svgIcon]="currentRoute?.icon?.name || ''" style="height: 50px; width: auto"></mat-icon>
+        </a>
+        @if (!isSideNavCollapsed) {
+        <p class="text-lg font-meidum leading-7.5">
+          {{ currentRoute?.name }}
+        </p>
+        }
+      </div>
+
+      <!-- Routes -->
+      @if (currentRoute && groups && groups.length > 0) {
+      <nav>
+        @for (group of groups; track $index) {
+        <div class="mx-auto flex w-fit flex-col items-center gap-2 py-3 border-b border-b-neutral-200">
+          @for (route of group; track $index) {
+          <c-sidebar-button
+            [collapsed]="isSideNavCollapsed"
+            [path]="[currentRoute.path || '', route.path || '']"
+            [iconName]="route.icon?.name || ''"
+            [moduleName]="route.name || ''"
+          />
           }
         </div>
-  
-        <!-- Routes -->
-        @if (currentRoute && groups && groups.length > 0) {
-          <nav>
-            @for (group of groups; track $index) {
-              <div class="mx-auto flex w-fit flex-col items-center gap-2 py-3 border-b border-b-neutral-200">
-                @for (route of group; track $index) {
-                  <c-sidebar-button
-                    [collapsed]="isSideNavCollapsed"
-                    [path]="[currentRoute.path || '', route.path || '']"
-                    [iconName]="route.icon?.name || ''"
-                    [moduleName]="route.name || ''"
-                  />
-                }
-              </div>
-            }
-          </nav>
         }
+      </nav>
+      }
     </div>
 
     <!-- Button to open/close sidebar -->
@@ -52,26 +52,27 @@
     </div>
   </div>
 
-  @if(currentRoute && groups && groups.length > 0) {
-  @if (currentSubRoute && subgroups && subgroups.length > 0) {
-  <div class="flex-1 bg-white border-neutral-200 border-l-1 min-w-[16vw] w-[16vw]">
-    <header class="w-full flex justify-start items-center border-b-1 border-neutral-200 h-[7vh]">
-      <div class="flex items-center w-2/3 px-2">{{ currentSubRoute.name }}</div>
-    </header>
-    <div class="flex-1 p-3 space-y-3 text-gray-500">
-      @for (item of subgroups; track $index) {
-      <a
-        class="flex items-center p-2 space-x-2 bg-gray-300 rounded-full hover:bg-gray-300"
-        role="button"
-        [routerLink]="[currentRoute.path, currentSubRoute.path, item.path]"
-        routerLinkActive="hover:bg-gray-300 bg-gray-300 font-bold active"
-        [routerLinkActiveOptions]="{ exact: false }"
-      >
-        <mat-icon svgIcon="{{ item.icon?.name }}"></mat-icon>
-        <span>{{ item.name }}</span>
-      </a>
-      }
+  <!-- Secondary group -->
+  @if (currentRoute && currentSubRoute && subgroups && subgroups.length > 0) {
+  <div class="w-[16rem] border-r-1 border-neutral-200 bg-white">
+    <!-- Route name -->
+    <div class="flex h-[3.75rem] w-full justify-start items-center px-2.5 border-b-1 border-neutral-200">
+      <p class="text-lg font-medium text-primary-600">
+        {{ currentSubRoute.name }}
+      </p>
     </div>
+
+    <!-- Subroutes list -->
+    <nav class="flex flex-col gap-2 p-5">
+      @for (route of subgroups; track $index) {
+        <c-sidebar-button
+          [collapsed]="false"
+          [path]="[currentRoute.path || '', currentSubRoute.path || '', route.path || '']"
+          [iconName]="route.icon?.name || ''"
+          [moduleName]="route.name || ''"
+        />
+      }
+    </nav>
   </div>
-  } }
+  }
 </aside>
