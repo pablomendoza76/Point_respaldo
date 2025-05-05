@@ -32,4 +32,13 @@ export class MarcasService {
     const url = `${ApiUrls.Base_Url}${Enums_marcas.Marcas}${Enums_marcas.Crear}`
     return this.http.post<any>(url, marca)
   }
+  
+  /**
+   * Llama al endpoint de edición de Marcas. No transforma el objeto.
+   * La transformación debe hacerse previamente (por el adaptador).
+   */
+  editarMarca(id: number, marca: { nombre: string; descripcion: string }): Observable<any> {
+    const url = `${ApiUrls.Base_Url}${Enums_marcas.Marcas}${Enums_marcas.Editar}/${id}`;
+    return this.http.put<any>(url, marca);
+  }
 }

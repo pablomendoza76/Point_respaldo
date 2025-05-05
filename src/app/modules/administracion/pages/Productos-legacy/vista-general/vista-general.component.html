@@ -8,6 +8,8 @@
   [columnasDisponibles]="columnasDisponibles"
   (filtrosAplicados)="onFiltrosAplicados($event)"
   (actualizarColumnasEvent)="onColumnasActualizadas($event)"
+  [habilitarExportar]="true"
+  [habilitarImportar]="true"
   (agregar)="onAgregarNuevoProducto()">
 </app-barra-busqueda>
 
@@ -20,6 +22,7 @@
   [opcionesPaginacion]="opcionesPaginacion"
   (editarRegistro)="onEditarProducto($event)"
   (cambioPagina)="onCambioPagina($event)"
+  (eliminarRegistro)="onEliminarRegistro($event)"
   (cambioItemsPorPagina)="onCambioItemsPorPagina($event)">
 </app-tabla-dinamica>
 

@@ -32,4 +32,5 @@ export class TipoProductoService {
     const url = `${ApiUrls.Base_Url}${Enums_tipo_producto.Tipos}${Enums_tipo_producto.Crear}`
     return this.http.post<any>(url, data)
   }
+  
 }

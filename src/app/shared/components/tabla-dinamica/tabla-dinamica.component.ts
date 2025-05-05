@@ -131,9 +131,12 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   /**
    * Confirma y ejecuta la eliminación del registro.
    */
+  @Output() eliminarRegistro = new EventEmitter<any>() // Ya lo tienes
+
   confirmarEliminacion(): void {
     if (this.registroAEliminar) {
-      this.store.dispatch(eliminarProducto({ producto: this.registroAEliminar }))
+      this.eliminarRegistro.emit(this.registroAEliminar) // Lo emite al padre
+      this.registrosActuales = this.registrosActuales.filter((r) => r.codigo !== this.registroAEliminar.codigo)
       this.cancelarEliminacion()
     }
   }
@@ -172,41 +175,36 @@ export class TablaDinamicaComponent implements OnInit, OnDestroy {
   trackByCodigo(index: number, item: any): string {
     return item.codigo
   }
- /**
- * Devuelve ícono, clase y texto en base al stockactual, min y max.
- * Se evalúa directamente en el componente sin tocar el store.
- */
- getIconoStockVisual(
-  stockactual: string | number,
-  min: string | number,
-  max: string | number
-): { icono: string; clase: string; texto: string } {
-  const stock = parseFloat(stockactual as string) || 0;
-  const stockMin = parseFloat(min as string) || 0;
-  const stockMax = parseFloat(max as string) || 0;
-  const promedio = (stockMin + stockMax) / 2;
-    
-  if (stock <= 0) {
+  /**
+   * Devuelve ícono, clase y texto en base al stockactual, min y max.
+   * Se evalúa directamente en el componente sin tocar el store.
+   */
+  getIconoStockVisual(stockactual: string | number, min: string | number, max: string | number): { icono: string; clase: string; texto: string } {
+    const stock = parseFloat(stockactual as string) || 0
+    const stockMin = parseFloat(min as string) || 0
+    const stockMax = parseFloat(max as string) || 0
+    const promedio = (stockMin + stockMax) / 2
+
+    if (stock <= 0) {
+      return {
+        icono: 'fas fa-times-circle',
+        clase: 'icon-danger',
+        texto: 'Sin stock',
+      }
+    }
+
+    if (stock > 0 && stock < promedio) {
+      return {
+        icono: 'fas fa-exclamation-triangle',
+        clase: 'icon-warning',
+        texto: 'Stock bajo',
+      }
+    }
+
     return {
-      icono: 'fas fa-times-circle',
-      clase: 'icon-danger',
-      texto: 'Sin stock'
-    };
+      icono: 'fas fa-check-circle',
+      clase: 'icon-ok',
+      texto: 'Stock suficiente',
+    }
   }
-
-  if (stock > 0 && stock < promedio) {
-    return {
-      icono: 'fas fa-exclamation-triangle',
-      clase: 'icon-warning',
-      texto: 'Stock bajo'
-    };
-  }
-
-
-  return {
-    icono: 'fas fa-check-circle',
-    clase: 'icon-ok',
-    texto: 'Stock suficiente'
-  };
-}
 }

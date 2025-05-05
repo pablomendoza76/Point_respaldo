@@ -15,7 +15,7 @@ export class CuentasContablesService {
    * @returns Observable con las cuentas contables { codigo, nombre, descripcion, ... }
    */
   getCuentasContables(): Observable<any[]> {
-    const url = `${ApiUrls.Base_Url}${Enums_Cuentas.Marcas}${Enums_Cuentas.todas}`
+    const url = `${ApiUrls.Base_Url}${Enums_Cuentas.cuentas}${Enums_Cuentas.todas}`
     return this.http.get<any>(url).pipe(
       map((response: any) => {
         return response?.respuesta?.datos || []
@@ -29,7 +29,7 @@ export class CuentasContablesService {
    * @returns Observable con la respuesta del servidor.
    */
   crearCuentaContable(cuenta: any): Observable<any> {
-    const url = `${ApiUrls.Base_Url}${Enums_Cuentas.Marcas}${Enums_Cuentas.todas}`
+    const url = `${ApiUrls.Base_Url}${Enums_Cuentas.cuentas}${Enums_Cuentas.todas}`
     return this.http.post<any>(url, cuenta)
   }
 }

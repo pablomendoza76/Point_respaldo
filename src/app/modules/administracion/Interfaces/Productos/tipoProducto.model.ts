@@ -1,9 +1,9 @@
 export interface TipoProducto {
-  id?: number;
+  id: number;
   nombre: string;
   descripcion: string;
+  cod_sustento: string;
   estaActivo: number;
   fecha: string;
   ver: number;
-  cod_sustento: string;
 }

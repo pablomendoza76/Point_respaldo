@@ -56,4 +56,13 @@ export class AdministracionServicios {
     const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Crear}`
     return this.http.post(url, productoAdaptado)
   }
+
+  /**
+   * Llama al endpoint de creación de producto. No transforma el objeto.
+   * La transformación debe hacerse previamente (por el adaptador).
+   */
+  cambiarEstadoProducto(codigo: number): Observable<any> {
+    const url = `${ApiUrls.Base_Url}${Enums_productos.Productos}${Enums_productos.Borrar}/${codigo}`;
+    return this.http.patch(url, null); // No requiere body si el endpoint no lo usa
+  }  
 }

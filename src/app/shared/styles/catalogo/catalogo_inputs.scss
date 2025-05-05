@@ -14,6 +14,7 @@
  * Contenedor principal que agrupa todos los estilos de los inputs del formulario.
  */
 .catalogo_inputs {
+  
   .input-group {
     display: flex;
     flex-direction: column;
@@ -54,87 +55,138 @@
   /**
  * Estilo visual para el componente ng-select
  */
-  ::ng-deep ng-select.select-ng {
-    width: 100%;
+ ::ng-deep ng-select.select-ng {
+  width: 100%;
 
-    .ng-select-container {
-      height: 38px;
-      padding: 0 10px;
-      border-radius: 10px;
-      border: 1px solid $gris-borde;
-      background-color: $fondo-claro;
+  .ng-select-container {
+    height: 38px;
+    padding: 0 36px 0 10px; // espacio para el ícono expand_all a la derecha
+    border-radius: 10px;
+    border: 1px solid $gris-borde;
+    background-color: $fondo-claro;
+    font-family: $font-work-sans;
+    font-size: $font-size-body-small;
+    color: $texto-principal;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &.ng-select-focused {
+      border-color: $rojo-botones;
+      box-shadow: 0 2px 6px rgba(198, 40, 40, 0.15);
+    }
+
+    .ng-value-container {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .ng-value {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       font-family: $font-work-sans;
       font-size: $font-size-body-small;
       color: $texto-principal;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-
-      &.ng-select-focused {
-        border-color: $rojo-botones;
-        box-shadow: $rojo-botones(198, 40, 40, 0.15);
-      }
-
-      .ng-value {
-        font-family: $font-work-sans;
-        font-size: $font-size-body-small;
-        color: $texto-principal;
-      }
-
-      .ng-placeholder {
-        color: $texto-secundario;
-        font-family: $font-work-sans;
-        font-size: $font-size-body-small;
-      }
+      margin-right: 8px;
+      flex: 1;
     }
 
-    &.ng-select-disabled {
-      .ng-select-container {
-        background-color: $gris-fondo;
-        color: $texto-deshabilitado;
-        border-color: $gris-borde;
-        cursor: not-allowed;
-        box-shadow: none;
-      }
+    .ng-placeholder {
+      color: $texto-secundario;
+      font-family: $font-work-sans;
+      font-size: $font-size-body-small;
     }
 
-    .ng-dropdown-panel {
-      border-radius: 10px;
-      border: 1px solid $gris-borde;
-      background-color: $fondo-claro;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-      margin-top: 4px;
-      animation: fadeInDropdown 0.25s ease-out;
+    .ng-clear-wrapper {
+      margin-left: 4px;
+    }
 
-      .ng-dropdown-panel-items {
-        padding: 4px 0;
-      }
+    .ng-arrow-wrapper {
+      display: none; // ocultamos ícono nativo de angular
+    }
 
-      .ng-option {
-        font-family: $font-work-sans;
-        font-size: $font-size-body-small;
-        color: $texto-principal;
-        padding: 10px 16px;
-        transition: background-color 0.2s ease;
-
-        &:hover {
-          background-color: $gris-fondo;
-        }
-
-        &.ng-option-selected,
-        &.ng-option-marked {
-          background-color: $rojo-fondo;
-          color: $rojo-texto;
-        }
-
-        &.ng-option-disabled {
-          color: $texto-deshabilitado;
-          cursor: not-allowed;
-        }
-      }
+    // Ícono Material Symbols a la derecha
+    &::after {
+      content: 'expand_all';
+      font-family: 'Material Symbols Outlined';
+      font-size: 20px;
+      color: $rojo-botones;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
     }
   }
 
-  
+  &.ng-select-disabled .ng-select-container {
+    background-color: $gris-fondo;
+    color: $texto-deshabilitado;
+    border-color: $gris-borde;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  .ng-dropdown-panel {
+    display: block;
+    visibility: visible;
+    position: absolute;
+    z-index: 1000; // asegurar que esté sobre otros elementos
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid $gris-borde;
+    background-color: $fondo-claro;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    margin-top: 4px;
+    animation: fadeInDropdown 0.25s ease-out;
+
+    .ng-dropdown-panel-items {
+      padding: 4px 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .ng-option {
+      font-family: $font-work-sans;
+      font-size: $font-size-body-small;
+      color: $texto-principal;
+      padding: 10px 16px;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $gris-fondo;
+      }
+
+      &.ng-option-selected,
+      &.ng-option-marked {
+        background-color: $rojo-fondo;
+        color: $rojo-texto;
+      }
+
+      &.ng-option-disabled {
+        color: $texto-deshabilitado;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
   /**
  * Animación suave para el dropdown de ng-select

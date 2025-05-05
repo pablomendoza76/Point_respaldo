@@ -9,7 +9,7 @@ export enum Enums_productos {
     Productos = 'bill-producto/', 
     todos = 'obtener-todos-productos',
     Editar = 'editar-producto',
-    Borrar = 'cambiar-estado-producto/',
+    Borrar = 'cambiar-estado-producto',
     Crear = 'crear-producto',
     Origen = 'obtener-todos-producto-origen'
 }

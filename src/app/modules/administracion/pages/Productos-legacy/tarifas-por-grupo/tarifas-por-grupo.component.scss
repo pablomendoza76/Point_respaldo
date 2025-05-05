@@ -1,36 +1,37 @@
 @use 'sass:color';
 @use 'styles/catalogo/colores.scss' as *;
 @use 'styles/catalogo/tipografia.scss' as *;
+@use 'styles/catalogo/catalogo_inputs.scss' as inputs;
 
+/* Contenedor general */
 .grupos-container {
   display: flex;
-  gap: 24px;
-  height: calc(100vh - 170px);
-  padding: 24px;
+  gap: 20px;
+  height: calc(100vh - 160px);
+  padding: 20px;
   font-family: $font-work-sans;
   overflow: hidden;
+  min-height: 560px;
 }
 
 /* LISTA DE GRUPOS */
 .grupos-list {
-  flex: 0 0 280px;
+  flex: 0 0 260px;
   display: flex;
   flex-direction: column;
   background-color: $fondo-claro;
-  padding: 16px;
-  border-radius: 16px;
+  padding: 14px;
+  border-radius: 14px;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.04);
   height: 100%;
 
   h2 {
     font-family: $font-poppins;
-    font-size: $font-size-headline-title;
-    line-height: $line-height-headline-title;
+    font-size: 1rem;
     font-weight: 600;
     color: $texto-principal;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   ul {
@@ -38,13 +39,10 @@
     padding: 0;
     margin: 0;
     overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     flex: 1;
 
     &::-webkit-scrollbar {
-      width: 0px;
-      background: transparent;
+      width: 0;
     }
   }
 
@@ -52,20 +50,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
-    margin-bottom: 6px;
-    border-radius: 14px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-size: $font-size-body-small;
-    line-height: $line-height-body-small;
-    font-family: $font-work-sans;
-    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-size: 0.85rem;
     color: $texto-principal;
 
     &:hover {
       background-color: $gris-fondo;
-      transform: translateX(4px);
+      transform: translateX(3px);
     }
 
     &.selected {
@@ -84,12 +79,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      padding-right: 8px;
+      padding-right: 6px;
     }
 
     .grupo-codigo {
       color: $texto-terciario;
-      font-size: $font-size-caption;
+      font-size: 0.75rem;
       flex-shrink: 0;
     }
 
@@ -97,13 +92,11 @@
       background: none;
       border: none;
       color: $rojo-botones;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       cursor: pointer;
-      transition: color 0.3s ease;
 
       i {
-        font-size: 0.95rem;
-        pointer-events: none;
+        font-size: 0.85rem;
       }
 
       &:hover {
@@ -116,11 +109,11 @@
 /* DETALLES DEL GRUPO */
 .grupo-detalles {
   flex-grow: 1;
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 14px;
+  padding: 20px;
   background-color: $fondo-claro;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -129,33 +122,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 
     h2 {
       font-family: $font-poppins;
-      font-size: $font-size-headline-title;
+      font-size: 1rem;
       font-weight: 600;
       color: $texto-principal;
     }
 
     .grupo-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
 
       button {
         border: none;
-        border-radius: 8px;
-        font-size: 0.8rem;
-        padding: 8px 14px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        padding: 6px 10px;
         font-weight: 500;
         display: flex;
         align-items: center;
-        gap: 6px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        transition: all 0.2s ease;
+        gap: 5px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 
         i {
-          font-size: 0.9rem;
+          font-size: 0.85rem;
         }
 
         &.btn-estado {
@@ -172,7 +164,7 @@
           color: $texto-claro;
 
           &:hover {
-            background-color: color.adjust($gris-borde, $lightness: -12%);
+            background-color: color.adjust($gris-borde, $lightness: -10%);
           }
         }
       }
@@ -180,26 +172,21 @@
   }
 
   .descripcion {
-    font-family: $font-work-sans;
-    font-size: $font-size-body-small;
-    line-height: $line-height-body-small;
-    font-weight: 500;
-    color: $texto-principal;
-    margin-bottom: 20px;
-    padding: 16px;
-    border-radius: 14px;
+    font-size: 0.85rem;
+    padding: 12px;
+    border-radius: 12px;
     background-color: rgba($fondo-claro, 0.7);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+    margin-bottom: 16px;
   }
 
   .grupo-info {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    font-size: $font-size-body-small;
+    gap: 14px;
+    font-size: 0.8rem;
     color: $texto-terciario;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 
     span {
       white-space: nowrap;
@@ -208,48 +195,48 @@
 
   .tarifas-container {
     h3 {
-      font-size: $font-size-headline-subtitle;
+      font-size: 0.95rem;
       font-weight: 600;
       color: $texto-principal;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .tarifas-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.8rem;
 
       .tarjeta-tarifa {
         background-color: $fondo-claro;
-        border-radius: 12px;
-        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         transition: transform 0.2s ease, box-shadow 0.3s ease;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 
         &:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
 
         .tarjeta-header {
           background-color: $gris-fondo;
-          padding: 10px;
-          font-size: 0.9rem;
+          padding: 8px;
+          font-size: 0.85rem;
           text-align: center;
           font-weight: 600;
           color: $texto-principal;
         }
 
         .tarjeta-body {
-          padding: 1rem;
+          padding: 0.8rem;
 
           p {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: $texto-secundario;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
           }
         }
       }
     }
   }
 }
+  

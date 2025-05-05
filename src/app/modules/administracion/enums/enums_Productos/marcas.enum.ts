@@ -8,7 +8,7 @@ export enum Enums_marcas {
      */ 
     Marcas = 'bill-marca/', 
     todas = 'obtener-marca',
-    Editar = 'editar-marca/',
+    Editar = 'editar-marca',
     //Borrar = 'cambiar-estado-producto/',
     Crear = 'crear-marca'
 }

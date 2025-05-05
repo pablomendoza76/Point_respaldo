@@ -88,6 +88,7 @@ export class FormularioDinamicoComponent implements OnChanges {
    * Emite los datos del formulario al hacer submit, diferenciando edición y creación
    */
   onSubmit(): void {
+    console.log('[DEBUG] Datos en this.datos al guardar:', this.datos);
     if (this.modoEdicion && typeof this.datos['codigo'] === 'number') {
       this.guardar.emit({ codigo: this.datos['codigo'], datos: { ...this.datos } });
     } else {
@@ -120,11 +121,19 @@ export class FormularioDinamicoComponent implements OnChanges {
    * @param campo Campo con lógica personalizada
    * @param valor Valor seleccionado
    */
-  onCampoChange(campo: any, valor: any): void {
-    if (campo.onChange && typeof campo.onChange === 'function') {
-      campo.onChange(valor);
+  onCampoChange(changes: SimpleChanges): void {
+    if (changes['bloques'] && changes['bloques'].currentValue !== changes['bloques'].previousValue) {
+      // Angular detecta cambio de referencia
+      this.repartirBloquesEnColumnas(this.bloques);
+    } else if (changes['bloques']) {
+      // Fuerza redistribución aunque la referencia no haya cambiado
+      setTimeout(() => {
+        this.repartirBloquesEnColumnas(this.bloques);
+      });
     }
   }
+  
+    
 
   /**
    * Verifica si un bloque contiene radios tipo Sí/No (dos opciones)
@@ -140,5 +149,11 @@ get hayUnSoloBloqueConCampos(): boolean {
   const bloquesValidos = this.bloques.filter(b => Array.isArray(b.campos) && b.campos.length > 0);
   return bloquesValidos.length === 1;
 }
+
+trackByCampo(index: number, campo: any): string {
+  return campo?.key || index;
+}
+
+
 
 }
